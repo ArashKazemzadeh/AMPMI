@@ -1,0 +1,11 @@
+C:\Users\ArashKaf\Desktop\AQS\AQS_Infrastructure\bin\Debug\net8.0\AQS_Infrastructure.deps.json
+C:\Users\ArashKaf\Desktop\AQS\AQS_Infrastructure\bin\Debug\net8.0\AQS_Infrastructure.dll
+C:\Users\ArashKaf\Desktop\AQS\AQS_Infrastructure\bin\Debug\net8.0\AQS_Infrastructure.pdb
+C:\Users\ArashKaf\Desktop\AQS\AQS_Infrastructure\obj\Debug\net8.0\AQS_Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ArashKaf\Desktop\AQS\AQS_Infrastructure\obj\Debug\net8.0\AQS_Infrastructure.AssemblyInfoInputs.cache
+C:\Users\ArashKaf\Desktop\AQS\AQS_Infrastructure\obj\Debug\net8.0\AQS_Infrastructure.AssemblyInfo.cs
+C:\Users\ArashKaf\Desktop\AQS\AQS_Infrastructure\obj\Debug\net8.0\AQS_Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\ArashKaf\Desktop\AQS\AQS_Infrastructure\obj\Debug\net8.0\AQS_Infrastructure.dll
+C:\Users\ArashKaf\Desktop\AQS\AQS_Infrastructure\obj\Debug\net8.0\refint\AQS_Infrastructure.dll
+C:\Users\ArashKaf\Desktop\AQS\AQS_Infrastructure\obj\Debug\net8.0\AQS_Infrastructure.pdb
+C:\Users\ArashKaf\Desktop\AQS\AQS_Infrastructure\obj\Debug\net8.0\ref\AQS_Infrastructure.dll

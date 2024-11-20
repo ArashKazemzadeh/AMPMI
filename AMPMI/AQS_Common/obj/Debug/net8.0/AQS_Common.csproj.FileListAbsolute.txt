@@ -1,0 +1,11 @@
+C:\Users\ArashKaf\Desktop\AQS\AQS_Common\bin\Debug\net8.0\AQS_Common.deps.json
+C:\Users\ArashKaf\Desktop\AQS\AQS_Common\bin\Debug\net8.0\AQS_Common.dll
+C:\Users\ArashKaf\Desktop\AQS\AQS_Common\bin\Debug\net8.0\AQS_Common.pdb
+C:\Users\ArashKaf\Desktop\AQS\AQS_Common\obj\Debug\net8.0\AQS_Common.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ArashKaf\Desktop\AQS\AQS_Common\obj\Debug\net8.0\AQS_Common.AssemblyInfoInputs.cache
+C:\Users\ArashKaf\Desktop\AQS\AQS_Common\obj\Debug\net8.0\AQS_Common.AssemblyInfo.cs
+C:\Users\ArashKaf\Desktop\AQS\AQS_Common\obj\Debug\net8.0\AQS_Common.csproj.CoreCompileInputs.cache
+C:\Users\ArashKaf\Desktop\AQS\AQS_Common\obj\Debug\net8.0\AQS_Common.dll
+C:\Users\ArashKaf\Desktop\AQS\AQS_Common\obj\Debug\net8.0\refint\AQS_Common.dll
+C:\Users\ArashKaf\Desktop\AQS\AQS_Common\obj\Debug\net8.0\AQS_Common.pdb
+C:\Users\ArashKaf\Desktop\AQS\AQS_Common\obj\Debug\net8.0\ref\AQS_Common.dll
