@@ -1,0 +1,38 @@
+# Build outputs
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+
+# Visual Studio specific
+.vs/
+*.suo
+*.user
+
+# NuGet
+project.lock.json
+*.nuget.g.props
+*.nuget.g.targets
+
+# Logs and cache
+*.log
+*.cache
+*.tmp
+
+# System files
+*.DS_Store
+Thumbs.db
+desktop.ini
+
+# Tool-specific
+_ReSharper*/
+*.coverage
+*.codecov
+
+# Static Web Assets
+staticwebassets.build.endpoints.json
+staticwebassets.upToDateCheck.txt
+staticwebassets.removed.txt
+staticwebassets.references.upToDateCheck.txt
+staticwebassets/*.endpoints.json

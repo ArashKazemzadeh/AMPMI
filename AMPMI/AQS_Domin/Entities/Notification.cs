@@ -1,6 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 namespace AQS_Domin.Entities
 {
+    [Table("Notifications")]
+
     public class Notification
     {
         [Key]

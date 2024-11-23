@@ -15,7 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
+    <Folder Include="AppServices\" />
+    <Folder Include="Interfaces\IAppServices\" />
   </ItemGroup>
 
 </Project>
