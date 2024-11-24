@@ -1,0 +1,93 @@
+.untdovr_flag_container_flag {
+    background-image: url("https://ampmi.com/wp-content/plugins/digits/assets/images/flags-sprite.png");
+}
+
+.digits_secure_modal_box, .digits_ui, .digits_secure_modal_box *, .digits_ui * {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: subpixel-antialiased;
+}
+
+.digits_secure_modal_box, .digits_ui {
+    font-weight: 400;
+}
+
+body {
+    background: linear-gradient(rgb(42,197,252),rgb(42,197,252));
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+
+.login-action-lostpassword #login_error {
+    display: none;
+}
+
+#woocommerce-order-data .address p:nth-child(3) a, .woocommerce-customer-details--phone {
+    text-align: right;
+}
+
+.digits_secure_modal_box, .digits_ui, .digits_secure_modal_box *, .digits_ui *, .digits_font, .dig_ma-box, .dig_ma-box input, .dig_ma-box input::placeholder, .dig_ma-box ::placeholder, .dig_ma-box label, .dig_ma-box button, .dig_ma-box select, .dig_ma-box * {
+    font-family: 'Roboto', sans-serif;
+}
+
+.digits_login_form .dig-container {
+    background-color: rgb(255,255,255);
+    border-radius: 4px;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5)
+}
+
+
+
+.digits_login_form .dig_ma-box .bglight {
+    background-color: rgb(20,20,20);
+}
+
+.dig_page_cancel_color {
+    color: #fff
+}
+
+.digits_login_form .dig_login_rembe .dig_input_wrapper:before, .digits_login_form .dig-custom-field-type-radio .dig_opt_mult_con .selected:before, .digits_login_form .dig-custom-field-type-radio .dig_opt_mult_con .dig_input_wrapper:before, .digits_login_form .dig-custom-field-type-tac .dig_opt_mult_con .selected:before, .digits_login_form .dig-custom-field-type-checkbox .dig_opt_mult_con .selected:before, .digits_login_form .dig-custom-field-type-tac .dig_opt_mult_con .dig_input_wrapper:before, .digits_login_form .dig-custom-field-type-checkbox .dig_opt_mult_con .dig_input_wrapper:before {
+    background-color: rgb(20,20,20);
+}
+
+.digits_login_form .dig_sbtncolor {
+    color: rgb(255,255,255);
+    background-color: rgb(20,20,20);
+}
+
+.digits_login_form .dig_ma-box .dark input[type="submit"], .digits_login_form .dig_ma-box .lighte {
+    color: rgb(255,255,255);
+}
+
+.digits_login_form .dig_ma-box .bgdark {
+    background-color: rgb(20,20,20);
+}
+
+.digits_login_form .dig_sml_box_msg_head, .digits_login_form .dig_ma-box .digits-form-select .select2-selection__rendered, .digits_login_form .dig_ma-box .dark a, .digits_login_form .dig_ma-box .dark .dig-cont-close, .digits_login_form .dig_ma-box .dark, .digits_login_form .dig_ma-box .dark .minput label, .digits_login_form .dig_ma-box .dark .minput input, .digits_login_form .dig_ma-box .darke {
+    color: rgb(20,20,20);
+}
+
+.digits_login_form .dig_ma-box .countrycodecontainer .dark {
+    border-right: 1px solid rgb(20,20,20) !important;
+}
+
+.digits_login_form .dig_ma-box .bgtransborderdark {
+    border: 1px solid;
+    border-color: rgb(20,20,20);
+    background: transparent;
+}
+
+.digits_login_form .dig_ma-box .digits-form-select .select2-selection--single {
+    border-bottom: 1px solid;
+    border-color: rgb(20,20,20);
+}
+
+.digits_login_form .digits-select .select2-selection .select2-selection__arrow b::after {
+    border-bottom: 1.5px solidrgb(20,20,20);
+    border-right: 1.5px solidrgb(20,20,20);
+}
+
+.digits_login_form .minput label {
+    right: 0 !important;
+    left: auto !important;
+}
