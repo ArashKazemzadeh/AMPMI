@@ -1,20 +1,25 @@
-﻿
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-namespace AQS_Domin.Entities
+﻿namespace Domin.Entities;
+public partial class Product
 {
-    [Table("Products")]
-    public class Product
-    {
-        [Key]
-        public long Id { get; set; }
-        public required string Name { get; set; }
-        public required string Brand { get; set; }
-        public required string Description { get; set; }
-        public long Price { get; set; }
-        public string ImageAdress { get; set; }
-        public bool Displayed { get; set; } = true;
-    }
+    public long Id { get; set; }
+
+    public string Name { get; set; } = null!;
+
+    public string? Brands { get; set; }
+
+    public string Description { get; set; } = null!;
+
+    public long Price { get; set; }
+
+    public Guid? PictureFileName { get; set; }
+
+    public bool IsConfirmed { get; set; }
+
+    public long? CompanyId { get; set; }
+
+    public int? SubCategoryId { get; set; }
+
+    public virtual Company? Company { get; set; }
+
+    public virtual SubCategory? SubCategory { get; set; }
 }
-
-

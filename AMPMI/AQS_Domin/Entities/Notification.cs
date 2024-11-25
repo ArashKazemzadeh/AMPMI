@@ -1,17 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-namespace AQS_Domin.Entities
+﻿namespace Domin.Entities;
+public partial class Notification
 {
-    [Table("Notifications")]
+    public long Id { get; set; }
 
-    public class Notification
-    {
-        [Key]
-        public int Id { get; set; }
-        public required string Title { get; set; }
-        public required string Description { get; set; }
-        public bool Displayed { get; set; }
-    }
+    public string Subject { get; set; } = null!;
+
+    public string Description { get; set; } = null!;
+
+    public DateTime? CreateAt { get; set; }
+
+    public virtual ICollection<SeenNotifByCompany> SeenNotifByCompanies { get; set; } = new List<SeenNotifByCompany>();
 }
-
-

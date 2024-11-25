@@ -7,16 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="AppServices\**" />
+    <Compile Remove="Interfaces\IAppServices\**" />
+    <EmbeddedResource Remove="AppServices\**" />
+    <EmbeddedResource Remove="Interfaces\IAppServices\**" />
+    <None Remove="AppServices\**" />
+    <None Remove="Interfaces\IAppServices\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\AQS_Domin\AQS_Domin.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="AppServices\" />
-    <Folder Include="Interfaces\IAppServices\" />
   </ItemGroup>
 
 </Project>
