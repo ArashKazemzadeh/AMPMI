@@ -1,4 +1,5 @@
 using AQS_Persistence.Contexts;
+using AQS_Persistence.Contexts.SqlServer;
 using Microsoft.EntityFrameworkCore;
 
 namespace WebSite.EndPoint
@@ -19,7 +20,7 @@ namespace WebSite.EndPoint
             #region  Connection String
 
             string connection = Configuration["ConnectionString:SqlServer"];
-            services.AddDbContext<DataBaseContext>(option => option.UseSqlServer(connection));
+            services.AddDbContext<DbAmpmiContext>(option => option.UseSqlServer(connection));
             //services.AddDbContext<IdentityDatabaseContext>(option => option.UseSqlServer(connection));
 
             #endregion
