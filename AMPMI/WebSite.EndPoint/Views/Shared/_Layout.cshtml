@@ -1,49 +1,190 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html dir="rtl" lang="fa-IR">
 <head>
-    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="description" content="Responsive one page HTML template">
+    <meta name="author" content="Netcopy">
     <title>@ViewData["Title"] - WebSite.EndPoint</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/WebSite.EndPoint.styles.css" asp-append-version="true" />
+    <!-- BOOTSTRAP CSS -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" type="text/css" />
+    <!-- FONTAWESOME CSS -->
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" type="text/css" />
+    <!-- OWL CAROUSEL CSS -->
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css" type="text/css" />
+    <!-- ANIMATE CSS -->
+    <link rel="stylesheet" href="~/css/animate.min.css" type="text/css" />
+    <!-- LIGHTBOX CSS -->
+    <link rel="stylesheet" href="~/css/lightbox.min.css" type="text/css" />
+    <!-- YTPLAYER CSS -->
+    <link rel="stylesheet" href="~/css/mb.YTPlayer.min.css" type="text/css" />
+    <!-- FLATICON CSS -->
+    <link rel="stylesheet" href="~/css/flaticon.css" type="text/css" />
+    <!-- BOOTSTRAP VALIDATOR CSS -->
+    <link rel="stylesheet" href="~/css/validator.min.css" type="text/css" />
+    @await RenderSectionAsync("CSS", required: false)
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebSite.EndPoint</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+<body data-spy="scroll" data-offset="62">
+
+    <!-- Fixed Navbar -->
+    <nav class="navbar navbar-sticky navbar-transparent">
+        <!-- Navbar Transparent Class: navbar-transparent -->
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header" style="float : right;">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                <a class="navbar-brand primary-logo" style="max-width : 250px;" href="https://ampmi.com/"><img class="img-responsive" src="~/images/logo01.png" alt="Logo" /></a>
+                <a class="navbar-brand sticky-logo" style="max-width : 250px;" href="https://ampmi.com/"><img class="img-responsive" src="~/images/logo01.png" alt="Logo" /></a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav pull-right">
+                    <li class="active"><a href="#home">صفحه اصلی</a></li>
+                    <li><a href="#about">قطعه سازان</a></li>
+                    <li><a href="#service">اخبار انجمن</a></li>
+                    <li><a href="#portfolio">درباره ما</a></li>
+                    <li><a href="#plans">تماس با ها</a></li>
+                    <li><a href="#blog">راهنمای ثبت‌ نام</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <div class="main-wrap">
+        @RenderBody()
+    </div>
+    <!-- Contact Section Start -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-sm-4" style="float : right;">
+                    <p>
+                        هیئت مدیره انجمن تولیدکنندگان قطعات مجموعه های موتورسیکلت و دوچرخه با دعوت از کلیه فعالان صنعتی در این بخش جهت حضور و مـشارکت فعال در ساماندهی انجمن و تشکیل کارگروهـهای لازم و عقـدقراردادهای تاَمین قطعـات با سازندگان موتورسـیکلت و دوچرخه ، تقاضای استفاده مؤثر و حداکثری از شرایط بسیار مساعد پیش رو را درخواست می نماید.
+                    </p>
+                </div>
+                <div class="col-sm-4" style="float : right;">
+
+                    <a href="#">
+
+                        لینک های مهم
+                    </a>
+
+                    <ul class="sub-sub-menu contact-mail" style="list-style-type : none;">
+
+                        <li class="item-with-label item-label-primary">
+                            <a href="https://ampmi.com/">
+
+                                صفحه اصلی
+                            </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+
+                        <li class="item-with-label item-label-primary">
+                            <a href="https://ampmi.com/%d8%aa%d9%85%d8%a7%d8%b3-%d8%a8%d8%a7-%d9%85%d8%a7/">
+
+                                تماس با ما
+                            </a>
+                        </li>
+
+                        <li class="item-with-label item-label-primary">
+                            <a href="https://ampmi.com/%d8%af%d8%b1%d8%a8%d8%a7%d8%b1%d9%87-%d9%85%d8%a7/">
+
+                                درباره ما
+                            </a>
+                        </li>
+
+                        <li class="item-with-label item-label-primary">
+                            <a href="https://ampmi.com/store-listing/">
+
+                                قطعه سازان
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="contact-number col-sm-4" style="float : right;">
+                    <a href="#">
+
+                        دسترسی های کاربر
+                    </a>
+
+                    <ul class="sub-sub-menu" style="list-style-type : none;">
+
+                        <li class="item-with-label item-label-primary">
+                            <a href="https://ampmi.com/my-account/">
+
+                                ثبت نام
+                            </a>
+                        </li>
+
+                        <li class="item-with-label item-label-primary">
+                            <a href="https://ampmi.com/my-account/">
+
+                                ورود
+                            </a>
                         </li>
                     </ul>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
+        </div>
+    </section>
+    <!-- Contact Section End -->
+    <!-- Footer Start -->
+    <footer class="footer padding-tb-30 primary-section-bg section-typo-white">
+        <div class="container">
+            <div class="row text-center margin-bottom-20">
+                <div class="col-md-12">
+                    <ul class="nav navbar-nav footer-social">
+                        <li><a href="#" class="social-facebook"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#" class="social-twitter"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#" class="social-pinterest"><i class="fa fa-pinterest-p"></i></a></li>
+                        <li><a href="#" class="social-instagram"><i class="fa fa-instagram"></i></a></li>
+                        <li><a href="#" class="social-google-plus"><i class="fa fa-google-plus"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="back-to-top" id="back-to-top"><i class="fa fa-angle-up"></i></a>
+    </footer>
+    <!-- Footer End -->
+
+@*     <div class="container">
         <main role="main" class="pb-3">
-            @RenderBody()
         </main>
-    </div>
+    </div> *@
 
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2024 - WebSite.EndPoint - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- .main-wrap -->
+    <!-- JQUERY LIBRARY -->
+    <script src="~/js/jquery.min.js"></script>
+    <!-- BOOTSTRAP JS -->
+    <script src="~/js/bootstrap.min.js"></script>
+    <!-- OWL CAROUSEL JS -->
+    <script src="~/js/owl.carousel.min.js"></script>
+    <!-- APPEARS JS -->
+    <script src="~/js/jquery.appear.js"></script>
+    <!-- EASING JS -->
+    <script src="~/js/jquery.easing.min.js"></script>
+    <!-- STELLAR JS -->
+    <script src="~/js/jquery.stellar.min.js"></script>
+    <!-- COUNTER JS -->
+    <script src="~/js/jquery.counterup.min.js"></script>
+    <!-- ISOTOPE JS -->
+    <script src="~/js/isotope.pkgd.min.js"></script>
+    <!-- LIGHTBOX JS -->
+    <script src="~/js/lightbox.min.js"></script>
+    <!-- YTPLAYER JS -->
+    <script src="~/js/jquery.mb.YTPlayer.min.js"></script>
+    <!-- BOOTSTRAP VALIDATOR JS -->
+    <script src="~/js/validator.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
