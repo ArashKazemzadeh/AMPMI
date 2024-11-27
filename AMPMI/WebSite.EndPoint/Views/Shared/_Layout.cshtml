@@ -1,14 +1,16 @@
 ﻿<!DOCTYPE html>
-<html dir="rtl" lang="fa-IR">
+<html dir="rtl"  lang="fa-IR">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="UTF-8">
     <meta name="description" content="Responsive one page HTML template">
     <meta name="author" content="Netcopy">
     <title>@ViewData["Title"] - WebSite.EndPoint</title>
-    <!-- BOOTSTRAP CSS -->
-    <link rel="stylesheet" href="~/css/bootstrap.min.css" type="text/css" />
+@*     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css" integrity="sha384-gXt9imSW0VcJVHezoNQsP+TNrjYXoGcrqBZJpry9zJt8PCQjobwmhMGaDHTASo9N" crossorigin="anonymous">
+ *@    <!-- BOOTSTRAP CSS -->
     <!-- FONTAWESOME CSS -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" type="text/css" />
+
     <link rel="stylesheet" href="~/css/font-awesome.min.css" type="text/css" />
     <!-- OWL CAROUSEL CSS -->
     <link rel="stylesheet" href="~/css/owl.carousel.min.css" type="text/css" />
@@ -22,6 +24,8 @@
     <link rel="stylesheet" href="~/css/flaticon.css" type="text/css" />
     <!-- BOOTSTRAP VALIDATOR CSS -->
     <link rel="stylesheet" href="~/css/validator.min.css" type="text/css" />
+
+
     @await RenderSectionAsync("CSS", required: false)
 </head>
 <body data-spy="scroll" data-offset="62">
@@ -60,22 +64,22 @@
         @RenderBody()
     </div>
     <!-- Contact Section Start -->
-    <section class="contact-section" id="contact">
+    <section style=" border-style: solid;border-width: 2px 0px 0px 0px; border-color: #09b9bb;" class="contact-section" id="contact">
         <div class="container">
             <div class="row text-center">
                 <div class="col-sm-4" style="float : right;">
-                    <p>
+                    <p style="text-align : justify;">
                         هیئت مدیره انجمن تولیدکنندگان قطعات مجموعه های موتورسیکلت و دوچرخه با دعوت از کلیه فعالان صنعتی در این بخش جهت حضور و مـشارکت فعال در ساماندهی انجمن و تشکیل کارگروهـهای لازم و عقـدقراردادهای تاَمین قطعـات با سازندگان موتورسـیکلت و دوچرخه ، تقاضای استفاده مؤثر و حداکثری از شرایط بسیار مساعد پیش رو را درخواست می نماید.
                     </p>
                 </div>
                 <div class="col-sm-4" style="float : right;">
 
-                    <a href="#">
+                    <h4 style="margin-top:0;">
 
                         لینک های مهم
-                    </a>
+                    </h4>
 
-                    <ul class="sub-sub-menu contact-mail" style="list-style-type : none;">
+                    <ul class="sub-sub-menu contact-mail" style="list-style-type : none; padding-right:0;">
 
                         <li class="item-with-label item-label-primary">
                             <a href="https://ampmi.com/">
@@ -107,12 +111,12 @@
                     </ul>
                 </div>
                 <div class="contact-number col-sm-4" style="float : right;">
-                    <a href="#">
+                    <h4 style="margin-top:0;">
 
                         دسترسی های کاربر
-                    </a>
+                    </h4>
 
-                    <ul class="sub-sub-menu" style="list-style-type : none;">
+                    <ul class="sub-sub-menu" style="list-style-type : none;padding-right:0;">
 
                         <li class="item-with-label item-label-primary">
                             <a href="https://ampmi.com/my-account/">
@@ -133,24 +137,6 @@
         </div>
     </section>
     <!-- Contact Section End -->
-    <!-- Footer Start -->
-    <footer class="footer padding-tb-30 primary-section-bg section-typo-white">
-        <div class="container">
-            <div class="row text-center margin-bottom-20">
-                <div class="col-md-12">
-                    <ul class="nav navbar-nav footer-social">
-                        <li><a href="#" class="social-facebook"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#" class="social-twitter"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#" class="social-pinterest"><i class="fa fa-pinterest-p"></i></a></li>
-                        <li><a href="#" class="social-instagram"><i class="fa fa-instagram"></i></a></li>
-                        <li><a href="#" class="social-google-plus"><i class="fa fa-google-plus"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <a href="#" class="back-to-top" id="back-to-top"><i class="fa fa-angle-up"></i></a>
-    </footer>
-    <!-- Footer End -->
 
 @*     <div class="container">
         <main role="main" class="pb-3">
@@ -159,7 +145,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - WebSite.EndPoint - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            تمامی حقوق متعلق به انجمن قطعه سازان موتور سیکلت ایران می‌باشد.
         </div>
     </footer>
     <!-- .main-wrap -->
