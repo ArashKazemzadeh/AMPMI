@@ -2,26 +2,23 @@
     ViewData["Title"] = "Home Page";
 }
 
-    <!-- TITLE-->
-    <!-- FAV ICON -->
+<!-- TITLE-->
+<!-- FAV ICON -->
 @*     <link rel="shortcut icon" href="images/favicon.ico" type="text/css" />
  *@
 
-    @section CSS
-    {
-        <!-- THEME STYLE CSS -->
-        <link rel="stylesheet" href="~/css/style.css" type="text/css" />
-    }
+@section CSS
+{
+    <!-- THEME STYLE CSS -->
+    <link rel="stylesheet" href="~/css/style.css" type="text/css" />
+}
 
-    <!-- Latest IE rendering engine & Chrome Frame Meta Tags -->
-    <!--[if IE]>
-        <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
-        <![endif]-->
-
-
-
-    <!-- Page Loader -->
-    <div class="page-loader"></div>
+<!-- Latest IE rendering engine & Chrome Frame Meta Tags -->
+<!--[if IE]>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+    <![endif]-->
+<!-- Page Loader -->
+<div class="page-loader"></div>
 
 <!-- Theme Header Start -->
 <header id="home" class="full-height bg-img" data-src="/images/backgrounde.png">
@@ -31,21 +28,32 @@
                 <div class="header-content">
                     <div class="header-content-inner">
                         <div class="section-title">
-                            <h1 class="section-title-divider animated zoomIn">انجمن قطعه‌سازان موتورسیکلت ایران</h1>
-                            <p>Association of Motorcycle Parts Manufacturers in iran</p>
+                            <h1 style="font-size : xxx-large;" class="section-title-divider animated zoomIn">انجمن قطعه‌سازان موتورسیکلت ایران</h1>
+                            <h4>Association of Motorcycle Parts Manufacturers in Iran</h4>
                         </div>
                         <div class="row">
-                            <div style="display : flex;" class="col-md-6 col-md-offset-3 col-sm-10 col-sm-offset-1 text-center">
+                            <div class="text-center">
                                 <div class="subscribe-form">
-                                    <p id="subscribe-status-msg" class="hide"></p>
                                     <form id="subscribe-form" class="subscribe-form" action="#">
-                                        <div class="input-group subscribe-box">
-                                            <input type="text" style="border-radius : 0; border-top-right-radius : 25px; border-bottom-right-radius: 25px;" class="form-control" name="mcemail" autocomplete="off" id="mcemail" placeholder="ایمیل شما">
-                                            <span class="input-group-btn">
-                                                <button style=" border-top-left-radius: 25px;border-bottom-left-radius: 25px; border-top-right-radius: 0;border-bottom-right-radius: 0;" class="btn btn-default white-border typo-gray subscribe-btn" type="submit">
-                                                    عضویت
+                                        <div style="display : flex;" class="input-group subscribe-box">
+                                            <input type="text" style="border-radius : 0; border-top-right-radius : 25px; border-bottom-right-radius: 25px;" class="form-control" name="mcemail" autocomplete="off" id="mcemail" placeholder="نام موتور سیکلت، قطعه یا سازنده را جستجو نمایید ...">
+                                            <div class="dropdown">
+                                                <button style="border-radius : 0;" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                    انتخاب دسته بندی
+                                                    <span class="caret"></span>
                                                 </button>
-                                            </span>
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                    <li><a href="#">آیروکس</a></li>
+                                                    <li><a href="#">باکسر</a></li>
+                                                    <li><a href="#">سی دی ای</a></li>
+                                                    <li><a href="#">کلیک</a></li>
+                                                    <li><a href="#">متفرقه</a></li>
+                                                </ul>
+                                            </div>
+                                            <button style=" border-top-left-radius: 25px;border-bottom-left-radius: 25px; border-top-right-radius: 0;border-bottom-right-radius: 0;" class="btn btn-default white-border typo-gray subscribe-btn" type="submit">
+                                                <i class="fa fa-search " aria-hidden="true"></i>
+                                            </button>
+
                                         </div>
                                     </form>
                                 </div>
@@ -222,8 +230,8 @@
                 </div>
             </div>
         </div>
-        <div class="row service-box-wrap">
-            <div class="col-md-3 col-sm-6 service-box-col ">
+        <div style="direction : ltr;" class="owl-carousel">
+            <div class=" service-box-col ">
                 <figure>
                     <div class="service-image">
                         <i class="flaticon-screen-1"></i>
@@ -231,7 +239,7 @@
                     <a>طرح کلیک</a>
                 </figure>
             </div>
-            <div class="col-md-3 col-sm-6 service-box-col ">
+            <div class=" service-box-col ">
                 <figure>
                     <div class="service-image">
                         <i class="flaticon-smartphone"></i>
@@ -239,7 +247,7 @@
                     <a>طرح باکسر</a>
                 </figure>
             </div>
-            <div class="col-md-3 col-sm-6 service-box-col ">
+            <div class=" service-box-col ">
                 <figure>
                     <div class="service-image">
                         <i class="flaticon-snowflake"></i>
@@ -247,7 +255,7 @@
                     <a>طرح آیروکس</a>
                 </figure>
             </div>
-            <div class="col-md-3 col-sm-6 service-box-col ">
+            <div class=" service-box-col ">
                 <figure>
                     <div class="service-image">
                         <i class="flaticon-star"></i>
@@ -255,9 +263,27 @@
                     <a>هندا CDi</a>
                 </figure>
             </div>
+            <div class=" service-box-col ">
+                <figure>
+                    <div class="service-image">
+                        <i class="flaticon-snowflake"></i>
+                    </div>
+                    <a>طرح آیروکس</a>
+                </figure>
+            </div>
+            <div class=" service-box-col ">
+                <figure>
+                    <div class="service-image">
+                        <i class="flaticon-snowflake"></i>
+                    </div>
+                    <a>طرح آیروکس</a>
+                </figure>
+            </div>
+
         </div>
     </div>
 </section>
+
 <!-- Service Section End -->
 <!-- Blog Section Start -->
 <section class="padding-bottom-50" id="blog">
@@ -282,9 +308,7 @@
                     <div class="blog-data">
                         <div class="blog-meta">
                             <ul class="list-inline">
-                                <li><a href="#" title="Author" class="author">مدیر</a></li>
                                 <li><a href="#" title="Date" class="date">5 شهریور 1400</a></li>
-                                <li><a href="#" title="Comments" class="comment">4</a></li>
                             </ul>
                         </div>
                         <div class="blog-title">
@@ -305,9 +329,7 @@
                     <div class="blog-data">
                         <div class="blog-meta">
                             <ul class="list-inline">
-                                <li><a href="#" title="Author" class="author">مدیر</a></li>
                                 <li><a href="#" title="Date" class="date">5 شهریور 1400</a></li>
-                                <li><a href="#" title="Comments" class="comment">4</a></li>
                             </ul>
                         </div>
                         <div class="blog-title">
@@ -328,9 +350,7 @@
                     <div class="blog-data">
                         <div class="blog-meta">
                             <ul class="list-inline">
-                                <li><a href="#" title="Author" class="author">مدیر</a></li>
                                 <li><a href="#" title="Date" class="date">5 شهریور 1400</a></li>
-                                <li><a href="#" title="Comments" class="comment">4</a></li>
                             </ul>
                         </div>
                         <div class="blog-title">
@@ -346,35 +366,22 @@
         </div>
     </div>
 </section>
+
 <!-- Blog Section End -->
-<!-- Subsribe Section Start -->
-<section class="section-parallax" data-src="/bg/7.jpg" data-stellar-background-ratio="0.5">
-    <span class="overlay-section-bg black-section-bg"></span>
-    <div class="container section-typo-white">
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3 col-sm-10 col-sm-offset-1 text-center">
-                <div class="subscribe-form">
-                    <p id="subscribe-status-msg" class="hide"></p>
-                    <form id="subscribe-form" class="subscribe-form" action="#">
-                        <div class="input-group subscribe-box">
-                            <input type="text" class="form-control" name="mcemail" autocomplete="off" id="mcemail" placeholder="ایمیل شما">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default white-border typo-gray subscribe-btn" type="submit">عضویت</button>
-                            </span>
-                        </div>
-                        <!-- /input-group -->
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Subsribe Section End -->
-
-
-    @section Scripts
-    {
-        <!-- THEME JS -->
-        <script src="~/js/theme.js"></script>
-    }
+@section Scripts
+{
+    <!-- THEME JS -->
+    <script src="~/js/theme.js"></script>
+    <script>
+        var owl = $('.owl-carousel');
+        owl.owlCarousel({
+            items:4,
+            loop:true,
+            margin:10,
+            autoplay:true,
+            autoplayTimeout:1000,
+            autoplayHoverPause:true
+        });
+    </script>
+}
 
