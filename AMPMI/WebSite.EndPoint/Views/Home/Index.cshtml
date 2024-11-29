@@ -2,21 +2,7 @@
     ViewData["Title"] = "Home Page";
 }
 
-<!-- TITLE-->
-<!-- FAV ICON -->
-@*     <link rel="shortcut icon" href="images/favicon.ico" type="text/css" />
- *@
 
-@section CSS
-{
-    <!-- THEME STYLE CSS -->
-    <link rel="stylesheet" href="~/css/style.css" type="text/css" />
-}
-
-<!-- Latest IE rendering engine & Chrome Frame Meta Tags -->
-<!--[if IE]>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
-    <![endif]-->
 <!-- Page Loader -->
 <div class="page-loader"></div>
 
@@ -24,41 +10,48 @@
 <header id="home" class="full-height bg-img" data-src="/images/backgrounde.png">
     <div class="container">
         <div class="row">
-            <div class="col-sm-8 col-sm-offset-2 text-center">
+            <div class="col-lg-8 mx-auto text-center">
                 <div class="header-content">
                     <div class="header-content-inner">
                         <div class="section-title">
-                            <h1 style="font-size : xxx-large;" class="section-title-divider animated zoomIn">انجمن قطعه‌سازان موتورسیکلت ایران</h1>
+                            <h1 style="font-size: xxx-large;" class="section-title-divider animated zoomIn">انجمن قطعه‌سازان موتورسیکلت ایران</h1>
                             <h4>Association of Motorcycle Parts Manufacturers in Iran</h4>
                         </div>
-                        <div class="row">
-                            <div class="text-center">
+                        <div class="container">
+                            <div class="text-right">
                                 <div class="subscribe-form">
                                     <form id="subscribe-form" class="subscribe-form" action="#">
-                                        <div style="display : flex;" class="input-group subscribe-box">
-                                            <input type="text" style="border-radius : 0; border-top-right-radius : 25px; border-bottom-right-radius: 25px;" class="form-control" name="mcemail" autocomplete="off" id="mcemail" placeholder="نام موتور سیکلت، قطعه یا سازنده را جستجو نمایید ...">
+                                        <div class="input-group subscribe-box d-flex">
+                                            <input type="text"
+                                                   style="height:auto;border-radius: 0; border-top-right-radius: 25px; border-bottom-right-radius: 25px;"
+                                                   class="form-control" name="mcemail" autocomplete="off" id="mcemail"
+                                                   placeholder="نام موتور سیکلت، قطعه یا سازنده را جستجو نمایید ...">
                                             <div class="dropdown">
-                                                <button style="border-radius : 0;" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                    انتخاب دسته بندی
-                                                    <span class="caret"></span>
+                                                <button class="btn btn-default dropdown-toggle" style="border-radius:0;" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    انتخاب دسته‌بندی
                                                 </button>
-                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                                    <li><a href="#">آیروکس</a></li>
-                                                    <li><a href="#">باکسر</a></li>
-                                                    <li><a href="#">سی دی ای</a></li>
-                                                    <li><a href="#">کلیک</a></li>
-                                                    <li><a href="#">متفرقه</a></li>
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <li><a class="dropdown-item" href="#">آیروکس</a></li>
+                                                    <li><a class="dropdown-item" href="#">باکسر</a></li>
+                                                    <li><a class="dropdown-item" href="#">سی دی ای</a></li>
+                                                    <li><a class="dropdown-item" href="#">کلیک</a></li>
+                                                    <li><a class="dropdown-item" href="#">متفرقه</a></li>
                                                 </ul>
                                             </div>
-                                            <button style=" border-top-left-radius: 25px;border-bottom-left-radius: 25px; border-top-right-radius: 0;border-bottom-right-radius: 0;" class="btn btn-default white-border typo-gray subscribe-btn" type="submit">
-                                                <i class="fa fa-search " aria-hidden="true"></i>
-                                            </button>
 
+
+
+
+                                            <button style="padding: 14px 20px; border-radius:0; border-top-left-radius: 25px; border-bottom-left-radius: 25px;"
+                                                    class="btn btn-default subscribe-btn" type="submit">
+                                                <i class="fa fa-search" aria-hidden="true"></i>
+                                            </button>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -289,7 +282,7 @@
 <section class="padding-bottom-50" id="blog">
     <div class="container">
         <div class="row text-center">
-            <div class="col-sm-12">
+            <div class="col-12">
                 <div class="section-title">
                     <h2 class="section-title-divider primary-divider">آخرین مطالب</h2>
                     <!-- SECTION TITLE -->
@@ -299,11 +292,11 @@
                 </div>
             </div>
         </div>
-        <div class="row margin-bottom-0">
+        <div class="row mb-0">
             <div class="col-md-4">
                 <div class="blog-wrap">
                     <div class="blog-image">
-                        <img alt="" src="~/blog/blog-1.jpg" title="Jack" class="img-responsive" />
+                        <img alt="" src="~/blog/blog-1.jpg" title="Jack" class="img-fluid" />
                     </div>
                     <div class="blog-data">
                         <div class="blog-meta">
@@ -317,14 +310,14 @@
                         <div class="blog-content">
                             لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد
                         </div>
-                        <a class="btn btn-default btn-xl btn-normal margin-top-20" href="#">بیشتر بخوانید</a>
+                        <a class="btn btn-outline-secondary btn-xl mt-3" href="#">بیشتر بخوانید</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="blog-wrap">
                     <div class="blog-image">
-                        <img alt="" src="~/blog/blog-2.jpg" title="Jack" class="img-responsive" />
+                        <img alt="" src="~/blog/blog-2.jpg" title="Jack" class="img-fluid" />
                     </div>
                     <div class="blog-data">
                         <div class="blog-meta">
@@ -338,14 +331,14 @@
                         <div class="blog-content">
                             لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد
                         </div>
-                        <a class="btn btn-default btn-xl btn-normal margin-top-20" href="#">بیشتر بخوانید</a>
+                        <a class="btn btn-outline-secondary btn-xl mt-3" href="#">بیشتر بخوانید</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="blog-wrap">
                     <div class="blog-image">
-                        <img alt="" src="~/blog/blog-3.jpg" title="Jack" class="img-responsive" />
+                        <img alt="" src="~/blog/blog-3.jpg" title="Jack" class="img-fluid" />
                     </div>
                     <div class="blog-data">
                         <div class="blog-meta">
@@ -359,7 +352,87 @@
                         <div class="blog-content">
                             لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد
                         </div>
-                        <a class="btn btn-default btn-xl btn-normal margin-top-20" href="#">بیشتر بخوانید</a>
+                        <a class="btn btn-outline-secondary btn-xl mt-3" href="#">بیشتر بخوانید</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="padding-bottom-50" id="blog">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-12">
+                <div class="section-title">
+                    <h2 class="section-title-divider primary-divider">آخرین مطالب</h2>
+                    <!-- SECTION TITLE -->
+                    <p>
+                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-0">
+            <div class="col-md-4">
+                <div class="blog-wrap">
+                    <div class="blog-image">
+                        <img alt="" src="~/blog/blog-1.jpg" title="Jack" class="img-fluid" />
+                    </div>
+                    <div class="blog-data">
+                        <div class="blog-meta">
+                            <ul class="list-inline">
+                                <li><a href="#" title="Date" class="date">5 شهریور 1400</a></li>
+                            </ul>
+                        </div>
+                        <div class="blog-title">
+                            <h3><a href="#" title="Title Here">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم </a></h3>
+                        </div>
+                        <div class="blog-content">
+                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد
+                        </div>
+                        <a class="btn btn-outline-secondary btn-xl mt-3" href="#">بیشتر بخوانید</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="blog-wrap">
+                    <div class="blog-image">
+                        <img alt="" src="~/blog/blog-2.jpg" title="Jack" class="img-fluid" />
+                    </div>
+                    <div class="blog-data">
+                        <div class="blog-meta">
+                            <ul class="list-inline">
+                                <li><a href="#" title="Date" class="date">5 شهریور 1400</a></li>
+                            </ul>
+                        </div>
+                        <div class="blog-title">
+                            <h3><a href="#" title="Title Here">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم </a></h3>
+                        </div>
+                        <div class="blog-content">
+                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد
+                        </div>
+                        <a class="btn btn-outline-secondary btn-xl mt-3" href="#">بیشتر بخوانید</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="blog-wrap">
+                    <div class="blog-image">
+                        <img alt="" src="~/blog/blog-3.jpg" title="Jack" class="img-fluid" />
+                    </div>
+                    <div class="blog-data">
+                        <div class="blog-meta">
+                            <ul class="list-inline">
+                                <li><a href="#" title="Date" class="date">5 شهریور 1400</a></li>
+                            </ul>
+                        </div>
+                        <div class="blog-title">
+                            <h3><a href="#" title="Title Here">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم </a></h3>
+                        </div>
+                        <div class="blog-content">
+                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد
+                        </div>
+                        <a class="btn btn-outline-secondary btn-xl mt-3" href="#">بیشتر بخوانید</a>
                     </div>
                 </div>
             </div>
@@ -371,7 +444,6 @@
 @section Scripts
 {
     <!-- THEME JS -->
-    <script src="~/js/theme.js"></script>
     <script>
         var owl = $('.owl-carousel');
         owl.owlCarousel({
