@@ -65,7 +65,6 @@ public class ConfigEntities
 
         modelBuilder.Entity<Product>(entity =>
         {
-            entity.Property(e => e.Brands).HasMaxLength(4000);
             entity.Property(e => e.CompanyId).HasColumnName("Company_Id");
             entity.Property(e => e.Description).HasMaxLength(4000);
             entity.Property(e => e.Name).HasMaxLength(400);

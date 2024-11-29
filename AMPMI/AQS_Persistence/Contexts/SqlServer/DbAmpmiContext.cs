@@ -1,4 +1,5 @@
 ﻿using AQS_Aplication.Interfaces.Context;
+using AQS_Domin.Entities;
 using AQS_Persistence.Configs;
 using Domin.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +31,9 @@ public partial class DbAmpmiContext : DbContext , IDbAmpmiContext
     public virtual DbSet<SiteAdmin> SiteAdmins { get; set; }
 
     public virtual DbSet<SubCategory> SubCategories { get; set; }
+
+    public virtual DbSet<Banner> Banners { get; set; }
+    
     #endregion
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
