@@ -27,7 +27,7 @@ public partial class Company
 
     public string? About { get; set; }
 
-    public string? LogoRout { get; set; }
+    public Guid? LogoRout { get; set; }
 
     public bool IsCompany { get; set; }
 

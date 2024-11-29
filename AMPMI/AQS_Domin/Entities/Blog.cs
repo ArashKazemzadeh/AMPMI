@@ -10,6 +10,7 @@ public partial class Blog
     public DateTime? CreateUpdateAt { get; set; }
 
     public Guid? VideoFileName { get; set; }
+    public Guid? HeaderPictureFileName { get; set; }
 
-    public virtual ICollection<BlogPicture> BlogPictures { get; set; } = new List<BlogPicture>();
+    public virtual ICollection<BlogPicture>? BlogPictures { get; set; } = new List<BlogPicture>();
 }

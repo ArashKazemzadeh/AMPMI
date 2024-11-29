@@ -1,4 +1,5 @@
 ﻿
+using AQS_Domin.Entities;
 using Domin.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,6 +28,7 @@ namespace AQS_Aplication.Interfaces.Context
         DbSet<SiteAdmin> SiteAdmins { get; set; }
 
         DbSet<SubCategory> SubCategories { get; set; }
+        DbSet<Banner> Banners { get; set; }
         #endregion
 
         #region SaveChanges()

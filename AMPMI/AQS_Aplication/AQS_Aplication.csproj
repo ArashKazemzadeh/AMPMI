@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AQS_Common\AQS_Common.csproj" />
     <ProjectReference Include="..\AQS_Domin\AQS_Domin.csproj" />
   </ItemGroup>
 
