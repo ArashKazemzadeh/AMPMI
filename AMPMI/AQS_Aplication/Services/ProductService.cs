@@ -22,7 +22,7 @@ namespace AQS_Aplication.Services
 
             if (result > 0)
             {
-                return row.Entity.Id;  // برگرداندن شناسه محصول جدید
+                return row.Entity.Id; 
             }
             return -1;
         }
