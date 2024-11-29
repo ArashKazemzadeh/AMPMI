@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AQS_Common.Enums;
+using Domin.Entities;
 
 namespace AQS_Aplication.Interfaces.IServisces
 {
     public interface IProductService
     {
+        Task<long> Create(Product product);
+        Task<ResultServiceMethods> Delete(long id);
+        Task<List<Product>> Read();
+        Task<Product?> ReadById(long id);
+        Task<ResultServiceMethods> Update(Product product);
+        Task<ResultServiceMethods> IsConfirmed(long id, bool isConfirmed);
+        Task<ResultServiceMethods> UpdatePictureFileName(int id, Guid pictureFileName);
     }
 }

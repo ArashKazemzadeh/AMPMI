@@ -5,11 +5,7 @@ public partial class Product
 
     public string Name { get; set; } = null!;
 
-    public string? Brands { get; set; }
-
     public string Description { get; set; } = null!;
-
-    public long Price { get; set; }
 
     public Guid? PictureFileName { get; set; }
 
@@ -17,9 +13,9 @@ public partial class Product
 
     public long? CompanyId { get; set; }
 
-    public int? SubCategoryId { get; set; }
+    public int SubCategoryId { get; set; }
 
     public virtual Company? Company { get; set; }
 
-    public virtual SubCategory? SubCategory { get; set; }
+    public virtual SubCategory SubCategory { get; set; }
 }
