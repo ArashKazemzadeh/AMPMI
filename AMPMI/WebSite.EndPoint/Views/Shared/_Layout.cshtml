@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="~/css/validator.min.css" type="text/css" />
 
     <link href="~/css/style.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
     @await RenderSectionAsync("CSS", required: false)
 </head>
 <body data-spy="scroll" data-offset="62">
@@ -43,7 +44,7 @@
             <div class="collapse navbar-collapse" style="justify-content:space-around;" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#home">صفحه اصلی</a>
+                        <a class="nav-link" href="@Url.Action("Index","Home")">صفحه اصلی</a>
                     </li>
                     <li class="nav-item">
                         <a style="color: #fff" class="nav-link" href="#about">قطعه سازان</a>
@@ -80,7 +81,7 @@
         <div class="container">
             <div class="row text-center">
                 <div class="col-sm-4">
-                    <p style="text-align : justify;">
+                    <p class="text-justify">
                         هیئت مدیره انجمن تولیدکنندگان قطعات مجموعه های موتورسیکلت و دوچرخه با دعوت از کلیه فعالان صنعتی در این بخش جهت حضور و مـشارکت فعال در ساماندهی انجمن و تشکیل کارگروهـهای لازم و عقـدقراردادهای تاَمین قطعـات با سازندگان موتورسـیکلت و دوچرخه ، تقاضای استفاده مؤثر و حداکثری از شرایط بسیار مساعد پیش رو را درخواست می نماید.
                     </p>
                 </div>
@@ -94,8 +95,7 @@
                     <ul class="sub-sub-menu contact-mail" style="list-style-type : none; padding-right:0;">
 
                         <li class="item-with-label item-label-primary">
-                            <a href="https://ampmi.com/">
-
+                            <a href="@Url.Action("Index","Home")">
                                 صفحه اصلی
                             </a>
                         </li>
@@ -108,7 +108,7 @@
                         </li>
 
                         <li class="item-with-label item-label-primary">
-                            <a href="https://ampmi.com/%d8%af%d8%b1%d8%a8%d8%a7%d8%b1%d9%87-%d9%85%d8%a7/">
+                            <a href="@Url.Action("Index","AboutUs")">
 
                                 درباره ما
                             </a>
