@@ -3,6 +3,7 @@ using AQS_Persistence.Configs;
 using AQS_Persistence.Contexts.SqlServer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using YourNamespace.Services;
 
 public class Startup
 {
@@ -15,6 +16,11 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddScoped<LoginService>(); //تنظیمان دقیق نیست
+        services.AddScoped<RegistrationService>(); //تنظیمان دقیق نیست
+
+
+
         services.AddControllersWithViews();
         services.AddAuthentication();
         services.AddAuthorization();
@@ -58,7 +64,7 @@ public class Startup
         });
     }
 
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
         if (env.IsDevelopment())
         {
@@ -70,7 +76,7 @@ public class Startup
             app.UseHsts();
         }
 
-        SeedInitializer.SeedRolesAsync(app.ApplicationServices).Wait();
+        await SeedInitializer.SeedRolesAsync(app.ApplicationServices);
 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
