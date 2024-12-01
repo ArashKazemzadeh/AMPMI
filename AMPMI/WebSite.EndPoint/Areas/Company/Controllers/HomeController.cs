@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace WebSite.EndPoint.Areas.Admin.Controllers
+namespace WebSite.EndPoint.Areas.Company.Controllers
 {
-    public class CompanyPanelController : Controller
+    [Area("Company")]
+    public class HomeController : Controller
     {
         public IActionResult Index()
         {
