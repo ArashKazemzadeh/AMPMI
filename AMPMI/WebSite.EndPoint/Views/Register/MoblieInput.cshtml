@@ -1,0 +1,36 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+<div class="wrapper default">
+    <div class="body-default container">
+        <div class="row">
+            <div class="main-content col-12 col-md-7 col-lg-5 mx-auto">
+                <div class="account-box pb-2">
+                    <div class="account-box-title text-right">ثبت نام</div>
+                    <div class="account-box-content">
+                        <form asp-action="ConfirmOTP" class="form-account">
+                            <div class="form-account-title"> شماره موبایل</div>
+                            <div class="form-account-row">
+                                <label class="input-label"><i class="now-ui-icons users_single-02"></i></label>
+                                <input class="input-field" name="mobile" type="text"
+                                       placeholder="شماره موبایل خود را وارد نمایید">
+                            </div>
+                            <div class="form-account-row form-account-submit">
+                                <div class="parent-btn">
+                                    <button class="dk-btn dk-btn-info">
+                                        ثبت نام
+                                        <i class="fa fa-sign-in"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="mb-3">
+                            <a href="@Url.Action("Index","Login")" class="btn-link-border">بازگشت به صفحه ورود</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
