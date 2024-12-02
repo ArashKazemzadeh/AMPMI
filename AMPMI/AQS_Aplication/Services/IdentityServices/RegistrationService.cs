@@ -12,20 +12,22 @@ namespace YourNamespace.Services
             _userManager = userManager;
         }
 
-        public async Task<IdentityResult> RegisterAsync(string username, string email, string password)
+        public async Task<IdentityResult> RegisterAsync
+            (string mobile,string companyname,string managerName, string email, string password , string address)
         {
             var user = new User
             {
-                UserName = username,
-                Email = email
+                NormalizedUserName = managerName,
+                UserName = companyname,
+                Email = email,
+                PhoneNumber = mobile,
+                PasswordHash = password,
             };
-
             return await _userManager.CreateAsync(user, password);
         }
-
-        public async Task AssignRoleAsync(User user, string role)
+        public async Task<IdentityResult> AssignRoleAsync(User user, string role)
         {
-            await _userManager.AddToRoleAsync(user, role);
+           return await _userManager.AddToRoleAsync(user, role);
         }
     }
 }

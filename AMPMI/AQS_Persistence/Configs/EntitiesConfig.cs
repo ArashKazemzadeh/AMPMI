@@ -3,13 +3,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AQS_Persistence.Configs;
 
-public class EntitiesConfig
+public static class EntitiesConfig
 {
     public static void FluentAPI_Config_Entities(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<BlogPicture>(entity =>
         {
-            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+            //entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.BlogId).HasColumnName("Blog_Id");
 
             entity.HasOne(d => d.Blog).WithMany(p => p.BlogPictures)
@@ -20,7 +20,7 @@ public class EntitiesConfig
         modelBuilder.Entity<CompanyPicture>(entity =>
         {
 
-            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+            //entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
             entity.HasOne(d => d.Company).WithMany(p => p.CompanyPictures)
                 .HasForeignKey(d => d.CompanyId)
