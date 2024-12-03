@@ -8,7 +8,7 @@
                 <div class="account-box pb-2">
                     <div class="account-box-title text-right">ثبت نام </div>
                     <div class="account-box-content">
-                        <form asp-action="Register" class="form-account">
+                        <form asp-action="Register" asp-controller="Register" class="form-account">
                             <div class="form-account-title"> شماره موبایل</div>
                             <div class="form-account-row">
                                 <label class="input-label"><i class="now-ui-icons users_single-02"></i></label>
@@ -21,8 +21,11 @@
                                 <label class="input-label">
                                     <i class="now-ui-icons ui-1_lock-circle-open"></i>
                                 </label>
-                                <input class="input-field" name="otp" type="number"
+                                <input class="input-field" name="userOtp" type="number"
                                        placeholder="کد تایید را وارد نمایید">
+                            </div>
+                            <div>
+                                <p>@(TempData["error"] != null ? TempData["error"] : ""))</p>
                             </div>
                             <div class="form-account-row form-account-submit">
                                 <div class="parent-btn">

@@ -1,10 +1,9 @@
-﻿
-using AQS_Domin.Entities;
+﻿using AQS_Domin.Entities;
 using Domin.Entities;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace AQS_Aplication.Interfaces.Context
+namespace AQS_Aplication.Interfaces.IInfrastructure.IContext
 {
     public interface IDbAmpmiContext
     {
