@@ -1,4 +1,4 @@
-﻿using AQS_Aplication.Interfaces.Context;
+﻿using AQS_Aplication.Interfaces.IInfrastructure.IContext;
 using AQS_Aplication.Interfaces.IServisces;
 using AQS_Common.Enums;
 using Domin.Entities;

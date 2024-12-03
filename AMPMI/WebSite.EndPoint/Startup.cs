@@ -1,5 +1,9 @@
+using AQS_Aplication.Interfaces.IInfrastructure.IAuthenticationOTPService;
+using AQS_Aplication.Interfaces.IServisces.IThirdParitesServices;
+using AQS_Aplication.Services;
 using AQS_Persistence.Contexts.SqlServer;
 using Microsoft.EntityFrameworkCore;
+using ThirdParties.SMSService;
 
 namespace WebSite.EndPoint
 {
@@ -19,8 +23,8 @@ namespace WebSite.EndPoint
 
             string connection = Configuration["ConnectionString:SqlServer"];
             services.AddDbContext<DbAmpmiContext>(option => option.UseSqlServer(connection));
-            //services.AddDbContext<IdentityDatabaseContext>(option => option.UseSqlServer(connection));
-
+            services.AddScoped<IAuthenticationOTP, AuthenticationOTP>();
+            services.AddScoped<ISMSOTPService, SMSOTPService>();
             #endregion
         }
 
