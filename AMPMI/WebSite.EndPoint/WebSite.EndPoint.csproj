@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AQS_Persistence\AQS_Persistence.csproj" />
+    <ProjectReference Include="..\ThirdParties\ThirdParties.csproj" />
   </ItemGroup>
 
   <ItemGroup>
