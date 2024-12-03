@@ -1,0 +1,42 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+<div class="wrapper default">
+    <div class="body-default container">
+        <div class="row">
+            <div class="main-content col-12 col-md-7 col-lg-5 mx-auto">
+                <div class="account-box pb-2">
+                    <div class="account-box-title text-right">ورود </div>
+                    <div class="account-box-content">
+                        <form asp-action="Register" class="form-account">
+                            <div class="form-account-title"> شماره موبایل</div>
+                            <div class="form-account-row">
+                                <label class="input-label"><i class="now-ui-icons users_single-02"></i></label>
+                                <input disabled class="input-field" name="mobile" value="@ViewData["mobile"]" type="text">
+                            </div>
+                            <div class="form-account-title">
+                                کد تایید
+                            </div>
+                            <div class="form-account-row">
+                                <label class="input-label">
+                                    <i class="now-ui-icons ui-1_lock-circle-open"></i>
+                                </label>
+                                <input class="input-field" name="otp" type="number"
+                                       placeholder="کد تایید را وارد نمایید">
+                            </div>
+                            <div class="form-account-row form-account-submit">
+                                <div class="parent-btn">
+                                    <button class="dk-btn dk-btn-info">
+                                        ثبت کد تایید
+                                        <i class="fa fa-sign-in"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

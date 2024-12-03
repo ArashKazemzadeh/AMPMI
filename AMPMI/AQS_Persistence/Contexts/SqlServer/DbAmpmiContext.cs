@@ -1,4 +1,4 @@
-﻿using AQS_Aplication.Interfaces.Context;
+﻿using AQS_Aplication.Interfaces.IInfrastructure.IContext;
 using AQS_Domin.Entities;
 using AQS_Persistence.Configs;
 using Domin.Entities;
