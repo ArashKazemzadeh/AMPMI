@@ -2,13 +2,14 @@
 using AQS_Aplication.Services;
 using Humanizer;
 using Microsoft.AspNetCore.Mvc;
+using WebSite.EndPoint.Models.AcountingViewModel.Register;
 
 namespace WebSite.EndPoint.Controllers
 {
     public class RegisterController : Controller
     {
         private readonly ISMSOTPService _sMSOTPService;
-        static int otp;
+        static int otp; // TODO : باید ساختار نهگداری otp به MemoryCatch تبدیل شود 
         public RegisterController(ISMSOTPService sMSOTPService)
         {
             this._sMSOTPService = sMSOTPService;
@@ -53,6 +54,22 @@ namespace WebSite.EndPoint.Controllers
             
             return View();
         }
+        [HttpPost]
+
+        public IActionResult ConfirmOTP(string mobile, int userOtp)
+        {
+
+            ViewData["mobile"] = mobile;
+            if (userOtp == GetOTP(false))
+            {
+                return RedirectToAction(nameof(Register), new { mobile });
+            }
+            else
+            {
+                return RedirectToAction(nameof(ConfirmOTP), new[] { mobile, "کد تایید اشتباه است" });
+            }
+
+        }
         public int GetOTP(bool generateNew)
         {
             if (otp > 100000 || !generateNew)
@@ -76,30 +93,31 @@ namespace WebSite.EndPoint.Controllers
         /// <param name="mobile"></param>
         /// <param name="otp"></param>
         /// <returns></returns>
-        [HttpPost]
-
-        public IActionResult Register(string mobile , int userOtp)
+        public IActionResult Register(string mobile)
         {
-
-            ViewData["mobile"]=mobile;
-            if (userOtp == GetOTP(false))
+            //ViewData["mobile"] = mobile;
+            RegisterVM registerVM = new RegisterVM()
             {
-                return View();
-            }
-            else
-            {
-                return RedirectToAction(nameof(ConfirmOTP),new[] { mobile,"کد تایید اشتباه است"});
-            }
-            
+                Mobile = mobile
+            };
+            return View(registerVM);
         }
         ///// <summary>
         ///// ثبت نام نهایی
         ///// </summary>
         ///// <returns></returns>
-        //[HttpPost]
-        //public IActionResult Register()
-        //{
-        //    return View();
-        //}
+        [HttpPost]
+        public IActionResult Register(RegisterVM registerVM)
+        {
+            if (ModelState.IsValid)
+            {
+                if (registerVM.Password == registerVM.PasswordConfirm)
+                {
+                    // فرایند ثبت نام
+
+                }
+            }
+            return View();
+        }
     }
 }

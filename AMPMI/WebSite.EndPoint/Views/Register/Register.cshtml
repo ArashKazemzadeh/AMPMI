@@ -1,4 +1,5 @@
-﻿@{
+﻿@model WebSite.EndPoint.Models.AcountingViewModel.Register.RegisterVM
+@{
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 <div class="wrapper default">
@@ -8,53 +9,62 @@
                 <div class="account-box pb-2">
                     <div class="account-box-title text-right">ثبت نام</div>
                     <div class="account-box-content">
-                        <form asp-action="Index" class="form-account">
+                        <form asp-action="Register" asp-controller="Register" class="form-account">
                             <div class="form-account-title">شماره موبایل</div>
                             <div class="form-account-row">
                                 <label class="input-label"><i class="now-ui-icons users_single-02"></i></label>
-                                <input class="input-field" name="mobile" value="@ViewData["mobile"]" type="text">
+                                <input asp-for="Mobile" class="input-field" type="text">
+                                <span class="text-danger" asp-validation-for="Mobile"></span>
                             </div>
                             <div class="form-account-title">نام شرکت</div>
                             <div class="form-account-row">
                                 <label class="input-label">
                                     <i class="fa fa-building" aria-hidden="true"></i>
                                 </label>
-                                <input name="CompanyName" class="input-field" type="text">
+                                <input asp-for="CompanyName" class="input-field" type="text">
+                                <span class="text-danger" asp-validation-for="CompanyName"></span>
                             </div>
                             <div class="form-account-title">نام مدیر</div>
                             <div class="form-account-row">
                                 <label class="input-label">
                                     <i class="fa fa-briefcase" aria-hidden="true"></i>
                                 </label>
-                                <input name="ManagerName" class="input-field" type="text">
+                                <input asp-for="ManagerName" class="input-field" type="text">
+                                <span class="text-danger" asp-validation-for="ManagerName"></span>
+
                             </div>
                             <div class="form-account-title">ایمیل</div>
                             <div class="form-account-row">
                                 <label class="input-label">
                                     <i class="fa fa-envelope-o" aria-hidden="true"></i>
                                 </label>
-                                <input name="Email" class="input-field" type="email">
+                                <input asp-for="Email" class="input-field" type="email">
+                                <span class="text-danger" asp-validation-for="Email"></span>
+
                             </div>
                             <div class="form-account-title">آدرس</div>
                             <div class="form-account-row">
                                 <label class="input-label">
                                     <i class="fa fa-map-marker" aria-hidden="true"></i>
                                 </label>
-                                <input name="Address" class="input-field" type="text">
+                                <input asp-for="Address" class="input-field" type="text">
+                                <span class="text-danger" asp-validation-for="Address"></span>
                             </div>
                             <div class="form-account-title">رمز عبور</div>
                             <div class="form-account-row">
                                 <label class="input-label">
                                     <i class="fa fa-lock" aria-hidden="true"></i>
                                 </label>
-                                <input name="Password" class="input-field" type="password">
+                                <input asp-for="Password" class="input-field" type="password">
+                                <span class="text-danger" asp-validation-for="Password"></span>
                             </div>
                             <div class="form-account-title">تکرار رمز عبور</div>
                             <div class="form-account-row">
                                 <label class="input-label">
                                     <i class="fa fa-lock" aria-hidden="true"></i>
                                 </label>
-                                <input name="PasswordConfirm" class="input-field" type="password">
+                                <input asp-for="PasswordConfirm" class="input-field" type="password">
+                                <span class="text-danger" asp-validation-for="PasswordConfirm"></span>
                             </div>
                             <div class="form-account-row form-account-submit">
                                 <div class="parent-btn">

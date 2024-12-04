@@ -8,12 +8,13 @@
                 <div class="account-box pb-2">
                     <div class="account-box-title text-right">ثبت نام </div>
                     <div class="account-box-content">
-                        <form asp-action="Register" asp-controller="Register" class="form-account">
+                        <form asp-action="ConfirmOTP" asp-controller="Register" class="form-account">
                             <div class="form-account-title"> شماره موبایل</div>
                             <div class="form-account-row">
                                 <label class="input-label"><i class="now-ui-icons users_single-02"></i></label>
                                 <input disabled class="input-field" name="mobile" value="@ViewData["mobile"]" type="text">
-                            </div>
+                                    <input type="hidden" name="mobile" value="@ViewData["mobile"]" />
+                           </div>
                             <div class="form-account-title">
                                 کد تایید
                             </div>
@@ -25,7 +26,7 @@
                                        placeholder="کد تایید را وارد نمایید">
                             </div>
                             <div>
-                                <p>@(TempData["error"] != null ? TempData["error"] : ""))</p>
+                                <p>@(TempData["error"] != null ? TempData["error"] : "")</p>
                             </div>
                             <div class="form-account-row form-account-submit">
                                 <div class="parent-btn">
