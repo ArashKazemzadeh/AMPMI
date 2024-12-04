@@ -7,9 +7,7 @@ namespace AQS_Persistence.Contexts.SqlServer;
 public partial class DbAmpmiContext : DbContext , IDbAmpmiContext
 {
     public DbAmpmiContext(DbContextOptions<DbAmpmiContext> options)
-        : base(options)
-    {
-    }
+        : base(options){}
 
     #region DbSets
     public virtual DbSet<Blog> Blogs { get; set; }
@@ -35,9 +33,10 @@ public partial class DbAmpmiContext : DbContext , IDbAmpmiContext
     public virtual DbSet<Banner> Banners { get; set; }
     
     #endregion
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        ConfigEntities.FluentAPI_Config_Entities(modelBuilder);
+        EntitiesConfig.FluentAPI_Config_Entities(modelBuilder);
 
         OnModelCreatingPartial(modelBuilder);
     }

@@ -1,6 +1,9 @@
 ﻿namespace Domin.Entities;
 public partial class CompanyPicture
 {
+    /// <summary>
+    /// شناسه و نام فایل 
+    /// </summary>
     public Guid Id { get; set; }
 
     public long? CompanyId { get; set; }
