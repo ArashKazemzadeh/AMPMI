@@ -71,6 +71,15 @@ namespace WebSite.EndPoint
 
             services.AddScoped<IAuthenticationOTP, AuthenticationOTP>();
             services.AddScoped<ISMSOTPService, SMSOTPService>();
+
+
+
+
+
+
+
+            services.AddMemoryCache();
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
