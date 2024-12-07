@@ -5,7 +5,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
     [Area("Admin")]
     public class AdminPanelController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Panel()
         {
             return View();
         }
