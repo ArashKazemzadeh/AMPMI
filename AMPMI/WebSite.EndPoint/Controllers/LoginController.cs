@@ -13,7 +13,7 @@ namespace WebSite.EndPoint.Controllers
         {
             return View();
         }
-        public IActionResult MoblieInput()
+        public IActionResult MobileInput()
         {
             // phone : textbox : View
             return View();

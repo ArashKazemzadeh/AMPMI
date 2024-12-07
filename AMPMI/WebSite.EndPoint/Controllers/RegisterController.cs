@@ -28,6 +28,17 @@ namespace WebSite.EndPoint.Controllers
         {
             return View();
         }
+        /// <summary>
+        /// دریافت شماره موبایل و هدایت به صفحه تایید OTP
+        /// </summary>
+        [HttpPost]
+        public IActionResult MobileInput(string mobile)
+        {
+            if (string.IsNullOrWhiteSpace(mobile))
+                return View();
+
+            return RedirectToAction(nameof(ConfirmOTP), new { mobile });
+        }
 
         /// <summary>
         /// نمایش صفحه تایید OTP
@@ -37,7 +48,7 @@ namespace WebSite.EndPoint.Controllers
         public async Task<IActionResult> ConfirmOTP(string mobile, string errorMsg = "")
         {
             if (string.IsNullOrWhiteSpace(mobile))
-                return RedirectToAction("MobileInput");
+                return RedirectToAction(nameof(MobileInput));
 
             ViewData["Mobile"] = mobile;
 
@@ -53,23 +64,10 @@ namespace WebSite.EndPoint.Controllers
                 _memoryCache.Set($"OTP_{mobile}", otp, TimeSpan.FromSeconds(OtpExpirationSeconds));
             }
 
-            await _smsOtpService.SendSMSForAuthentication(mobile, otp.ToString());
+            //await _smsOtpService.SendSMSForAuthentication(mobile, otp.ToString());
 
             return View();
         }
-
-        /// <summary>
-        /// دریافت شماره موبایل و هدایت به صفحه تایید OTP
-        /// </summary>
-        [HttpPost]
-        public IActionResult MobileInput(string mobile)
-        {
-            if (string.IsNullOrWhiteSpace(mobile))
-                return View();
-
-            return RedirectToAction("ConfirmOTP", new { mobile });
-        }
-
         /// <summary>
         /// بررسی OTP
         /// </summary>
@@ -81,9 +79,9 @@ namespace WebSite.EndPoint.Controllers
 
             // بررسی OTP ذخیره‌شده در Cache
             if (_memoryCache.TryGetValue($"OTP_{mobile}", out int storedOtp) && storedOtp == userOtp)
-                return RedirectToAction("Register");
+                return RedirectToAction(nameof(Register));
 
-            return RedirectToAction("ConfirmOTP", new { mobile, errorMsg = "کد تایید اشتباه است" });
+            return RedirectToAction(nameof(ConfirmOTP), new { mobile, errorMsg = "کد تایید اشتباه است" });
         }
 
         /// <summary>
