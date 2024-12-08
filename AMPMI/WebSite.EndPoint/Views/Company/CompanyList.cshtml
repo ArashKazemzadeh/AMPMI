@@ -1,0 +1,95 @@
+﻿@model List<WebSite.EndPoint.Models.CompanyViewModel.CompanyDetailVM>
+@{
+    ViewData["Title"] = "CompanyList";
+}
+<div class="body-default container">
+    <div class="row">
+        <form>
+            <div class="row">
+                <div class="col-md-10">
+                    <input class="form-control" placeholder="جستجوی فروشندگان" type="text" />
+
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-primary" type="submit">اعمال</button>
+
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row mt-2">
+        @*//foreach data here*@
+        <div class="col-md-4 my-3">
+            <div class="border border-2">
+                <div class="card bg-dark text-white">
+                    <img src="~/blog/blog-1.jpg" class="card-img" />
+                    <div style="background: rgba(0, 0, 0, 0.45);" class="card-img-overlay">
+                        <h4 class="card-title">شرکت پرتو</h4>
+                        <p class="card-text">آدرس لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است</p>
+                        <p class="card-text">09131231421</p>
+                    </div>
+                </div>
+                <div class="py-2">
+                    <div style="box-shadow:0px 0px 30px -6px #afafaf; border-radius: 40px;">
+                    </div>
+                    <a href="@Url.Action("CompanyDetail","Company",3)" class="btn btn-primary">></a>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-4 my-3">
+            <div class="border border-2">
+                <div class="card bg-dark text-white">
+                    <img src="~/blog/blog-1.jpg" class="card-img" />
+                    <div style="background: rgba(0, 0, 0, 0.45);" class="card-img-overlay">
+                        <h4 class="card-title">شرکت پرتو</h4>
+                        <p class="card-text">آدرس لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است</p>
+                        <p class="card-text">09131231421</p>
+                    </div>
+                </div>
+                <div class="py-2">
+                    <div style="box-shadow:0px 0px 30px -6px #afafaf; border-radius: 40px;">
+                    </div>
+                    <a class="btn btn-primary">></a>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-4 my-3">
+            <div class="border border-2">
+                <div class="card bg-dark text-white">
+                    <img src="~/blog/blog-1.jpg" class="card-img" />
+                    <div style="background: rgba(0, 0, 0, 0.45);" class="card-img-overlay">
+                        <h4 class="card-title">شرکت پرتو</h4>
+                        <p class="card-text">آدرس لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است</p>
+                        <p class="card-text">09131231421</p>
+                    </div>
+                </div>
+                <div class="py-2">
+                    <div style="box-shadow:0px 0px 30px -6px #afafaf; border-radius: 40px;">
+                    </div>
+                    <a class="btn btn-primary">></a>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-4 my-3">
+            <div class="border border-2">
+                <div class="card bg-dark text-white">
+                    <img src="~/blog/blog-1.jpg" class="card-img" />
+                    <div style="background: rgba(0, 0, 0, 0.45);" class="card-img-overlay">
+                        <h4 class="card-title">شرکت پرتو</h4>
+                        <p class="card-text">آدرس لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است</p>
+                        <p class="card-text">09131231421</p>
+                    </div>
+                </div>
+                <div class="py-2">
+                    <div style="box-shadow:0px 0px 30px -6px #afafaf; border-radius: 40px;">
+                    </div>
+                    <a class="btn btn-primary">></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
