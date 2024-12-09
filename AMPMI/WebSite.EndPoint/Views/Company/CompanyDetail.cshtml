@@ -1,5 +1,64 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model WebSite.EndPoint.Models.CompanyViewModel.CompanyDetailVM
 @{
+    ViewData["Title"] = "CompanyDetail";
 }
+<div class="body-default container">
+    <!-- Company Section -->
+    <section>
+        <div class="row">
+            <div class="col-md-3">
+                <img src="~/blog/blog-1.jpg" class="img-fluid" />
+                <p>@Model.Name</p>
+            </div>
+            <div class="col-md-9">
+
+            </div>
+        </div>
+        <div id="aboutCompany" class="row">
+            <p>درباره شرکت :</p><p>@Model.About</p>
+        </div>
+        <div class="row">
+            <!-- Company Photos -->
+            <div class="col-md-6">
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+
+                         @foreach(var item in Model.CompanyPictures){
+                            <div class="carousel-item active">
+                                <img src="@item" class="d-block w-100" alt="...">
+                            </div>
+                        }
+                        <div class="carousel-item active">
+                            <img src="..." class="d-block w-100" alt="...">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <video>
+                    <source type="video/mp4" />
+                </video>
+            </div>
+        </div>
+    </section>
+    <!-- Product Section -->
+    <section>
+        <div class="row">
+            <div class="col-md-6">
+            </div>
+        </div>
+        <div class="row">
+            @* foreach products here *@
+            <div class="col-md-3">
+            </div>
+        </div>
+    </section>
+</div>
