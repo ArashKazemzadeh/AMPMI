@@ -4,7 +4,7 @@ using AQS_Persistence.Configs;
 using Domin.Entities;
 using Microsoft.EntityFrameworkCore;
 namespace AQS_Persistence.Contexts.SqlServer;
-public partial class DbAmpmiContext : DbContext , IDbAmpmiContext
+public partial class DbAmpmiContext : DbContext , IDbAmpmiCont
 {
     public DbAmpmiContext(DbContextOptions<DbAmpmiContext> options)
         : base(options)
