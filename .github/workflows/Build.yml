@@ -1,26 +1,28 @@
-name: Build Check
+name: Windows Build and Test Check
 
 on:
   push:
     branches:
-      - main       
-  pull_request:    
+      - main        # اجرای اکشن فقط برای شاخه main
+  pull_request:
+    branches:
+      - main        # یا هنگام ایجاد Pull Request برای شاخه main
 
 jobs:
-  build:
-    runs-on: windows-latest   
+  build-and-test:
+    runs-on: windows-latest   # اجرای روی ماشین ویندوزی
 
     steps:
-    - name: Checkout code    
+    - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Setup .NET SDK   
+    - name: Setup .NET SDK
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '8.0' 
+        dotnet-version: '8.0'  # یا نسخه‌ای که پروژه شما نیاز دارد
 
-    - name: Restore dependencies 
-      run: dotnet restore
+    - name: Build the solution
+      run: dotnet build .\AMPMI\AMPMI\Ampmi.sln --configuration Release
 
-    - name: Build the project     
-      run: dotnet build --no-restore --configuration Release
+    - name: Run tests
+      run: dotnet test .\AMPMI\AMPMI\Ampmi.sln --configuration Release
