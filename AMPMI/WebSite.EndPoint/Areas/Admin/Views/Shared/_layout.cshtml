@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>صفحه شروع | کنترل پنل</title>
+    <title>داشبورد</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
     <link href="~/css/bootstrap-theme.css" rel="stylesheet" />
@@ -48,108 +48,24 @@ desired effect
 -->
 
 <body class="hold-transition skin-blue sidebar-mini">
-    <div class="wrapper">
+    <div class="wrapper" style="background-color:#EEEEEE">
 
         <!-- Main Header -->
         <header class="main-header">
-            <!-- Logo -->
-            <a href="index.html" class="logo">
-                <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini">پنل</span>
-                <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>کنترل پنل مدیریت</b></span>
-            </a>
             <!-- Header Navbar: style can be found in header.less -->
-            <nav class="navbar navbar-static-top">
-                <!-- Sidebar toggle button-->
-                <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-                    <span class="sr-only">Toggle navigation</span>
-                </a>
-
-                <div class="navbar-custom-menu">
+            <nav class="navbar navbar-static-top" style='margin-right:0px ; background-color:#d5d6db ; height:80px'>
+                <div class="navbar-custom-menu" style="float:right ; width:30% ; margin-top: 10px; ">
                     <ul class="nav navbar-nav">
-                        <!-- Messages: style can be found in dropdown.less-->
-                        <li class="dropdown messages-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-envelope-o"></i>
-                                <span class="label label-success">4</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="header">۴ پیام خوانده نشده</li>
-                                <li>
-                                    <!-- inner menu: contains the actual data -->
-                                    <ul class="menu">
-                                        <li>
-                                            <!-- start message -->
-                                            <a href="#">
-                                                <div class="pull-left">
-                                                    <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                                                </div>
-                                                <h4>
-                                                    علیرضا
-                                                    <small><i class="fa fa-clock-o"></i> ۵ دقیقه پیش</small>
-                                                </h4>
-                                                <p>متن پیام</p>
-                                            </a>
-                                        </li>
-                                        <!-- end message -->
-                                        <li>
-                                            <a href="#">
-                                                <div class="pull-left">
-                                                    <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
-                                                </div>
-                                                <h4>
-                                                    نگین
-                                                    <small><i class="fa fa-clock-o"></i> ۲ ساعت پیش</small>
-                                                </h4>
-                                                <p>متن پیام</p>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <div class="pull-left">
-                                                    <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
-                                                </div>
-                                                <h4>
-                                                    نسترن
-                                                    <small><i class="fa fa-clock-o"></i> امروز</small>
-                                                </h4>
-                                                <p>متن پیام</p>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <div class="pull-left">
-                                                    <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
-                                                </div>
-                                                <h4>
-                                                    نگین
-                                                    <small><i class="fa fa-clock-o"></i> دیروز</small>
-                                                </h4>
-                                                <p>متن پیام</p>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <div class="pull-left">
-                                                    <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
-                                                </div>
-                                                <h4>
-                                                    نسترن
-                                                    <small><i class="fa fa-clock-o"></i> ۲ روز پیش</small>
-                                                </h4>
-                                                <p>متن پیام</p>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="footer"><a href="#">نمایش تمام پیام ها</a></li>
-                            </ul>
-                        </li>
+                        <!-- Back to home page -->
+                            <li class="dropdown notifications-menu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <img src="~/images/home.png" style="width:20px ; height:20px "/>
+                                </a>
+                            </li>
                         <!-- Notifications: style can be found in dropdown.less -->
                         <li class="dropdown notifications-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-bell-o"></i>
+                                <img src="~/images/notification copy.png" style="width:20px ; height:20px ">
                                 <span class="label label-warning">۱۰</span>
                             </a>
                             <ul class="dropdown-menu">
@@ -158,28 +74,28 @@ desired effect
                                     <!-- inner menu: contains the actual data -->
                                     <ul class="menu">
                                         <li>
-                                            <a href="#">
-                                                <i class="fa fa-users text-aqua"></i> ۵ کاربر جدید ثبت نام کردند
+                                            <a href="#"> 
+                                                <i class="fa fa-warning text-yellow"></i> عنوان اعلان شماره یک
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <i class="fa fa-warning text-yellow"></i> اخطار دقت کنید
+                                                <i class="fa fa-warning text-yellow"></i> عنوان اعلان شماره دو
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <i class="fa fa-users text-red"></i> ۴ کاربر جدید ثبت نام کردند
+                                                <i class="fa fa-warning text-yellow"></i> عنوان اعلان شماره سه
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <i class="fa fa-shopping-cart text-green"></i> ۲۵ سفارش جدید
+                                                <i class="fa fa-warning text-yellow"></i> عنوان اعلان شماره چهار
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <i class="fa fa-user text-red"></i> نام کاربریتان را تغییر دادید
+                                                <i class="fa fa-warning text-yellow"></i> عنوان اعلان شماره پنج
                                             </a>
                                         </li>
                                     </ul>
@@ -187,172 +103,92 @@ desired effect
                                 <li class="footer"><a href="#">نمایش همه</a></li>
                             </ul>
                         </li>
-                        <!-- Tasks: style can be found in dropdown.less -->
-                        <li class="dropdown tasks-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-flag-o"></i>
-                                <span class="label label-danger">۹</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="header">۹ کار برای انجام دارید</li>
-                                <li>
-                                    <!-- inner menu: contains the actual data -->
-                                    <ul class="menu">
-                                        <li>
-                                            <!-- Task item -->
-                                            <a href="#">
-                                                <h3>
-                                                    ساخت دکمه
-                                                    <small class="pull-right">20%</small>
-                                                </h3>
-                                                <div class="progress xs">
-                                                    <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
-                                                         aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                        <span class="sr-only">20% تکمیل شده</span>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <!-- end task item -->
-                                        <li>
-                                            <!-- Task item -->
-                                            <a href="#">
-                                                <h3>
-                                                    ساخت قالب جدید
-                                                    <small class="pull-right">40%</small>
-                                                </h3>
-                                                <div class="progress xs">
-                                                    <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar"
-                                                         aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                        <span class="sr-only">40% تکمیل شده</span>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <!-- end task item -->
-                                        <li>
-                                            <!-- Task item -->
-                                            <a href="#">
-                                                <h3>
-                                                    تبلیغات
-                                                    <small class="pull-right">60%</small>
-                                                </h3>
-                                                <div class="progress xs">
-                                                    <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar"
-                                                         aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                        <span class="sr-only">60% تکمیل شده</span>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <!-- end task item -->
-                                        <li>
-                                            <!-- Task item -->
-                                            <a href="#">
-                                                <h3>
-                                                    ساخت صفحه فرود
-                                                    <small class="pull-right">80%</small>
-                                                </h3>
-                                                <div class="progress xs">
-                                                    <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar"
-                                                         aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                        <span class="sr-only">80% تکمیل شده</span>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <!-- end task item -->
-                                    </ul>
-                                </li>
-                                <li class="footer">
-                                    <a href="#">نمایش همه</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <!-- User Account: style can be found in dropdown.less -->
-                        <li class="dropdown user user-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                                <span class="hidden-xs">علیرضا حسینی زاده</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <!-- User image -->
-                                <li class="user-header">
-                                    <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
-                                    <p>
-                                        علیرضا حسینی زاده
-                                        <small>مدیریت کل سایت</small>
-                                    </p>
-                                </li>
-                                <!-- Menu Body -->
-                                <li class="user-body">
-                                    <div class="row">
-                                        <div class="col-xs-4 text-center">
-                                            <a href="#">صفحه من</a>
-                                        </div>
-                                        <div class="col-xs-4 text-center">
-                                            <a href="#">فروش</a>
-                                        </div>
-                                        <div class="col-xs-4 text-center">
-                                            <a href="#">دوستان</a>
-                                        </div>
-                                    </div>
-                                    <!-- /.row -->
-                                </li>
-                                <!-- Menu Footer-->
-                                <li class="user-footer">
-                                    <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">پروفایل</a>
-                                    </div>
-                                    <div class="pull-right">
-                                        <a href="#" class="btn btn-default btn-flat">خروج</a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                        <!-- Control Sidebar Toggle Button -->
-                        <li>
-                            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                        <!-- Show Date -->
+                        <li class="dropdown notifications-menu">
+                            <p style="margin-top:15px ; margin-right:20px">امروز: ۱۹ آذر 1403</p>
                         </li>
                     </ul>
+                </div>
+                <!-- Hello to user -->
+                <div style="text-align:center ; 
+                            margin-top:10px ; 
+                            width:40% ;
+                            float:right"
+                >
+                    <p style="margin-top:15px; font-size:20px">به انجمن قطعه سازان موتور سیکلت خوش آمدید </p>
+                </div>
+                <!-- Welcome text -->
+                <div style="text-align:center ; margin-top:10px ; float:left ; margin-left:10px">
+                    <button disabled 
+                            style="margin-top:5px;
+                                   background-color:lightskyblue ;
+                                   border:none; height:50px;
+                                   border-radius:20px;
+                                   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">
+                        <img src="~/images/user.png" style="width:20px ; height:20px;margin-top:-5px " />
+                        سلام: توکا
+                    </button>
                 </div>
             </nav>
         </header>
         <!-- right side column. contains the logo and sidebar -->
-        <aside class="main-sidebar">
-
+        <div>
+        <aside class="main-sidebar" style="margin-top:100px;
+                                           background-color:white;
+                                           border-radius:25px;
+                                           margin-right:20px;
+                                           margin-left:20px;
+                                           padding-top: 20px;
+                                           float:right;
+                                           width:20%">
+            <div style="width:100%; text-align:center">
+                <button style="border-radius:50%;
+                               border:none;
+                               box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">
+                    <img src="~/images/add user.png" style="width:100px ; height:100px " />
+                </button>
+            </div>
             <!-- sidebar: style can be found in sidebar.less -->
             <section class="sidebar">
-
-                <!-- Sidebar user panel (optional) -->
-                <div class="user-panel">
-                    <div class="pull-right image">
-                        <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                    </div>
-                    <div class="pull-right info">
-                        <p>علیرضا حسینی زاده</p>
-                        <!-- Status -->
-                        <a href="#"><i class="fa fa-circle text-success"></i> آنلاین</a>
-                    </div>
-                </div>
                 <!-- Sidebar Menu -->
-                <ul class="sidebar-menu" data-widget="tree">
-                    <li class="header">تیتر</li>
-                    <!-- Optionally, you can add icons to the links -->
-                    <li class="active"><a href="#"><i class="fa fa-link"></i> <span>لینک</span></a></li>
-                    <li><a href="#"><i class="fa fa-link"></i> <span>لینک ۲</span></a></li>
-                    <li class="treeview">
+                <ul class="sidebar-menu" data-widget="tree" style="margin-top:20px; margin-right:10px">
+                    <!-- User Profile -->
+                    <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
                         <a href="#">
-                            <i class="fa fa-link"></i> <span>چند سطحی</span>
-                            <span class="pull-left-container">
-                                <i class="fa fa-angle-right pull-left"></i>
-                            </span>
+                        <img src="~/images/user.png" style="width:20px ; height:20px" />
+                            <span style="padding-right:10px; color:#000000">پروفایل کاربری</span>
                         </a>
-                        <ul class="treeview-menu">
-                            <li><a href="#">لینک سطح ۱</a></li>
-                            <li><a href="#">لینک سطح ۱</a></li>
-                        </ul>
+                    </li>
+                    <!-- Change Password -->
+                    <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
+                        <a href="#">
+                            <img src="~/images/user.png" style="width:20px ; height:20px" />
+                            <span style="padding-right:10px; color:#000000">تغییر رمز عبور</span>
+                        </a>
+                    </li>
+                    <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
+                        <a href="#">
+                            <img src="~/images/image copy.png" style="width:20px ; height:20px" />
+                            <span style="padding-right:10px; color:#000000">گالری تصاویر</span>
+                        </a>
+                    </li>
+                    <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
+                        <a href="#">
+                            <img src="~/images/clapperboard copy.png" style="width:20px ; height:20px" />
+                            <span style="padding-right:10px; color:#000000">تیزر تبلیغاتی</span>
+                        </a>
+                    </li>
+                    <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
+                        <a href="#">
+                            <img src="~/images/product copy.png" style="width:20px ; height:20px" />
+                            <span style="padding-right:10px; color:#000000">محصولات</span>
+                        </a>
+                    </li>
+                    <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
+                        <a href="#">
+                            <img src="~/images/notification copy.png" style="width:20px ; height:20px" />
+                            <span style="padding-right:10px; color:#000000">اعلان‌ها</span>
+                        </a>
                     </li>
                 </ul>
                 <!-- /.sidebar-menu -->
@@ -361,7 +197,7 @@ desired effect
         </aside>
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
+        <div class="content-wrapper" style="float:left; width:75%">
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
@@ -379,6 +215,7 @@ desired effect
 
 
             </section>
+        </div>
         </div>
         <!-- /.content-wrapper -->
         <!-- Main Footer -->
