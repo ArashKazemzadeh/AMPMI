@@ -13,22 +13,5 @@ namespace WebSite.EndPoint.Controllers
         {
             return View();
         }
-        public IActionResult MobileInput()
-        {
-            // phone : textbox : View
-            return View();
-        }
-        public IActionResult ConfirmOTP(string mobile)
-        {
-            /// جنریت کردن otp
-            if (string.IsNullOrEmpty(mobile))
-                return RedirectToAction(nameof(Login));
-
-            ViewData["mobile"] = mobile;
-
-            var x = TempData["error"];
-
-            return View();
-        }
     }
 }

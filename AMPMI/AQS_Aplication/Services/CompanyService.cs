@@ -1,9 +1,9 @@
-﻿using AQS_Aplication.Interfaces.IInfrastructure.IContext;
+﻿using AQS_Aplication.Dtos;
+using AQS_Aplication.Interfaces.IInfrastructure.IContext;
 using AQS_Aplication.Interfaces.IServisces;
 using AQS_Common.Enums;
 using Domin.Entities;
 using Microsoft.EntityFrameworkCore;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace AQS_Aplication.Services
 {
@@ -15,9 +15,19 @@ namespace AQS_Aplication.Services
             _context = context;
         }
 
-        public async Task<long> Create(Company company)
+        public async Task<long> Create(RegisterIdentityDTO company , long id)
         {
-            var row = _context.Companies.Add(company);
+            var row = _context.Companies
+                .Add(new Company
+                {
+                    Id = id,
+                    MobileNumber = company.Mobile,
+                    Name = company.CompanyName,
+                    ManagerName = company.ManagerName,
+                    Email = company.Email,
+                    Password = company.Password,
+                    Address = company.Address
+                });
 
             int result = await _context.SaveChangesAsync();
 
@@ -49,6 +59,10 @@ namespace AQS_Aplication.Services
         public async Task<Company?> ReadById(long id)
         {
             return await _context.Companies.FirstOrDefaultAsync(c => c.Id == id);
+        }
+        public async Task<bool> IsExistByMobileNumber(string mobile)
+        {
+            return await _context.Companies.AnyAsync(c => c.MobileNumber == mobile);
         }
 
         public async Task<ResultServiceMethods> Update(Company company)

@@ -1,7 +1,11 @@
-﻿using AQS_Aplication.Interfaces.IServisces.IdentityServices;
+﻿using AQS_Aplication.Dtos;
+using AQS_Aplication.Interfaces.IServisces;
+using AQS_Aplication.Interfaces.IServisces.IdentityServices;
 using AQS_Aplication.Interfaces.IServisces.IThirdParitesServices;
+using AQS_Common.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using System.Net;
 using WebSite.EndPoint.Models.AcountingViewModel.Register;
 
 namespace WebSite.EndPoint.Controllers
@@ -11,79 +15,114 @@ namespace WebSite.EndPoint.Controllers
         private readonly ISMSOTPService _smsOtpService;
         private readonly IMemoryCache _memoryCache;
         private readonly IRegistrationService _registrationService;
-        private const int OtpExpirationSeconds = 30; // زمان اعتبار OTP
+        private readonly ICompanyService _companyService;
+        private const int OtpExpirationSeconds = 120;
 
-        public RegisterController(ISMSOTPService smsOtpService, IMemoryCache memoryCache, IRegistrationService registrationService)
+        public RegisterController
+            (
+            ISMSOTPService smsOtpService,
+            IMemoryCache memoryCache,
+            IRegistrationService registrationService,
+            ICompanyService companyService
+            )
         {
             _smsOtpService = smsOtpService;
             _memoryCache = memoryCache;
             _registrationService = registrationService;
+            _companyService = companyService;
         }
 
         /// <summary>
         /// صفحه ورود شماره موبایل
         /// </summary>
         /// <returns>View</returns>
+        [HttpGet]
         public IActionResult MobileInput()
         {
             return View();
         }
+
         /// <summary>
         /// دریافت شماره موبایل و هدایت به صفحه تایید OTP
         /// </summary>
         [HttpPost]
-        public IActionResult MobileInput(string mobile)
+        public async Task<IActionResult> MobileInput(string mobile)
         {
             if (string.IsNullOrWhiteSpace(mobile))
+            {
+                ModelState.AddModelError("mobile", "شماره موبایل نمی‌تواند خالی باشد.");
                 return View();
+            }
+            if (!mobile.IsValidMobileNumber())
+            {
+                ModelState.AddModelError("mobile", "شماره موبایل نامعتبر است.");
+                return View();
+            }
+            if (await _companyService.IsExistByMobileNumber(mobile))
+            {
+                ModelState.AddModelError("mobile", "شماره موبایل قبلا ثبت شده است.");
+                return View();
+            }
+            if (!_memoryCache.TryGetValue($"OTP_{mobile}", out int otp))
+            {
+                otp = await _smsOtpService.GenerateUniqueOTPAsync();
+                _memoryCache.Set($"OTP_{mobile}", otp, TimeSpan.FromSeconds(OtpExpirationSeconds));
+            }
 
-            return RedirectToAction(nameof(ConfirmOTP), new { mobile });
+            HttpStatusCode result = await _smsOtpService.SendSMSForAuthentication(mobile, otp.ToString());
+            if (result == HttpStatusCode.OK)
+            {
+                return RedirectToAction(nameof(ConfirmOTP), new { mobile });
+            }
+            else
+            {
+                ViewData["Error"] = "ارسال کد ناموفق بود دوباره تلاش کنید";
+                return View();
+            }
         }
 
         /// <summary>
         /// نمایش صفحه تایید OTP
         /// </summary>
         /// <param name="mobile">شماره موبایل</param>
-        /// <param name="errorMsg">پیام خطا</param>
-        public async Task<IActionResult> ConfirmOTP(string mobile, string errorMsg = "")
+        [HttpGet]
+        public IActionResult ConfirmOTP(string mobile)
         {
-            if (string.IsNullOrWhiteSpace(mobile))
-                return RedirectToAction(nameof(MobileInput));
-
-            ViewData["Mobile"] = mobile;
-
-            if (!string.IsNullOrWhiteSpace(errorMsg))
-                ViewData["Error"] = errorMsg;
-
-            // بررسی و ذخیره OTP در Cache
-            if (!_memoryCache.TryGetValue($"OTP_{mobile}", out int otp))
+            var model = new ConfirmOtpViewModel
             {
-                otp = await _smsOtpService.GenerateUniqueOTPAsync();
-
-                // ذخیره OTP در Cache
-                _memoryCache.Set($"OTP_{mobile}", otp, TimeSpan.FromSeconds(OtpExpirationSeconds));
-            }
-
-            //await _smsOtpService.SendSMSForAuthentication(mobile, otp.ToString());
-
-            return View();
+                Mobile = mobile,
+                ErrorMessage = string.Empty
+            };
+            return View(model);
         }
         /// <summary>
-        /// بررسی OTP
+        /// پردازش کد OTP ارسال شده
         /// </summary>
+        /// <param name="model">مدل حاوی اطلاعات ورودی کاربر</param>
         [HttpPost]
-        public IActionResult ValidateOTP(string mobile, int userOtp)
+        public IActionResult ConfirmOTP(ConfirmOtpViewModel model)
         {
-            if (string.IsNullOrWhiteSpace(mobile))
-                return RedirectToAction(nameof(MobileInput));
+            if (model.UserOtp.DigitCount() != 6)
+            {
+                model.ErrorMessage = "تعداد رقم های کد را اشتباه وارد کرده اید";
+                return View(model);
+            }
 
-            // بررسی OTP ذخیره‌شده در Cache
-            if (_memoryCache.TryGetValue($"OTP_{mobile}", out int storedOtp) && storedOtp == userOtp)
-                return RedirectToAction(nameof(Register));
-
-            return RedirectToAction(nameof(ConfirmOTP), new { mobile, errorMsg = "کد تایید اشتباه است" });
+            if (_memoryCache.TryGetValue($"OTP_{model.Mobile}", out int otpInMemory))
+            {
+                if (otpInMemory == model.UserOtp)
+                {
+                    return RedirectToAction(nameof(Register));
+                }
+                else
+                {
+                    model.ErrorMessage = "کد وارد شده با کد ارسال شده از طریق پیام کوتاه هم خوانی ندارد";
+                    return View(model);
+                }
+            }
+            model.ErrorMessage = "مدت زمان استفاده از کد به پایان رسیده است.";
+            return View(model);
         }
-
         /// <summary>
         /// صفحه ثبت نام
         /// </summary>
@@ -96,19 +135,28 @@ namespace WebSite.EndPoint.Controllers
         public async Task<IActionResult> Register(CreateCompanyMV createCompany)
         {
             if (!ModelState.IsValid)
-            {
                 return View(createCompany);
-            }
 
-            var result = await _registrationService.RegisterAsync(createCompany.ToRegisterIdentityDTO(), "Company");
+            RegisterIdentityDTO newCompany = createCompany.ToRegisterIdentityDTO();
+
+            if (newCompany == null)
+                return View(createCompany);
+
+            var result = await _registrationService.RegisterAsync(newCompany, "Company");
 
             if (result.userId > 0 && string.IsNullOrEmpty(result.errorMessage))
             {
-                return RedirectToAction("SuccessPage", new { id = result.userId });
+                long id = await _companyService.Create(newCompany, result.userId);
+                if (id == result.userId)
+                    return RedirectToAction("SuccessPage", new { id = result.userId });
+                else
+                    return View(createCompany); //ToDo : باید دیتای رجستر شده حذف شود
             }
-
-            ViewData["registerErrors"] = result.errorMessage;
-            return View(createCompany);
+            else
+            {
+                ViewData["registerErrors"] = result.errorMessage;
+                return View(createCompany);
+            }
         }
     }
 }

@@ -18,6 +18,7 @@ namespace AQS_Aplication.Interfaces.IServisces.IThirdParitesServices
         Task<int> GenerateUniqueOTPAsync();
         /// <summary>
         /// تولید یا بازگرداندن OTP
+        /// // از روش دیگه ای  استفاده کردیم
         /// </summary>
         /// <param name="generateNew">آیا OTP جدید تولید شود</param>
         Task<int> GenerateOrGetOTP(bool generateNew, int otpCode);
