@@ -24,12 +24,10 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\" />
     <Folder Include="Areas\Company\Data\" />
     <Folder Include="Areas\Company\Models\" />
     <Folder Include="Areas\Company\Views\" />
     <Folder Include="Models\AcountingViewModel\Login\" />
-    <Folder Include="Models\AcountingViewModel\Register\" />
   </ItemGroup>
 
 </Project>

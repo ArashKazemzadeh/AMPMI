@@ -1,17 +1,41 @@
-namespace WebSite.EndPoint
-{
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
+﻿using WebSite.EndPoint.ServicesConfigs;
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
-    }
+var builder = WebApplication.CreateBuilder(args);
+
+var configuration = builder.Configuration;
+var SqlServer = configuration["ConnectionString:SqlServer"];
+
+DependencyInjectionConfig.AddScopeds(builder);
+ContextConfig.IdentityDatabaseContext(builder, SqlServer);
+ContextConfig.DbAmpmiContext(builder, SqlServer);
+BuilderServiceConfig.AddServices(builder);
+
+var app = builder.Build();
+
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
 }
+else
+{
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+
+app.UseRouting();
+
+app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "areas",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+app.Run();

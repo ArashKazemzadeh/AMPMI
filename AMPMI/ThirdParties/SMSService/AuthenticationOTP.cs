@@ -36,7 +36,7 @@ namespace ThirdParties.SMSService
                 HttpResponseMessage response = await httpClient.PostAsync(ApiRoute, stringContent);
                 return response.StatusCode;
             }
-            catch (WebException e)
+            catch (WebException)
             {
                 // TODO : Log
                 return HttpStatusCode.InternalServerError;
