@@ -1,6 +1,23 @@
 ﻿@{
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
+<div>
+    @if (ViewData["Error"] != null)
+    {
+        <div class="alert alert-danger text-right">
+            @ViewData["Error"]
+        </div>
+    }
+    @if (ViewData.ModelState != null && ViewData.ModelState.ContainsKey("mobile"))
+    {
+        foreach (var error in ViewData.ModelState["mobile"].Errors)
+        {
+            <div class="alert alert-danger text-right">
+                @error.ErrorMessage
+            </div>
+        }
+    }
+</div>
 <div class="wrapper default">
     <div class="body-default container">
         <div class="row">
@@ -8,7 +25,7 @@
                 <div class="account-box pb-2">
                     <div class="account-box-title text-right">ثبت نام</div>
                     <div class="account-box-content">
-                        <form asp-action="MobileInput" asp-controller="Register" class="form-account">
+                        <form asp-controller="Register" asp-action="MobileInput" method="post" class="form-account">
                             <div class="form-account-title"> شماره موبایل</div>
                             <div class="form-account-row">
                                 <label class="input-label"><i class="now-ui-icons users_single-02"></i></label>
