@@ -1,0 +1,131 @@
+﻿@model List<WebSite.EndPoint.Models.CompanyViewModel.CompanyVM>
+@{
+    ViewData["Title"] = "CompanyList";
+}
+<div class="body-default container" style="background-color:#ECECEC">
+    <div class="row">
+        <form>
+            <div class="row">
+                <div class="col-md-10">
+                    <input class="form-control" placeholder="جستجوی فروشندگان" type="text" style="background-color:white" />
+
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-primary" type="submit" style="width:100%">اعمال</button>
+
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row mt-2">
+        @*//foreach data here*@
+        <div class="col-md-6 my-2">
+            <a href="@Url.Action("CompanyDetail","Company", new {companyId=2})">
+                <div class="row mt-2"
+                     style="background-color:white;
+                        border-radius:10px;
+                        margin:10px;
+                        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                    <div class="col-md-3 my-2" style="text-align:center">
+                        <div style="border-radius:50%;
+                                background-color:#003C61;
+                                width:100px;
+                                height:100px;
+                                margin-right:5px;
+                                margin:5px auto">
+                        </div>
+                        <p>شرکت دانش بنیان حدید روان</p>
+                    </div>
+                    <div class="col-md-9 my-2">
+                        <div style="background-color:#ECECEC; padding:10px;">
+                            <i class="fa fa-user fa-lg"></i>
+                            <span></span><br />
+                            <i class="fa fa-phone fa-lg"></i>
+                            <span></span><br />
+                            <i class="fa fa-map"></i>
+                            <span></span><br />
+                            <i class="fa fa-envelope"></i>
+                            <span></span><br />
+                            <i class="fa fa-globe fa-lg"></i>
+                            <span></span><br />
+                            <i class="fa fa-star fa-lg"></i>
+                            <span></span><br />
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-6 my-2">
+            <a href="@Url.Action("CompanyDetail","Company", new {companyId=2})">
+                <div class="row mt-2"
+                     style="background-color:white;
+                        border-radius:10px;
+                        margin:10px;
+                        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                    <div class="col-md-3 my-2" style="text-align:center">
+                        <div style="border-radius:50%;
+                                background-color:#003C61;
+                                width:100px;
+                                height:100px;
+                                margin-right:5px;
+                                margin:5px auto">
+                        </div>
+                        <p>شرکت دانش بنیان حدید روان</p>
+                    </div>
+                    <div class="col-md-9 my-2">
+                        <div style="background-color:#ECECEC; padding:10px;">
+                            <i class="fa fa-user fa-lg"></i>
+                            <span></span><br />
+                            <i class="fa fa-phone fa-lg"></i>
+                            <span></span><br />
+                            <i class="fa fa-map"></i>
+                            <span></span><br />
+                            <i class="fa fa-envelope"></i>
+                            <span></span><br />
+                            <i class="fa fa-globe fa-lg"></i>
+                            <span></span><br />
+                            <i class="fa fa-star fa-lg"></i>
+                            <span></span><br />
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-6 my-2">
+            <a href="@Url.Action("CompanyDetail","Company", new {companyId=2})">
+                <div class="row mt-2"
+                     style="background-color:white;
+                        border-radius:10px;
+                        margin:10px;
+                        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                    <div class="col-md-3 my-2" style="text-align:center">
+                        <div style="border-radius:50%;
+                                background-color:#003C61;
+                                width:100px;
+                                height:100px;
+                                margin-right:5px;
+                                margin:5px auto">
+                        </div>
+                        <p>شرکت دانش بنیان حدید روان</p>
+                    </div>
+                    <div class="col-md-9 my-2">
+                        <div style="background-color:#ECECEC; padding:10px;">
+                            <i class="fa fa-user fa-lg"></i>
+                            <span></span><br />
+                            <i class="fa fa-phone fa-lg"></i>
+                            <span></span><br />
+                            <i class="fa fa-map"></i>
+                            <span></span><br />
+                            <i class="fa fa-envelope"></i>
+                            <span></span><br />
+                            <i class="fa fa-globe fa-lg"></i>
+                            <span></span><br />
+                            <i class="fa fa-star fa-lg"></i>
+                            <span></span><br />
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
