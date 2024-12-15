@@ -23,11 +23,15 @@
                 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
 
-                         @foreach(var item in Model.CompanyPictures){
-                            <div class="carousel-item active">
-                                <img src="@item" class="d-block w-100" alt="...">
-                            </div>
+                        @if(Model.CompanyPictures != null){
+                            foreach (var item in Model.CompanyPictures)
+                            {
+                                <div class="carousel-item active">
+                                    <img src="@item" class="d-block w-100" alt="...">
+                                </div>
+                            }
                         }
+
                         <div class="carousel-item active">
                             <img src="..." class="d-block w-100" alt="...">
                         </div>

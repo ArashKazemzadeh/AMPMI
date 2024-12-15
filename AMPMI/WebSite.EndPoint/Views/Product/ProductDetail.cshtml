@@ -1,0 +1,34 @@
+﻿@model WebSite.EndPoint.Models.ProductViewModel.ProductDetailVM
+
+<div class="body-default container">
+    <div class="row">
+        <!--نمایش روتینگ بالای محصول-->
+        <div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div id="ProductCompany" style="display:flex;align-items:center;">
+                <a href="@Url.Action("CompanyDetail","Company",new {Model.CompanyId})">
+                    <!--CompanyLogo-->
+                    <img src="~/blog/blog-1.jpg" class="img-fluid" />
+                </a>
+                <div>
+                    <a href="@Url.Action("CompanyDetail","Company",new {Model.CompanyId})">
+                        <h4>@Model.CompanyName</h4>
+                    </a>
+                </div>
+            </div>
+            <div id="ProductDetail">
+                <h3>@Model.Name</h3>
+                <p>
+                    @Model.Description
+                </p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <!--ProductPicture-->
+            <img src="~/blog/blog-1.jpg" class="img-fluid" />
+        </div>
+    </div>
+</div>
