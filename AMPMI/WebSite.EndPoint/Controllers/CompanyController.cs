@@ -1,10 +1,7 @@
 ﻿using AQS_Aplication.Interfaces.IServisces;
 using Domin.Entities;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.DependencyResolver;
-using System.Runtime.InteropServices;
 using WebSite.EndPoint.Models.CompanyViewModel;
-using WebSite.EndPoint.Models.ProductViewModel;
 
 namespace WebSite.EndPoint.Controllers
 {
@@ -50,12 +47,11 @@ namespace WebSite.EndPoint.Controllers
 
                 //return View(companyDetailVM);
             }
-            CompanyVM obj = new CompanyVM() 
+            CompanyDetailVM obj = new CompanyDetailVM() 
             {
                 Address = "تهرانسر",
                 MobileNumber= "42342324",
                 Name="پرتو سازان",
-                
                 
             };
             return View(obj);
