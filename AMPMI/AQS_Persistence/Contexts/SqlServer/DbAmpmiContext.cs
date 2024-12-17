@@ -1,13 +1,15 @@
 ﻿using AQS_Aplication.Interfaces.IInfrastructure.IContext;
 using AQS_Domin.Entities;
+using AQS_Domin.Entities.Acounting;
 using AQS_Persistence.Configs;
 using Domin.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 namespace AQS_Persistence.Contexts.SqlServer;
-public partial class DbAmpmiContext : DbContext , IDbAmpmiContext
+public class DbAmpmiContext(DbContextOptions<DbAmpmiContext> options) : IdentityDbContext<User, Role, long>(options), IDbAmpmiContext
 {
-    public DbAmpmiContext(DbContextOptions<DbAmpmiContext> options)
-        : base(options){}
+    public DatabaseFacade Database => base.Database;
 
     #region DbSets
     public virtual DbSet<Blog> Blogs { get; set; }
@@ -31,16 +33,13 @@ public partial class DbAmpmiContext : DbContext , IDbAmpmiContext
     public virtual DbSet<SubCategory> SubCategories { get; set; }
 
     public virtual DbSet<Banner> Banners { get; set; }
-    
+
     #endregion
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder); 
         EntitiesConfig.FluentAPI_Config_Entities(modelBuilder);
 
-        OnModelCreatingPartial(modelBuilder);
     }
-    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
-
-
 }

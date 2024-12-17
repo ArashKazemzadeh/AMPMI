@@ -1,10 +1,7 @@
 ﻿using AQS_Aplication.Interfaces.IServisces;
 using Domin.Entities;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.DependencyResolver;
-using System.Runtime.InteropServices;
 using WebSite.EndPoint.Models.CompanyViewModel;
-using WebSite.EndPoint.Models.ProductViewModel;
 
 namespace WebSite.EndPoint.Controllers
 {

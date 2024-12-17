@@ -13,20 +13,20 @@ namespace WebSite.EndPoint.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public Task <IActionResult> Index()
         {
-            return View();
+            return Task.FromResult<IActionResult>(View());
         }
 
-        public IActionResult Privacy()
+        public Task<IActionResult> Privacy()
         {
-            return View();
+            return Task.FromResult<IActionResult>(View());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public Task<IActionResult> Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return Task.FromResult<IActionResult>(View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier }));
         }
     }
 }

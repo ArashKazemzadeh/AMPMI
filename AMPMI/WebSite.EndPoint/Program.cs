@@ -6,8 +6,7 @@ var configuration = builder.Configuration;
 var SqlServer = configuration["ConnectionString:SqlServer"];
 
 DependencyInjectionConfig.AddScopeds(builder);
-ContextConfig.IdentityDatabaseContext(builder, SqlServer);
-ContextConfig.DbAmpmiContext(builder, SqlServer);
+ContextConfig.DatabaseContext(builder, SqlServer);
 BuilderServiceConfig.AddServices(builder);
 
 var app = builder.Build();

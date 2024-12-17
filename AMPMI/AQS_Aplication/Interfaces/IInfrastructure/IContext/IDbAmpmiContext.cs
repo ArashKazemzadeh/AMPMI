@@ -1,12 +1,16 @@
 ﻿using AQS_Domin.Entities;
+using AQS_Domin.Entities.Acounting;
 using Domin.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 
 namespace AQS_Aplication.Interfaces.IInfrastructure.IContext
 {
     public interface IDbAmpmiContext
     {
+        public DatabaseFacade Database { get; }
+
         #region  DbSet<Entity>
         DbSet<Blog> Blogs { get; set; }
 

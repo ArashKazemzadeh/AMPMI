@@ -1,4 +1,5 @@
-﻿using AQS_Domin.Entities.Acounting;
+﻿using AQS_Common.Services;
+using AQS_Domin.Entities.Acounting;
 using AQS_Persistence.Configs;
 using AQS_Persistence.Contexts.SqlServer;
 using Microsoft.AspNetCore.Identity;
@@ -8,18 +9,25 @@ namespace WebSite.EndPoint.ServicesConfigs
 {
     public static class ContextConfig
     {
-       public static void IdentityDatabaseContext(WebApplicationBuilder builder, string? connection)
+       public static void DatabaseContext(WebApplicationBuilder builder, string? connection)
         {
-            builder.Services.AddDbContext<IdentityDatabaseContext>(options => options.UseSqlServer(connection));
+            builder.Services.AddDbContext<DbAmpmiContext>(options => options.UseSqlServer(connection));
 
-            builder.Services.AddIdentityCore<User>()
+            builder.Services.AddIdentity<User, Role>()
                 .AddRoles<Role>()
-                .AddEntityFrameworkStores<IdentityDatabaseContext>()
+                .AddEntityFrameworkStores<DbAmpmiContext>()
                 .AddDefaultTokenProviders()
                 .AddErrorDescriber<CustomIdentityError>();
 
+
             builder.Services.Configure<IdentityOptions>(options =>
             {
+                options.User.RequireUniqueEmail = true;
+                options.User.AllowedUserNameCharacters = 
+                " " +
+                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+                "0123456789" +
+                "چجحخهعغفقثصضشسیبلاتنمکگظطزرذدئوژپ";
                 options.Password.RequiredLength = 2;
                 options.Password.RequiredUniqueChars = 1;
                 options.Lockout.MaxFailedAccessAttempts = 5;
@@ -38,11 +46,6 @@ namespace WebSite.EndPoint.ServicesConfigs
                 option.AccessDeniedPath = "/Account/AccessDenied";
                 option.SlidingExpiration = true;
             });
-        }
-        public static void DbAmpmiContext(WebApplicationBuilder builder , string? connection)
-        {
-            builder.Services.AddDbContext<DbAmpmiContext>(options => options.UseSqlServer(connection));
-
         }
     }
 }

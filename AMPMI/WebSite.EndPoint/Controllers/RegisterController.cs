@@ -17,6 +17,7 @@ namespace WebSite.EndPoint.Controllers
         private readonly IRegistrationService _registrationService;
         private readonly ICompanyService _companyService;
         private const int OtpExpirationSeconds = 120;
+        private const string CompanyRole = "Company";
 
         public RegisterController
             (
@@ -112,7 +113,7 @@ namespace WebSite.EndPoint.Controllers
             {
                 if (otpInMemory == model.UserOtp)
                 {
-                    return RedirectToAction(nameof(Register));
+                    return RedirectToAction(nameof(Register),new { model.Mobile } );
                 }
                 else
                 {
@@ -126,11 +127,11 @@ namespace WebSite.EndPoint.Controllers
         /// <summary>
         /// صفحه ثبت نام
         /// </summary>
-        public IActionResult Register()
+        public IActionResult Register(string mobile)
         {
-            return View();
+            var newModel = CreateCompanyMV.New(mobile);
+            return View(newModel);
         }
-
         [HttpPost]
         public async Task<IActionResult> Register(CreateCompanyMV createCompany)
         {
@@ -142,19 +143,28 @@ namespace WebSite.EndPoint.Controllers
             if (newCompany == null)
                 return View(createCompany);
 
-            var result = await _registrationService.RegisterAsync(newCompany, "Company");
+            var result = await _registrationService.RegisterAsync(newCompany, CompanyRole);
 
             if (result.userId > 0 && string.IsNullOrEmpty(result.errorMessage))
             {
-                long id = await _companyService.Create(newCompany, result.userId);
-                if (id == result.userId)
-                    return RedirectToAction("SuccessPage", new { id = result.userId });
-                else
-                    return View(createCompany); //ToDo : باید دیتای رجستر شده حذف شود
+                return RedirectToAction("SuccessPage", new { id = result.userId });
             }
             else
             {
-                ViewData["registerErrors"] = result.errorMessage;
+                // تقسیم خطاها و افزودن به ModelState
+                var errors = result.errorMessage.Split(',');
+                foreach (var error in errors)
+                {
+                    if (error.Contains("ایمیل"))
+                        ModelState.AddModelError("Email", error.Trim());
+                    else if (error.Contains("شماره موبایل"))
+                        ModelState.AddModelError("Mobile", error.Trim());
+                    else if (error.Contains("رمز عبور"))
+                        ModelState.AddModelError("Password", error.Trim());
+                    else
+                        ModelState.AddModelError(string.Empty, error.Trim());
+                }
+
                 return View(createCompany);
             }
         }

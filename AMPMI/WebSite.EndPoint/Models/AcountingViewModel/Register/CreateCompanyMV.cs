@@ -53,7 +53,7 @@ namespace WebSite.EndPoint.Models.AcountingViewModel.Register
         [Compare("Password", ErrorMessage = "رمز عبور و تکرار آن باید یکسان باشد.")]
         public required string PasswordConfirm { get; set; }
 
-        public RegisterIdentityDTO ToRegisterIdentityDTO()
+        internal RegisterIdentityDTO ToRegisterIdentityDTO()
         {
             return new RegisterIdentityDTO
             {
@@ -63,6 +63,19 @@ namespace WebSite.EndPoint.Models.AcountingViewModel.Register
                 Email = this.Email,
                 Password = this.Password,
                 Address = this.Address
+            };
+        }
+        internal static CreateCompanyMV New(string mobile)
+        {
+            return new CreateCompanyMV()
+            {
+                Mobile = mobile,
+                Address = "",
+                CompanyName = "",
+                Email = "",
+                ManagerName = "",
+                Password = "",
+                PasswordConfirm = ""
             };
         }
     }
