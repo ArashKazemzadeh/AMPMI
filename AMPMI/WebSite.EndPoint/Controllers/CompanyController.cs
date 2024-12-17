@@ -1,7 +1,9 @@
 ﻿using AQS_Aplication.Interfaces.IServisces;
 using Domin.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
 using WebSite.EndPoint.Models.CompanyViewModel;
+using WebSite.EndPoint.Models.ProductViewModel;
 
 namespace WebSite.EndPoint.Controllers
 {
@@ -12,7 +14,7 @@ namespace WebSite.EndPoint.Controllers
         {
             _companyService = companyService;
         }
-        public async Task<IActionResult> CompanyList()
+        public async Task<IActionResult> CompanyList() //Todo : view : Atie
         {
             List<Company> result = await _companyService.Read();
             List<CompanyVM> resultVM = result.Select(x => new CompanyVM 
@@ -26,36 +28,40 @@ namespace WebSite.EndPoint.Controllers
 
             return View(resultVM);
         }
-        public async Task<IActionResult> CompanyDetail(int companyId)
+        public async Task<IActionResult> CompanyDetail(int companyId) //OK
         {
             Company? result = await _companyService.ReadById(companyId);
             if (result != null)
             {
-                //CompanyDetailVM companyDetailVM = new CompanyDetailVM()
-                //{
-                //    LogoRout = result.LogoRout,
-                //    Address = result.Address,
-                //    MobileNumber = result.MobileNumber,
-                //    Name = result.Name,
-                //    TeaserGuid = result.TeaserGuid,
-                //    Products = result.Products.Select(x => new ProductVM()
-                //    {
-                //        Name = x.Name,
-                //        PictureFileName = x.PictureFileName
-                //    }).ToList()
-                //};
+                CompanyDetailVM companyDetailVM = new CompanyDetailVM()
+                {
+                    LogoRout = result.LogoRout,
+                    Address = result.Address,
+                    MobileNumber = result.MobileNumber,
+                    Name = result.Name,
+                    TeaserGuid = result.TeaserGuid,
+                    Products = result.Products.Select(x => new ProductVM()
+                    {
+                        Name = x.Name,
+                        PictureFileName = x.PictureFileName
+                    }).ToList()
+                };
 
-                //return View(companyDetailVM);
+                return View(companyDetailVM);
             }
-            CompanyDetailVM obj = new CompanyDetailVM() 
+            else
             {
-                Address = "تهرانسر",
-                MobileNumber= "42342324",
-                Name="پرتو سازان",
-                
-            };
-            return View(obj);
-            //return NotFound();
+                //CompanyDetailVM obj = new CompanyDetailVM() 
+                //{
+                //    Address = "تهرانسر",
+                //    MobileNumber= "42342324",
+                //    Name="پرتو سازان",
+
+                //};
+                //return View(obj);
+                return NotFound();
+            }
+            
         }
     }
 }

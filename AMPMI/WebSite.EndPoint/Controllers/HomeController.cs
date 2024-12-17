@@ -12,7 +12,7 @@ namespace WebSite.EndPoint.Controllers
         {
             _logger = logger;
         }
-
+              
         public Task <IActionResult> Index()
         {
             return Task.FromResult<IActionResult>(View());

@@ -4,7 +4,7 @@ namespace WebSite.EndPoint.Controllers
 {
     public class AboutUsController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index() //OK
         {
             return View();
         }
