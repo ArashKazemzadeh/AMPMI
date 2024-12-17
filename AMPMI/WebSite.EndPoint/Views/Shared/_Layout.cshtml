@@ -47,7 +47,7 @@
                         <a class="nav-link" href="@Url.Action("Index","Home")">صفحه اصلی</a>
                     </li>
                     <li class="nav-item">
-                        <a style="color: #fff" class="nav-link" href="#about">قطعه سازان</a>
+                        <a style="color: #fff" class="nav-link" href="@Url.Action("CompanyList","Company")">قطعه سازان</a>
                     </li>
                     <li class="nav-item">
                         <a style="color: #fff" class="nav-link" href="#service">اخبار انجمن</a>
@@ -55,9 +55,9 @@
                     <li class="nav-item">
                         <a style="color: #fff" class="nav-link" href="@Url.Action("Index","AboutUs")">درباره ما</a>
                     </li>
-                    <li class="nav-item">
+@*                     <li class="nav-item">
                         <a style="color: #fff" class="nav-link" href="#plans">تماس با ما</a>
-                    </li>
+                    </li> *@
                     <li class="nav-item">
                         <a style="color: #fff" class="nav-link" href="#blog">راهنمای ثبت‌نام</a>
                     </li>
@@ -100,12 +100,12 @@
                             </a>
                         </li>
 
-                        <li class="item-with-label item-label-primary">
+@*                         <li class="item-with-label item-label-primary">
                             <a href="https://ampmi.com/%d8%aa%d9%85%d8%a7%d8%b3-%d8%a8%d8%a7-%d9%85%d8%a7/">
 
                                 تماس با ما
                             </a>
-                        </li>
+                        </li> *@
 
                         <li class="item-with-label item-label-primary">
                             <a href="@Url.Action("Index","AboutUs")">
@@ -115,7 +115,7 @@
                         </li>
 
                         <li class="item-with-label item-label-primary">
-                            <a href="https://ampmi.com/store-listing/">
+                            <a href="@Url.Action("CompanyList","Company")">
 
                                 قطعه سازان
                             </a>
