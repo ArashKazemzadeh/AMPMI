@@ -19,6 +19,7 @@ namespace YourNamespace.Services
         {
             using (var transaction = await _context.Database.BeginTransactionAsync())
             {
+                User user = null;
                 try
                 {
                     string errorMessages = string.Empty;
@@ -46,7 +47,7 @@ namespace YourNamespace.Services
                     }
 
                     // ایجاد کاربر جدید
-                    var user = new User
+                    user = new User
                     {
                         UserName = registerIdentityDTO.CompanyName.Trim(),
                         Email = registerIdentityDTO.Email.Trim(),
@@ -57,7 +58,6 @@ namespace YourNamespace.Services
                     var existingRole = await _roleManager.FindByNameAsync(role);
                     if (existingRole == null)
                     {
-                        // اگر نقش وجود ندارد، ایجاد آن
                         var roleResult = await _roleManager.CreateAsync(new Role { Name = role });
                         if (!roleResult.Succeeded)
                         {
@@ -70,6 +70,7 @@ namespace YourNamespace.Services
                             };
                         }
                     }
+
                     // ایجاد کاربر
                     var resultCreate = await _userManager.CreateAsync(user, registerIdentityDTO.Password);
                     if (!resultCreate.Succeeded)
@@ -95,23 +96,17 @@ namespace YourNamespace.Services
                             errorMessage = errorMessages
                         };
                     }
-                    //ایجاد کاربر به عنوان قطعه ساز
-                    long id = await _companyService.Create(registerIdentityDTO, user.Id);
 
+                    // ایجاد شرکت در سیستم
+                    long id = await _companyService.Create(registerIdentityDTO, user.Id);
                     if (id != user.Id)
                     {
-                        await transaction.RollbackAsync();
-                        return new ResultRegisterIdentityDto
-                        {
-                            userId = 0,
-                            errorMessage = "ثبت نام انجام نشد"
-                        };
+                        throw new Exception("ثبت نام انجام نشد.");
                     }
 
-                    // در صورت موفقیت آمیز بودن، تراکنش را commit می‌کنیم
+                    // در صورت موفقیت، تراکنش را commit می‌کنیم
                     await transaction.CommitAsync();
 
-                    // بازگشت نتیجه
                     return new ResultRegisterIdentityDto
                     {
                         userId = id,
@@ -120,8 +115,15 @@ namespace YourNamespace.Services
                 }
                 catch (Exception ex)
                 {
-                    // در صورت بروز خطا، تراکنش به صورت خودکار rollback می‌شود
                     await transaction.RollbackAsync();
+
+                    if (user != null && user.Id > 0)
+                    {
+                        await _userManager.DeleteAsync(user);
+                        if (await _companyService.IsExistById(user.Id))
+                            await _userManager.DeleteAsync(user);
+                    }
+
                     return new ResultRegisterIdentityDto
                     {
                         userId = 0,
@@ -129,6 +131,7 @@ namespace YourNamespace.Services
                     };
                 }
             }
+
         }
 
     }

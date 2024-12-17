@@ -4,6 +4,7 @@ using AQS_Aplication.Interfaces.IServisces;
 using AQS_Common.Enums;
 using Domin.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace AQS_Aplication.Services
 {
@@ -139,6 +140,11 @@ namespace AQS_Aplication.Services
 
             return await _context.SaveChangesAsync() > 0 ?
                 ResultServiceMethods.savechanged : ResultServiceMethods.dontSaved;
+        }
+
+        public async Task<bool> IsExistById(long id)
+        {
+            return await _context.Companies.AnyAsync(c => c.Id == id);
         }
     }
 }

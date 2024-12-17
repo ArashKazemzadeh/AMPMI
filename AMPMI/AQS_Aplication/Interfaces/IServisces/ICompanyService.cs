@@ -13,5 +13,6 @@ namespace AQS_Aplication.Interfaces.IServisces
         Task<ResultServiceMethods> Update(Company company);
         Task<ResultServiceMethods> IsCompany(long id, bool isCompany);
         Task<bool> IsExistByMobileNumber(string mobile);
+        Task<bool> IsExistById(long id);
     }
 }
