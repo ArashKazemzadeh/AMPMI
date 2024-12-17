@@ -1,25 +1,29 @@
 ﻿@model WebSite.EndPoint.Models.ProductViewModel.ProductDetailVM
 
 <div class="body-default container">
-    <div class="row">
+    <div class="row mb-4 px-3 py-4" style="border-radius:15px;box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.2);">
         <!--نمایش روتینگ بالای محصول-->
-        <div>
-        </div>
+
+        خانه / کلیک / نام کالا و شرکت
+
     </div>
-    <div class="row">
+    <div class="row py-5 px-4" style="border-radius:15px;box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.2);">
         <div class="col-md-6">
             <div id="ProductCompany" style="display:flex;align-items:center;">
-                <a href="@Url.Action("CompanyDetail","Company",new {Model.CompanyId})">
-                    <!--CompanyLogo-->
-                    <img src="~/blog/blog-1.jpg" class="img-fluid" />
-                </a>
+                <div class="me-4">
+                    <a href="@Url.Action("CompanyDetail","Company",new {Model.CompanyId})">
+                        <!--CompanyLogo-->
+                        <img style="width:80px;height:80px;border-radius: 50%;" src="~/blog/blog-1.jpg" class="img-fluid" />
+                    </a>
+                </div>
+
                 <div>
                     <a href="@Url.Action("CompanyDetail","Company",new {Model.CompanyId})">
                         <h4>@Model.CompanyName</h4>
                     </a>
                 </div>
             </div>
-            <div id="ProductDetail">
+            <div class="mt-5" id="ProductDetail">
                 <h3>@Model.Name</h3>
                 <p>
                     @Model.Description
@@ -28,7 +32,7 @@
         </div>
         <div class="col-md-6">
             <!--ProductPicture-->
-            <img src="~/blog/blog-1.jpg" class="img-fluid" />
+            <img src="~/blog/blog-1.jpg" class="img-fluid rounded" />
         </div>
     </div>
 </div>

@@ -50,12 +50,11 @@ namespace WebSite.EndPoint.Controllers
 
                 //return View(companyDetailVM);
             }
-            CompanyVM obj = new CompanyVM() 
+            CompanyDetailVM obj = new CompanyDetailVM() 
             {
                 Address = "تهرانسر",
                 MobileNumber= "42342324",
                 Name="پرتو سازان",
-                
                 
             };
             return View(obj);

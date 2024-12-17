@@ -34,21 +34,21 @@ namespace WebSite.EndPoint.Controllers
 
                 return View(productDetailVM);
             }
-            //else
-            //{
-            //    //just for test
-            //    ProductDetailVM productDetailVM = new ProductDetailVM()
-            //    {
-            //        Name = "محصول تست",
-            //        Description = "چرتو پرت",
-            //        PictureFileName = null,
-            //        SubCategoryId = 2,
-            //        CompanyId = 1,
-            //        CompanyName = "تست است",
-            //        CompanyLogoRout = null
-            //    };
-            //    return View(productDetailVM);
-            //}
+            else
+            {
+                //just for test
+                ProductDetailVM productDetailVM = new ProductDetailVM()
+                {
+                    Name = "محصول تست",
+                    Description = "چرتو پرت",
+                    PictureFileName = null,
+                    SubCategoryId = 2,
+                    CompanyId = 1,
+                    CompanyName = "تست است",
+                    CompanyLogoRout = null
+                };
+                return View(productDetailVM);
+            }
             return NotFound();
         }
     }
