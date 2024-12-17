@@ -4,55 +4,146 @@
 }
 <div class="body-default container">
     <!-- Company Section -->
-    <section>
-        <div class="row">
-            <div class="col-md-3">
-                <img src="~/blog/blog-1.jpg" class="img-fluid" />
-                <p>@Model.Name</p>
-            </div>
-            <div class="col-md-9">
-
-            </div>
-        </div>
-        <div id="aboutCompany" class="row">
-            <p>درباره شرکت :</p><p>@Model.About</p>
-        </div>
-        <div class="row">
-            <!-- Company Photos -->
-            <div class="col-md-6">
-                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-
-                         @foreach(var item in Model.CompanyPictures){
-                            <div class="carousel-item active">
-                                <img src="@item" class="d-block w-100" alt="...">
-                            </div>
-                        }
-                        <div class="carousel-item active">
-                            <img src="..." class="d-block w-100" alt="...">
+    <section style="padding:0;">
+        <div style="justify-content: center;
+                    align-items: center;
+                    display: flex">
+            @*//foreach data here*@
+            <div class="col-md-8 my-2">
+                <div class="row mt-2"
+                     style="background-color:white;
+                        border-radius:10px;
+                        margin:10px;
+                        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                    <div class="col-md-3 my-2" style="text-align:center">
+                        <img src="~/blog/blog-1.jpg" 
+                             class="img-fluid"
+                             style="border-radius:50%;
+                                     background-color:#003C61;
+                                     width:100px;
+                                     height:100px;
+                                     margin-right:5px;
+                                     margin:5px auto">
+                        <p>@Model.Name</p>
+                    </div>
+                    <div class="col-md-9 my-2">
+                        <div style="background-color:#ECECEC; padding:10px;">
+                            <i class="fa fa-user fa-lg"></i>
+                            <span></span><br />
+                            <i class="fa fa-phone fa-lg"></i>
+                            <span></span><br />
+                            <i class="fa fa-map"></i>
+                            <span></span><br />
+                            <i class="fa fa-envelope"></i>
+                            <span></span><br />
+                            <i class="fa fa-globe fa-lg"></i>
+                            <span></span><br />
+                            <i class="fa fa-star fa-lg"></i>
+                            <span></span><br />
                         </div>
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
                 </div>
             </div>
-            <div class="col-md-6">
-                <video>
-                    <source type="video/mp4" />
-                </video>
+        </div>
+        <div class="row mt-2"
+             style="background-color:white;
+                    border-radius:10px;
+                    margin:10px;
+                    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+            <div class="col-md-2 my-2" style="text-align:center">
+                <p style="color:#003C61">درباره شرکت:</p>
+            </div>
+            <div class="col-md-10 my-2">
+                <p style=" text-align: justify;
+                           text-justify: inter-word;
+                           margin-left:60px">
+                    @Model.About
+                    هیئت مدیره انجمن تولیدکنندگان قطعات مجموعه‌های موتورسیکلت و دوچرخه با دعوت از کلیه فعالان صنعتی
+                    در این بخش جهت حضور و مشارکت فعال در ساماندهی انجمن و تشکیل کارگروه‌های لازم و عقد قراردادهای تأمین قطعات
+                    با سازندگان موتورسیکلت و دورچرخه، تقاضای استفده موثر و حداکثری از شرایط بسیار مساعد پیش رو را 
+                    درخواست می‌نماید.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 my-2">
+                <div style="background-color:white;
+                        border-radius:10px;
+                        margin:10px;
+                        height:300px;
+                        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            @if (Model.CompanyPictures != null)
+                            {
+                                foreach (var item in Model.CompanyPictures)
+                                {
+                                    <div class="carousel-item active">
+                                        <img src="@item" class="d-block w-100" alt="...">
+                                    </div>
+                                }
+                            }
+                            <div class="carousel-item active">
+                                <img src="..." class="d-block w-100" alt="...">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 my-2">
+                <div style="background-color:white;
+                        border-radius:10px;
+                        margin:10px;
+                        height:300px;
+                        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                    <video>
+                        <source type="video/mp4" />
+                    </video>
+                </div>
             </div>
         </div>
     </section>
     <!-- Product Section -->
-    <section>
+    <section style="padding:0">
+        <div style="background-color:white;
+                    border-radius:10px;
+                    margin:10px;
+                    text-align:center;
+                    height:30px;
+                    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+            <p>محصولات</p>
+        </div>
         <div class="row">
             <div class="col-md-6">
+                <div class="row mt-2">
+                    <div class="col-md-8 my-2">
+                        <input placeholder="نام محصول را وارد کنید:"
+                               style="background-color:white;
+                                    border-radius:10px;
+                                    border:0;
+                                    margin:10px;
+                                    width:100%;
+                                    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" />
+                    </div>
+                    <div class="col-md-4 my-2">
+                        <button style="background-color:#00A2FF;
+                                    border-radius:10px;
+                                    border:0;
+                                    margin:10px;
+                                    width:100%;
+                                    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                            جستجو
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row">
