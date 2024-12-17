@@ -17,7 +17,6 @@ namespace YourNamespace.Services
 
         public async Task<ResultRegisterIdentityDto> RegisterAsync(RegisterIdentityDTO registerIdentityDTO, string role)
         {
-            // بررسی وجود کاربر با همان ایمیل یا شماره موبایل
             var existingUserByEmail = await _userManager.FindByEmailAsync(registerIdentityDTO.Email);
             if (existingUserByEmail != null)
             {
@@ -38,7 +37,6 @@ namespace YourNamespace.Services
                 };
             }
 
-            // ساخت کاربر جدید
             var user = new User
             {
                 NormalizedUserName = registerIdentityDTO.ManagerName.Trim().ToUpper(),
@@ -49,7 +47,6 @@ namespace YourNamespace.Services
 
             string errorMessages = string.Empty;
 
-            // ثبت کاربر در دیتابیس
             var resultCreate = await _userManager.CreateAsync(user, registerIdentityDTO.Password);
             if (!resultCreate.Succeeded)
             {
@@ -62,7 +59,6 @@ namespace YourNamespace.Services
                 };
             }
 
-            // اضافه کردن کاربر به نقش
             var resultAddToRole = await _userManager.AddToRoleAsync(user, role);
             if (!resultAddToRole.Succeeded)
             {
@@ -75,7 +71,6 @@ namespace YourNamespace.Services
                 };
             }
 
-            // در صورت موفقیت، شناسه کاربر را برمی‌گردانیم
             return new ResultRegisterIdentityDto
             {
                 userId = user.Id,

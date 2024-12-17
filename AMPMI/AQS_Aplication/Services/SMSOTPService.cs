@@ -29,10 +29,6 @@ namespace AQS_Aplication.Services
                 }
             });
         }
-        /// <summary>
-        /// تولید یا بازگرداندن OTP
-        /// </summary>
-        /// <param name="generateNew">آیا OTP جدید تولید شود</param>
         public async Task<int> GenerateOrGetOTP(bool generateNew ,int otpCode)
         { if (!generateNew && otpCode > 0)
                 return otpCode;

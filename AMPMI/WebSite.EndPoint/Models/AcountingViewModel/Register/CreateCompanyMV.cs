@@ -1,5 +1,4 @@
 ﻿using AQS_Aplication.Dtos;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebSite.EndPoint.Models.AcountingViewModel.Register
@@ -56,14 +55,15 @@ namespace WebSite.EndPoint.Models.AcountingViewModel.Register
 
         public RegisterIdentityDTO ToRegisterIdentityDTO()
         {
-            return new RegisterIdentityDTO(
-                Mobile,
-                CompanyName,
-                ManagerName,
-                Email,
-                Password,
-                Address
-            );
+            return new RegisterIdentityDTO
+            {
+                Mobile = this.Mobile,
+                CompanyName = this.CompanyName,
+                ManagerName = this.ManagerName,
+                Email = this.Email,
+                Password = this.Password,
+                Address = this.Address
+            };
         }
     }
 
