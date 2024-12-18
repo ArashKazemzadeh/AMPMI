@@ -49,7 +49,10 @@ namespace AQS_Aplication.Services
         {
             return await _context.Products.Include(x=>x.Company).AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
         }
-
+        public async Task<List<Product>> ReadByCategoryId(int categoryId)
+        {
+            return await _context.Products.Include(x => x.SubCategory).Where(l => l.SubCategory.CategoryId == categoryId).ToListAsync();
+        }
         public async Task<ResultServiceMethods> Update(Product product)
         {
             var existingProduct = await _context.Products.FindAsync(product.Id);

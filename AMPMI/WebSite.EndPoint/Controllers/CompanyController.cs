@@ -51,15 +51,15 @@ namespace WebSite.EndPoint.Controllers
             }
             else
             {
-                //CompanyDetailVM obj = new CompanyDetailVM() 
-                //{
-                //    Address = "تهرانسر",
-                //    MobileNumber= "42342324",
-                //    Name="پرتو سازان",
+                CompanyDetailVM obj = new CompanyDetailVM()
+                {
+                    Address = "تهرانسر",
+                    MobileNumber = "42342324",
+                    Name = "پرتو سازان",
 
-                //};
-                //return View(obj);
-                return NotFound();
+                };
+                return View(obj);
+                //return NotFound();
             }
             
         }
