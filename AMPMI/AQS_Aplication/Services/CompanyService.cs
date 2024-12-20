@@ -61,6 +61,11 @@ namespace AQS_Aplication.Services
         {
             return await _context.Companies.FirstOrDefaultAsync(c => c.Id == id);
         }
+
+        public async Task<Company?> ReadByMobileNumber(string mobile)
+        {
+            return await _context.Companies.FirstOrDefaultAsync(c => c.MobileNumber == mobile);
+        }
         public async Task<bool> IsExistByMobileNumber(string mobile)
         {
             return await _context.Companies.AnyAsync(c => c.MobileNumber == mobile);

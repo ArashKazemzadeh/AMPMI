@@ -1,4 +1,5 @@
-﻿@{
+﻿@model WebSite.EndPoint.Models.AcountingViewModel.Login.LoginVM
+@{
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
@@ -9,12 +10,12 @@
                 <div class="account-box">
                     <div class="account-box-title text-right">ورود </div>
                     <div class="account-box-content">
-                        <form asp-action="Index" class="form-account">
+                        <form asp-controller="LoginController" asp-action="LoginWithPassword" class="form-account">
                             <div class="form-account-title"> شماره موبایل</div>
                             <div class="form-account-row">
                                 <label class="input-label"><i class="now-ui-icons users_single-02"></i></label>
-                                <input required class="input-field" name="mobile" type="text"
-                                       placeholder="شماره موبایل خود را وارد نمایید">
+                                <input asp-for=Mobile class="input-field" value="@Model.Mobile" type="text" placeholder="شماره موبایل خود را وارد نمایید">
+                                <span class="text-danger" asp-validation-for=Mobile>></span>
                             </div>
                             <div class="form-account-title">
                                 رمز عبور
@@ -23,8 +24,8 @@
                                 <label class="input-label">
                                     <i class="now-ui-icons ui-1_lock-circle-open"></i>
                                 </label>
-                                <input class="input-field" type="password"
-                                       placeholder="رمز عبور خود را وارد نمایید">
+                                <input asp-for=Password class="input-field" value="@Model.Password" type="text" placeholder="رمز عبور خود را وارد نمایید">
+                                <span class="text-danger" asp-validation-for=Password></span>
                             </div>
                             <div class="form-account-row form-account-submit">
                                 <div class="parent-btn">
@@ -34,18 +35,17 @@
                                     </button>
                                 </div>
                             </div>
-                            <div class="form-account-row form-account-submit">
-                                <div class="parent-btn">
-                                    <a class="dk-btn dk-btn-info" href="@Url.Action("MobileInput","Register")">
-                                        ورود با کد یکبار مصرف
-                                        <i class="fa fa-sign-in"></i>
-                                    </a>
-                                </div>
-                            </div>
                         </form>
                     </div>
+                    <div class="form-account-row form-account-submit">
+                        <div class="parent-btn">
+                            <a class="dk-btn dk-btn-info" href="@Url.Action("MobileInput","Login")">
+                                ورود با کد یکبار مصرف
+                                <i class="fa fa-sign-in"></i>
+                            </a>
+                        </div>
+                    </div>
                     <div class="account-box-footer">
-
                         <span>کاربر جدید هستید؟</span>
                         <a href="@Url.Action("MobileInput","Register")" class="btn-link-border">ثبت نام</a>
                     </div>
