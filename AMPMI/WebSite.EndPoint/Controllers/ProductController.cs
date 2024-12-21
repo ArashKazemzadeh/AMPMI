@@ -16,9 +16,9 @@ namespace WebSite.EndPoint.Controllers
         {
             return View();
         }
-        public async Task<IActionResult> ProductDetail(int productId)
+        public async Task<IActionResult> ProductDetail(int productId) //Ok
         {
-            Product product = await _productService.ReadById(productId);
+            Product? product = await _productService.ReadById(productId);
             if(product != null)
             {
                 ProductDetailVM productDetailVM = new ProductDetailVM() 
@@ -36,20 +36,20 @@ namespace WebSite.EndPoint.Controllers
             }
             else
             {
-                //just for test
-                ProductDetailVM productDetailVM = new ProductDetailVM()
-                {
-                    Name = "محصول تست",
-                    Description = "چرتو پرت",
-                    PictureFileName = null,
-                    SubCategoryId = 2,
-                    CompanyId = 1,
-                    CompanyName = "تست است",
-                    CompanyLogoRout = null
-                };
-                return View(productDetailVM);
+                ////just for test
+                //ProductDetailVM productDetailVM = new ProductDetailVM()
+                //{
+                //    Name = "محصول تست",
+                //    Description = "چرتو پرت",
+                //    PictureFileName = null,
+                //    SubCategoryId = 2,
+                //    CompanyId = 1,
+                //    CompanyName = "تست است",
+                //    CompanyLogoRout = null
+                //};
+                //return View(productDetailVM);
+                return NotFound();
             }
-            return NotFound();
         }
     }
 }

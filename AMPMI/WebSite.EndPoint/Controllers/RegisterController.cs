@@ -47,7 +47,7 @@ namespace WebSite.EndPoint.Controllers
         /// دریافت شماره موبایل و هدایت به صفحه تایید OTP
         /// </summary>
         [HttpPost]
-        public async Task<IActionResult> MobileInput(string mobile)
+        public async Task<IActionResult> MobileInput(string mobile) //Ok
         {
             if (string.IsNullOrWhiteSpace(mobile))
             {
@@ -87,8 +87,12 @@ namespace WebSite.EndPoint.Controllers
         /// </summary>
         /// <param name="mobile">شماره موبایل</param>
         [HttpGet]
-        public IActionResult ConfirmOTP(string mobile)
+        public IActionResult ConfirmOTP(string mobile) //ok
         {
+            if (string.IsNullOrEmpty(mobile))
+            {
+                return NotFound();
+            }
             var model = new ConfirmOtpViewModel
             {
                 Mobile = mobile,
@@ -101,7 +105,7 @@ namespace WebSite.EndPoint.Controllers
         /// </summary>
         /// <param name="model">مدل حاوی اطلاعات ورودی کاربر</param>
         [HttpPost]
-        public IActionResult ConfirmOTP(ConfirmOtpViewModel model)
+        public IActionResult ConfirmOTP(ConfirmOtpViewModel model) //ok
         {
             if (model.UserOtp.DigitCount() != 6)
             {
@@ -127,13 +131,17 @@ namespace WebSite.EndPoint.Controllers
         /// <summary>
         /// صفحه ثبت نام
         /// </summary>
-        public IActionResult Register(string mobile)
+        public IActionResult Register(string mobile) //ok
         {
+            if (string.IsNullOrEmpty(mobile))
+            {
+                return NotFound();
+            }
             var newModel = CreateCompanyMV.New(mobile);
             return View(newModel);
         }
         [HttpPost]
-        public async Task<IActionResult> Register(CreateCompanyMV createCompany)
+        public async Task<IActionResult> Register(CreateCompanyMV createCompany) //ok
         {
             if (!ModelState.IsValid)
                 return View(createCompany);
@@ -152,7 +160,7 @@ namespace WebSite.EndPoint.Controllers
             else
             {
                 // تقسیم خطاها و افزودن به ModelState
-                var errors = result.errorMessage.Split(',');
+                string[] errors = result.errorMessage.Split(',');
                 foreach (var error in errors)
                 {
                     if (error.Contains("ایمیل"))
