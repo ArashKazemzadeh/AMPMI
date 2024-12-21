@@ -1,0 +1,125 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+}
+
+<style>
+    .menuIcon{
+        width:30px;
+        height:30px;
+        margin-left:5px;
+    }
+
+    .btnUpload{
+        width:100%;
+    }
+
+    .uploadDiv{
+        margin-top:100px;
+    }
+
+    .uploadDiv1{
+        margin-top: 10px;
+    }
+</style>
+
+<script type="text/javascript">
+
+    function getfile () {
+        return document.getElementById('getFile').click();
+    }
+
+    function showFileName(e){
+
+    }
+
+    function removeVideo(){
+        
+    }
+
+    function doEdit(){
+        
+    }
+
+    function doSave(){
+        
+    }
+
+
+</script>
+
+<!--Banner Menu-->
+<div>
+    <a href="#" onclick="doEdit()">
+        <img class="menuIcon"
+             src="~/images/editing.png" />
+    </a>
+    <a href="#" onclick="doSave()">
+        <img class="menuIcon"
+             src="~/images/diskette copy.png" />
+    </a>
+</div>
+
+<div class="row uploadDiv">
+    <div class="col-md-3 my-2">
+        <form>
+            <button class="btn btn-submit btnUpload" onclick="getfile()">بارگذاری ویدیو اول</button>
+            <input type='file'
+                   id="getFile"
+                   style="display:none"
+                   accept="audio/*,video/*,image/*"
+                   placeholder="بارگذاری ویدیو اول"
+                   onchange="showFileName(this)">
+        </form>
+    </div>
+    <div class="col-md-2 my-2">
+        <span id="VideoName1"></span>
+    </div>
+    <div class="col-md-2 my-2">
+        <a href="#" onclick="removeVideo()">
+            <img class="menuIcon"
+                 src="~/images/recycle.png"/>
+        </a>
+    </div>
+</div>
+<div class="row uploadDiv1">
+    <div class="col-md-3 my-2">
+        <form>
+            <button class="btn btn-submit btnUpload" onclick="getfile()">بارگذاری ویدیو دوم</button>
+            <input type='file'
+                   id="getFile"
+                   style="display:none"
+                   accept="audio/*,video/*,image/*"
+                   onchange="showFileName(this)">
+        </form>
+    </div>
+    <div class="col-md-2 my-2">
+        <span id="VideoName1"></span>
+    </div>
+    <div class="col-md-2 my-2">
+        <a href="#" onclick="removeVideo()">
+            <img class="menuIcon"
+                 src="~/images/recycle.png" />
+        </a>
+    </div>
+</div>
+<div class="row uploadDiv1">
+    <div class="col-md-3 my-2">
+        <form>
+            <button class="btn btn-submit btnUpload" onclick="getfile()">بارگذاری ویدیو سوم</button>
+            <input type='file'
+                   id="getFile"
+                   style="display:none"
+                   accept="audio/*,video/*,image/*"
+                   onchange="showFileName(this)">
+        </form>
+    </div>
+    <div class="col-md-2 my-2">
+        <span id="VideoName1"></span>
+    </div>
+    <div class="col-md-2 my-2">
+        <a href="#" onclick="removeVideo()">
+            <img class="menuIcon"
+                 src="~/images/recycle.png" />
+        </a>
+    </div>
+</div>
