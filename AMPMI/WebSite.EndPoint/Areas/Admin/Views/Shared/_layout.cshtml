@@ -1,10 +1,12 @@
 ﻿<!DOCTYPE html>
-<html>
+<html dir="rtl" lang="fa-IR">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>داشبورد</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <link href="~/css/datatables.min.css" rel="stylesheet" />
 
     <link href="~/css/bootstrap-theme.css" rel="stylesheet" />
 
@@ -24,8 +26,11 @@
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <!-- customize adminlte -->
     <link href="~/css/customize-adminlte.css" rel="stylesheet" />
-@*     <link href="~/css/site.css" rel="stylesheet" />
- *@</head>
+    <link href="~/css/CustomDashboard.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    @await RenderSectionAsync("CSS", required: false)
+ </head>
+
 <!--
 BODY TAG OPTIONS:
 =================
@@ -179,6 +184,12 @@ desired effect
                         </a>
                     </li>
                     <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
+                            <a href="@Url.Action("CategoryList","Category")">
+                            <img src="~/images/product copy.png" style="width:20px ; height:20px" />
+                            <span style="padding-right:10px; color:#000000">گروه اصلی</span>
+                        </a>
+                    </li>
+                    <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
                         <a href="#">
                             <img src="~/images/product copy.png" style="width:20px ; height:20px" />
                             <span style="padding-right:10px; color:#000000">محصولات</span>
@@ -300,8 +311,12 @@ desired effect
     <!-- ./wrapper -->
     <!-- REQUIRED JS SCRIPTS -->
     <script src="~/js/admin/jquery.min.js"></script>
+        <script src="~/js/datatables.min.js"></script>
     <script src="~/js/admin/bootstrap.min.js"></script>
     <script src="~/js/adminlte.min.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
     <!-- Optionally, you can add Slimscroll and FastClick plugins.
        Both of these plugins are recommended to enhance the
        user experience. -->
