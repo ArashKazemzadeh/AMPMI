@@ -1,0 +1,97 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+}
+@section CSS
+{
+    <style>
+        table img{
+            width:30px;
+            height:30px;
+        }
+    </style>
+}
+<div class="contaienr">
+    <div>
+        <button class="btn" id="new">جدید</button>
+    </div>
+    <div hidden id="newForm">
+        <form>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">نام گروه</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">نام گروه</label>
+                <div class="col-sm-10">
+                    <input class="form-control-file" type="file" name="img" accept="image/*">
+                </div>
+            </div>
+            <button class="btn btn-submit" id="save" type="submit">ذخیره</button>
+            <button class="btn" id="cancle" type="button">انصراف</button>
+        </form>
+    </div>
+    <div>
+        <table id="myTable" class="display">
+            <thead>
+                <tr>
+                    <th>نام</th>
+                    <th>تصویر</th>
+                    <th>ویرایش</th>
+                    <th>حذف</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Row 1 Data 1</td>
+                    <td>Row 1 Data 2</td>
+                    
+                    <td><a><img src="~/images\recycle.png" /></a></td>
+                    <td><a><img src="~/images\recycle.png" /></a></td>
+                </tr>
+                <tr>
+                    <td>Row 2 Data 1</td>
+                    <td>Row 1 Data 2</td>
+                    <td><a><img src="~/images\recycle.png" /></a></td>
+                    <td><a><img src="~/images\recycle.png" /></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+@section Scripts
+{
+    <script>
+          document.querySelector('#myTable')
+            .setAttribute('dir', 'rtl'); // Demo only
+
+        new DataTable('#myTable');
+
+        $("#new").click(function(){
+            $("#newForm").show();
+            $("#new").hide();
+        });
+
+        function HideForm()
+        {
+            $("#new").show();
+            $("#newForm").hide();
+        }
+
+        $("#save").click(function(){
+            HideForm();
+        });
+
+        $("#cancle").click(function(){
+            HideForm();
+        });
+
+
+
+    </script>
+
+
+}
