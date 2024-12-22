@@ -6,7 +6,7 @@
     padding: 10px;
     padding-inline: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    font-size: 18px;
+    font-size: 15px;
 }
 
 .btn-submit-disable {
@@ -17,5 +17,37 @@
     padding: 10px;
     padding-inline: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    font-size: 18px;
+    font-size: 15px;
+}
+
+.img-Icon {
+    width: 30px;
+    height: 30px;
+    margin:10px;
+}
+.img-Icon:hover {
+    transition: .2s;
+    width: 35px;
+    height: 35px;
+}
+
+.input-Label{
+    text-align:left;
+}
+
+.input-text{
+    width:100%;
+    padding:5px;
+}
+
+.input-text:hover,
+.input-text:focus {
+    border-color: deepskyblue;
+}
+
+.ShowPic {
+    width: 150px;
+    height: 150px;
+    border-style: groove;
+    margin-right:20px;
 }
