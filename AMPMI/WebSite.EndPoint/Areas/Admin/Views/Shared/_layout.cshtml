@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<!DOCTYPE html>
 <html dir="rtl" lang="fa-IR">
 <head>
     <meta charset="utf-8">
@@ -29,7 +30,7 @@
     <link href="~/css/CustomDashboard.css" rel="stylesheet" />
     <link href="~/css/site.css" rel="stylesheet" />
     @await RenderSectionAsync("CSS", required: false)
- </head>
+</head>
 
 <!--
 BODY TAG OPTIONS:
@@ -62,11 +63,11 @@ desired effect
                 <div class="navbar-custom-menu" style="float:right ; width:30% ; margin-top: 10px; ">
                     <ul class="nav navbar-nav">
                         <!-- Back to home page -->
-                            <li class="dropdown notifications-menu">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <li class="dropdown notifications-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <img src="~/images/home.png" style="width:20px ; height:20px "/>
-                                </a>
-                            </li>
+                            </a>
+                        </li>
                         <!-- Notifications: style can be found in dropdown.less -->
                         <li class="dropdown notifications-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -79,7 +80,7 @@ desired effect
                                     <!-- inner menu: contains the actual data -->
                                     <ul class="menu">
                                         <li>
-                                            <a href="#"> 
+                                            <a href="#">
                                                 <i class="fa fa-warning text-yellow"></i> عنوان اعلان شماره یک
                                             </a>
                                         </li>
@@ -115,8 +116,8 @@ desired effect
                     </ul>
                 </div>
                 <!-- Hello to user -->
-                <div style="text-align:center ; 
-                            margin-top:10px ; 
+                <div style="text-align:center ;
+                            margin-top:10px ;
                             width:40% ;
                             float:right"
                 >
@@ -124,7 +125,7 @@ desired effect
                 </div>
                 <!-- Welcome text -->
                 <div style="text-align:center ; margin-top:10px ; float:left ; margin-left:10px">
-                    <button disabled 
+                    <button disabled
                             style="margin-top:5px;
                                    background-color:lightskyblue ;
                                    border:none; height:50px;
@@ -138,7 +139,7 @@ desired effect
         </header>
         <!-- right side column. contains the logo and sidebar -->
         <div>
-        <aside class="main-sidebar" style="margin-top:100px;
+            <aside class="main-sidebar" style="margin-top:100px;
                                            background-color:white;
                                            border-radius:25px;
                                            margin-right:20px;
@@ -146,88 +147,94 @@ desired effect
                                            padding-top: 20px;
                                            float:right;
                                            width:20%">
-            <div style="width:100%; text-align:center">
-                <button style="border-radius:50%;
+                <div style="width:100%; text-align:center">
+                    <button style="border-radius:50%;
                                border:none;
                                box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">
-                    <img src="~/images/add user.png" style="width:100px ; height:100px " />
-                </button>
-            </div>
-            <!-- sidebar: style can be found in sidebar.less -->
-            <section class="sidebar">
-                <!-- Sidebar Menu -->
-                <ul class="sidebar-menu" data-widget="tree" style="margin-top:20px; margin-right:10px">
-                    <!-- User Profile -->
-                    <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
-                        <a href="#">
-                        <img src="~/images/user.png" style="width:20px ; height:20px" />
-                            <span style="padding-right:10px; color:#000000">پروفایل کاربری</span>
-                        </a>
-                    </li>
-                    <!-- Change Password -->
-                    <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
-                        <a href="#">
-                            <img src="~/images/user.png" style="width:20px ; height:20px" />
-                            <span style="padding-right:10px; color:#000000">تغییر رمز عبور</span>
-                        </a>
-                    </li>
-                    <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
-                        <a href="#">
-                            <img src="~/images/image copy.png" style="width:20px ; height:20px" />
-                            <span style="padding-right:10px; color:#000000">گالری تصاویر</span>
-                        </a>
-                    </li>
-                    <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
-                        <a href="#">
-                            <img src="~/images/clapperboard copy.png" style="width:20px ; height:20px" />
-                            <span style="padding-right:10px; color:#000000">تیزر تبلیغاتی</span>
-                        </a>
-                    </li>
-                    <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
-                            <a href="@Url.Action("CategoryList","Category")">
-                            <img src="~/images/product copy.png" style="width:20px ; height:20px" />
-                            <span style="padding-right:10px; color:#000000">گروه اصلی</span>
-                        </a>
-                    </li>
-                    <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
-                        <a href="#">
-                            <img src="~/images/product copy.png" style="width:20px ; height:20px" />
-                            <span style="padding-right:10px; color:#000000">محصولات</span>
-                        </a>
-                    </li>
-                    <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
-                        <a href="#">
-                            <img src="~/images/notification copy.png" style="width:20px ; height:20px" />
-                            <span style="padding-right:10px; color:#000000">اعلان‌ها</span>
-                        </a>
-                    </li>
-                </ul>
-                <!-- /.sidebar-menu -->
-            </section>
-            <!-- /.sidebar -->
-        </aside>
+                        <img src="~/images/add user.png" style="width:100px ; height:100px " />
+                    </button>
+                </div>
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+                    <!-- Sidebar Menu -->
+                    <ul class="sidebar-menu" data-widget="tree" style="margin-top:20px; margin-right:10px">
+                        <!-- User Profile -->
+                        <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
+                            <a href="#">
+                                <img src="~/images/user.png" style="width:20px ; height:20px" />
+                                <span style="padding-right:10px; color:#000000">پروفایل کاربری</span>
+                            </a>
+                        </li>
+                        <!-- Change Password -->
+                        <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
+                            <a href="#">
+                                <img src="~/images/user.png" style="width:20px ; height:20px" />
+                                <span style="padding-right:10px; color:#000000">تغییر رمز عبور</span>
+                            </a>
+                        </li>
+                        <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
+                            <a href="#">
+                                <img src="~/images/image copy.png" style="width:20px ; height:20px" />
+                                <span style="padding-right:10px; color:#000000">گالری تصاویر</span>
+                            </a>
+                        </li>
+                        <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
+                            <a href="#">
+                                <img src="~/images/clapperboard copy.png" style="width:20px ; height:20px" />
+                                <span style="padding-right:10px; color:#000000">تیزر تبلیغاتی</span>
+                            </a>
+                        </li>
+                        <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
+                            <a asp-area="Admin" asp-controller=Category asp-action=CategoryList>
+                                <img src="~/images/product copy.png" style="width:20px ; height:20px" />
+                                <span style="padding-right:10px; color:#000000">گروه اصلی</span>
+                            </a>
+                        </li>
+                        <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
+                            <a asp-area="Admin" asp-controller="SubCategory" asp-action="SubCategoryList">
+                                <img src="~/images/product copy.png" style="width:20px ; height:20px" />
+                                <span style="padding-right:10px; color:#000000">گروه فرعی</span>
+                            </a>
+                        </li>
+                        <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
+                            <a href="#">
+                                <img src="~/images/product copy.png" style="width:20px ; height:20px" />
+                                <span style="padding-right:10px; color:#000000">محصولات</span>
+                            </a>
+                        </li>
+                        <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
+                            <a href="#">
+                                <img src="~/images/notification copy.png" style="width:20px ; height:20px" />
+                                <span style="padding-right:10px; color:#000000">اعلان‌ها</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.sidebar-menu -->
+                </section>
+                <!-- /.sidebar -->
+            </aside>
 
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper" 
-             style="float:left; 
-                    width:75%; 
-                    margin-top:25px; 
-                    background-color:white; 
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper"
+                 style="float:left;
+                    width:75%;
+                    margin-top:25px;
+                    background-color:white;
                     border-radius:25px;
                     margin-left:25px">
-            <!-- Content Header (Page header) -->
-            <section class="content container-fluid">
-                @RenderBody()
+                <!-- Content Header (Page header) -->
+                <section class="content container-fluid">
+                    @RenderBody()
 
 
-            </section>
-        </div>
+                </section>
+            </div>
         </div>
         <!-- /.content-wrapper -->
         <!-- Main Footer -->
         <footer class="main-footer text-left" style="background-color:#EEEEEE">
             <strong>
-@*                 Copyleft &copy; 2014-2017 <a href="https://adminlte.io">Almsaeed Studio</a> & <a href="http://hosseinizadeh.ir/adminlte">Alireza Hosseinizadeh</a>
+                @*                 Copyleft &copy; 2014-2017 <a href="https://adminlte.io">Almsaeed Studio</a> & <a href="http://hosseinizadeh.ir/adminlte">Alireza Hosseinizadeh</a>
  *@            </strong>
         </footer>
 
@@ -311,7 +318,7 @@ desired effect
     <!-- ./wrapper -->
     <!-- REQUIRED JS SCRIPTS -->
     <script src="~/js/admin/jquery.min.js"></script>
-        <script src="~/js/datatables.min.js"></script>
+    <script src="~/js/datatables.min.js"></script>
     <script src="~/js/admin/bootstrap.min.js"></script>
     <script src="~/js/adminlte.min.js"></script>
 
