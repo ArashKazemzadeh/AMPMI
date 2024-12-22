@@ -1,6 +1,6 @@
-﻿namespace AQS_Aplication.Dtos
+﻿namespace AQS_Aplication.Dtos.IdentityServiceDto
 {
-	public class RegisterIdentityDTO
+    public class RegisterIdentityDTO
     {
         public required string Mobile { get; set; }
         public required string CompanyName { get; set; }

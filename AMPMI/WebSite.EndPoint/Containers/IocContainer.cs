@@ -1,6 +1,6 @@
 ﻿using AQS_Aplication.Interfaces.IInfrastructure.IAuthenticationOTPService;
 using AQS_Aplication.Interfaces.IInfrastructure.IContext;
-using AQS_Aplication.Interfaces.IServisces;
+using AQS_Aplication.Interfaces.IServisces.BaseServices;
 using AQS_Aplication.Interfaces.IServisces.IdentityServices;
 using AQS_Aplication.Interfaces.IServisces.IThirdParitesServices;
 using AQS_Aplication.Services;
@@ -10,7 +10,7 @@ using YourNamespace.Services;
 
 namespace WebSite.EndPoint.ServicesConfigs
 {
-    public static class DependencyInjectionConfig
+    public static class IocContainer
     {
         public static void AddScopeds(WebApplicationBuilder builder)
         {
@@ -19,6 +19,7 @@ namespace WebSite.EndPoint.ServicesConfigs
             builder.Services.AddScoped<ICompanyService, CompanyService>();
             builder.Services.AddScoped<IDbAmpmiContext, DbAmpmiContext>();
             builder.Services.AddScoped<ISMSOTPService, SMSOTPService>();
+            builder.Services.AddScoped<INotificationService, NotificationService>();
         }
     }
 }

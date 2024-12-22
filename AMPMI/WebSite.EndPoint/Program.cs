@@ -5,9 +5,9 @@ var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 var SqlServer = configuration["ConnectionString:SqlServer"];
 
-DependencyInjectionConfig.AddScopeds(builder);
-ContextConfig.DatabaseContext(builder, SqlServer);
-BuilderServiceConfig.AddServices(builder);
+IocContainer.AddScopeds(builder);
+ContextContainer.DatabaseContext(builder, SqlServer);
+WebApplicationServices.AddServices(builder);
 
 var app = builder.Build();
 

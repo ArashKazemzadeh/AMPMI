@@ -1,5 +1,5 @@
-﻿using AQS_Aplication.Dtos;
-using AQS_Aplication.Interfaces.IServisces;
+﻿using AQS_Aplication.Dtos.IdentityServiceDto;
+using AQS_Aplication.Interfaces.IServisces.BaseServices;
 using AQS_Aplication.Interfaces.IServisces.IdentityServices;
 using AQS_Aplication.Interfaces.IServisces.IThirdParitesServices;
 using AQS_Common.Services;
@@ -137,7 +137,7 @@ namespace WebSite.EndPoint.Controllers
             {
                 return NotFound();
             }
-            var newModel = CreateCompanyMV.New(mobile);
+            var newModel = CreateCompanyMV.NewObject(mobile);
             return View(newModel);
         }
         [HttpPost]
@@ -146,7 +146,7 @@ namespace WebSite.EndPoint.Controllers
             if (!ModelState.IsValid)
                 return View(createCompany);
 
-            RegisterIdentityDTO newCompany = createCompany.ToRegisterIdentityDTO();
+            RegisterIdentityDTO newCompany = createCompany.ConvertToRegisterIdentityDTO();
 
             if (newCompany == null)
                 return View(createCompany);
