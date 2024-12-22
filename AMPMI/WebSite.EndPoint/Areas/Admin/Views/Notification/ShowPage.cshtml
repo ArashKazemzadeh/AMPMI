@@ -1,0 +1,105 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+}
+@section CSS 
+{
+    <style>
+        table img {
+            width: 30px;
+            height: 30px;
+        }
+
+        a img {
+            width: 30px;
+            height: 30px;
+        }
+    </style>
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box" style="margin: 20px; padding: 20px; border-radius: 15px; background-color: #f9f9f9;">
+                <div class="box-header with-border">
+                    <h3 class="box-title" style="text-align:right;">اعلانات</h3>
+                </div>
+                <div class="box-body">
+                    <!-- Buttons above the form -->
+                    <div class="d-flex" style="margin-bottom: 10px; justify-content: flex-start; align-items: center;">
+                        <!-- Left side buttons -->
+                        <a href="" class="btn"> <img src="~/images/addition copy.png" /></a>
+                        <a href="" class="btn"> <img src="~/images/diskette copy.png" /></a>
+                        <!-- Right side button -->
+                    </div>
+
+                    <!-- Form to create a new notification -->
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="Subject" style="float:right;">موضوع اعلان:</label>
+                            <input type="text" id="Subject" name="Subject" class="form-control" placeholder="موضوع خبر را وارد کنید" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Content" style="float:right;">متن اعلان:</label>
+                            <textarea id="Content" name="Content" class="form-control" rows="5" placeholder="متن خبر را وارد کنید"></textarea>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Notifications table with striped rows -->
+            @* <div class="box" style="margin: 20px; padding: 20px; border-radius: 15px; background-color: #f9f9f9;">
+                <div class="box-header with-border">
+                    <h3 class="box-title" style="text-align:right;">لیست اعلانات</h3>
+                </div>
+                <div class="box-body">
+                   
+                </div>
+            </div> *@
+            <div>
+                <table id="notiftable" class="display">
+                    <thead>
+                        <tr>
+                            <th>ردیف</th>
+                            <th>موضوع اعلان</th>
+                            <th>متن اعلان</th>
+                            <th>تاریخ</th>
+                            <th>عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Example rows -->
+                        <tr>
+                            <td>1</td>
+                            <td>عنوان نمونه</td>
+                            <td>این متن یک نمونه است.</td>
+                            <td>1403/09/21</td>
+                            <td>
+                                <a class="btn"><img src="~/images/recycle.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>عنوان نمونه 2</td>
+                            <td>این متن یک نمونه دیگر است.</td>
+                            <td>1403/09/21</td>
+                            <td>
+                                <a class="btn"><img src="~/images/recycle.png" /></a>
+                            </td>
+                        </tr>
+                        <!-- More rows can be added here -->
+                    </tbody>
+                </table>
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        document.querySelector('#notiftable')
+            .setAttribute('dir', 'rtl');
+        new DataTable('#notiftable');
+    </script>
+}
