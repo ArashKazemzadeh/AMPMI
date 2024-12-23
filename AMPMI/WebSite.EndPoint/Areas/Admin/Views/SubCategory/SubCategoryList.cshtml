@@ -1,0 +1,101 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+}
+@section CSS
+{
+    <style>
+        table img {
+            width: 30px;
+            height: 30px;
+        }
+    </style>
+}
+<div class="container-fluid">
+    <div>
+        <button class="btn" id="new">جدید</button>
+    </div>
+    <div hidden id="newForm" class="row">
+        <form>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">گروه اصلی</label>
+                <div class="col-sm-4">
+                    <select class="form-control">
+                        <option selected>یک گروه اصلی را انتخاب کنید</option>
+                        <option>گزینه 1</option>
+                        <option>گزینه21</option>
+                        <option>گزینه3</option>
+                        <option>گزینه41</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">نام گروه فرعی</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="staticEmail" >
+                </div>
+            </div>
+            <button class="btn btn-submit" id="save" type="submit">ذخیره</button>
+            <button class="btn btn-danger" id="cancle" type="button">انصراف</button>
+        </form>
+    </div>
+    <div class="row">
+        <table id="myTable" class="display">
+            <thead>
+                <tr>
+                    <th>نام</th>
+                    <th>نام گروه اصلی</th>
+                    <th>ویرایش</th>
+                    <th>حذف</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Row</td>
+                    <td>Row 1 Data 2</td>
+
+                    <td><a><img src="~/images\recycle.png" /></a></td>
+                    <td><a><img src="~/images\recycle.png" /></a></td>
+                </tr>
+                <tr>
+                    <td>Rod</td>
+                    <td>Row 1 Data 2</td>
+                    <td><a><img src="~/images\recycle.png" /></a></td>
+                    <td><a><img src="~/images\recycle.png" /></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+@section Scripts
+{
+    <script>
+          document.querySelector('#myTable')
+            .setAttribute('dir', 'rtl'); // Demo only
+
+        new DataTable('#myTable');
+
+        $("#new").click(function(){
+            $("#newForm").show();
+            $("#new").hide();
+        });
+
+        function HideForm()
+        {
+            $("#new").show();
+            $("#newForm").hide();
+        }
+
+        $("#save").click(function(){
+            HideForm();
+        });
+
+        $("#cancle").click(function(){
+            HideForm();
+        });
+
+
+
+    </script>
+
+
+}
