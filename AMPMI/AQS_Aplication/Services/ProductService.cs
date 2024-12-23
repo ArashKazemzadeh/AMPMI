@@ -27,16 +27,16 @@ namespace AQS_Aplication.Services
             return -1;
         }
 
-        public async Task<ResultServiceMethods> Delete(long id)
+        public async Task<ResultOutPutMethodEnum> Delete(long id)
         {
             var product = await _context.Products.FindAsync(id);
             if (product != null)
             {
                 _context.Products.Remove(product);
                 return await _context.SaveChangesAsync() > 0 ?
-                    ResultServiceMethods.savechanged : ResultServiceMethods.dontSaved;
+                    ResultOutPutMethodEnum.savechanged : ResultOutPutMethodEnum.dontSaved;
             }
-            return ResultServiceMethods.recordNotFounded;
+            return ResultOutPutMethodEnum.recordNotFounded;
         }
 
         public async Task<List<Product>> Read()
@@ -50,12 +50,12 @@ namespace AQS_Aplication.Services
             return await _context.Products.Include(x=>x.Company).AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
         }
 
-        public async Task<ResultServiceMethods> Update(Product product)
+        public async Task<ResultOutPutMethodEnum> Update(Product product)
         {
             var existingProduct = await _context.Products.FindAsync(product.Id);
 
             if (existingProduct == null)
-                return ResultServiceMethods.recordNotFounded;
+                return ResultOutPutMethodEnum.recordNotFounded;
 
             if (product.Name != null && existingProduct.Name != product.Name)
                 existingProduct.Name = product.Name;
@@ -68,30 +68,30 @@ namespace AQS_Aplication.Services
 
             int result = await _context.SaveChangesAsync();
 
-            return result > 0 ? ResultServiceMethods.savechanged : ResultServiceMethods.dontSaved;
+            return result > 0 ? ResultOutPutMethodEnum.savechanged : ResultOutPutMethodEnum.dontSaved;
         }
-        public async Task<ResultServiceMethods> UpdatePictureFileName(int id, Guid pictureFileName)
+        public async Task<ResultOutPutMethodEnum> UpdatePictureFileName(int id, Guid pictureFileName)
         {
             var existingProduct = await _context.Products.FindAsync(id);
             if (existingProduct == null)
-                return ResultServiceMethods.recordNotFounded;
+                return ResultOutPutMethodEnum.recordNotFounded;
 
             existingProduct.PictureFileName = pictureFileName;
 
             return await _context.SaveChangesAsync() > 1 ?
-               ResultServiceMethods.savechanged : ResultServiceMethods.dontSaved;
+               ResultOutPutMethodEnum.savechanged : ResultOutPutMethodEnum.dontSaved;
         }
-        public async Task<ResultServiceMethods> IsConfirmed(long id, bool isConfirmed)
+        public async Task<ResultOutPutMethodEnum> IsConfirmed(long id, bool isConfirmed)
         {
             var existingProduct = await _context.Products.FindAsync(id);
 
             if (existingProduct == null)
-                return ResultServiceMethods.recordNotFounded;
+                return ResultOutPutMethodEnum.recordNotFounded;
 
             existingProduct.IsConfirmed = isConfirmed;
 
             return await _context.SaveChangesAsync() > 1 ?
-                ResultServiceMethods.savechanged : ResultServiceMethods.dontSaved;
+                ResultOutPutMethodEnum.savechanged : ResultOutPutMethodEnum.dontSaved;
         }
     }
 

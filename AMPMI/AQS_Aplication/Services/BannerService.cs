@@ -34,7 +34,7 @@ namespace AQS_Aplication.Services
             return Guid.Empty; 
         }
 
-        public async Task<ResultServiceMethods> Delete(Guid id)
+        public async Task<ResultOutPutMethodEnum> Delete(Guid id)
         {
             var banner = await _context.Banners.FindAsync(id);
 
@@ -42,11 +42,11 @@ namespace AQS_Aplication.Services
             {
                 _context.Banners.Remove(banner);
                 return await _context.SaveChangesAsync() > 0
-                    ? ResultServiceMethods.savechanged
-                    : ResultServiceMethods.dontSaved;
+                    ? ResultOutPutMethodEnum.savechanged
+                    : ResultOutPutMethodEnum.dontSaved;
             }
 
-            return ResultServiceMethods.recordNotFounded; 
+            return ResultOutPutMethodEnum.recordNotFounded; 
         }
 
         public async Task<List<Guid>> ReadAll()

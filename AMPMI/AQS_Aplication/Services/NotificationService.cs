@@ -16,10 +16,14 @@ namespace AQS_Aplication.Services
             _context = context;
         }
 
-        // ایجاد اعلان جدید
-        public async Task<long> Create(Notification notification)
+        public async Task<long> Create(string subject, string description)
         {
-            notification.CreateAt = DateTime.UtcNow;
+            Notification notification = new()
+            {
+                CreateAt = DateTime.Now,
+                Subject = subject,
+                Description = description
+            };
             var row = _context.Notifications.Add(notification);
             int result = await _context.SaveChangesAsync();
 
@@ -28,37 +32,33 @@ namespace AQS_Aplication.Services
             return -1;
         }
 
-        public async Task<ResultServiceMethods> Delete(long id)
+        public async Task<ResultOutPutMethodEnum> Delete(long id)
         {
             var notification = await _context.Notifications.FindAsync(id);
             if (notification != null)
             {
                 _context.Notifications.Remove(notification);
                 return await _context.SaveChangesAsync() > 0
-                    ? ResultServiceMethods.savechanged
-                    : ResultServiceMethods.dontSaved;
+                    ? ResultOutPutMethodEnum.savechanged
+                    : ResultOutPutMethodEnum.dontSaved;
             }
-            return ResultServiceMethods.recordNotFounded;
+            return ResultOutPutMethodEnum.recordNotFounded;
         }
 
-        public async Task<ResultServiceMethods> Update(Notification notification)
+        public async Task<ResultOutPutMethodEnum> Update(long id, string subject, string description)
         {
-            var existingNotification = await _context.Notifications.FindAsync(notification.Id);
+            var existingNotification = await _context.Notifications.FirstOrDefaultAsync(n => n.Id == id);
 
             if (existingNotification == null)
-                return ResultServiceMethods.recordNotFounded;
+                return ResultOutPutMethodEnum.recordNotFounded;
 
-            if (!string.IsNullOrEmpty(notification.Subject) && existingNotification.Subject != notification.Subject)
-                existingNotification.Subject = notification.Subject;
-
-            if (!string.IsNullOrEmpty(notification.Description) && existingNotification.Description != notification.Description)
-                existingNotification.Description = notification.Description;
-
+            existingNotification.Subject = subject;
+            existingNotification.Description = description;
             existingNotification.CreateAt = DateTime.Now;
 
             return await _context.SaveChangesAsync() > 0
-                ? ResultServiceMethods.savechanged
-                : ResultServiceMethods.dontSaved;
+                ? ResultOutPutMethodEnum.savechanged
+                : ResultOutPutMethodEnum.dontSaved;
         }
 
         public async Task<List<NotificationReadAdminDto>> ReadAll()
@@ -74,7 +74,7 @@ namespace AQS_Aplication.Services
                 })
                 .ToListAsync();
 
-            return notifications;
+            return notifications == null ? new List<NotificationReadAdminDto>() : notifications;
         }
 
 
@@ -83,14 +83,14 @@ namespace AQS_Aplication.Services
             return await _context.Notifications.FirstOrDefaultAsync(n => n.Id == id);
         }
 
-        public async Task<ResultServiceMethods> AddSeenByCompany(long notificationId, long companyId)
+        public async Task<ResultOutPutMethodEnum> AddSeenByCompany(long notificationId, long companyId)
         {
             var notification = await _context.Notifications
                 .Include(n => n.SeenNotifByCompanies)
                 .FirstOrDefaultAsync(n => n.Id == notificationId);
 
             if (notification == null)
-                return ResultServiceMethods.recordNotFounded;
+                return ResultOutPutMethodEnum.recordNotFounded;
 
             if (!notification.SeenNotifByCompanies.Any(s => s.CompanyId == companyId))
             {
@@ -101,11 +101,11 @@ namespace AQS_Aplication.Services
                 });
 
                 return await _context.SaveChangesAsync() > 0
-                    ? ResultServiceMethods.savechanged
-                    : ResultServiceMethods.dontSaved;
+                    ? ResultOutPutMethodEnum.savechanged
+                    : ResultOutPutMethodEnum.dontSaved;
             }
 
-            return ResultServiceMethods.duplicateRecord;
+            return ResultOutPutMethodEnum.duplicateRecord;
         }
     }
 }

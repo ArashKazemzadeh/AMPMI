@@ -17,6 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AQS_Aplication\AQS_Aplication.csproj" />
+    <ProjectReference Include="..\AQS_Common\AQS_Common.csproj" />
     <ProjectReference Include="..\AQS_Persistence\AQS_Persistence.csproj" />
     <ProjectReference Include="..\ThirdParties\ThirdParties.csproj" />
   </ItemGroup>
