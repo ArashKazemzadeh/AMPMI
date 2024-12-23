@@ -3,8 +3,18 @@
 }
 
 
-<div class="contaienr">
-    <div>
+<div class="container-fluid">
+    <div class="row">
         <a class="btn" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
     </div>
+    <div class="row">
+        <div id="editAboutUs">
+        </div>
+    </div>
 </div>
+@section Scripts
+{
+    <script>
+        new RichTextEditor("#editAboutUs");
+    </script>
+}
