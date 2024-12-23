@@ -1,66 +1,59 @@
 ﻿@{
     Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
 }
-@section CSS
-{
-    <style>
-        table img{
-            width:30px;
-            height:30px;
-        }
-    </style>
-}
+
 <div class="contaienr">
     <div>
-        <button class="btn" id="new">جدید</button>
+        <a href="#" id="new"> <img class="img-Icon" src="~/images/addition copy.png" /> </a>
+        <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
+        <a href="#" id="cancle"><img class="img-Icon" src="~/images/cancel.png" /></a>
     </div>
-    <div hidden id="newForm">
+    <div hidden id="newForm" style="margin-top:20px;">
         <form>
+
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">نام گروه</label>
-                <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">
+                <label class="col-sm-2 col-form-label input-Label">نام گروه اصلی:</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control input-text">
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">نام گروه</label>
-                <div class="col-sm-10">
-                    <input class="form-control-file" type="file" name="img" accept="image/*">
+                <label class="col-sm-2 col-form-label input-Label" style="padding:10px;">تصویر گروه اصلی:</label>
+                <div class="col-sm-2">
+                    <button class="btn btn-submit btnUpload" onclick="getfile()">بارگذاری تصویر</button>
+                    <input id="getFile" style="display:none" class="form-control-file" type="file" name="img" accept="image/*">
                 </div>
+                <div class="col-sm-2 ShowPic"></div>
             </div>
-            <button class="btn btn-submit" id="save" type="submit">ذخیره</button>
-            <button class="btn" id="cancle" type="button">انصراف</button>
         </form>
     </div>
     <div>
-        <table id="myTable" class="display">
+        <table id="myTable" class="display tbStyle">
             <thead>
                 <tr>
-                    <th>نام</th>
-                    <th>تصویر</th>
-                    <th>ویرایش</th>
-                    <th>حذف</th>
+                    <th style="text-align:center">ردیف</th>
+                    <th style="text-align:center">نام گروه اصلی</th>
+                    <th style="text-align:center">ویرایش</th>
+                    <th style="text-align:center">حذف</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>Row</td>
-                    <td>Row 1 Data 2</td>
+                    <td style="text-align:center">1</td>
+                    <td>گروه 1</td>
                     
-                    <td><a><img src="~/images\recycle.png" /></a></td>
-                    <td><a><img src="~/images\recycle.png" /></a></td>
+                    <td style="text-align:center"><a href="#"><img class="img-Icon" src="~/images/editing.png" /></a></td>
+                    <td style="text-align:center"><a href="#"><img class="img-Icon" src="~/images/recycle.png" /></a></td>
                 </tr>
                 <tr>
-                    <td>Rod</td>
-                    <td>Row 1 Data 2</td>
-                    <td><a><img src="~/images\recycle.png" /></a></td>
-                    <td><a><img src="~/images\recycle.png" /></a></td>
+                    <td style="text-align:center">2</td>
+                    <td>گروه 2</td>
+                    <td style="text-align:center"><a href="#"><img class="img-Icon" src="~/images/editing.png" /></a></td>
+                    <td style="text-align:center"><a href="#"><img class="img-Icon" src="~/images/recycle.png" /></a></td>
                 </tr>
             </tbody>
         </table>
     </div>
-
-
 </div>
 @section Scripts
 {
@@ -72,12 +65,10 @@
 
         $("#new").click(function(){
             $("#newForm").show();
-            $("#new").hide();
         });
 
         function HideForm()
         {
-            $("#new").show();
             $("#newForm").hide();
         }
 
@@ -89,7 +80,9 @@
             HideForm();
         });
 
-
+        function getfile () {
+            document.querySelector('#getFile').click();
+        }
 
     </script>
 
