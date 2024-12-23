@@ -2,13 +2,17 @@
     Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
 }
 <div class="container-fluid">
+    <div class="row">
+        <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
+        <a href="@Url.Action("ProductList","Product")" id="cancle"><img class="img-Icon" src="~/images/cancel.png" /></a>
+    </div>
     <form>
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">گروه اصلی</label>
+                    <label class="col-sm-3 col-form-label input-Label">گروه اصلی:</label>
                     <div class="col-sm-9">
-                        <select class="form-control">
+                        <select class="input-text">
                             <option selected>گروه اصلی را انتخاب کنید</option>
                             <option>گروه 1</option>
                             <option>گروه 2</option>
@@ -16,9 +20,9 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">گروه فرعی</label>
+                    <label class="col-sm-3 col-form-label input-Label">گروه فرعی:</label>
                     <div class="col-sm-9">
-                        <select class="form-control">
+                        <select class="input-text">
                             <option selected>گروه فرعی را انتخاب کنید</option>
                             <option>گروه 1</option>
                             <option>گروه 2</option>
@@ -26,30 +30,38 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">نام محصول</label>
+                    <label class="col-sm-3 col-form-label input-Label">نام محصول:</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control">
+                        <input type="text" class="input-text">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">توضیحات</label>
+                    <label class="col-sm-3 col-form-label input-Label">توضیحات:</label>
                     <div class="col-sm-9">
-                        <textarea class="form-control"></textarea>
+                        <textarea class="input-text"></textarea>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6">
                 <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">انتخاب تصویر</label>
-                    <div class="col-sm-9">
-                        <input class="form-control-file" type="file" name="img" accept="image/*">
+                    <label class="col-sm-3 col-form-label input-Label">انتخاب تصویر:</label>
+                    <div class="col-sm-5 upBtn">
+                        <button class="btn-submit btnUpload" onclick="getfile()">بارگذاری تصویر</button>
+                        <input id="getFile" style="display:none" class="form-control-file" type="file" name="img" accept="image/*">
                     </div>
+                    <div class="col-sm-2 ShowPic"></div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <button class="btn btn-submit" id="save" type="submit">ذخیره</button>
-            <a href="@Url.Action("ProductList","Product")" class="btn btn-danger" id="cancle" type="button">انصراف</a>
         </div>
     </form>
 </div>
+
+@section Scripts
+                        {
+    <script>
+      
+        function getfile () {
+            document.querySelector('#getFile').click();
+        }
+
+    </script>
+
+}

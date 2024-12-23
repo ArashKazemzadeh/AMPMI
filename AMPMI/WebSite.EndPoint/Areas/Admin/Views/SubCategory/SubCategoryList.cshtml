@@ -1,25 +1,19 @@
 ﻿@{
     Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
 }
-@section CSS
-{
-    <style>
-        table img {
-            width: 30px;
-            height: 30px;
-        }
-    </style>
-}
+
 <div class="container-fluid">
     <div>
-        <button class="btn" id="new">جدید</button>
+        <a href="#" id="new"> <img class="img-Icon" src="~/images/addition copy.png" /> </a>
+        <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
+        <a href="#" id="cancle"><img class="img-Icon" src="~/images/cancel.png" /></a>
     </div>
     <div hidden id="newForm" class="row">
         <form>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">گروه اصلی</label>
+                <label class="col-sm-2 col-form-label input-Label">گروه اصلی:</label>
                 <div class="col-sm-4">
-                    <select class="form-control">
+                    <select class="input-text">
                         <option selected>یک گروه اصلی را انتخاب کنید</option>
                         <option>گزینه 1</option>
                         <option>گزینه21</option>
@@ -29,19 +23,18 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">نام گروه فرعی</label>
+                <label class="col-sm-2 col-form-label input-Label">نام گروه فرعی:</label>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" id="staticEmail" >
+                    <input type="text" class="input-text" id="staticEmail">
                 </div>
             </div>
-            <button class="btn btn-submit" id="save" type="submit">ذخیره</button>
-            <button class="btn btn-danger" id="cancle" type="button">انصراف</button>
         </form>
     </div>
     <div class="row">
-        <table id="myTable" class="display">
+        <table id="myTable" class="display tbStyle">
             <thead>
                 <tr>
+                    <th>ردیف</th>
                     <th>نام</th>
                     <th>نام گروه اصلی</th>
                     <th>ویرایش</th>
@@ -50,17 +43,18 @@
             </thead>
             <tbody>
                 <tr>
+                    <td class="td-Icon">1</td>
                     <td>Row</td>
                     <td>Row 1 Data 2</td>
-
-                    <td><a><img src="~/images\recycle.png" /></a></td>
-                    <td><a><img src="~/images\recycle.png" /></a></td>
+                    <td class="td-Icon"><a><img class="img-Icon" src="~/images/editing.png" /></a></td>
+                    <td class="td-Icon"><a><img class="img-Icon" src="~/images\recycle.png" /></a></td>
                 </tr>
                 <tr>
+                    <td class="td-Icon">2</td>
                     <td>Rod</td>
                     <td>Row 1 Data 2</td>
-                    <td><a><img src="~/images\recycle.png" /></a></td>
-                    <td><a><img src="~/images\recycle.png" /></a></td>
+                    <td class="td-Icon"><a><img class="img-Icon" src="~/images/editing.png" /></a></td>
+                    <td class="td-Icon"><a><img class="img-Icon" src="~/images\recycle.png" /></a></td>
                 </tr>
             </tbody>
         </table>
@@ -76,12 +70,10 @@
 
         $("#new").click(function(){
             $("#newForm").show();
-            $("#new").hide();
         });
 
         function HideForm()
         {
-            $("#new").show();
             $("#newForm").hide();
         }
 

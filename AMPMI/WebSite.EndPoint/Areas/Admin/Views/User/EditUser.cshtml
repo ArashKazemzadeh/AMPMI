@@ -1,0 +1,118 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div>
+        <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
+        <a href="#" id="cancle"><img class="img-Icon" src="~/images/recycle-bin copy.png" /></a>
+        <a href="#" id="cancle"><img class="img-Icon" src="~/images/cancel.png" /></a>
+    </div>
+    <div>
+        <div class="col-md-12 my-2" style="padding-right:0; margin-bottom:20px;">
+            <input id="companyCheck" class="largerCheckbox" type="checkbox" />
+            <span class="companySpan">تغییر نقش به تولید کننده</span>
+        </div>
+        <div class="row mt-2 userEditRow">
+            <div class="col-md-6 my-2">
+                <label for="Cname" class="labelText">نام شرکت</label>
+                <input class="labelText input-text" type="text" id="Cname" />
+            </div>
+            <div class="col-md-6 my-2">
+                <label for="CFoundername" class="labelText">نام مدیر عامل</label>
+                <input class="labelText input-text" type="text" id="CFoundername" />
+            </div>
+        </div>
+        <div class="row mt-2 userEditRow">
+            <div class="col-md-6 my-2">
+                <label for="CMobile" class="labelText">شماره موبایل</label>
+                <input class="labelText input-text" type="text" id="CMobile" />
+            </div>
+            <div class="col-md-6 my-2">
+                <label for="CEmail" class="labelText">ایمیل</label>
+                <input class="labelText input-text" type="text" id="CEmail" />
+            </div>
+        </div>
+        <div class="row mt-2 userEditRow">
+            <div class="col-md-6 my-2">
+                <label for="CPass" class="labelText">رمز عبور</label>
+                <input class="labelText input-text" type="text" id="CPass" />
+            </div>
+            <div class="col-md-6 my-2">
+                <label for="CPassAgain" class="labelText">تکرار رمز عبور</label>
+                <input class="labelText input-text" type="text" id="CPassAgain" />
+            </div>
+        </div>
+        <div class="row mt-2 userEditRow">
+            <div class="col-md-6 my-2">
+                <label for="CAddress" class="labelText">آدرس</label>
+                <textarea id="CAddress" class="input-text"></textarea>
+            </div>
+            <div class="col-md-6 my-2">
+                <label for="CBrands" class="labelText">بردهای زیر مجموعه</label>
+                <textarea id="CBrands" class="input-text"></textarea>
+            </div>
+        </div>
+        <div class="row mt-2 userEditRow">
+            <div class="col-md-6 my-2">
+                <label for="CCollab" class="labelText">همکاری با شرکت‌های</label>
+                <textarea id="CCollab" class="input-text"></textarea>
+            </div>
+            <div class="col-md-6 my-2">
+                <label for="CCapacity" class="labelText">ظرفیت تولید</label>
+                <textarea id="CCapacity" class="input-text"></textarea>
+            </div>
+        </div>
+        <div class="row mt-2 userEditRow">
+            <div class="col-md-6 my-2">
+                <label for="CGrade" class="labelText">گرید کیفی</label>
+                <textarea id="CGrade" class="input-text"></textarea>
+            </div>
+            <div class="col-md-6 my-2">
+                <label for="CIso" class="labelText">استاندارد و ایزوهای اجباری و تشویقی</label>
+                <textarea id="CIso" class="input-text"></textarea>
+            </div>
+        </div>
+        <div class="row mt-2 userEditRow">
+            <div class="col-md-6 my-2">
+                <label for="CAbout" class="labelText">درباره شرکت</label>
+                <textarea id="CAbout" class="input-text"></textarea>
+            </div>
+            <div class="col-md-6 my-2" style="margin-top:25px;">
+                <div class="col-sm-4 upBtn">
+                    <button class="btn-submit btnUpload" onclick="getfile()">بارگذاری لوگو</button>
+                    <input id="getFile" style="display:none" class="form-control-file" type="file" name="img" accept="image/*">
+                </div>
+                <div class="col-sm-2 ShowPic" style="width:80px; height:80px"></div>
+                <div class="col-sm-2">
+                    <a href="#" id="deleteLogo"><img class="img-Icon" src="~/images/recycle.png" /></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="row mt-2">
+            <div class="col-md-4 my-2">
+                <button class="btn-submit btnUpload input-text">گالری تصاویر</button>
+            </div>
+            <div class="col-md-4 my-2">
+                <button class="btn-submit btnUpload input-text">تیزر تبلیغاتی</button>
+            </div>
+            <div class="col-md-4 my-2">
+                <button class="btn-submit btnUpload input-text">محصولات</button>
+            </div>
+        </div>
+    </div>
+</div>
+    
+@section Scripts
+    {
+        <script>
+            function getfile () {
+                  document.querySelector('#getFile').click();
+              }
+
+        </script>
+
+
+    }

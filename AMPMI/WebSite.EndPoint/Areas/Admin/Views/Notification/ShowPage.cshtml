@@ -14,23 +14,23 @@
             <form hidden id="newForm" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="Subject" style="float:right;">موضوع اعلان:</label>
-                    <input type="text" id="Subject" name="Subject" class="form-control input-text" placeholder="موضوع خبر را وارد کنید" />
+                    <input type="text" id="Subject" name="Subject" class="input-text" placeholder="موضوع خبر را وارد کنید" />
                 </div>
                 <div class="form-group">
                     <label for="Content" style="float:right;">متن اعلان:</label>
-                    <textarea id="Content" name="Content" class="form-control input-text" rows="5" placeholder="متن خبر را وارد کنید"></textarea>
+                    <textarea id="Content" name="Content" class="input-text" rows="5" placeholder="متن خبر را وارد کنید"></textarea>
                 </div>
             </form>
         </div>
         <div>
-            <table id="notiftable" class="display">
+            <table id="notiftable" class="display tbStyle">
                 <thead>
                     <tr>
-                        <th style="text-align:center">ردیف</th>
-                        <th style="text-align:center">موضوع اعلان</th>
-                        <th style="text-align:center">متن اعلان</th>
-                        <th style="text-align:center">تاریخ</th>
-                        <th style="text-align:center">حذف</th>
+                        <th>ردیف</th>
+                        <th>موضوع اعلان</th>
+                        <th>متن اعلان</th>
+                        <th>تاریخ</th>
+                        <th>حذف</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,12 +40,12 @@
                         foreach (var item in Model)
                         {
                             <tr>
-                                <td>@rowIndex</td>
+                                <td class="td-Icon">@rowIndex</td>
                                 <td>@item.Subject</td>
                                 <td>@item.Description</td>
                                 <td>@item.CreateAt</td>
-                                <td>
-                                    <a class="btn"><img src="~/images/recycle.png" /></a>
+                                <td class="td-Icon">
+                                    <a class="btn"><img class="img-Icon" src="~/images/recycle.png" /></a>
                                 </td>
                             </tr>
                             rowIndex++;

@@ -33,6 +33,7 @@
 
 .input-Label{
     text-align:left;
+    margin-top:5px;
 }
 
 .input-text{
@@ -50,4 +51,38 @@
     height: 150px;
     border-style: groove;
     margin-right:20px;
+}
+
+.tbStyle th{
+    text-align:center !important;
+}
+
+td.td-Icon {
+    text-align: center !important;
+}
+
+.upBtn{
+    text-align:left;
+}
+
+.firstItem{
+    margin-top:20px;
+    padding:50px;
+}
+
+.largerCheckbox{
+    width:20px;
+    height:20px;
+}
+
+.companySpan{
+    padding:10px;
+}
+
+.labelText{
+    display:block;
+}
+
+.userEditRow{
+    margin-bottom:10px;
 }
