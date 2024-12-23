@@ -1,4 +1,4 @@
-﻿using AQS_Aplication.Interfaces.IServisces;
+﻿using AQS_Aplication.Interfaces.IServisces.BaseServices;
 using Domin.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection;

@@ -1,6 +1,6 @@
 ﻿using Domin.Entities;
 
-namespace AQS_Aplication.Interfaces.IServisces
+namespace AQS_Aplication.Interfaces.IServisces.BaseServices
 {
     public interface ICompanyPictureService
     {

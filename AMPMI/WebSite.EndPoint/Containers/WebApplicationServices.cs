@@ -1,6 +1,6 @@
 ﻿namespace WebSite.EndPoint.ServicesConfigs
 {
-    public static class BuilderServiceConfig
+    public static class WebApplicationServices
     {
         public static void AddServices(WebApplicationBuilder builder)
         {

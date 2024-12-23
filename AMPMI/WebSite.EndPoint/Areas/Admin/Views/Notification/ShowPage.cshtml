@@ -1,96 +1,59 @@
-﻿@{
+﻿@model List<WebSite.EndPoint.Areas.Admin.Models.Notification.NotificationReadByAdminVM>
+
+@{
     Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
 }
-@section CSS 
-{
-    <style>
-        table img {
-            width: 30px;
-            height: 30px;
-        }
 
-        a img {
-            width: 30px;
-            height: 30px;
-        }
-    </style>
-}
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <div class="box" style="margin: 20px; padding: 20px; border-radius: 15px; background-color: #f9f9f9;">
-                <div class="box-header with-border">
-                    <h3 class="box-title" style="text-align:right;">اعلانات</h3>
+            <a id="new" href="#"> <img class="img-Icon" src="~/images/addition copy.png" /></a>
+            <a id="save" href="#"> <img class="img-Icon" src="~/images/diskette copy.png" /></a>
+            <a id="cancle" href="#"><img class="img-Icon" src="~/images/cancel.png" /></a>
+            <!-- Form to create a new notification -->
+            <form hidden id="newForm" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="Subject" style="float:right;">موضوع اعلان:</label>
+                    <input type="text" id="Subject" name="Subject" class="form-control input-text" placeholder="موضوع خبر را وارد کنید" />
                 </div>
-                <div class="box-body">
-                    <!-- Buttons above the form -->
-                    <div class="d-flex" style="margin-bottom: 10px; justify-content: flex-start; align-items: center;">
-                        <!-- Left side buttons -->
-                        <a href="" class="btn"> <img src="~/images/addition copy.png" /></a>
-                        <a href="" class="btn"> <img src="~/images/diskette copy.png" /></a>
-                        <!-- Right side button -->
-                    </div>
-
-                    <!-- Form to create a new notification -->
-                    <form method="post" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label for="Subject" style="float:right;">موضوع اعلان:</label>
-                            <input type="text" id="Subject" name="Subject" class="form-control" placeholder="موضوع خبر را وارد کنید" />
-                        </div>
-                        <div class="form-group">
-                            <label for="Content" style="float:right;">متن اعلان:</label>
-                            <textarea id="Content" name="Content" class="form-control" rows="5" placeholder="متن خبر را وارد کنید"></textarea>
-                        </div>
-                    </form>
+                <div class="form-group">
+                    <label for="Content" style="float:right;">متن اعلان:</label>
+                    <textarea id="Content" name="Content" class="form-control input-text" rows="5" placeholder="متن خبر را وارد کنید"></textarea>
                 </div>
-            </div>
-
-            <!-- Notifications table with striped rows -->
-            @* <div class="box" style="margin: 20px; padding: 20px; border-radius: 15px; background-color: #f9f9f9;">
-                <div class="box-header with-border">
-                    <h3 class="box-title" style="text-align:right;">لیست اعلانات</h3>
-                </div>
-                <div class="box-body">
-                   
-                </div>
-            </div> *@
-            <div>
-                <table id="notiftable" class="display">
-                    <thead>
-                        <tr>
-                            <th>ردیف</th>
-                            <th>موضوع اعلان</th>
-                            <th>متن اعلان</th>
-                            <th>تاریخ</th>
-                            <th>عملیات</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Example rows -->
-                        <tr>
-                            <td>1</td>
-                            <td>عنوان نمونه</td>
-                            <td>این متن یک نمونه است.</td>
-                            <td>1403/09/21</td>
-                            <td>
-                                <a class="btn"><img src="~/images/recycle.png" /></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>عنوان نمونه 2</td>
-                            <td>این متن یک نمونه دیگر است.</td>
-                            <td>1403/09/21</td>
-                            <td>
-                                <a class="btn"><img src="~/images/recycle.png" /></a>
-                            </td>
-                        </tr>
-                        <!-- More rows can be added here -->
-                    </tbody>
-                </table>
-
-            </div>
-            
+            </form>
+        </div>
+        <div>
+            <table id="notiftable" class="display">
+                <thead>
+                    <tr>
+                        <th style="text-align:center">ردیف</th>
+                        <th style="text-align:center">موضوع اعلان</th>
+                        <th style="text-align:center">متن اعلان</th>
+                        <th style="text-align:center">تاریخ</th>
+                        <th style="text-align:center">حذف</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--rows -->
+                    @{
+                        long rowIndex = 1;
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@rowIndex</td>
+                                <td>@item.Subject</td>
+                                <td>@item.Description</td>
+                                <td>@item.CreateAt</td>
+                                <td>
+                                    <a class="btn"><img src="~/images/recycle.png" /></a>
+                                </td>
+                            </tr>
+                            rowIndex++;
+                        }
+                    }
+                    <!-- end -->
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -101,5 +64,24 @@
         document.querySelector('#notiftable')
             .setAttribute('dir', 'rtl');
         new DataTable('#notiftable');
+
+        $("#new").click(function(){
+            $("#newForm").show();
+        });
+
+        function HideForm()
+        {
+            $("#newForm").hide();
+        }
+
+        $("#save").click(function(){
+            HideForm();
+        });
+
+        $("#cancle").click(function(){
+            HideForm();
+        });
     </script>
+
+
 }

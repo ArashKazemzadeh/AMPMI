@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WebSite.EndPoint.ServicesConfigs
 {
-    public static class ContextConfig
+    public static class ContextContainer
     {
        public static void DatabaseContext(WebApplicationBuilder builder, string? connection)
         {

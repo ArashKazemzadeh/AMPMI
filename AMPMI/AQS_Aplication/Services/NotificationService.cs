@@ -1,5 +1,6 @@
-﻿using AQS_Aplication.Interfaces.IInfrastructure.IContext;
-using AQS_Aplication.Interfaces.IServisces;
+﻿using AQS_Aplication.Dtos.BaseServiceDto.NotificationDtos;
+using AQS_Aplication.Interfaces.IInfrastructure.IContext;
+using AQS_Aplication.Interfaces.IServisces.BaseServices;
 using AQS_Common.Enums;
 using Domin.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +19,7 @@ namespace AQS_Aplication.Services
         // ایجاد اعلان جدید
         public async Task<long> Create(Notification notification)
         {
-            notification.CreateAt = DateTime.UtcNow; 
+            notification.CreateAt = DateTime.UtcNow;
             var row = _context.Notifications.Add(notification);
             int result = await _context.SaveChangesAsync();
 
@@ -53,17 +54,29 @@ namespace AQS_Aplication.Services
             if (!string.IsNullOrEmpty(notification.Description) && existingNotification.Description != notification.Description)
                 existingNotification.Description = notification.Description;
 
-            existingNotification.CreateAt = notification.CreateAt ?? existingNotification.CreateAt;
+            existingNotification.CreateAt = DateTime.Now;
 
             return await _context.SaveChangesAsync() > 0
                 ? ResultServiceMethods.savechanged
                 : ResultServiceMethods.dontSaved;
         }
 
-        public async Task<List<Notification>> ReadAll()
+        public async Task<List<NotificationReadAdminDto>> ReadAll()
         {
-            return await _context.Notifications.ToListAsync();
+            var notifications = await _context.Notifications
+                .Where(n => n.CreateAt >= DateTime.UtcNow.AddDays(-366))
+                .Select(n => new NotificationReadAdminDto
+                {
+                    Id = n.Id,
+                    Subject = n.Subject,
+                    Description = n.Description,
+                    CreateAt = n.CreateAt
+                })
+                .ToListAsync();
+
+            return notifications;
         }
+
 
         public async Task<Notification?> ReadById(long id)
         {
