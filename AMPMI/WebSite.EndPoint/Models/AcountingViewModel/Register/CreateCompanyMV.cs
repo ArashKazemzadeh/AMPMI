@@ -1,4 +1,4 @@
-﻿using AQS_Aplication.Dtos;
+﻿using AQS_Aplication.Dtos.IdentityServiceDto;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebSite.EndPoint.Models.AcountingViewModel.Register
@@ -53,7 +53,7 @@ namespace WebSite.EndPoint.Models.AcountingViewModel.Register
         [Compare("Password", ErrorMessage = "رمز عبور و تکرار آن باید یکسان باشد.")]
         public required string PasswordConfirm { get; set; }
 
-        internal RegisterIdentityDTO ToRegisterIdentityDTO()
+        internal RegisterIdentityDTO ConvertToRegisterIdentityDTO()
         {
             return new RegisterIdentityDTO
             {
@@ -65,7 +65,7 @@ namespace WebSite.EndPoint.Models.AcountingViewModel.Register
                 Address = this.Address
             };
         }
-        internal static CreateCompanyMV New(string mobile)
+        internal static CreateCompanyMV NewObject(string mobile)
         {
             return new CreateCompanyMV()
             {

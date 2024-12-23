@@ -3,11 +3,11 @@ public partial class Notification
 {
     public long Id { get; set; }
 
-    public string Subject { get; set; } = null!;
+    public required string Subject { get; set; }
 
-    public string Description { get; set; } = null!;
+    public required string Description { get; set; }
 
-    public DateTime? CreateAt { get; set; }
+    public required DateTime CreateAt { get; set; } = DateTime.Now;
 
     public virtual ICollection<SeenNotifByCompany> SeenNotifByCompanies { get; set; } = new List<SeenNotifByCompany>();
 }

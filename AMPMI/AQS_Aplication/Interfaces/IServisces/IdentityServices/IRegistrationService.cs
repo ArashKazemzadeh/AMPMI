@@ -1,6 +1,4 @@
-﻿
-
-using AQS_Aplication.Dtos;
+﻿using AQS_Aplication.Dtos.IdentityServiceDto;
 
 namespace AQS_Aplication.Interfaces.IServisces.IdentityServices
 {

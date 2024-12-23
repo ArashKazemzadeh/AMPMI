@@ -1,6 +1,6 @@
-﻿using AQS_Aplication.Dtos;
+﻿using AQS_Aplication.Dtos.IdentityServiceDto;
 using AQS_Aplication.Interfaces.IInfrastructure.IContext;
-using AQS_Aplication.Interfaces.IServisces;
+using AQS_Aplication.Interfaces.IServisces.BaseServices;
 using AQS_Common.Enums;
 using Domin.Entities;
 using Microsoft.EntityFrameworkCore;

@@ -1,7 +1,8 @@
-﻿using AQS_Common.Enums;
+﻿using AQS_Aplication.Dtos.BaseServiceDto.NotificationDtos;
+using AQS_Common.Enums;
 using Domin.Entities;
 
-namespace AQS_Aplication.Interfaces.IServisces
+namespace AQS_Aplication.Interfaces.IServisces.BaseServices
 {
     public interface INotificationService
     {
@@ -27,10 +28,10 @@ namespace AQS_Aplication.Interfaces.IServisces
         Task<ResultServiceMethods> Update(Notification notification);
 
         /// <summary>
-        /// دریافت تمام اعلان‌ها
+        /// دریافت تمام اعلان‌های یک سال اخیر برای ادمین سایت
         /// </summary>
         /// <returns>لیست اعلان‌ها</returns>
-        Task<List<Notification>> ReadAll();
+        Task<List<NotificationReadAdminDto>> ReadAll();
 
         /// <summary>
         /// دریافت یک اعلان با شناسه
