@@ -28,17 +28,17 @@ namespace AQS_Aplication.Services
             return -1;
         }
 
-        public async Task<ResultServiceMethods> Delete(long id)
+        public async Task<ResultOutPutMethodEnum> Delete(long id)
         {
             var record = await _context.SeenNotifByCompanies.FindAsync(id);
             if (record != null)
             {
                 _context.SeenNotifByCompanies.Remove(record);
                 return await _context.SaveChangesAsync() > 0
-                    ? ResultServiceMethods.savechanged
-                    : ResultServiceMethods.dontSaved;
+                    ? ResultOutPutMethodEnum.savechanged
+                    : ResultOutPutMethodEnum.dontSaved;
             }
-            return ResultServiceMethods.recordNotFounded;
+            return ResultOutPutMethodEnum.recordNotFounded;
         }
 
         public async Task<List<SeenNotifByCompany>> ReadAll()

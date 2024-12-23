@@ -9,23 +9,25 @@ namespace AQS_Aplication.Interfaces.IServisces.BaseServices
         /// <summary>
         /// ایجاد یک اعلان جدید
         /// </summary>
-        /// <param name="notification">مدل اعلان</param>
+        /// <param name="subject">موضوع اعلان</param>
+        /// <param name="description">توضیحات اعلان</param>
         /// <returns>شناسه اعلان ایجاد شده</returns>
-        Task<long> Create(Notification notification);
+        Task<long> Create(string subject, string description);
 
         /// <summary>
         /// حذف یک اعلان
         /// </summary>
         /// <param name="id">شناسه اعلان</param>
         /// <returns>وضعیت عملیات حذف</returns>
-        Task<ResultServiceMethods> Delete(long id);
+        Task<ResultOutPutMethodEnum> Delete(long id);
 
         /// <summary>
         /// به‌روزرسانی یک اعلان
         /// </summary>
-        /// <param name="notification">مدل اعلان با تغییرات</param>
+        /// <param name="subject">موضوع اعلان</param>
+        /// <param name="description">توضیحات اعلان</param>
         /// <returns>وضعیت عملیات به‌روزرسانی</returns>
-        Task<ResultServiceMethods> Update(Notification notification);
+        Task<ResultOutPutMethodEnum> Update(long id, string subject, string description);
 
         /// <summary>
         /// دریافت تمام اعلان‌های یک سال اخیر برای ادمین سایت
@@ -46,7 +48,7 @@ namespace AQS_Aplication.Interfaces.IServisces.BaseServices
         /// <param name="notificationId">شناسه اعلان</param>
         /// <param name="companyId">شناسه شرکت</param>
         /// <returns>وضعیت عملیات</returns>
-        Task<ResultServiceMethods> AddSeenByCompany(long notificationId, long companyId);
+        Task<ResultOutPutMethodEnum> AddSeenByCompany(long notificationId, long companyId);
     }
 
 }

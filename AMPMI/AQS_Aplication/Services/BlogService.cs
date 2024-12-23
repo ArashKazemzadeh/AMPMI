@@ -35,16 +35,16 @@ namespace AQS_Aplication.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<ResultServiceMethods> Delete(int id)
+        public async Task<ResultOutPutMethodEnum> Delete(int id)
         {
             var blog = await _context.Blogs.FindAsync(id);
             if (blog != null)
             {
                 _context.Blogs.Remove(blog);
                 return await _context.SaveChangesAsync() > 0 ?
-                    ResultServiceMethods.savechanged : ResultServiceMethods.dontSaved;
+                    ResultOutPutMethodEnum.savechanged : ResultOutPutMethodEnum.dontSaved;
             }
-            return ResultServiceMethods.recordNotFounded;
+            return ResultOutPutMethodEnum.recordNotFounded;
         }
 
         /// <summary>
@@ -73,12 +73,12 @@ namespace AQS_Aplication.Services
         /// </summary>
         /// <param name="blog"></param>
         /// <returns></returns>
-        public async Task<ResultServiceMethods> Update(Blog blog)
+        public async Task<ResultOutPutMethodEnum> Update(Blog blog)
         {
             var existingBlog = await _context.Blogs.FindAsync(blog.Id);
 
             if (existingBlog == null)
-                return ResultServiceMethods.recordNotFounded;
+                return ResultOutPutMethodEnum.recordNotFounded;
 
             if (blog.Subject != null && existingBlog.Subject != blog.Subject)
                 existingBlog.Subject = blog.Subject;
@@ -90,7 +90,7 @@ namespace AQS_Aplication.Services
 
             int result = await _context.SaveChangesAsync();
             return result > 0 ?
-                ResultServiceMethods.savechanged : ResultServiceMethods.dontSaved;
+                ResultOutPutMethodEnum.savechanged : ResultOutPutMethodEnum.dontSaved;
         }
 
         /// <summary>
@@ -99,17 +99,17 @@ namespace AQS_Aplication.Services
         /// <param name="id"></param>
         /// <param name="headerPictureFileName"></param>
         /// <returns></returns>
-        public async Task<ResultServiceMethods> UpdateHeaderPicture(int id, Guid headerPictureFileName)
+        public async Task<ResultOutPutMethodEnum> UpdateHeaderPicture(int id, Guid headerPictureFileName)
         {
             var existingBlog = await _context.Blogs.FindAsync(id);
             if (existingBlog == null)
-                return ResultServiceMethods.recordNotFounded;
+                return ResultOutPutMethodEnum.recordNotFounded;
 
             existingBlog.HeaderPictureFileName = headerPictureFileName;
             existingBlog.CreateUpdateAt = DateTime.Now;
 
             int result = await _context.SaveChangesAsync();
-            return result > 0 ? ResultServiceMethods.savechanged : ResultServiceMethods.dontSaved;
+            return result > 0 ? ResultOutPutMethodEnum.savechanged : ResultOutPutMethodEnum.dontSaved;
         }
 
         /// <summary>
@@ -118,17 +118,17 @@ namespace AQS_Aplication.Services
         /// <param name="id"></param>
         /// <param name="videoFileName"></param>
         /// <returns></returns>
-        public async Task<ResultServiceMethods> UpdateVideoFile(int id, Guid videoFileName)
+        public async Task<ResultOutPutMethodEnum> UpdateVideoFile(int id, Guid videoFileName)
         {
             var existingBlog = await _context.Blogs.FindAsync(id);
             if (existingBlog == null)
-                return ResultServiceMethods.recordNotFounded;
+                return ResultOutPutMethodEnum.recordNotFounded;
 
             existingBlog.VideoFileName = videoFileName;
             existingBlog.CreateUpdateAt = DateTime.Now;
 
             int result = await _context.SaveChangesAsync();
-            return result > 0 ? ResultServiceMethods.savechanged : ResultServiceMethods.dontSaved;
+            return result > 0 ? ResultOutPutMethodEnum.savechanged : ResultOutPutMethodEnum.dontSaved;
         }
     }
 }

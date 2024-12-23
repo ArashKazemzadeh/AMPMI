@@ -17,7 +17,7 @@ namespace AQS_Aplication.Interfaces.IServisces.BaseServices
         /// </summary>
         /// <param name="id">شناسه زیر دسته‌بندی</param>
         /// <returns>وضعیت عملیات حذف</returns>
-        Task<ResultServiceMethods> Delete(int id);
+        Task<ResultOutPutMethodEnum> Delete(int id);
 
         /// <summary>
         /// دریافت تمام زیر دسته‌بندی‌ها
@@ -37,6 +37,6 @@ namespace AQS_Aplication.Interfaces.IServisces.BaseServices
         /// </summary>
         /// <param name="subCategory">مدل زیر دسته‌بندی</param>
         /// <returns>وضعیت عملیات به‌روزرسانی</returns>
-        Task<ResultServiceMethods> Update(SubCategory subCategory);
+        Task<ResultOutPutMethodEnum> Update(SubCategory subCategory);
     }
 }

@@ -17,7 +17,7 @@ namespace AQS_Aplication.Interfaces.IServisces.BaseServices
         /// </summary>
         /// <param name="id">شناسه رکورد</param>
         /// <returns>وضعیت عملیات حذف</returns>
-        Task<ResultServiceMethods> Delete(long id);
+        Task<ResultOutPutMethodEnum> Delete(long id);
 
         /// <summary>
         /// دریافت تمام رکوردهای مشاهده اعلان توسط شرکت

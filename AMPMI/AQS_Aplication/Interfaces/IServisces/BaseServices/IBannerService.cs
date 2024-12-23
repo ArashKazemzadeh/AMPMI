@@ -17,7 +17,7 @@ namespace AQS_Aplication.Interfaces.IServisces.BaseServices
         /// </summary>
         /// <param name="id">شناسه بنر</param>
         /// <returns>وضعیت عملیات حذف</returns>
-        Task<ResultServiceMethods> Delete(Guid id);
+        Task<ResultOutPutMethodEnum> Delete(Guid id);
 
         /// <summary>
         /// دریافت همه بنرها
