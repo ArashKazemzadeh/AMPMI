@@ -1,0 +1,63 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+}
+@section CSS
+{
+    <style>
+        table img {
+            width: 30px;
+            height: 30px;
+        }
+    </style>
+}
+<div class="container-fluid">
+    <div class="row">
+        <a href="@Url.Action("EditProduct","Product")" class="btn btn-primary">جدید</a>
+    </div>
+    <div class="row">
+        <table id="myTable" class="display">
+            <thead>
+                <tr>
+                    <th>نام</th>
+                    <th>جزیات</th>
+                    <th>نام قطعه ساز</th>
+                    <th>گروه اصلی</th>
+                    <th>گروه فرعی</th>
+                    <th>ویرایش</th>
+                    <th>حذف</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Row</td>
+                    <td>Row 1 Data 2</td>
+                    <td>Row</td>
+                    <td>Row 1 Data 2</td>
+                    <td>Row</td>
+                    <td><a><img src="~/images\recycle.png" /></a></td>
+                    <td><a><img src="~/images\recycle.png" /></a></td>
+                </tr>
+                <tr>
+                    <td>Rod</td>
+                    <td>Row 1 Data 2</td>
+                    <td>Row</td>
+                    <td>Row 1 Data 2</td>
+                    <td>Row</td>
+                    <td><a><img src="~/images\recycle.png" /></a></td>
+                    <td><a><img src="~/images\recycle.png" /></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+@section Scripts
+{
+    <script>
+          document.querySelector('#myTable')
+            .setAttribute('dir', 'rtl'); // Demo only
+
+        new DataTable('#myTable');
+
+    </script>
+}
+
