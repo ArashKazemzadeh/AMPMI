@@ -1,17 +1,12 @@
 ﻿@{
-    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+    Layout = "~/Areas/Company/Views/Shared/_layout.cshtml";
 }
 
 <div class="container-fluid">
     <div>
         <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
-        <a href="@Url.Action("UserList","User")" id="cancle"><img class="img-Icon" src="~/images/cancel.png" /></a>
     </div>
     <div>
-        <div class="col-md-12 my-2" style="padding-right:0; margin-bottom:20px;">
-            <input id="companyCheck" class="largerCheckbox" type="checkbox" />
-            <span class="companySpan">تغییر نقش به تولید کننده</span>
-        </div>
         <div class="row mt-2 userEditRow">
             <div class="col-md-6 my-2">
                 <label for="Cname" class="labelText">نام شرکت</label>
@@ -91,27 +86,21 @@
     </div>
     <div>
         <div class="row mt-2">
-            <div class="col-md-4 my-2">
-                <button class="btn-submit btnUpload input-text">گالری تصاویر</button>
-            </div>
-            <div class="col-md-4 my-2">
-                <button class="btn-submit btnUpload input-text">تیزر تبلیغاتی</button>
-            </div>
-            <div class="col-md-4 my-2">
-                <button class="btn-submit btnUpload input-text">محصولات</button>
+            <div class="col-md-5 my-2">
+                <button class="btn-submit btnUpload input-text">ارسال درخواست جهت شناسایی به عنوان تولید کننده</button>
             </div>
         </div>
     </div>
 </div>
-    
+
 @section Scripts
-    {
-        <script>
-            function getfile () {
-                  document.querySelector('#getFile').click();
-              }
+{
+    <script>
+        function getfile () {
+              document.querySelector('#getFile').click();
+          }
 
-        </script>
+    </script>
 
 
-    }
+}

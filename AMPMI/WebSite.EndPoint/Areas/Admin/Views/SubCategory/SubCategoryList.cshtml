@@ -5,8 +5,8 @@
 <div class="container-fluid">
     <div>
         <a href="#" id="new"> <img class="img-Icon" src="~/images/addition copy.png" /> </a>
-        <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
-        <a href="#" id="cancle"><img class="img-Icon" src="~/images/cancel.png" /></a>
+        <a hidden href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
+        <a hidden href="#" id="cancle"><img class="img-Icon" src="~/images/cancel.png" /></a>
     </div>
     <div hidden id="newForm" class="row">
         <form>
@@ -46,14 +46,14 @@
                     <td class="td-Icon">1</td>
                     <td>Row</td>
                     <td>Row 1 Data 2</td>
-                    <td class="td-Icon"><a><img class="img-Icon" src="~/images/editing.png" /></a></td>
+                    <td class="td-Icon"><a href="#" id="edit"><img class="img-Icon" src="~/images/editing.png" /></a></td>
                     <td class="td-Icon"><a><img class="img-Icon" src="~/images\recycle.png" /></a></td>
                 </tr>
                 <tr>
                     <td class="td-Icon">2</td>
                     <td>Rod</td>
                     <td>Row 1 Data 2</td>
-                    <td class="td-Icon"><a><img class="img-Icon" src="~/images/editing.png" /></a></td>
+                    <td class="td-Icon"><a href="#" id="edit"><img class="img-Icon" src="~/images/editing.png" /></a></td>
                     <td class="td-Icon"><a><img class="img-Icon" src="~/images\recycle.png" /></a></td>
                 </tr>
             </tbody>
@@ -70,6 +70,7 @@
 
         $("#new").click(function(){
             $("#newForm").show();
+            $("#save").show();
         });
 
         function HideForm()
@@ -83,9 +84,13 @@
 
         $("#cancle").click(function(){
             HideForm();
+            $("#save").hide();
         });
 
-
+        $("#edit").click(function(){
+            $("#newForm").show();
+            $("#save").show();
+        });
 
     </script>
 

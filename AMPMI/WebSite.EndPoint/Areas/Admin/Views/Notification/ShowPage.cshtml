@@ -14,8 +14,8 @@
     <div class="row">
         <div class="col-md-12">
             <a id="new" href="#"> <img class="img-Icon" src="~/images/addition copy.png" /></a>
-            <a id="save" href="#"> <img class="img-Icon" src="~/images/diskette copy.png" /></a>
-            <a id="cancle" href="#"><img class="img-Icon" src="~/images/cancel.png" /></a>
+            <a hidden id="save" href="#"> <img class="img-Icon" src="~/images/diskette copy.png" /></a>
+            <a hidden id="cancle" href="#"><img class="img-Icon" src="~/images/cancel.png" /></a>
             <!-- Form to create a new notification -->
             <form id="newForm" asp-area="Admin" asp-controller="Notification" asp-action="Create" method="post" hidden>
                 <div class="form-group">
@@ -48,19 +48,16 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>@rowIndex</td>
+                            <td class="td-Icon">@rowIndex</td>
                             <td>@item.Subject</td>
                             <td>@item.Description</td>
-                            <td>@item.CreateAt</td>
-                            <td>
-                                <form asp-area="Admin" asp-controller="Notification" asp-action="Delete" method="post">
-                                   
-                                    <input type="hidden" name="id" value="@item.Id" />
+                            <td>@item.CreateAt.ToPersianDate()</td>
+                            <td class="td-Icon">
 
-                                    <button type="submit">
-                                        <img class="img-Icon" src="~/images/recycle.png" />
-                                    </button>
-                                </form>
+                                    <a href="@Url.Action("Delete" ,"Notification" , new {area = "Admin" , id = @item.Id})" id="cancle">
+    <img class="img-Icon" src="~/images/cancel.png" />
+</a>
+                               
                             </td>
                         </tr>
                         rowIndex++;
@@ -80,6 +77,8 @@
 
         $("#new").click(function(){
             $("#newForm").show();
+            $("#save").show();
+            $("#cancle").show();
         });
 
         function HideForm()
@@ -93,6 +92,8 @@
 
         $("#cancle").click(function(){
             HideForm();
+            $("#save").hide();
+            $("#cancle").hide();
         });
          $("#save").click(function (event) {
             event.preventDefault();

@@ -14,6 +14,7 @@
                     <th>نقش</th>
                     <th>درخواست تأمین کننده</th>
                     <th>ویرایش</th>
+                    <th>حذف</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,7 +25,16 @@
                     <td>09124332121</td>
                     <td>کاربر</td>
                     <td class="td-Icon"><input type="checkbox"></td>
-                    <td class="td-Icon"><a><img class="img-Icon" src="~/images/editing.png" /></a></td>
+                    <td class="td-Icon">
+                        <a href="@Url.Action("EditUser","User")">
+                            <img class="img-Icon" src="~/images/editing.png" />
+                        </a>
+                    </td>
+                    <td class="td-Icon">
+                        <a href="">
+                            <img class="img-Icon" src="~/images/recycle.png" />
+                        </a>
+                    </td>
                 </tr>
                 <tr>
                     <td class="td-Icon">2</td>
@@ -33,7 +43,16 @@
                     <td>09124332555</td>
                     <td>تولید کننده</td>
                     <td class="td-Icon"><input type="checkbox"/></td>
-                    <td class="td-Icon"><a><img class="img-Icon" src="~/images/editing.png" /></a></td>
+                    <td class="td-Icon">
+                        <a href="@Url.Action("EditUser","User")">
+                            <img class="img-Icon" src="~/images/editing.png" />
+                        </a>
+                    </td>
+                    <td class="td-Icon">
+                        <a href="">
+                            <img class="img-Icon" src="~/images/recycle.png" />
+                        </a>
+                    </td>
                 </tr>
             </tbody>
         </table>

@@ -2,15 +2,19 @@
     Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
 }
 <div class="container-fluid">
+    <div class="row">
+        <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
+        <a href="@Url.Action("BLogList","Blog")" id="cancle"><img class="img-Icon" src="~/images/cancel.png" /></a>
+    </div>
     <form>
         <div class="form-group row">
-            <label class="col-sm-3 col-form-label">موضوع خبر</label>
+            <label class="col-sm-2 col-form-label input-Label">موضوع خبر:</label>
             <div class="col-sm-9">
-                <input type="text" class="form-control">
+                <input type="text" class="input-text">
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-sm-3 col-form-label">متن خبر</label>
+            <label class="col-sm-2 col-form-label input-Label">متن خبر:</label>
             <div class="col-sm-9">
                 <div id="div_editor1">
                 </div>
@@ -19,8 +23,8 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group row">
-                    <div class="col-sm-6">
-                        <button class="btn btn-submit btnUpload" onclick="getPic()">بارگذاری تصویر</button>
+                    <div class="col-sm-6 upBtn">
+                        <button class="btn-submit btnUpload" onclick="getPic()">بارگذاری تصویر</button>
                         <input id="getPic" style="display:none" class="form-control-file" type="file" name="img" accept="image/*">
                     </div>
                     <div class="col-sm-6 ShowPic"></div>
@@ -28,16 +32,14 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group row">
-                    <div class="col-sm-6">
-                        <button class="btn btn-submit btnUpload" onclick="getVideo()">بارگذاری ویدیو</button>
+                    <div class="col-sm-6 upBtn">
+                        <button class="btn-submit btnUpload" onclick="getVideo()">بارگذاری ویدیو</button>
                         <input id="getVideo" style="display:none" class="form-control-file" type="file" name="video" accept="video/*">
                     </div>
                     <div class="col-sm-6 ShowPic"></div>
                 </div>
             </div>
         </div>
-        <button class="btn btn-submit" id="save" type="submit">ذخیره</button>
-        <a href="@Url.Action("ProductList","Product")" class="btn btn-danger" id="cancle" type="button">انصراف</a>
     </form>
 </div>
 
