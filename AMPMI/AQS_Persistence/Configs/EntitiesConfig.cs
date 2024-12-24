@@ -1,4 +1,4 @@
-﻿using Domin.Entities;
+﻿using AQS_Domin.Entities.business;
 using Microsoft.EntityFrameworkCore;
 
 namespace AQS_Persistence.Configs;

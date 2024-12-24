@@ -1,4 +1,4 @@
-﻿namespace Domin.Entities;
+﻿namespace AQS_Domin.Entities.business;
 public partial class SubCategory
 {
     public int Id { get; set; }

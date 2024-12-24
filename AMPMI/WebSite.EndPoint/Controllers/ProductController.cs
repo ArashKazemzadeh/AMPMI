@@ -1,5 +1,5 @@
 ﻿using AQS_Aplication.Interfaces.IServisces.BaseServices;
-using Domin.Entities;
+using AQS_Domin.Entities.business;
 using Microsoft.AspNetCore.Mvc;
 using WebSite.EndPoint.Models.ProductViewModel;
 

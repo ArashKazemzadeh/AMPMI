@@ -2,6 +2,7 @@
 using AQS_Aplication.Interfaces.IServisces.BaseServices;
 using AQS_Common.Enums;
 using AQS_Domin.Entities;
+using AQS_Domin.Entities.business;
 using Microsoft.EntityFrameworkCore;
 
 namespace AQS_Aplication.Services

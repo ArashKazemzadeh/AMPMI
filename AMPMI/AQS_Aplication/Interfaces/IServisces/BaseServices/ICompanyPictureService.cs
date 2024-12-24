@@ -1,4 +1,4 @@
-﻿using Domin.Entities;
+﻿using AQS_Domin.Entities.business;
 
 namespace AQS_Aplication.Interfaces.IServisces.BaseServices
 {

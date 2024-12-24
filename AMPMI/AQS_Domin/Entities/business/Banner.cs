@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AQS_Domin.Entities
+namespace AQS_Domin.Entities.business
 {
     public class Banner
     {

@@ -1,6 +1,6 @@
 ﻿using AQS_Aplication.Dtos.BaseServiceDto.NotificationDtos;
 using AQS_Common.Enums;
-using Domin.Entities;
+using AQS_Domin.Entities.business;
 
 namespace AQS_Aplication.Interfaces.IServisces.BaseServices
 {

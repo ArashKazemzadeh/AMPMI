@@ -41,7 +41,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
             return RedirectToAction(nameof(ShowPage));
         }
 
-        [HttpPost]
+        [HttpDelete]
         public async Task<IActionResult> Delete(long id)
         {
             var resultMessage = await _notificationService.Delete(id);

@@ -1,6 +1,6 @@
-﻿using Domin.Entities;
-using AQS_Common.Enums;
+﻿using AQS_Common.Enums;
 using AQS_Aplication.Dtos.IdentityServiceDto;
+using AQS_Domin.Entities.business;
 
 namespace AQS_Aplication.Interfaces.IServisces.BaseServices
 {

@@ -1,5 +1,4 @@
-﻿using Domin.Entities;
-using WebSite.EndPoint.Models.ProductViewModel;
+﻿using WebSite.EndPoint.Models.ProductViewModel;
 
 namespace WebSite.EndPoint.Models.CompanyViewModel
 {

@@ -1,8 +1,7 @@
 ﻿using AQS_Aplication.Interfaces.IInfrastructure.IContext;
-using AQS_Domin.Entities;
 using AQS_Domin.Entities.Acounting;
+using AQS_Domin.Entities.business;
 using AQS_Persistence.Configs;
-using Domin.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
