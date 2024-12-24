@@ -54,8 +54,10 @@
                             <td>@item.CreateAt</td>
                             <td>
                                 <form asp-area="Admin" asp-controller="Notification" asp-action="Delete" method="post">
-                                    <input type="hidden" asp-for="@item.Id" />
-                                    <button type="submit" class="btn">
+                                   
+                                    <input type="hidden" name="id" value="@item.Id" />
+
+                                    <button type="submit">
                                         <img class="img-Icon" src="~/images/recycle.png" />
                                     </button>
                                 </form>
