@@ -20,23 +20,25 @@
             <form id="newForm" asp-area="Admin" asp-controller="Notification" asp-action="Create" method="post" hidden>
                 <div class="form-group">
                     <label for="Subject" style="float:right;">موضوع اعلان:</label>
-                    <input type="text" id="Subject" name="subject" class="form-control input-text" placeholder="موضوع متن را وارد کنید" />
+
+                    <input type="text" id="Subject" name="subject" class="form-control input-text" placeholder="موضوع اعلان را وارد کنید" />
                 </div>
                 <div class="form-group">
                     <label for="Description" style="float:right;">متن اعلان:</label>
                     <textarea id="Description" name="description" class="form-control input-text" rows="5" placeholder="متن متن را وارد کنید"></textarea>
+
                 </div>
             </form>
         </div>
         <div>
-            <table id="notiftable" class="display">
+            <table id="notiftable" class="display tbStyle">
                 <thead>
                     <tr>
-                        <th style="text-align:center">ردیف</th>
-                        <th style="text-align:center">موضوع اعلان</th>
-                        <th style="text-align:center">متن اعلان</th>
-                        <th style="text-align:center">تاریخ</th>
-                        <th style="text-align:center">حذف</th>
+                        <th>ردیف</th>
+                        <th>موضوع اعلان</th>
+                        <th>متن اعلان</th>
+                        <th>تاریخ</th>
+                        <th>حذف</th>
                     </tr>
                 </thead>
                 <tbody>

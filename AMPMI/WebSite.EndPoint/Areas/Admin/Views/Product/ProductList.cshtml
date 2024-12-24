@@ -1,23 +1,15 @@
 ﻿@{
     Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
 }
-@section CSS
-{
-    <style>
-        table img {
-            width: 30px;
-            height: 30px;
-        }
-    </style>
-}
 <div class="container-fluid">
     <div class="row">
-        <a href="@Url.Action("EditProduct","Product")" class="btn btn-primary">جدید</a>
+        <a href="@Url.Action("EditProduct","Product")" id="new"> <img class="img-Icon" src="~/images/addition copy.png" /> </a>
     </div>
     <div class="row">
-        <table id="myTable" class="display">
+        <table id="myTable" class="display tbStyle">
             <thead>
                 <tr>
+                    <th>ردیف</th>
                     <th>نام</th>
                     <th>جزیات</th>
                     <th>نام قطعه ساز</th>
@@ -29,22 +21,24 @@
             </thead>
             <tbody>
                 <tr>
+                    <td class="td-Icon">1</td>
                     <td>Row</td>
                     <td>Row 1 Data 2</td>
                     <td>Row</td>
                     <td>Row 1 Data 2</td>
                     <td>Row</td>
-                    <td><a><img src="~/images\recycle.png" /></a></td>
-                    <td><a><img src="~/images\recycle.png" /></a></td>
+                    <td class="td-Icon"><a><img class="img-Icon" src="~/images/editing.png" /></a></td>
+                    <td class="td-Icon"><a><img class="img-Icon" src="~/images\recycle.png" /></a></td>
                 </tr>
                 <tr>
+                    <td class="td-Icon">1</td>
                     <td>Rod</td>
                     <td>Row 1 Data 2</td>
                     <td>Row</td>
                     <td>Row 1 Data 2</td>
                     <td>Row</td>
-                    <td><a><img src="~/images\recycle.png" /></a></td>
-                    <td><a><img src="~/images\recycle.png" /></a></td>
+                    <td class ="td-Icon"><a><img class="img-Icon" src="~/images/editing.png" /></a></td>
+                    <td class="td-Icon"><a><img class="img-Icon" src="~/images\recycle.png" /></a></td>
                 </tr>
             </tbody>
         </table>
