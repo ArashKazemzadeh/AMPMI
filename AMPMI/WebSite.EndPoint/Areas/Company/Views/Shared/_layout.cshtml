@@ -161,64 +161,40 @@ desired effect
                     <ul class="sidebar-menu" data-widget="tree" style="margin-top:20px; margin-right:10px">
                         <!-- User Profile -->
                         <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
-                            <a asp-area="Admin" asp-controller=User asp-action=UserList>
+                            <a href="#">
                                 <img src="~/images/user.png" style="width:20px ; height:20px" />
-                                <span style="padding-right:10px; color:#000000">کاربران</span>
+                                <span style="padding-right:10px; color:#000000">پروفایل کاربری</span>
                             </a>
                         </li>
                         <!-- Change Password -->
                         <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
-                            <a asp-area="Admin" asp-controller=User asp-action=UserList>
+                            <a href="#">
                                 <img src="~/images/user.png" style="width:20px ; height:20px" />
                                 <span style="padding-right:10px; color:#000000">تغییر رمز عبور</span>
                             </a>
                         </li>
                         <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
-                            <a asp-area="Admin" asp-controller=Notification asp-action=ShowPage>
+                            <a href="#">
                                 <img src="~/images/image copy.png" style="width:20px ; height:20px" />
-                                <span style="padding-right:10px; color:#000000">اعلان‌ها</span>
+                                <span style="padding-right:10px; color:#000000">گالری تصاویر</span>
                             </a>
                         </li>
                         <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
-                            <a asp-area="Admin" asp-controller=Category asp-action=CategoryList>
+                            <a href="#">
                                 <img src="~/images/clapperboard copy.png" style="width:20px ; height:20px" />
-                                <span style="padding-right:10px; color:#000000">تعریف گروه اصلی محصولات</span>
+                                <span style="padding-right:10px; color:#000000">تیزر تبلیغاتی</span>
+                            </a>
+                        </li>
+                        <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
+                            <a asp-area="" asp-controller=Category asp-action=CategoryList>
+                                <img src="~/images/product copy.png" style="width:20px ; height:20px" />
+                                <span style="padding-right:10px; color:#000000">محصولات</span>
                             </a>
                         </li>
                         <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
                             <a asp-area="Admin" asp-controller="SubCategory" asp-action="SubCategoryList">
                                 <img src="~/images/product copy.png" style="width:20px ; height:20px" />
-                                <span style="padding-right:10px; color:#000000">تعریف گروه فرعی محصولات</span>
-                            </a>
-                        </li>
-                        <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
-                            <a asp-area="Admin" asp-controller="Product" asp-action="ProductList">
-                                <img src="~/images/product copy.png" style="width:20px ; height:20px" />
-                                <span style="padding-right:10px; color:#000000">تعریف محصولات</span>
-                            </a>
-                        </li>
-                        <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
-                            <a asp-area="Admin" asp-controller="Product" asp-action="NotConfirmedProductList">
-                                <img src="~/images/product copy.png" style="width:20px ; height:20px" />
-                                <span style="padding-right:10px; color:#000000">تأیید محصولات بارگذاری شده</span>
-                            </a>
-                        </li>
-                        <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
-                            <a asp-area="Admin" asp-controller="Blog" asp-action="BlogList">
-                                <img src="~/images/notification copy.png" style="width:20px ; height:20px" />
-                                <span style="padding-right:10px; color:#000000">اخبار انجمن</span>
-                            </a>
-                        </li>
-                        <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
-                            <a asp-area="Admin" asp-controller="Banner" asp-action="BannerList">
-                                <img src="~/images/notification copy.png" style="width:20px ; height:20px" />
-                                <span style="padding-right:10px; color:#000000">بنر تبلیغاتی</span>
-                            </a>
-                        </li>
-                        <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
-                            <a asp-area="Admin" asp-controller="Aboutus" asp-action="ShowAboutUs">
-                                <img src="~/images/notification copy.png" style="width:20px ; height:20px" />
-                                <span style="padding-right:10px; color:#000000">درباره ما</span>
+                                <span style="padding-right:10px; color:#000000">اعلان‌ها</span>
                             </a>
                         </li>
                     </ul>
