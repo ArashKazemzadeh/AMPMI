@@ -3,7 +3,7 @@
 }
 <div class="container-fluid">
     <div class="row">
-        <a href="@Url.Action("EditBLog","Blog")" class="btn btn-primary">جدید</a>
+        <a href="@Url.Action("EditBLog","Blog")" id="new"> <img class="img-Icon" src="~/images/addition copy.png" /> </a>
     </div>
     <div class="row">
         <table id="myTable" class="display tbStyle">
@@ -22,14 +22,14 @@
                     <td>گروه 1</td>
                     <td>گروه 1</td>
 
-                    <td style="text-align:center"><a href="#"><img class="img-Icon" src="~/images/editing.png" /></a></td>
+                    <td style="text-align:center"><a href="@Url.Action("EditBLog","Blog")"><img class="img-Icon" src="~/images/editing.png" /></a></td>
                     <td style="text-align:center"><a href="#"><img class="img-Icon" src="~/images/recycle.png" /></a></td>
                 </tr>
                 <tr>
                     <td style="text-align:center">2</td>
                     <td>گروه 2</td>
                     <td>گروه 1</td>
-                    <td style="text-align:center"><a href="#"><img class="img-Icon" src="~/images/editing.png" /></a></td>
+                    <td style="text-align:center"><a href="@Url.Action("EditBLog","Blog")"><img class="img-Icon" src="~/images/editing.png" /></a></td>
                     <td style="text-align:center"><a href="#"><img class="img-Icon" src="~/images/recycle.png" /></a></td>
                 </tr>
             </tbody>

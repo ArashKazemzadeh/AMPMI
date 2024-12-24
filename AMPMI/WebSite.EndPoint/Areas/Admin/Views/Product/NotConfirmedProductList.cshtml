@@ -12,7 +12,7 @@
 }
 <div class="container-fluid">
     <div class="row">
-        <table id="myTable" class="display">
+        <table id="myTable" class="display tbStyle">
             <thead>
                 <tr>
                     <th>ردیف</th>
@@ -20,25 +20,29 @@
                     <th>نام قطعه ساز</th>
                     <th>گروه اصلی</th>
                     <th>گروه فرعی</th>
-                    <th>وضعیت</th>
+                    <th>تأیید</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>Row</td>
+                    <td class ="td-Icon">1</td>
                     <td>Row</td>
                     <td>Row 1 Data 2</td>
                     <td>Row</td>
                     <td>Row</td>
-                    <td><a href="@Url.Action("ConfirmProduct","Product",new { Area = "Admin",productId = 2 })"><img src="~/images\recycle.png" /></a></td>
+                    <td class="td-Icon">
+                        <a href="@Url.Action("ConfirmProduct","Product",new { Area = "Admin",productId = 2 })">
+                            <img class="img-Icon" src="~/images/confirm.png" />
+                        </a>
+                    </td>
                 </tr>
                 <tr>
-                    <td>Rod</td>
+                    <td class="td-Icon">2</td>
                     <td>Row</td>
                     <td>Row 1 Data 2</td>
                     <td>Row</td>
                     <td>Row</td>
-                    <td><a><img src="~/images\recycle.png" /></a></td>
+                    <td class="td-Icon"><a><img class="img-Icon" src="~/images/confirm.png" /></a></td>
                 </tr>
             </tbody>
         </table>

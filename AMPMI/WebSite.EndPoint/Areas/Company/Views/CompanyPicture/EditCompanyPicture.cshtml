@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+    Layout = "~/Areas/Company/Views/Shared/_layout.cshtml";
 }
 
 <div class="contaienr">
@@ -10,20 +10,15 @@
     </div>
     <div hidden id="newForm" style="margin-top:20px;">
         <form>
-
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label input-Label">نام گروه اصلی:</label>
-                <div class="col-sm-4">
-                    <input type="text" class="input-text">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label input-Label" style="padding:10px;">تصویر گروه اصلی:</label>
                 <div class="col-sm-2 upBtn">
                     <button class="btn-submit btnUpload" onclick="getfile()">بارگذاری تصویر</button>
                     <input id="getFile" style="display:none" class="form-control-file" type="file" name="img" accept="image/*">
                 </div>
                 <div class="col-sm-2 ShowPic"></div>
+                <div class="col-sm-8">
+                    <sapn>حداکثر حجم مجاز جهت بارگذاری فایل 200 کیلو بایت است.</sapn>
+                </div>
             </div>
         </form>
     </div>
@@ -32,23 +27,19 @@
             <thead>
                 <tr>
                     <th>ردیف</th>
-                    <th>نام گروه اصلی</th>
-                    <th>ویرایش</th>
+                    <th>تصویر بارگذاری شده</th>
                     <th>حذف</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td class="td-Icon">1</td>
-                    <td>گروه 1</td>
-                    
-                    <td class="td-Icon"><a href="#" id="edit"><img class="img-Icon" src="~/images/editing.png" /></a></td>
+                    <td></td>
                     <td class="td-Icon"><a href="#"><img class="img-Icon" src="~/images/recycle.png" /></a></td>
                 </tr>
                 <tr>
-                    <td class="td-Icon">2</td>
-                    <td>گروه 2</td>
-                    <td class="td-Icon"><a href="#" id="edit"><img class="img-Icon" src="~/images/editing.png" /></a></td>
+                    <td class="td-Icon">1</td>
+                    <td></td>
                     <td class="td-Icon"><a href="#"><img class="img-Icon" src="~/images/recycle.png" /></a></td>
                 </tr>
             </tbody>
