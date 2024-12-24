@@ -27,7 +27,6 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Company\Data\" />
     <Folder Include="Areas\Company\Models\" />
-    <Folder Include="Areas\Company\Views\" />
     <Folder Include="Models\AcountingViewModel\Login\" />
   </ItemGroup>
 

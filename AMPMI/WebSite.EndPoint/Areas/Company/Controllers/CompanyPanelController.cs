@@ -3,9 +3,9 @@
 namespace WebSite.EndPoint.Areas.Company.Controllers
 {
     [Area("Company")]
-    public class HomeController : Controller
+    public class CompanyPanelController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Panel()
         {
             return View();
         }
