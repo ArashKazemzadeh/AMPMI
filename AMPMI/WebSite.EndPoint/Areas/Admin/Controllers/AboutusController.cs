@@ -3,7 +3,7 @@
 namespace WebSite.EndPoint.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class AboutusController : Controller
+    public class AboutUsController : Controller
     {
         public IActionResult ShowAboutUs()
         {

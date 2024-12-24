@@ -9,6 +9,19 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         {
             return View();
         }
+        public IActionResult NotConfirmedProductList()
+        {
+            return View();
+        }
+        /// <summary>
+        /// تایید محصول
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <returns></returns>
+        public IActionResult ConfirmProduct(int productId)
+        {
+            return RedirectToAction(nameof(NotConfirmedProductList));
+        }
         public IActionResult EditProduct()
         {
             return View();

@@ -32,16 +32,16 @@ namespace AQS_Aplication.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<ResultServiceMethods> Delete(int id)
+        public async Task<ResultOutPutMethodEnum> Delete(int id)
         {
             var category = await _context.Categories.FindAsync(id);
             if (category != null)
             {
                 _context.Categories.Remove(category);
                 return await _context.SaveChangesAsync() > 0 ?
-                    ResultServiceMethods.savechanged : ResultServiceMethods.dontSaved;
+                    ResultOutPutMethodEnum.savechanged : ResultOutPutMethodEnum.dontSaved;
             }
-            return ResultServiceMethods.recordNotFounded;
+            return ResultOutPutMethodEnum.recordNotFounded;
         }
 
         /// <summary>
@@ -70,15 +70,15 @@ namespace AQS_Aplication.Services
         /// </summary>
         /// <param name="category"></param>
         /// <returns></returns>
-        public async Task<ResultServiceMethods> Update(Category category)
+        public async Task<ResultOutPutMethodEnum> Update(Category category)
         {
             var existingCategory = await _context.Categories.FindAsync(category.Id);
             if (existingCategory == null)
-                return ResultServiceMethods.recordNotFounded;
+                return ResultOutPutMethodEnum.recordNotFounded;
             if (category.Name != null && existingCategory.Name != category.Name)
                 existingCategory.Name = category.Name;
             int result = await _context.SaveChangesAsync();
-            return result > 0 ? ResultServiceMethods.savechanged : ResultServiceMethods.dontSaved;
+            return result > 0 ? ResultOutPutMethodEnum.savechanged : ResultOutPutMethodEnum.dontSaved;
         }
 
         /// <summary>
@@ -87,16 +87,16 @@ namespace AQS_Aplication.Services
         /// <param name="id"></param>
         /// <param name="pictureFileName"></param>
         /// <returns></returns>
-        public async Task<ResultServiceMethods> UpdatePicture(int id, Guid pictureFileName)
+        public async Task<ResultOutPutMethodEnum> UpdatePicture(int id, Guid pictureFileName)
         {
             var existingCategory = await _context.Categories.FindAsync(id);
             if (existingCategory == null)
-                return ResultServiceMethods.recordNotFounded;
+                return ResultOutPutMethodEnum.recordNotFounded;
 
             existingCategory.PictureFileName = pictureFileName;
 
             int result = await _context.SaveChangesAsync();
-            return result > 0 ? ResultServiceMethods.savechanged : ResultServiceMethods.dontSaved;
+            return result > 0 ? ResultOutPutMethodEnum.savechanged : ResultOutPutMethodEnum.dontSaved;
         }
     }
 }

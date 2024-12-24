@@ -5,20 +5,28 @@
 }
 
 <div class="container-fluid">
+    <div>
+        @if (ViewData["Message"] is not null)
+        {
+            <p style="color : red">@ViewData["Message"]?.ToString()</p>
+        }
+    </div>
     <div class="row">
         <div class="col-md-12">
             <a id="new" href="#"> <img class="img-Icon" src="~/images/addition copy.png" /></a>
             <a id="save" href="#"> <img class="img-Icon" src="~/images/diskette copy.png" /></a>
             <a id="cancle" href="#"><img class="img-Icon" src="~/images/cancel.png" /></a>
             <!-- Form to create a new notification -->
-            <form hidden id="newForm" method="post" enctype="multipart/form-data">
+            <form id="newForm" asp-area="Admin" asp-controller="Notification" asp-action="Create" method="post" hidden>
                 <div class="form-group">
                     <label for="Subject" style="float:right;">موضوع اعلان:</label>
-                    <input type="text" id="Subject" name="Subject" class="input-text" placeholder="موضوع خبر را وارد کنید" />
+
+                    <input type="text" id="Subject" name="subject" class="form-control input-text" placeholder="موضوع اعلان را وارد کنید" />
                 </div>
                 <div class="form-group">
-                    <label for="Content" style="float:right;">متن اعلان:</label>
-                    <textarea id="Content" name="Content" class="input-text" rows="5" placeholder="متن خبر را وارد کنید"></textarea>
+                    <label for="Description" style="float:right;">متن اعلان:</label>
+                    <textarea id="Description" name="description" class="form-control input-text" rows="5" placeholder="متن متن را وارد کنید"></textarea>
+
                 </div>
             </form>
         </div>
@@ -34,24 +42,27 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!--rows -->
                     @{
                         long rowIndex = 1;
-                        foreach (var item in Model)
-                        {
-                            <tr>
-                                <td class="td-Icon">@rowIndex</td>
-                                <td>@item.Subject</td>
-                                <td>@item.Description</td>
-                                <td>@item.CreateAt</td>
-                                <td class="td-Icon">
-                                    <a class="btn"><img class="img-Icon" src="~/images/recycle.png" /></a>
-                                </td>
-                            </tr>
-                            rowIndex++;
-                        }
                     }
-                    <!-- end -->
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@rowIndex</td>
+                            <td>@item.Subject</td>
+                            <td>@item.Description</td>
+                            <td>@item.CreateAt</td>
+                            <td>
+                                <form asp-area="Admin" asp-controller="Notification" asp-action="Delete" method="post">
+                                    <input type="hidden" asp-for="@item.Id" />
+                                    <button type="submit" class="btn">
+                                        <img class="img-Icon" src="~/images/recycle.png" />
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        rowIndex++;
+                    }
                 </tbody>
             </table>
         </div>
@@ -80,6 +91,16 @@
 
         $("#cancle").click(function(){
             HideForm();
+        });
+         $("#save").click(function (event) {
+            event.preventDefault();
+            $("#newForm").submit();
+        });
+
+
+        $("#cancle").click(function (event) {
+            event.preventDefault();
+            $("#newForm").hide();
         });
     </script>
 

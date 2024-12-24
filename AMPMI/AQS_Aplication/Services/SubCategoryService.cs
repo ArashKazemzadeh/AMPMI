@@ -29,7 +29,7 @@ namespace AQS_Aplication.Services
             return -1;
         }
 
-        public async Task<ResultServiceMethods> Delete(int id)
+        public async Task<ResultOutPutMethodEnum> Delete(int id)
         {
             var subCategory = await _context.SubCategories.FindAsync(id);
 
@@ -37,11 +37,11 @@ namespace AQS_Aplication.Services
             {
                 _context.SubCategories.Remove(subCategory);
                 return await _context.SaveChangesAsync() > 0
-                    ? ResultServiceMethods.savechanged
-                    : ResultServiceMethods.dontSaved;
+                    ? ResultOutPutMethodEnum.savechanged
+                    : ResultOutPutMethodEnum.dontSaved;
             }
 
-            return ResultServiceMethods.recordNotFounded;
+            return ResultOutPutMethodEnum.recordNotFounded;
         }
 
         public async Task<List<SubCategory>> ReadAll()
@@ -62,13 +62,13 @@ namespace AQS_Aplication.Services
                 .FirstOrDefaultAsync(sc => sc.Id == id);
         }
 
-        public async Task<ResultServiceMethods> Update(SubCategory subCategory)
+        public async Task<ResultOutPutMethodEnum> Update(SubCategory subCategory)
         {
             var existingSubCategory = await _context.SubCategories.FindAsync(subCategory.Id);
 
             if (existingSubCategory == null)
             {
-                return ResultServiceMethods.recordNotFounded;
+                return ResultOutPutMethodEnum.recordNotFounded;
             }
 
             if (subCategory.Name != null && existingSubCategory.Name != subCategory.Name)
@@ -79,8 +79,8 @@ namespace AQS_Aplication.Services
             int result = await _context.SaveChangesAsync();
 
             return result > 0 
-                ? ResultServiceMethods.savechanged 
-                : ResultServiceMethods.dontSaved;
+                ? ResultOutPutMethodEnum.savechanged 
+                : ResultOutPutMethodEnum.dontSaved;
         }
     }
 }

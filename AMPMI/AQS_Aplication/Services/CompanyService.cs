@@ -39,16 +39,16 @@ namespace AQS_Aplication.Services
             return -1;
         }
 
-        public async Task<ResultServiceMethods> Delete(long id)
+        public async Task<ResultOutPutMethodEnum> Delete(long id)
         {
             var company = await _context.Companies.FindAsync(id);
             if (company != null)
             {
                 _context.Companies.Remove(company);
                 return await _context.SaveChangesAsync() > 0 ?
-                    ResultServiceMethods.savechanged : ResultServiceMethods.dontSaved;
+                    ResultOutPutMethodEnum.savechanged : ResultOutPutMethodEnum.dontSaved;
             }
-            return ResultServiceMethods.recordNotFounded;
+            return ResultOutPutMethodEnum.recordNotFounded;
         }
 
         public async Task<List<Company>> Read()
@@ -66,12 +66,12 @@ namespace AQS_Aplication.Services
             return await _context.Companies.AnyAsync(c => c.MobileNumber == mobile);
         }
 
-        public async Task<ResultServiceMethods> Update(Company company)
+        public async Task<ResultOutPutMethodEnum> Update(Company company)
         {
             var existingCompany = await _context.Companies.FindAsync(company.Id);
 
             if (existingCompany == null)
-                return ResultServiceMethods.recordNotFounded;
+                return ResultOutPutMethodEnum.recordNotFounded;
 
             if (company.Name != null && existingCompany.Name != company.Name)
                 existingCompany.Name = company.Name;
@@ -112,34 +112,34 @@ namespace AQS_Aplication.Services
 
             int result = await _context.SaveChangesAsync();
 
-            return result > 0 ? ResultServiceMethods.savechanged : ResultServiceMethods.dontSaved;
+            return result > 0 ? ResultOutPutMethodEnum.savechanged : ResultOutPutMethodEnum.dontSaved;
         }
 
-        public async Task<ResultServiceMethods> UpdateLogoRout(int id, Guid logoRout)
+        public async Task<ResultOutPutMethodEnum> UpdateLogoRout(int id, Guid logoRout)
         {
             var existingCompany = await _context.Companies.FindAsync(id);
 
             if (existingCompany == null)
-                return ResultServiceMethods.recordNotFounded;
+                return ResultOutPutMethodEnum.recordNotFounded;
 
             existingCompany.LogoRout = logoRout;
             int result = await _context.SaveChangesAsync();
 
             return result > 0 ?
-                ResultServiceMethods.savechanged : ResultServiceMethods.dontSaved;
+                ResultOutPutMethodEnum.savechanged : ResultOutPutMethodEnum.dontSaved;
         }
 
-        public async Task<ResultServiceMethods> IsCompany(long id, bool isCompany)
+        public async Task<ResultOutPutMethodEnum> IsCompany(long id, bool isCompany)
         {
             var existingCompany = await _context.Companies.FindAsync(id);
 
             if (existingCompany == null)
-                return ResultServiceMethods.recordNotFounded;
+                return ResultOutPutMethodEnum.recordNotFounded;
 
             existingCompany.IsCompany = isCompany;
 
             return await _context.SaveChangesAsync() > 0 ?
-                ResultServiceMethods.savechanged : ResultServiceMethods.dontSaved;
+                ResultOutPutMethodEnum.savechanged : ResultOutPutMethodEnum.dontSaved;
         }
 
         public async Task<bool> IsExistById(long id)

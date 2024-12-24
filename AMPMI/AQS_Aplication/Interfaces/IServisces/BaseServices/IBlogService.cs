@@ -6,12 +6,12 @@ namespace AQS_Aplication.Interfaces.IServisces.BaseServices
     public interface IBlogService
     {
         Task<int> Create(Blog blog);
-        Task<ResultServiceMethods> Delete(int id);
+        Task<ResultOutPutMethodEnum> Delete(int id);
         Task<List<Blog>> Read();
         Task<Blog?> ReadById(int id);
-        Task<ResultServiceMethods> Update(Blog blog);
-        Task<ResultServiceMethods> UpdateHeaderPicture(int id, Guid headerPictureFileName);
-        Task<ResultServiceMethods> UpdateVideoFile(int id, Guid videoFileName);
+        Task<ResultOutPutMethodEnum> Update(Blog blog);
+        Task<ResultOutPutMethodEnum> UpdateHeaderPicture(int id, Guid headerPictureFileName);
+        Task<ResultOutPutMethodEnum> UpdateVideoFile(int id, Guid videoFileName);
     }
 
 }

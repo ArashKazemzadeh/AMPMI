@@ -6,10 +6,10 @@ namespace AQS_Aplication.Interfaces.IServisces.BaseServices
     public interface ICategoryService
     {
         Task<int> Create(Category category);
-        Task<ResultServiceMethods> Delete(int id);
+        Task<ResultOutPutMethodEnum> Delete(int id);
         Task<List<Category>> Read();
         Task<Category?> ReadById(int id);
-        Task<ResultServiceMethods> Update(Category category);
-        Task<ResultServiceMethods> UpdatePicture(int id, Guid pictureFileName);
+        Task<ResultOutPutMethodEnum> Update(Category category);
+        Task<ResultOutPutMethodEnum> UpdatePicture(int id, Guid pictureFileName);
     }
 }
