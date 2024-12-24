@@ -34,6 +34,9 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(string subject, string description)
         {
+            if (string.IsNullOrEmpty(subject) || string.IsNullOrEmpty(description))
+                return RedirectToAction(nameof(ShowPage));
+
             long id = await _notificationService.Create(subject, description);
 
             TempData["Message"] = id > 0 ? "اعلان با موفقیت ایجاد شد" : "اعلان جدید ایجاد نشد";
@@ -44,6 +47,9 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(long id)
         {
+            if (id < 1)
+                return RedirectToAction(nameof(ShowPage));
+
             var resultMessage = await _notificationService.Delete(id);
 
             TempData["Message"] = resultMessage == ResultOutPutMethodEnum.savechanged ? "اعلان حذف شد" :

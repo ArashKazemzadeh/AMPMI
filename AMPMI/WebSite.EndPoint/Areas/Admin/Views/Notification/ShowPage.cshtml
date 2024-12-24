@@ -53,12 +53,11 @@
                             <td>@item.Description</td>
                             <td>@item.CreateAt.ToPersianDate()</td>
                             <td class="td-Icon">
-                                <form asp-area="Admin" asp-controller="Notification" asp-action="Delete" method="post">
-                                    <input type="hidden" asp-for="@item.Id" />
-                                    <a href="">
-                                        <img class="img-Icon" src="~/images/recycle.png" />
-                                    </a>
-                                </form>
+
+                                    <a href="@Url.Action("Delete" ,"Notification" , new {area = "Admin" , id = @item.Id})" id="cancle">
+    <img class="img-Icon" src="~/images/cancel.png" />
+</a>
+                               
                             </td>
                         </tr>
                         rowIndex++;
