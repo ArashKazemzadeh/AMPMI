@@ -1,0 +1,57 @@
+﻿@{
+    Layout = "~/Areas/Company/Views/Shared/_layout.cshtml";
+}
+<div class="container-fluid">
+    <div class="row">
+        <a href="@Url.Action("EditProduct","Product")" id="new"> <img class="img-Icon" src="~/images/addition copy.png" /> </a>
+    </div>
+    <div class="row">
+        <table id="myTable" class="display tbStyle">
+            <thead>
+                <tr>
+                    <th>ردیف</th>
+                    <th>گروه اصلی</th>
+                    <th>گروه فرعی</th>
+                    <th>کد محصول</th>
+                    <th>نام محصول</th>
+                    <th>وضعیت تأیید</th>
+                    <th>ویرایش</th>
+                    <th>حذف</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="td-Icon">1</td>
+                    <td>گروه اصلی 1</td>
+                    <td>گروه فرعی 1</td>
+                    <td>کد محصول 1</td>
+                    <td>نام محصول 1</td>
+                    <td class="td-Icon"><input type="checkbox"></td>
+                    <td class="td-Icon"><a href="@Url.Action("EditProduct","Product")"><img class="img-Icon" src="~/images/editing.png" /></a></td>
+                    <td class="td-Icon"><a><img class="img-Icon" src="~/images\recycle.png" /></a></td>
+                </tr>
+                <tr>
+                    <td class="td-Icon">2</td>
+                    <td>گروه اصلی 2</td>
+                    <td>گروه فرعی 2</td>
+                    <td>کد محصول 2</td>
+                    <td>نام محصول 2</td>
+                    <td class="td-Icon"><input type="checkbox"></td>
+                    <td class="td-Icon"><a href="@Url.Action("EditProduct","Product")"><img class="img-Icon" src="~/images/editing.png" /></a></td>
+                    <td class="td-Icon"><a><img class="img-Icon" src="~/images\recycle.png" /></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+@section Scripts
+{
+    <script>
+          document.querySelector('#myTable')
+            .setAttribute('dir', 'rtl'); // Demo only
+
+        new DataTable('#myTable');
+
+    </script>
+}
+
