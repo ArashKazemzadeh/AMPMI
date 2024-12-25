@@ -9,5 +9,14 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
         {
             return View();
         }
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+        //[HttpPost]
+        //public IActionResult ChangePassword(string password)
+        //{
+        //    return View();
+        //}
     }
 }
