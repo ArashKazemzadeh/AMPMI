@@ -86,3 +86,73 @@ td.td-Icon {
 .userEditRow{
     margin-bottom:10px;
 }
+
+.nav-cls{
+    padding:10px;
+}
+
+.nav-Icon{
+    width: 20px;
+    height: 20px;
+}
+
+.nav-Date{
+    margin-top: 15px;
+    margin-right: 20px;
+}
+
+.welcome{
+    padding-right:20px;
+}
+
+.nav-welcome {
+    margin-top: 15px;
+    font-size: 18px
+}
+
+.nav-companyName {
+    text-align: right;
+    padding: 10px;
+    background-color: lightskyblue;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.nav-NameIcon {
+    width: 20px;
+    height: 20px;
+}
+
+.menu {
+    margin-top:20px;
+    background-color: #FFF !important;
+    border-radius: 25px;
+    margin-right: 20px;
+    padding-top: 20px;
+}
+
+.profile-Pic {
+    width: 100%;
+    text-align: center
+}
+
+.profile-Pic-btn {
+    border-radius: 50%;
+    border: none;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.profile-Pic-img {
+    width: 100px;
+    height: 100px
+}
+
+.menu-Item {
+    margin-top: 20px;
+}
+
+.menu-Item-Text {
+    padding-right: 10px;
+    color: #000000
+}
