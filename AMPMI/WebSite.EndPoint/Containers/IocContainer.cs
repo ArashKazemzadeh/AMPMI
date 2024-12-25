@@ -20,6 +20,7 @@ namespace WebSite.EndPoint.ServicesConfigs
             builder.Services.AddScoped<IDbAmpmiContext, DbAmpmiContext>();
             builder.Services.AddScoped<ISMSOTPService, SMSOTPService>();
             builder.Services.AddScoped<INotificationService, NotificationService>();
+            builder.Services.AddScoped<ISeenNotifByCompanyService, SeenNotifByCompanyService>();
         }
     }
 }

@@ -1,59 +1,57 @@
-﻿@{
+﻿@model List<WebSite.EndPoint.Areas.Company.Models.NotifVM>
+@{
     Layout = "~/Areas/Company/Views/Shared/_layout.cshtml";
+}
+@section CSS
+{
+    <style>
+        .notSeenNotif{
+            border: 2px solid red!important;
+        }
+    </style>
 }
 <div class="container-fluid">
     <p>اعلان ها</p>
-    <div class="row my-2 parent" style="border: 2px solid black;padding:20px;margin-bottom: 30px;">
-        <div style="display: flex;justify-content: space-between;">
-            <h4 >پروفایل خود را کامل کنید</h4>
-            <div>
+    @foreach (var item in Model)
+    {
+        // TODO : یک کلاس مشخص برای زمانی که اعلان مشاهده شده باشد (IsSeen) ساخته شود
+        <div class="row my-2 parent @(item.IsSeen?"":"notSeenNotif")" style="border: 2px solid black;padding:20px;margin-bottom: 30px;">
+            <div style="display: flex;justify-content: space-between;">
+                <h4>@item.Subject</h4>
+                <div>
+                    <p>
+                        <i class="fa fa-calendar"></i>
+                        @(item.CreateAt.Year+"/"+item.CreateAt.Month+"/"+item.CreateAt.Day)
+                    </p>
+                </div>
+            </div>
+            <div class="notifContent">
                 <p>
-                    <i class="fa fa-calendar"></i>
-                    1403, 4 دی
+                    @item.Subject
+                </p>
+                <p hidden class="more">
+                    @item.Description
                 </p>
             </div>
-        </div>
-        <div class="notifContent">
-            <p> مداد رنگی ها مشغول بودند به جز مداد سفید، هیچکس به او کار نمیداد، همه میگفتند : تو به هیچ دردی نمیخوری، یک شب که مداد رنگی ها تو سیاهی شب گم شده بودند، مداد سفید تا صبح ماه کشید مهتاب کشید و انقدر ستاره کشید که کوچک و کوچکتر شد 
-
-            </p>
-            @* TODO : Ask Farshid How to Show More with viewModel *@
-            <p hidden class="more"> 
-                  صبح توی جعبه مداد رنگی جای خالی او با هیچ رنگی  پر نشد، به یاد هم باشیم شاید فردا ما هم در کنار هم نباشیم…
-                صبح توی جعبه مداد رنگی جای خالی او با هیچ رنگی  پر نشد، به یاد هم باشیم شاید فردا ما هم در کنار هم نباشیم…
-            </p>
-        </div>
-        <hr />
-        <div style="float:left;">
-            <button onclick="ShowMore(this)" class="btn btn-primary">نمایش بیشتر</button>
-        </div>
-    </div>
-    <div class="row my-2 parent" style="border: 2px solid black;padding:20px;margin-bottom: 30px;">
-        <div style="display: flex;justify-content: space-between;">
-            <h4>پروفایل خود را کامل کنید</h4>
-            <div>
-                <p>
-                    <i class="fa fa-calendar"></i>
-                    1403, 4 دی
-                </p>
+            <hr />
+            <div style="float:left;">
+                <input class="NotifId" hidden value="@item.Id" />
+                @if (item.IsSeen)
+                {
+                    <a onclick="ShowMore(this,0)" class="btn btn-primary">نمایش بیشتر</a>
+                }
+                else
+                {
+@*                     <a href="@Url.Action("SeenNotif","Notification",new{area = "Company",notifId = item.Id })" onclick="ShowMore(this,t)" class="btn btn-primary ajaxButton">نمایش بیشتر</a>
+ *@
+                    <a onclick="ShowMore(this,1)" class="btn btn-primary ajaxButton">نمایش بیشتر</a>
+                }
             </div>
         </div>
-        <div class="notifContent">
-            <p>
-                مداد رنگی ها مشغول بودند به جز مداد سفید، هیچکس به او کار نمیداد، همه میگفتند : تو به هیچ دردی نمیخوری، یک شب که مداد رنگی ها تو سیاهی شب گم شده بودند، مداد سفید تا صبح ماه کشید مهتاب کشید و انقدر ستاره کشید که کوچک و کوچکتر شد
+        
+    }
 
-            </p>
-            <p hidden class="more">
-                صبح توی جعبه مداد رنگی جای خالی او با هیچ رنگی  پر نشد، به یاد هم باشیم شاید فردا ما هم در کنار هم نباشیم…
-                صبح توی جعبه مداد رنگی جای خالی او با هیچ رنگی  پر نشد، به یاد هم باشیم شاید فردا ما هم در کنار هم نباشیم…
-            </p>
-        </div>
-        <hr />
-        <div style="float:left;">
-            <button onclick="ShowMore(this)" class="btn btn-primary">نمایش بیشتر</button>
-        </div>
-    </div>
-    <div class="row my-2 parent" style="border: 2px solid black;padding:20px;margin-bottom: 30px;">
+@*     <div class="row my-2 parent" style="border: 2px solid black;padding:20px;margin-bottom: 30px;">
         <div style="display: flex;justify-content: space-between;">
             <h4>پروفایل خود را کامل کنید</h4>
             <div>
@@ -78,109 +76,46 @@
             <button onclick="ShowMore(this)" class="btn btn-primary">نمایش بیشتر</button>
         </div>
     </div>
-    <div class="row my-2 parent" style="border: 2px solid black;padding:20px;margin-bottom: 30px;">
-        <div style="display: flex;justify-content: space-between;">
-            <h4>پروفایل خود را کامل کنید</h4>
-            <div>
-                <p>
-                    <i class="fa fa-calendar"></i>
-                    1403, 4 دی
-                </p>
-            </div>
-        </div>
-        <div class="notifContent">
-            <p>
-                مداد رنگی ها مشغول بودند به جز مداد سفید، هیچکس به او کار نمیداد، همه میگفتند : تو به هیچ دردی نمیخوری، یک شب که مداد رنگی ها تو سیاهی شب گم شده بودند، مداد سفید تا صبح ماه کشید مهتاب کشید و انقدر ستاره کشید که کوچک و کوچکتر شد
-
-            </p>
-            <p hidden class="more">
-                صبح توی جعبه مداد رنگی جای خالی او با هیچ رنگی  پر نشد، به یاد هم باشیم شاید فردا ما هم در کنار هم نباشیم…
-                صبح توی جعبه مداد رنگی جای خالی او با هیچ رنگی  پر نشد، به یاد هم باشیم شاید فردا ما هم در کنار هم نباشیم…
-            </p>
-        </div>
-        <hr />
-        <div style="float:left;">
-            <button onclick="ShowMore(this)" class="btn btn-primary">نمایش بیشتر</button>
-        </div>
-    </div>
-    <div class="row my-2 parent" style="border: 2px solid black;padding:20px;margin-bottom: 30px;">
-        <div style="display: flex;justify-content: space-between;">
-            <h4>پروفایل خود را کامل کنید</h4>
-            <div>
-                <p>
-                    <i class="fa fa-calendar"></i>
-                    1403, 4 دی
-                </p>
-            </div>
-        </div>
-        <div class="notifContent">
-            <p>
-                مداد رنگی ها مشغول بودند به جز مداد سفید، هیچکس به او کار نمیداد، همه میگفتند : تو به هیچ دردی نمیخوری، یک شب که مداد رنگی ها تو سیاهی شب گم شده بودند، مداد سفید تا صبح ماه کشید مهتاب کشید و انقدر ستاره کشید که کوچک و کوچکتر شد
-
-            </p>
-            <p hidden class="more">
-                صبح توی جعبه مداد رنگی جای خالی او با هیچ رنگی  پر نشد، به یاد هم باشیم شاید فردا ما هم در کنار هم نباشیم…
-                صبح توی جعبه مداد رنگی جای خالی او با هیچ رنگی  پر نشد، به یاد هم باشیم شاید فردا ما هم در کنار هم نباشیم…
-            </p>
-        </div>
-        <hr />
-        <div style="float:left;">
-            <button onclick="ShowMore(this)" class="btn btn-primary">نمایش بیشتر</button>
-        </div>
-    </div>
-    <div class="row my-2 parent" style="border: 2px solid black;padding:20px;margin-bottom: 30px;">
-        <div style="display: flex;justify-content: space-between;">
-            <h4>پروفایل خود را کامل کنید</h4>
-            <div>
-                <p>
-                    <i class="fa fa-calendar"></i>
-                    1403, 4 دی
-                </p>
-            </div>
-        </div>
-        <div class="notifContent">
-            <p>
-                مداد رنگی ها مشغول بودند به جز مداد سفید، هیچکس به او کار نمیداد، همه میگفتند : تو به هیچ دردی نمیخوری، یک شب که مداد رنگی ها تو سیاهی شب گم شده بودند، مداد سفید تا صبح ماه کشید مهتاب کشید و انقدر ستاره کشید که کوچک و کوچکتر شد
-
-            </p>
-            <p hidden class="more">
-                صبح توی جعبه مداد رنگی جای خالی او با هیچ رنگی  پر نشد، به یاد هم باشیم شاید فردا ما هم در کنار هم نباشیم…
-                صبح توی جعبه مداد رنگی جای خالی او با هیچ رنگی  پر نشد، به یاد هم باشیم شاید فردا ما هم در کنار هم نباشیم…
-            </p>
-        </div>
-        <hr />
-        <div style="float:left;">
-            <button onclick="ShowMore(this)" class="btn btn-primary">نمایش بیشتر</button>
-        </div>
-    </div>
+ *@
 
 </div>
 @section Scripts
 {
     <script>
-        function ShowMore(button){
+        function ShowMore(button,callAjax)
+        {
             const parent = $(button).closest(".parent");
-            if(parent!=null){
+            if(parent!=null)
+            {
                 const moreBox = parent.children(".notifContent").children(".more");
                 moreBox.show();
                 $(button).hide();
+                if(callAjax==1)
+                {
+                    var id = $(button).parent().children(".NotifId").val();
+                    SeenData(id);
+                }
             }
         }
 
-        // function ShowMore() {
-        //     var dots = document.getElementById("dots");
-        //     var moreText = document.getElementById("more");
-        //     var btnText = document.getElementById("myBtn");
+        function SeenData(id)
+        {
+            var name = $("#nameInput").val();
 
-        //     if (dots.style.display === "none") {
-        //       dots.style.display = "inline";
-        //       btnText.innerHTML = "Read more";
-        //       moreText.style.display = "none";
-        //     } else {
-        //       dots.style.display = "none";
-        //       btnText.innerHTML = "Read less";
-        //       moreText.style.display = "inline";
-        //     }
-        // }
+            alert("id :" + id);
+
+            $.ajax({
+                url: 'SeenNotif', // مسیر کامل اکشن
+                type: 'GET',
+                data: { notifId: id }, // ارسال پارامتر به‌صورت کوئری استرینگ
+                success: function (response) {
+                    console.log("Notification processed successfully!");
+                },
+                error: function (xhr) {
+                    alert("Error: " + xhr.statusText);
+                }
+            });
+        }
+
     </script>
 }
