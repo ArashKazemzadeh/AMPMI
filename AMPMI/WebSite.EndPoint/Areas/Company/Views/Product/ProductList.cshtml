@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<WebSite.EndPoint.Areas.Company.Models.Product.ListProductVM>
+@{
     Layout = "~/Areas/Company/Views/Shared/_layout.cshtml";
 }
 <div class="container-fluid">
@@ -20,6 +21,19 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach(var item in Model)
+                {
+                    <tr>
+                        <td class="td-Icon">@item.RowNum</td>
+                        <td>@item.CategoryName</td>
+                        <td>@item.SubCategoryName</td>
+                        <td>@item.Id</td>
+                        <td>@item.Name</td>
+                        <td class="td-Icon"><input value="@item.IsConfirmed" type="checkbox"></td>
+                        <td class="td-Icon"><a href="@Url.Action("EditProduct","Product",new{area="Company",id=item.Id})"><img class="img-Icon" src="~/images/editing.png" /></a></td>
+                        <td class="td-Icon"><a onclick="return DeleteRow(event)" href="@Url.Action("DeleteProduct","Product",new{area="Company",id=item.Id})"><img class="img-Icon" src="~/images\recycle.png" /></a></td>
+                    </tr>
+                }
                 <tr>
                     <td class="td-Icon">1</td>
                     <td>گروه اصلی 1</td>
@@ -37,8 +51,8 @@
                     <td>کد محصول 2</td>
                     <td>نام محصول 2</td>
                     <td class="td-Icon"><input type="checkbox"></td>
-                    <td class="td-Icon"><a href="@Url.Action("EditProduct","Product")"><img class="img-Icon" src="~/images/editing.png" /></a></td>
-                    <td class="td-Icon"><a><img class="img-Icon" src="~/images\recycle.png" /></a></td>
+                    <td class="td-Icon"><a href="@Url.Action("EditProduct","Product",new{area="Company",id=2})"><img class="img-Icon" src="~/images/editing.png" /></a></td>
+                    <td class="td-Icon"><a onclick="return DeleteRow(event)" href="@Url.Action("DeleteProduct","Product",new{area="Company",id=4})"><img class="img-Icon" src="~/images\recycle.png" /></a></td>
                 </tr>
             </tbody>
         </table>
@@ -52,6 +66,17 @@
 
         new DataTable('#myTable');
 
+        function DeleteRow(event){
+            var isConfirmd= confirm("آیا از حذف این ردیف اطمینان دارید ؟")
+            if(!isConfirmd){
+                event.preventDefault();
+                return false;
+            }
+            else{
+                return true;
+            }
+
+        }
     </script>
 }
 

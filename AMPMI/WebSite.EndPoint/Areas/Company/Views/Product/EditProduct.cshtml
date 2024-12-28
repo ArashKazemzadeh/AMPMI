@@ -1,9 +1,10 @@
-﻿@{
+﻿@model WebSite.EndPoint.Areas.Company.Models.Product.ProductVM
+@{
     Layout = "~/Areas/Company/Views/Shared/_layout.cshtml";
 }
 <div class="container-fluid">
     <div class="row">
-        <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
+        <a href="@Url.Action("EditProduct","Product",new {area="Company"})" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
         <a href="@Url.Action("ProductList","Product")" id="cancle"><img class="img-Icon" src="~/images/cancel.png" /></a>
     </div>
     <form>
@@ -23,6 +24,15 @@
                     <label class="col-sm-3 col-form-label input-Label">گروه فرعی:</label>
                     <div class="col-sm-9">
                         <select class="input-text">
+                            @foreach(var item in Model.SubCategories){
+                                if(Model.SubCategoryId == item.Id){
+                                    <option selected value="@item.Id">@item.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            }
                             <option selected>گروه فرعی را انتخاب کنید</option>
                             <option>گروه 1</option>
                             <option>گروه 2</option>
