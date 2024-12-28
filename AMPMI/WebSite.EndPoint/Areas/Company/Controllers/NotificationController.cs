@@ -46,11 +46,18 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
         public async Task<IActionResult> SeenNotif(int notifId)
         {
             int companyId = 9;
-            if (!await _seenNotifByCompanyService.NotifIsSeenByCompany(notifId, companyId))
+            try
             {
-                await _seenNotifByCompanyService.Create(notifId, companyId);
+                if (!await _seenNotifByCompanyService.NotifIsSeenByCompany(notifId, companyId))
+                {
+                    await _seenNotifByCompanyService.Create(notifId, companyId);
+                }
+                return Ok();
             }
-            return RedirectToAction(nameof(NotifList));
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
     }
 }

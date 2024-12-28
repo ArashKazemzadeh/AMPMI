@@ -93,29 +93,23 @@
                 if(callAjax==1)
                 {
                     var id = $(button).parent().children(".NotifId").val();
-                    SeenData(id);
+                    if(id>0){
+                        CallAction(id);
+                    }
                 }
             }
         }
 
-        function SeenData(id)
+        function CallAction(id)
         {
-            var name = $("#nameInput").val();
-
-            alert("id :" + id);
-
             $.ajax({
-                url: 'SeenNotif', // مسیر کامل اکشن
+                url: 'SeenNotif', // مسیر اکشن
                 type: 'GET',
                 data: { notifId: id }, // ارسال پارامتر به‌صورت کوئری استرینگ
-                success: function (response) {
-                    console.log("Notification processed successfully!");
-                },
                 error: function (xhr) {
-                    alert("Error: " + xhr.statusText);
+                    console.log("Error: " + xhr.statusText);
                 }
             });
         }
-
     </script>
 }
