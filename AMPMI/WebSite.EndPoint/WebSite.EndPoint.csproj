@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AQS_Aplication\AQS_Aplication.csproj" />
+    <ProjectReference Include="..\AQS_Aplication\AQS_Application.csproj" />
     <ProjectReference Include="..\AQS_Common\AQS_Common.csproj" />
     <ProjectReference Include="..\AQS_Persistence\AQS_Persistence.csproj" />
     <ProjectReference Include="..\ThirdParties\ThirdParties.csproj" />
@@ -27,7 +27,6 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Company\Data\" />
     <Folder Include="Areas\Company\Models\" />
-    <Folder Include="Models\AcountingViewModel\Login\" />
   </ItemGroup>
 
 </Project>

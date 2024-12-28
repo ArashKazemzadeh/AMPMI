@@ -1,7 +1,7 @@
 ﻿using AQS_Common.Enums;
 using AQS_Domin.Entities;
 
-namespace AQS_Aplication.Interfaces.IServisces.BaseServices
+namespace AQS_Application.Interfaces.IServices.BaseServices
 {
     public interface IBannerService
     {

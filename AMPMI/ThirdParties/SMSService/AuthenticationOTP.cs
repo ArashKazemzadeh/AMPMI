@@ -1,4 +1,4 @@
-﻿using AQS_Aplication.Interfaces.IInfrastructure.IAuthenticationOTPService;
+﻿using AQS_Application.Interfaces.IInfrastructure.IAuthenticationOTPService;
 using System.Net;
 using System.Text;
 using System.Text.Json;
@@ -12,7 +12,7 @@ namespace ThirdParties.SMSService
         const string Replace = "CODE";
         const string ApiRoute = "https://api.sms.ir/v1/send/verify";
         const string TokenKeyName = "x-api-key";
-        public async Task<HttpStatusCode> SendOTPAsync(string mobile,string otp)
+        public async Task<HttpStatusCode> SendOTPAsync(string mobile, string otp)
         {
             try
             {
@@ -22,9 +22,10 @@ namespace ThirdParties.SMSService
                 {
                     Mobile = mobile,
                     TemplateId = TemplatedId,
-                    Parameters = new VerifySendParameterModel[]
+                    Parameters = new[]
                     {
-                    new VerifySendParameterModel {
+                    new VerifySendParameterModel
+                    {
                         Name = Replace,
                         Value = otp.ToString()
                     }

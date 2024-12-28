@@ -1,12 +1,12 @@
-﻿using AQS_Aplication.Dtos.IdentityServiceDto;
-using AQS_Aplication.Interfaces.IServisces.BaseServices;
-using AQS_Aplication.Interfaces.IServisces.IdentityServices;
-using AQS_Aplication.Interfaces.IServisces.IThirdParitesServices;
+﻿using AQS_Application.Dtos.IdentityServiceDto;
+using AQS_Application.Interfaces.IServices.BaseServices;
+using AQS_Application.Interfaces.IServices.IdentityServices;
+using AQS_Application.Interfaces.IServices.IThirdParitesServices;
 using AQS_Common.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using System.Net;
-using WebSite.EndPoint.Models.AcountingViewModel.Register;
+using WebSite.EndPoint.Models.AccountingViewModel.Register;
 
 namespace WebSite.EndPoint.Controllers
 {
