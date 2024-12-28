@@ -1,6 +1,6 @@
 ﻿using Domin.Entities;
 
-namespace AQS_Aplication.Interfaces.IServisces.BaseServices
+namespace AQS_Application.Interfaces.IServices.BaseServices
 {
     public interface ISiteAdminService
     {

@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 var SqlServer = configuration["ConnectionString:SqlServer"];
 
-IocContainer.AddScopeds(builder);
+IocContainer.AddScopes(builder);
 ContextContainer.DatabaseContext(builder, SqlServer);
 WebApplicationServices.AddServices(builder);
 

@@ -1,33 +1,27 @@
-﻿using AQS_Aplication.Dtos;
-using AQS_Aplication.Dtos.IdentityServiceDto;
-using AQS_Aplication.Interfaces.IServisces;
-using AQS_Aplication.Interfaces.IServisces.BaseServices;
-using AQS_Aplication.Interfaces.IServisces.IdentityServices;
-using AQS_Aplication.Services;
-using AQS_Common.Enums;
+﻿using AQS_Application.Dtos.IdentityServiceDto;
+using AQS_Application.Interfaces.IServices.BaseServices;
+using AQS_Application.Interfaces.IServices.IdentityServices;
 using AQS_Domin.Entities.Acounting;
 using Microsoft.AspNetCore.Identity;
-using System.Data;
 
-namespace YourNamespace.Services
+namespace AQS_Application.Services.IdentityServices
 {
     public class LoginService
-        (
-        SignInManager<User> signInManager,
-        UserManager<User> userManager,
-        RoleManager<Role> roleManager,
-        ICompanyService companyService
-        ) : ILoginService
+         (
+         SignInManager<User> signInManager,
+         UserManager<User> userManager,
+         ICompanyService companyService
+         ) : ILoginService
     {
+
+
+
         private readonly SignInManager<User> _signInManager = signInManager;
         private readonly UserManager<User> _userManager = userManager;
-        private readonly RoleManager<Role> _roleManager = roleManager;
         private readonly ICompanyService _companyService = companyService;
-        public async Task<SignInResult> LoginAsync(string username, string password, bool rememberMe)
-        {
-            return await _signInManager.PasswordSignInAsync(username, password, rememberMe, false);
-        }
-        public async Task<LoginResultDto> LoginWithoutRememberAsync(string mobile, string password)
+
+
+        public async Task<LoginResultDto> LoginWithPasswordAsync(string mobile, string password)
         {
             if (string.IsNullOrEmpty(mobile) || string.IsNullOrEmpty(password))
             {
@@ -37,8 +31,18 @@ namespace YourNamespace.Services
                     Message = LoginOutPutMessegeEnum.Invalid
                 };
             }
-            var user = await _userManager.FindByNameAsync(username);
-            var user = await _userManager.FindByNameAsync(username);
+
+            var company = await _companyService.ReadByMobileNumber(mobile);
+            if (company == null || company.Id == 0)
+            {
+                return new LoginResultDto
+                {
+                    IsSuccess = false,
+                    Message = LoginOutPutMessegeEnum.UserNotFound
+                };
+            }
+
+            var user = await _userManager.FindByIdAsync(company.Id.ToString());
             if (user == null)
             {
                 return new LoginResultDto
@@ -48,28 +52,37 @@ namespace YourNamespace.Services
                 };
             }
 
-            var result = await _signInManager.PasswordSignInAsync(username, password, false, false);
-
-            if (result.Succeeded)
-            {
-                var roles = await _userManager.GetRolesAsync(user);
-                return new LoginResultDto
-                {
-                    IsSuccess = true,
-                    UserId = user.Id,
-                    Role = roles.FirstOrDefault() ?? "None",
-                    Message = LoginOutPutMessegeEnum.LoginSuccessful
-                };
-            }
-            else
+            var pass = await _userManager.CheckPasswordAsync(user, password);
+            if (pass == false)
             {
                 return new LoginResultDto
                 {
                     IsSuccess = false,
-                    Message = result.IsLockedOut ?
-                    LoginOutPutMessegeEnum.LockedOut : LoginOutPutMessegeEnum.Invalid
+                    Message = LoginOutPutMessegeEnum.InvalidPassword
                 };
             }
+
+            await _signInManager.SignInAsync(user, false);
+
+            if (await _userManager.IsLockedOutAsync(user))
+            {
+                return new LoginResultDto
+                {
+                    IsSuccess = false,
+                    Message = LoginOutPutMessegeEnum.LockedOut
+                };
+            }
+
+
+            var roles = await _userManager.GetRolesAsync(user);
+            return new LoginResultDto
+            {
+                IsSuccess = true,
+                UserId = user.Id,
+                Role = roles.FirstOrDefault() ?? "None",
+                Message = LoginOutPutMessegeEnum.LoginSuccessful
+            };
+
         }
         public async Task<LoginResultDto> LoginWithOtp(string mobile)
         {
@@ -105,10 +118,11 @@ namespace YourNamespace.Services
                 };
             }
         }
+
         public async Task LogoutAsync()
         {
             await _signInManager.SignOutAsync();
         }
-    }
 
+    }
 }

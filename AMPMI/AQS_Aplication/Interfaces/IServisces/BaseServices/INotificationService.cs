@@ -1,8 +1,8 @@
-﻿using AQS_Aplication.Dtos.BaseServiceDto.NotificationDtos;
+﻿using AQS_Application.Dtos.BaseServiceDto.NotificationDtos;
 using AQS_Common.Enums;
 using Domin.Entities;
 
-namespace AQS_Aplication.Interfaces.IServisces.BaseServices
+namespace AQS_Application.Interfaces.IServices.BaseServices
 {
     public interface INotificationService
     {

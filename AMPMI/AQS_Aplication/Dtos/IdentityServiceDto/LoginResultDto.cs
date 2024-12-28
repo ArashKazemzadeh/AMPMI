@@ -1,4 +1,4 @@
-﻿namespace AQS_Aplication.Dtos.IdentityServiceDto
+﻿namespace AQS_Application.Dtos.IdentityServiceDto
 {
     public class LoginResultDto
     {
@@ -13,6 +13,7 @@
         UserNotFound,
         Invalid,
         LockedOut,
-        LoginSuccessful
+        LoginSuccessful,
+        InvalidPassword,
     }
 }

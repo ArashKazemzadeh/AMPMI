@@ -1,11 +1,13 @@
-﻿using AQS_Aplication.Interfaces.IServisces.BaseServices;
-using AQS_Aplication.Interfaces.IServisces.IThirdParitesServices;
+﻿using AQS_Application.Dtos.IdentityServiceDto;
+using AQS_Application.Interfaces.IServices.BaseServices;
+using AQS_Application.Interfaces.IServices.IdentityServices;
+using AQS_Application.Interfaces.IServices.IThirdParitesServices;
 using AQS_Common.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using System.Net;
-using WebSite.EndPoint.Models.AcountingViewModel.Login;
-using WebSite.EndPoint.Models.AcountingViewModel.Register;
+using WebSite.EndPoint.Models.AccountingViewModel.Login;
+using WebSite.EndPoint.Models.AccountingViewModel.Register;
 
 namespace WebSite.EndPoint.Controllers
 {
@@ -34,7 +36,6 @@ namespace WebSite.EndPoint.Controllers
         }
         public IActionResult Login()
         {
-            //var model = new LoginVM() {Mobile = "" ,Password = "" };
             return View();
         }
 
@@ -43,11 +44,12 @@ namespace WebSite.EndPoint.Controllers
         {
             if (!ModelState.IsValid)
             {
-                View(login);
+                return View(login);
             }
 
             var result = await _loginService
-                .LoginWithoutRememberAsync(login.Mobile, login.Password);
+                .LoginWithPasswordAsync(login.Mobile, login.Password);
+
 
             if (result.IsSuccess)
             {
@@ -62,17 +64,40 @@ namespace WebSite.EndPoint.Controllers
                 }
                 else
                 {
-
+                    //کاربر وارد شده وارد این صفحه میشه و فقط
+                    //در صورتی که تایید شده باشه امکان ورود به پنل رو داره
                     return RedirectToAction
                        (
-                        actionName: "panel",
-                        controllerName: "company",
-                        routeValues: new { area = "Company", userId = result.UserId }
+                        actionName: "CompanyDetail",
+                        controllerName: "Company",
+                        routeValues: new { area = "Company", companyId = result.UserId }
                        );
                 }
             }
             else
             {
+                string errorMessage = string.Empty;
+
+                switch (result.Message)
+                {
+                    case LoginOutPutMessegeEnum.UserNotFound:
+                        errorMessage = "کاربر یافت نشد.";
+                        break;
+                    case LoginOutPutMessegeEnum.Invalid:
+                        errorMessage = "اطلاعات وارد شده معتبر نمی‌باشد.";
+                        break;
+                    case LoginOutPutMessegeEnum.InvalidPassword:
+                        errorMessage = "رمز عبور نادرست است.";
+                        break;
+                    case LoginOutPutMessegeEnum.LockedOut:
+                        errorMessage = "حساب کاربری شما قفل شده است.";
+                        break;
+                    default:
+                        errorMessage = "خطای نامشخص.";
+                        break;
+                }
+
+                ViewData["Error"] = errorMessage;
                 return View(login);
             }
         }
@@ -81,7 +106,7 @@ namespace WebSite.EndPoint.Controllers
         /// </summary>
         /// <returns>View</returns>
         [HttpGet]
-        public IActionResult MobileInput() //کپی از رجستر
+        public IActionResult MobileInput()
         {
             return View();
         }
@@ -185,7 +210,6 @@ namespace WebSite.EndPoint.Controllers
             model.ErrorMessage = "مدت زمان استفاده از کد به پایان رسیده است.";
             return View(model);
         }
-
         public async Task<IActionResult> LogOut()
         {
             await _loginService.LogoutAsync();

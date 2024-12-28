@@ -1,7 +1,7 @@
-﻿using AQS_Aplication.Dtos.IdentityServiceDto;
-using AQS_Aplication.Interfaces.IInfrastructure.IContext;
-using AQS_Aplication.Interfaces.IServisces.BaseServices;
-using AQS_Aplication.Interfaces.IServisces.IdentityServices;
+﻿using AQS_Application.Dtos.IdentityServiceDto;
+using AQS_Application.Interfaces.IInfrastructure.IContext;
+using AQS_Application.Interfaces.IServices.BaseServices;
+using AQS_Application.Interfaces.IServices.IdentityServices;
 using AQS_Domin.Entities.Acounting;
 using Microsoft.AspNetCore.Identity;
 using System.Data;

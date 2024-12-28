@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
 
-namespace AQS_Aplication.Interfaces.IInfrastructure.IContext
+namespace AQS_Application.Interfaces.IInfrastructure.IContext
 {
     public interface IDbAmpmiContext
     {

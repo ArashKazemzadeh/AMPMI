@@ -1,7 +1,6 @@
-﻿using AQS_Aplication.Interfaces.IServisces.BaseServices;
+﻿using AQS_Application.Interfaces.IServices.BaseServices;
 using Domin.Entities;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection;
 using WebSite.EndPoint.Models.CompanyViewModel;
 using WebSite.EndPoint.Models.ProductViewModel;
 
@@ -28,7 +27,7 @@ namespace WebSite.EndPoint.Controllers
 
             return View(resultVM);
         }
-        public async Task<IActionResult> CompanyDetail(int companyId) //OK
+        public async Task<IActionResult> CompanyDetail(long companyId) //OK
         {
             Company? result = await _companyService.ReadById(companyId);
             if (result != null)

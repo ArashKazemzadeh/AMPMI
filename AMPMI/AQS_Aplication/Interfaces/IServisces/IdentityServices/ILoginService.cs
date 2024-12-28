@@ -1,12 +1,10 @@
-﻿using AQS_Aplication.Dtos.IdentityServiceDto;
-using Microsoft.AspNetCore.Identity;
+﻿using AQS_Application.Dtos.IdentityServiceDto;
 
-namespace AQS_Aplication.Interfaces.IServisces.IdentityServices
+namespace AQS_Application.Interfaces.IServices.IdentityServices
 {
-    internal interface ILoginService
+    public interface ILoginService
     {
-        Task<SignInResult> LoginAsync(string username, string password, bool rememberMe);
-        Task<LoginResultDto> LoginWithoutRememberAsync(string username, string password);
+        Task<LoginResultDto> LoginWithPasswordAsync(string mobile, string password);
         Task<LoginResultDto> LoginWithOtp(string mobile);
         Task LogoutAsync();
     }

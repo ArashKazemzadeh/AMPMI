@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebSite.EndPoint.Models.AcountingViewModel.Login
+namespace WebSite.EndPoint.Models.AccountingViewModel.Login
 {
     public class LoginVM
     {/// <summary>
