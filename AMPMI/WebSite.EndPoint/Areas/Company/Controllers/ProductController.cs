@@ -65,29 +65,31 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
             return View(products);
         }
         [HttpPost]
-        public async Task<IActionResult> Save(long Id, string Name, string Description, string PictureFileName,
-           int SubCategoryId)
+        public async Task<IActionResult> Save(ProductVM productVM)
         {
-
-            if (Id > 0)
-                return RedirectToAction(nameof(EditProduct), 
-                    new 
-                    { 
-                        Id = Id,
-                        Name = Name,
-                        Description = Description,
-                        PictureFileName = PictureFileName,
-                        SubCategoryId=SubCategoryId
+            if (!ModelState.IsValid)
+            {
+                return View("EditProduct",productVM );
+            }
+            if (productVM.Id > 0)
+                return RedirectToAction(nameof(EditProduct),
+                    new
+                    {
+                        Id = productVM.Id,
+                        Name = productVM.Name,
+                        Description = productVM.Description,
+                        PictureFileName = productVM.PictureFileName,
+                        SubCategoryId = productVM.SubCategoryId
                     }
                 );
             else
-                return RedirectToAction(nameof(NewProduct), 
+                return RedirectToAction(nameof(NewProduct),
                     new
                     {
-                        Name = Name,
-                        Description = Description,
-                        PictureFileName = PictureFileName,
-                        SubCategoryId = SubCategoryId
+                        Name = productVM.Name,
+                        Description = productVM.Description,
+                        PictureFileName = productVM.PictureFileName,
+                        SubCategoryId = productVM.SubCategoryId
                     }
                 );
         }
@@ -99,18 +101,17 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
             return View("EditProduct", new ProductVM() { Categories = categories });
         }
         [HttpPost]
-        public async Task<IActionResult> NewProduct(string Name,string Description,string PictureFileName,
-           int SubCategoryId)
+        public async Task<IActionResult> NewProduct(ProductVM productVM)
         {
             long companyId = Convert.ToInt64(User.Identity.Name);
             Product newProduct = new Product()
             {
-                Name = Name,
-                Description = Description,
+                Name = productVM.Name,
+                Description = productVM.Description,
                 PictureFileName = null,
                 CompanyId = companyId,
                 IsConfirmed = false,
-                SubCategoryId = SubCategoryId
+                SubCategoryId = productVM.SubCategoryId
             };
             if (ModelState.IsValid)
             {
@@ -133,7 +134,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
             Product product = await _productService.ReadById(id);
             if (product != null)
             {
-                List<SubCategory> subCategories = await _subCategoryService.ReadAll();
+                //List<SubCategory> subCategories = await _subCategoryService.ReadAll();
                 return View(new ProductVM() 
                 {
                     Id = product.Id,
@@ -141,17 +142,17 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
                     Description = product.Description,
                     Name = product.Name,
                     IsConfirmed = product.IsConfirmed,
-                    PictureFileName = product.PictureFileName,
+                    PictureFileName = null,
                     SubCategoryId = product.SubCategoryId,
                     CategoryId = product.SubCategory.CategoryId,
-                    SubCategories = subCategories
+                    //SubCategories = subCategories
                 });
             }
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> EditProduct(long Id,string Name, string Description, string PictureFileName,
-           int SubCategoryId)
+        public async Task<IActionResult> EditProduct(long Id,string Name, 
+            string Description, IFormFile PictureFileName,int SubCategoryId)
         {
             long companyId = Convert.ToInt64(User.Identity.Name);
             Product existProdcut = new Product()

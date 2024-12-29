@@ -2,32 +2,33 @@
 @{
     Layout = "~/Areas/Company/Views/Shared/_layout.cshtml";
 }
+@section CSS
+{
+    <style>
+        .prevImage{
+            width:100%;
+            height:100%;
+        }
+    </style>
+}
 <div class="container-fluid">
     <div class="row">
-        <a href="@Url.Action("EditProduct","Product",new {area="Company"})" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
+        <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
         <a href="@Url.Action("ProductList","Product")" id="cancle"><img class="img-Icon" src="~/images/cancel.png" /></a>
     </div>
-    <form>
+    <form id="saveForm" asp-area="Company" asp-controller="Product" asp-action="Save" enctype="multipart/form-data" method="post">
+        <input hidden asp-for="Id" />
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label input-Label">گروه اصلی:</label>
                     <div class="col-sm-9">
                         <select id="categories" class="input-text">
-                            <option value="0" selected>گروه اصلی را انتخاب کنید</option>
-                            <option value="1">گروه 1</option>
-                            <option value="2">گروه 2</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label input-Label">گروه فرعی:</label>
-                    <div class="col-sm-9">
-                        <select disabled id="subCategories" class="input-text">
-                            @if (Model.SubCategories != null){
-                                foreach (var item in Model.SubCategories)
+                            @if (Model.Categories != null)
+                            {
+                                foreach (var item in Model.Categories)
                                 {
-                                    if (Model.SubCategoryId == item.Id)
+                                    if (Model.CategoryId == item.Id)
                                     {
                                         <option selected value="@item.Id">@item.Name</option>
                                     }
@@ -37,28 +38,41 @@
                                     }
                                 }
                             }
+                            <option value="0" selected>گروه اصلی را انتخاب کنید</option>
+                            <option value="1">گروه 1</option>
+                            <option value="2">گروه 2</option>
                         </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label input-Label">گروه فرعی:</label>
+                    <div class="col-sm-9">
+                        <select asp-for="SubCategoryId" disabled id="subCategories" class="input-text">
+
+                        </select>
+                        <span class="text-danger" asp-validation-for=SubCategoryId></span>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label input-Label">نام محصول:</label>
                     <div class="col-sm-9">
-                        <input type="text" class="input-text">
+                        <input asp-for="Name" type="text" class="input-text">
+                        <span class="text-danger" asp-validation-for=Name></span>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label input-Label">توضیحات:</label>
                     <div class="col-sm-9">
-                        <textarea class="input-text"></textarea>
+                        <textarea asp-for="Description" class="input-text"></textarea>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label input-Label">انتخاب تصویر:</label>
                     <div class="col-sm-5 upBtn">
-                        <button class="btn-submit btnUpload" onclick="getfile()">بارگذاری تصویر</button>
-                        <input id="getFile" style="display:none" class="form-control-file" type="file" name="img" accept="image/*">
+                        <button type="button" class="btn-submit btnUpload" onclick="getfile()">بارگذاری تصویر</button>
+                        <input asp-for="PictureFileName" id="getFile" style="display:none" class="form-control-file" type="file" accept="image/*">
                     </div>
-                    <div class="col-sm-2 ShowPic"></div>
+                    <div id="preview" class="col-sm-2 ShowPic"></div>
                 </div>
             </div>
         </div>
@@ -74,6 +88,25 @@
         }
         var lastCategoryId=0;
 
+        $("#getFile").on('change',function(){
+            const file = this.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    // ایجاد یا جایگزینی تصویر در باکس
+                    const img = $("<img>")
+                    .attr("src", e.target.result)
+                    .addClass("img")
+                    .addClass("prevImage");
+
+                    $("#preview").empty().append(img);
+                };
+                reader.readAsDataURL(file);
+            } else {
+                $("#preview").html("پیش‌نمایش");
+            }
+        });
 
         $("#categories").on('change',function()
         {
@@ -83,6 +116,11 @@
                 CallAjax(selectedValue);
                 lastCategoryId=selectedValue;
             }
+        });
+
+        $("#save").click(function(event){
+            event.preventDefault();
+            $("#saveForm").submit();
         });
 
         function CallAjax(CategoryId){
