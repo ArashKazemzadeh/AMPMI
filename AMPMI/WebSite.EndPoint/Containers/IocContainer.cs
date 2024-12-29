@@ -21,6 +21,8 @@ namespace WebSite.EndPoint.ServicesConfigs
             builder.Services.AddScoped<ISMSOTPService, SMSOTPService>();
             builder.Services.AddScoped<INotificationService, NotificationService>();
             builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<ISubCategoryService, SubCategoryService>();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AQS_Aplication.Interfaces.IServisces.BaseServices;
+using AQS_Common.Enums;
 using Domin.Entities;
 using Microsoft.AspNetCore.Mvc;
 using WebSite.EndPoint.Areas.Company.Models.Product;
@@ -10,14 +11,42 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
     {
         private readonly IProductService _productService;
         private readonly ISubCategoryService _subCategoryService;
-        public ProductController(IProductService productService, ISubCategoryService subCategoryService)
+        private readonly ICategoryService _categoryService;
+
+        static List<SubCategory> subCategories;
+
+        public ProductController(IProductService productService, ISubCategoryService subCategoryService,
+            ICategoryService categoryService)
         {
             this._productService = productService;
             this._subCategoryService = subCategoryService;
+            this._categoryService = categoryService;
+        }
+        public static List<SubCategory> GetSubCategoryByCategory(int categoryId)
+        {
+            if (subCategories != null && subCategories.Count() > 0)
+            {
+                return subCategories.Where(x => x.CategoryId == categoryId).ToList();
+            }
+            else
+            {
+                // Seed Data Just For Test
+                return new List<SubCategory>() {
+                   new SubCategory{ Id =1 ,Name = "اولیش" },
+                   new SubCategory{ Id =2 ,Name = "دومیش" },
+                   new SubCategory{ Id =3 ,Name = "سومیش" },
+                   new SubCategory{ Id =4 ,Name = "چهارمیش" },
+                };
+            }
+            //return new List<SubCategory>();
         }
         public async Task<IActionResult> ProductList()
         {
-            long companyId = 9;
+            long companyId = 1;
+            if (User.Identity.IsAuthenticated)
+            {
+                companyId = Convert.ToInt64(User.Identity.Name);
+            }
             List<Product> data = await _productService.ReadByCompanyId(companyId);
             int rowNum = 1;
             List<ListProductVM> products = data.Select(x => new ListProductVM()
@@ -34,6 +63,70 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
             }).ToList();
 
             return View(products);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Save(long Id, string Name, string Description, string PictureFileName,
+           int SubCategoryId)
+        {
+
+            if (Id > 0)
+                return RedirectToAction(nameof(EditProduct), 
+                    new 
+                    { 
+                        Id = Id,
+                        Name = Name,
+                        Description = Description,
+                        PictureFileName = PictureFileName,
+                        SubCategoryId=SubCategoryId
+                    }
+                );
+            else
+                return RedirectToAction(nameof(NewProduct), 
+                    new
+                    {
+                        Name = Name,
+                        Description = Description,
+                        PictureFileName = PictureFileName,
+                        SubCategoryId = SubCategoryId
+                    }
+                );
+        }
+        public async Task<IActionResult> NewProduct()
+        {
+            List<Category> categories = await _categoryService.Read();
+            subCategories = categories.SelectMany(x => x.SubCategories).ToList();
+
+            return View("EditProduct", new ProductVM() { Categories = categories });
+        }
+        [HttpPost]
+        public async Task<IActionResult> NewProduct(string Name,string Description,string PictureFileName,
+           int SubCategoryId)
+        {
+            long companyId = Convert.ToInt64(User.Identity.Name);
+            Product newProduct = new Product()
+            {
+                Name = Name,
+                Description = Description,
+                PictureFileName = null,
+                CompanyId = companyId,
+                IsConfirmed = false,
+                SubCategoryId = SubCategoryId
+            };
+            if (ModelState.IsValid)
+            {
+
+                long id = await _productService.Create(newProduct);
+                if(id>0)
+                    return RedirectToAction(nameof(ProductList));
+                else
+                    TempData["error"] = "خطایی در هنگام ثبت کالا رخ داد";
+            }
+            return View(newProduct);
+        }
+        [HttpGet]
+        public IActionResult ChangeCategory(int categoryId)
+        {
+            return Json(GetSubCategoryByCategory(categoryId));
         }
         public async Task<IActionResult> EditProduct(long id)
         {
@@ -54,22 +147,48 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
                     SubCategories = subCategories
                 });
             }
-            return NotFound();
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditProduct(long Id,string Name, string Description, string PictureFileName,
+           int SubCategoryId)
+        {
+            long companyId = Convert.ToInt64(User.Identity.Name);
+            Product existProdcut = new Product()
+            {
+                Id = Id,
+                Name = Name,
+                Description = Description,
+                PictureFileName = null,
+                CompanyId = companyId,
+                IsConfirmed = false,
+                SubCategoryId = SubCategoryId
+            };
+            if (ModelState.IsValid)
+            {
+
+                var result = await _productService.Update(existProdcut);
+                if (result == ResultOutPutMethodEnum.savechanged)
+                    return RedirectToAction(nameof(ProductList));
+                else
+                    TempData["error"] = "خطایی در هنگام ثبت کالا رخ داد";
+            }
+            return View();
         }
         public async Task<IActionResult> DeleteProduct(long id)
         {
             Product product = await _productService.ReadById(id);
             if (product != null)
             {
-                await _productService.Delete(id);
-                return RedirectToAction(nameof(ProductList));
+                var result=await _productService.Delete(id);
+                if(result!=ResultOutPutMethodEnum.savechanged)
+                    TempData["error"] = "خطایی در هنگام حذف کالا رخ داد";
             }
-            return NotFound();
+            else
+            {
+                TempData["error"] = "کالای مورد نظر یافت نشد";
+            }
+            return RedirectToAction(nameof(ProductList));
         }
-        //[HttpPost]
-        //public IActionResult NewProduct()
-        //{
-        //    return RedirectToAction(nameof(ProductList));
-        //}
     }
 }
