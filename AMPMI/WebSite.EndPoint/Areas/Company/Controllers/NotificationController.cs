@@ -1,11 +1,8 @@
-﻿using AQS_Aplication.Dtos.BaseServiceDto.NotificationDtos;
-using AQS_Aplication.Interfaces.IServisces.BaseServices;
-using AQS_Aplication.Services;
-using AQS_Domin.Entities.Acounting;
+﻿using AQS_Application.Dtos.BaseServiceDto.NotificationDtos;
+using AQS_Application.Interfaces.IServices.BaseServices;
 using Domin.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using WebSite.EndPoint.Areas.Company.Models;
 
 namespace WebSite.EndPoint.Areas.Company.Controllers

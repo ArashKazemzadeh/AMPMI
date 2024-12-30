@@ -1,4 +1,4 @@
-﻿using AQS_Aplication.Interfaces.IServisces.BaseServices;
+﻿using AQS_Application.Interfaces.IServices.BaseServices;
 using AQS_Common.Enums;
 using Domin.Entities;
 using Microsoft.AspNetCore.Mvc;
