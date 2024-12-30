@@ -3,7 +3,7 @@
     public class ProductVM
     {
         public string Name { get; set; }
-        public Guid? PictureFileName { get; set; }
+        public string? PictureFileName { get; set; }
 
     }
 }

@@ -41,7 +41,8 @@ namespace AQS_Application.Services
 
         public async Task<List<Product>> Read()
         {
-            var result = await _context.Products.ToListAsync();
+            var result = await _context.Products.Include(x=>x.Company).Include(x=>x.SubCategory).
+                ThenInclude(x=>x.Category).AsNoTracking().ToListAsync();
             return result == null ? new List<Product>() : result;
         }
 
@@ -53,6 +54,10 @@ namespace AQS_Application.Services
         {
             return await _context.Products.Where(x => x.CompanyId == id).Include(x => x.SubCategory)
                 .ThenInclude(x => x.Category).AsNoTracking().ToListAsync();
+        }
+        public async Task<List<Product>> ReadNotConfirmed()
+        {
+            return await _context.Products.Where(x => x.IsConfirmed == false).ToListAsync();
         }
         public async Task<ResultOutPutMethodEnum> Update(Product product)
         {
