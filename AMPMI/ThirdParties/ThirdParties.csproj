@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AQS_Aplication\AQS_Aplication.csproj" />
+    <ProjectReference Include="..\AQS_Aplication\AQS_Application.csproj" />
   </ItemGroup>
 
 </Project>

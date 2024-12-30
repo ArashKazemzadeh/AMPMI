@@ -1,7 +1,7 @@
-﻿using AQS_Aplication.Dtos.IdentityServiceDto;
-using AQS_Aplication.Interfaces.IInfrastructure.IContext;
-using AQS_Aplication.Interfaces.IServisces.BaseServices;
-using AQS_Aplication.Interfaces.IServisces.IdentityServices;
+﻿using AQS_Application.Dtos.IdentityServiceDto;
+using AQS_Application.Interfaces.IInfrastructure.IContext;
+using AQS_Application.Interfaces.IServices.BaseServices;
+using AQS_Application.Interfaces.IServices.IdentityServices;
 using AQS_Domin.Entities.Acounting;
 using Microsoft.AspNetCore.Identity;
 using System.Data;
@@ -14,7 +14,35 @@ namespace YourNamespace.Services
         private readonly RoleManager<Role> _roleManager = roleManager;
         private readonly ICompanyService _companyService = companyService;
         private readonly IDbAmpmiContext _context = context;
-
+        public async Task<ResultRegisterIdentityDto> ChangePasswordAsync(long userId, string currentPassport, string newPassword)
+        {
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            if (user == null)
+            {
+                return new ResultRegisterIdentityDto
+                {
+                    userId = 0,
+                    errorMessage = "کاربر موجود نیست"
+                };
+            }
+            var result = await _userManager.ChangePasswordAsync(user, currentPassport, newPassword);
+            if (result.Succeeded)
+            {
+                return new ResultRegisterIdentityDto
+                {
+                    userId = userId,
+                    errorMessage = "گدرواژه باموفقیت ویرایش شد"
+                };
+            }
+            else
+            {
+                return new ResultRegisterIdentityDto
+                {
+                    userId = userId,
+                    errorMessage = "گدرواژه فعلی درست وارد نشده است"
+                };
+            }
+        }
         public async Task<ResultRegisterIdentityDto> RegisterAsync(RegisterIdentityDTO registerIdentityDTO, string role)
         {
             using (var transaction = await _context.Database.BeginTransactionAsync())
@@ -112,6 +140,7 @@ namespace YourNamespace.Services
                         userId = id,
                         errorMessage = string.Empty
                     };
+
                 }
                 catch (Exception ex)
                 {

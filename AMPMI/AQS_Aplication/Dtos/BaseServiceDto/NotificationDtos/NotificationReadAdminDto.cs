@@ -1,4 +1,4 @@
-﻿namespace AQS_Aplication.Dtos.BaseServiceDto.NotificationDtos
+﻿namespace AQS_Application.Dtos.BaseServiceDto.NotificationDtos
 {
     public class NotificationReadAdminDto
     {

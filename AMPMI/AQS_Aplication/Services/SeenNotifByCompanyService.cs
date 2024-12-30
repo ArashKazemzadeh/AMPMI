@@ -1,10 +1,10 @@
-﻿using AQS_Aplication.Interfaces.IInfrastructure.IContext;
-using AQS_Aplication.Interfaces.IServisces.BaseServices;
+﻿using AQS_Application.Interfaces.IInfrastructure.IContext;
+using AQS_Application.Interfaces.IServices.BaseServices;
 using AQS_Common.Enums;
 using Domin.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace AQS_Aplication.Services
+namespace AQS_Application.Services
 {
     public class SeenNotifByCompanyService : ISeenNotifByCompanyService
     {

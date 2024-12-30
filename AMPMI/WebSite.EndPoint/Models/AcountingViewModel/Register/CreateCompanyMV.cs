@@ -1,7 +1,7 @@
-﻿using AQS_Aplication.Dtos.IdentityServiceDto;
+﻿using AQS_Application.Dtos.IdentityServiceDto;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebSite.EndPoint.Models.AcountingViewModel.Register
+namespace WebSite.EndPoint.Models.AccountingViewModel.Register
 {
     public class CreateCompanyMV
     {

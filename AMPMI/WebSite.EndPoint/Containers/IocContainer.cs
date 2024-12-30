@@ -1,9 +1,10 @@
-﻿using AQS_Aplication.Interfaces.IInfrastructure.IAuthenticationOTPService;
-using AQS_Aplication.Interfaces.IInfrastructure.IContext;
-using AQS_Aplication.Interfaces.IServisces.BaseServices;
-using AQS_Aplication.Interfaces.IServisces.IdentityServices;
-using AQS_Aplication.Interfaces.IServisces.IThirdParitesServices;
-using AQS_Aplication.Services;
+﻿using AQS_Application.Interfaces.IInfrastructure.IAuthenticationOTPService;
+using AQS_Application.Interfaces.IInfrastructure.IContext;
+using AQS_Application.Interfaces.IServices.BaseServices;
+using AQS_Application.Interfaces.IServices.IdentityServices;
+using AQS_Application.Interfaces.IServices.IThirdParitesServices;
+using AQS_Application.Services;
+using AQS_Application.Services.IdentityServices;
 using AQS_Persistence.Contexts.SqlServer;
 using ThirdParties.SMSService;
 using YourNamespace.Services;
@@ -12,9 +13,10 @@ namespace WebSite.EndPoint.ServicesConfigs
 {
     public static class IocContainer
     {
-        public static void AddScopeds(WebApplicationBuilder builder)
+        public static void AddScopes(WebApplicationBuilder builder)
         {
             builder.Services.AddScoped<IRegistrationService, RegistrationService>();
+            builder.Services.AddScoped<ILoginService, LoginService>();
             builder.Services.AddScoped<IAuthenticationOTP, AuthenticationOTP>();
             builder.Services.AddScoped<ICompanyService, CompanyService>();
             builder.Services.AddScoped<IDbAmpmiContext, DbAmpmiContext>();

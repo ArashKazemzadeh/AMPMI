@@ -1,28 +1,30 @@
 ﻿@{
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
+
 <div class="wrapper default">
     <div class="body-default container">
         <div class="row">
             <div class="main-content col-12 col-md-7 col-lg-5 mx-auto">
                 <div class="account-box pb-2">
-                    <div class="account-box-title text-right">ورود </div>
+                    <div class="account-box-title text-right">ثبت نام</div>
                     <div class="account-box-content">
-                        <form asp-action="Register" class="form-account">
-                            <div class="form-account-title"> شماره موبایل</div>
+                        <form asp-controller="Login" asp-action="ConfirmOTP" method="post" class="form-account">
+                            <div class="form-account-title">شماره موبایل</div>
                             <div class="form-account-row">
                                 <label class="input-label"><i class="now-ui-icons users_single-02"></i></label>
-                                <input disabled class="input-field" name="mobile" value="@ViewData["mobile"]" type="text">
+                                <input readonly class="input-field" name="mobile" value="@Model.Mobile" type="text">
+                                <input type="hidden" name="mobile" value="@Model.Mobile">
                             </div>
-                            <div class="form-account-title">
-                                کد تایید
-                            </div>
+                            <div class="form-account-title">کد تایید</div>
                             <div class="form-account-row">
                                 <label class="input-label">
                                     <i class="now-ui-icons ui-1_lock-circle-open"></i>
                                 </label>
-                                <input class="input-field" name="otp" type="number"
-                                       placeholder="کد تایید را وارد نمایید">
+                                <input class="input-field" name="userOtp" type="number" placeholder="کد تایید را وارد نمایید">
+                            </div>
+                            <div>
+                                <p class="text-danger">@Model.ErrorMessage</p>
                             </div>
                             <div class="form-account-row form-account-submit">
                                 <div class="parent-btn">
@@ -33,10 +35,12 @@
                                 </div>
                             </div>
                         </form>
+                        <div class="mb-3">
+                            <a href="@Url.Action("Login","Login")" class="btn-link-border">بازگشت به صفحه ورود</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-

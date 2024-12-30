@@ -1,4 +1,4 @@
-﻿using AQS_Aplication.Dtos.BaseServiceDto.NotificationDtos;
+﻿using AQS_Application.Dtos.BaseServiceDto.NotificationDtos;
 
 namespace WebSite.EndPoint.Areas.Admin.Models.Notification
 {
