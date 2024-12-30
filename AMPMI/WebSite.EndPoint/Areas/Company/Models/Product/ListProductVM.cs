@@ -2,7 +2,7 @@
 {
     public class ListProductVM
     {
-        public long Id { get; set; }
+        public long Id { get; set; }    
         public int RowNum { get; set; }
 
         public string Name { get; set; } = null!;
