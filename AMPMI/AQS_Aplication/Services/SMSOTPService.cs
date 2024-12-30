@@ -1,10 +1,10 @@
-﻿using AQS_Aplication.Interfaces.IInfrastructure.IAuthenticationOTPService;
-using AQS_Aplication.Interfaces.IServisces.IThirdParitesServices;
+﻿using AQS_Application.Interfaces.IInfrastructure.IAuthenticationOTPService;
+using AQS_Application.Interfaces.IServices.IThirdParitesServices;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace AQS_Aplication.Services
+namespace AQS_Application.Services
 {
     public class SMSOTPService : ISMSOTPService
     {
@@ -14,31 +14,20 @@ namespace AQS_Aplication.Services
             _authenticationOTP = authenticationOTP;
         }
 
-        public async Task<int> GenerateUniqueOTPAsync()
+        public Task<int> GenerateUniqueOTPAsync()
         {
-            return await Task.Run(() =>
+            int otp = 0;
+            object locker = new();
+            lock (locker)
             {
-                string input = DateTime.UtcNow.Ticks.ToString() + Guid.NewGuid().ToString();
-                using (SHA256 sha256 = SHA256.Create())
-                {
-                    byte[] hashBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(input));
-                    string hashString = BitConverter.ToString(hashBytes).Replace("-", "");
-
-                    string otpString = new string(hashString.Where(char.IsDigit).ToArray()).Substring(0, 6);
-                    return int.Parse(otpString);
-                }
-            });
+                Random random = new Random();
+                 otp = random.Next(100000, 999999);
+            }
+            return Task.FromResult(otp);
         }
-        public async Task<int> GenerateOrGetOTP(bool generateNew ,int otpCode)
-        { if (!generateNew && otpCode > 0)
-                return otpCode;
-
-            otpCode = await this.GenerateUniqueOTPAsync();
-            return otpCode;
-        }
-        public Task<HttpStatusCode> SendSMSForAuthentication(string mobile, string message)
+        public async Task<HttpStatusCode> SendSMSForAuthentication(string mobile, string message)
         {
-            return  _authenticationOTP.SendOTPAsync(mobile, message);
+            return await _authenticationOTP.SendOTPAsync(mobile, message);
         }
     }
 }

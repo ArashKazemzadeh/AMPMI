@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace AQS_Aplication.Interfaces.IInfrastructure.IAuthenticationOTPService
+namespace AQS_Application.Interfaces.IInfrastructure.IAuthenticationOTPService
 {
     public interface IAuthenticationOTP
     {

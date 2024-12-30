@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace AQS_Aplication.Interfaces.IServisces.IThirdParitesServices
+namespace AQS_Application.Interfaces.IServices.IThirdParitesServices
 {
     public interface ISMSOTPService
     {
@@ -16,11 +16,5 @@ namespace AQS_Aplication.Interfaces.IServisces.IThirdParitesServices
         /// </summary>
         /// <returns></returns>
         Task<int> GenerateUniqueOTPAsync();
-        /// <summary>
-        /// تولید یا بازگرداندن OTP
-        /// // از روش دیگه ای  استفاده کردیم
-        /// </summary>
-        /// <param name="generateNew">آیا OTP جدید تولید شود</param>
-        Task<int> GenerateOrGetOTP(bool generateNew, int otpCode);
     }
 }

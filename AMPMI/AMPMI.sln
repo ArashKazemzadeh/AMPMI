@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentatio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AQS_Common", "AQS_Common\AQS_Common.csproj", "{BCCE0B3D-6EDE-4EC4-B72E-385D795D7074}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AQS_Aplication", "AQS_Aplication\AQS_Aplication.csproj", "{7DAEBB5E-5375-4293-9B11-59E7D6A2E16D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AQS_Application", "AQS_Aplication\AQS_Application.csproj", "{7DAEBB5E-5375-4293-9B11-59E7D6A2E16D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AQS_Domin", "AQS_Domin\AQS_Domin.csproj", "{DBB75E25-C324-499A-8CE2-0E3CEBFE8147}"
 EndProject

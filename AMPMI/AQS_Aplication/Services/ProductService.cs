@@ -1,10 +1,10 @@
-﻿using AQS_Aplication.Interfaces.IInfrastructure.IContext;
-using AQS_Aplication.Interfaces.IServisces.BaseServices;
+﻿using AQS_Application.Interfaces.IInfrastructure.IContext;
+using AQS_Application.Interfaces.IServices.BaseServices;
 using AQS_Common.Enums;
 using Domin.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace AQS_Aplication.Services
+namespace AQS_Application.Services
 {
     public class ProductService : IProductService
     {
@@ -49,7 +49,11 @@ namespace AQS_Aplication.Services
         {
             return await _context.Products.Include(x=>x.Company).AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
         }
-
+        public async Task<List<Product>> ReadByCompanyId(long id)
+        {
+            return await _context.Products.Where(x => x.CompanyId == id).Include(x => x.SubCategory)
+                .ThenInclude(x => x.Category).AsNoTracking().ToListAsync();
+        }
         public async Task<ResultOutPutMethodEnum> Update(Product product)
         {
             var existingProduct = await _context.Products.FindAsync(product.Id);

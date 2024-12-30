@@ -1,4 +1,4 @@
-﻿namespace AQS_Aplication.Dtos.IdentityServiceDto
+﻿namespace AQS_Application.Dtos.IdentityServiceDto
 {
     public class ResultRegisterIdentityDto
     {

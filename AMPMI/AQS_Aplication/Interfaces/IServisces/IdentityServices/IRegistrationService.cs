@@ -1,10 +1,11 @@
-﻿using AQS_Aplication.Dtos.IdentityServiceDto;
+﻿using AQS_Application.Dtos.IdentityServiceDto;
 
-namespace AQS_Aplication.Interfaces.IServisces.IdentityServices
+namespace AQS_Application.Interfaces.IServices.IdentityServices
 {
     public interface IRegistrationService
     {
         Task<ResultRegisterIdentityDto> RegisterAsync(RegisterIdentityDTO registerIdentityDTO, string role);
+        Task<ResultRegisterIdentityDto> ChangePasswordAsync(long userId, string currentPassport, string newPassword);
     }
 
 }

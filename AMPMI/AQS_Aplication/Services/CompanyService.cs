@@ -1,12 +1,12 @@
-﻿using AQS_Aplication.Dtos.IdentityServiceDto;
-using AQS_Aplication.Interfaces.IInfrastructure.IContext;
-using AQS_Aplication.Interfaces.IServisces.BaseServices;
+﻿using AQS_Application.Dtos.IdentityServiceDto;
+using AQS_Application.Interfaces.IInfrastructure.IContext;
+using AQS_Application.Interfaces.IServices.BaseServices;
 using AQS_Common.Enums;
 using Domin.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
-namespace AQS_Aplication.Services
+namespace AQS_Application.Services
 {
     public class CompanyService : ICompanyService
     {
@@ -145,6 +145,10 @@ namespace AQS_Aplication.Services
         public async Task<bool> IsExistById(long id)
         {
             return await _context.Companies.AnyAsync(c => c.Id == id);
+        }
+        public async Task<Company?> ReadByMobileNumber(string mobile)
+        {
+            return await _context.Companies.FirstOrDefaultAsync(c => c.MobileNumber == mobile);
         }
     }
 }

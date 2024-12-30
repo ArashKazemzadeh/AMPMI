@@ -1,8 +1,8 @@
 ﻿using Domin.Entities;
 using AQS_Common.Enums;
-using AQS_Aplication.Dtos.IdentityServiceDto;
+using AQS_Application.Dtos.IdentityServiceDto;
 
-namespace AQS_Aplication.Interfaces.IServisces.BaseServices
+namespace AQS_Application.Interfaces.IServices.BaseServices
 {
     public interface ICompanyService
     {
@@ -14,5 +14,6 @@ namespace AQS_Aplication.Interfaces.IServisces.BaseServices
         Task<ResultOutPutMethodEnum> IsCompany(long id, bool isCompany);
         Task<bool> IsExistByMobileNumber(string mobile);
         Task<bool> IsExistById(long id);
+        Task<Company?> ReadByMobileNumber(string mobile);
     }
 }

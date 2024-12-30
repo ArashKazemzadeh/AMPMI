@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AQS_Aplication\AQS_Aplication.csproj" />
+    <ProjectReference Include="..\AQS_Aplication\AQS_Application.csproj" />
     <ProjectReference Include="..\AQS_Common\AQS_Common.csproj" />
     <ProjectReference Include="..\AQS_Persistence\AQS_Persistence.csproj" />
     <ProjectReference Include="..\ThirdParties\ThirdParties.csproj" />
@@ -26,7 +26,8 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Company\Data\" />
-    <Folder Include="Models\AcountingViewModel\Login\" />
+    <Folder Include="Areas\Company\Models\" />
+    <!-- <Folder Include="Models\AcountingViewModel\Login\" /> -->
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 ﻿using AQS_Common.Enums;
 using Domin.Entities;
 
-namespace AQS_Aplication.Interfaces.IServisces.BaseServices
+namespace AQS_Application.Interfaces.IServices.BaseServices
 {
     public interface IProductService
     {
@@ -9,6 +9,7 @@ namespace AQS_Aplication.Interfaces.IServisces.BaseServices
         Task<ResultOutPutMethodEnum> Delete(long id);
         Task<List<Product>> Read();
         Task<Product?> ReadById(long id);
+        Task<List<Product>> ReadByCompanyId(long id);
         Task<ResultOutPutMethodEnum> Update(Product product);
         Task<ResultOutPutMethodEnum> IsConfirmed(long id, bool isConfirmed);
         Task<ResultOutPutMethodEnum> UpdatePictureFileName(int id, Guid pictureFileName);
