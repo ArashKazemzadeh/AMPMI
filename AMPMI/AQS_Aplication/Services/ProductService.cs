@@ -74,7 +74,7 @@ namespace AQS_Application.Services
 
             return result > 0 ? ResultOutPutMethodEnum.savechanged : ResultOutPutMethodEnum.dontSaved;
         }
-        public async Task<ResultOutPutMethodEnum> UpdatePictureFileName(int id, Guid pictureFileName)
+        public async Task<ResultOutPutMethodEnum> UpdatePictureFileName(int id, string pictureFileName)
         {
             var existingProduct = await _context.Products.FindAsync(id);
             if (existingProduct == null)

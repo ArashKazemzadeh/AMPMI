@@ -12,6 +12,6 @@ namespace AQS_Application.Interfaces.IServices.BaseServices
         Task<List<Product>> ReadByCompanyId(long id);
         Task<ResultOutPutMethodEnum> Update(Product product);
         Task<ResultOutPutMethodEnum> IsConfirmed(long id, bool isConfirmed);
-        Task<ResultOutPutMethodEnum> UpdatePictureFileName(int id, Guid pictureFileName);
+        Task<ResultOutPutMethodEnum> UpdatePictureFileName(int id, string pictureFileName);
     }
 }

@@ -7,7 +7,7 @@ public partial class Product
 
     public string Description { get; set; } = null!;
 
-    public Guid? PictureFileName { get; set; }
+    public string? PictureFileName { get; set; }
 
     public bool IsConfirmed { get; set; }
 

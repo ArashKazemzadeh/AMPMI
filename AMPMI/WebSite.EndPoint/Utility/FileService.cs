@@ -6,7 +6,7 @@
         bool DeleteFile(string relativePath);
         string GetFilePath(string relativePath);
     }
-    public class FileService
+    public class FileService : IFileServices
     {
         private readonly IWebHostEnvironment _env;
 
