@@ -3,6 +3,12 @@
     Layout = "~/Areas/Company/Views/Shared/_layout.cshtml";
 }
 <div class="container-fluid">
+    @if (TempData["error"] is not null)
+    {
+        <div class="row">
+            <p style="color:red;">@TempData["error"].ToString()</p>
+        </div>
+    }
     <div class="row">
         <a href="@Url.Action("NewProduct","Product")" id="new"> <img class="img-Icon" src="~/images/addition copy.png" /> </a>
     </div>
@@ -52,7 +58,7 @@
                     <td>نام محصول 2</td>
                     <td class="td-Icon"><input type="checkbox"></td>
                     <td class="td-Icon"><a href="@Url.Action("EditProduct","Product",new{area="Company",id=2})"><img class="img-Icon" src="~/images/editing.png" /></a></td>
-                    <td class="td-Icon"><a onclick="return DeleteRow(event)" href="@Url.Action("DeleteProduct","Product",new{area="Company",id=4})"><img class="img-Icon" src="~/images\recycle.png" /></a></td>
+                    <td class="td-Icon"><a onclick="return DeleteRow(event)" href="@Url.Action("DeleteProduct","Product",new{area="Company",id=2})"><img class="img-Icon" src="~/images\recycle.png" /></a></td>
                 </tr>
             </tbody>
         </table>

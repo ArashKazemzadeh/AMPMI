@@ -72,26 +72,9 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
                 return View("EditProduct",productVM );
             }
             if (productVM.Id > 0)
-                return RedirectToAction(nameof(EditProduct),
-                    new
-                    {
-                        Id = productVM.Id,
-                        Name = productVM.Name,
-                        Description = productVM.Description,
-                        PictureFileName = productVM.PictureFileName,
-                        SubCategoryId = productVM.SubCategoryId
-                    }
-                );
+                return await EditProduct(productVM);
             else
-                return RedirectToAction(nameof(NewProduct),
-                    new
-                    {
-                        Name = productVM.Name,
-                        Description = productVM.Description,
-                        PictureFileName = productVM.PictureFileName,
-                        SubCategoryId = productVM.SubCategoryId
-                    }
-                );
+                return await NewProduct(productVM);
         }
         public async Task<IActionResult> NewProduct()
         {
@@ -113,16 +96,22 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
                 IsConfirmed = false,
                 SubCategoryId = productVM.SubCategoryId
             };
-            if (ModelState.IsValid)
+            try
             {
-
                 long id = await _productService.Create(newProduct);
-                if(id>0)
+                if (id > 0)
                     return RedirectToAction(nameof(ProductList));
                 else
-                    TempData["error"] = "خطایی در هنگام ثبت کالا رخ داد";
+                {
+                    ViewData["error"] = "خطایی در هنگام ثبت کالا رخ داد";
+                    return View("EditProduct", productVM);
+                }
             }
-            return View(newProduct);
+            catch (Exception)
+            {
+                ViewData["error"] = "خطایی در هنگام ثبت کالا رخ داد";
+                return View("EditProduct", productVM);
+            }
         }
         [HttpGet]
         public IActionResult ChangeCategory(int categoryId)
@@ -134,7 +123,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
             Product product = await _productService.ReadById(id);
             if (product != null)
             {
-                //List<SubCategory> subCategories = await _subCategoryService.ReadAll();
+                List<Category> categories = await _categoryService.Read();
                 return View(new ProductVM() 
                 {
                     Id = product.Id,
@@ -142,39 +131,47 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
                     Description = product.Description,
                     Name = product.Name,
                     IsConfirmed = product.IsConfirmed,
-                    PictureFileName = null,
+                    PictureFileName = null, // TODO
                     SubCategoryId = product.SubCategoryId,
                     CategoryId = product.SubCategory.CategoryId,
-                    //SubCategories = subCategories
+                    Categories = categories
                 });
             }
-            return View();
+            else
+            {
+                TempData["error"] = "محصول مورد نظر یافت نشد";
+                return RedirectToAction(nameof(ProductList));
+            }
         }
         [HttpPost]
-        public async Task<IActionResult> EditProduct(long Id,string Name, 
-            string Description, IFormFile PictureFileName,int SubCategoryId)
+        public async Task<IActionResult> EditProduct(ProductVM productVM)
         {
             long companyId = Convert.ToInt64(User.Identity.Name);
             Product existProdcut = new Product()
             {
-                Id = Id,
-                Name = Name,
-                Description = Description,
-                PictureFileName = null,
+                Id = productVM.Id,
+                Name = productVM.Name,
+                Description = productVM.Description,
+                PictureFileName = null, // TODO
                 CompanyId = companyId,
-                IsConfirmed = false,
-                SubCategoryId = SubCategoryId
+                SubCategoryId = productVM.SubCategoryId
             };
-            if (ModelState.IsValid)
+            try
             {
-
                 var result = await _productService.Update(existProdcut);
                 if (result == ResultOutPutMethodEnum.savechanged)
                     return RedirectToAction(nameof(ProductList));
                 else
-                    TempData["error"] = "خطایی در هنگام ثبت کالا رخ داد";
+                {
+                    ViewData["error"] = "خطایی در هنگام ثبت کالا رخ داد";
+                    return View(productVM);
+                }
             }
-            return View();
+            catch (Exception)
+            {
+                ViewData["error"] = "خطایی در هنگام ثبت کالا رخ داد";
+                return View(productVM);
+            }
         }
         public async Task<IActionResult> DeleteProduct(long id)
         {
@@ -187,7 +184,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
             }
             else
             {
-                TempData["error"] = "کالای مورد نظر یافت نشد";
+                TempData["error"] = "محصول مورد نظر یافت نشد";
             }
             return RedirectToAction(nameof(ProductList));
         }

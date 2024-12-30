@@ -5,13 +5,19 @@
 @section CSS
 {
     <style>
-        .prevImage{
-            width:100%;
-            height:100%;
+        .prevImage {
+            width: 100%;
+            height: 100%;
         }
     </style>
 }
 <div class="container-fluid">
+    @if (ViewData["error"] is not null)
+    {
+        <div class="row">
+            <p style="color:red;">@ViewData["error"].ToString()</p>
+        </div>
+    }
     <div class="row">
         <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
         <a href="@Url.Action("ProductList","Product")" id="cancle"><img class="img-Icon" src="~/images/cancel.png" /></a>
@@ -48,7 +54,6 @@
                     <label class="col-sm-3 col-form-label input-Label">گروه فرعی:</label>
                     <div class="col-sm-9">
                         <select asp-for="SubCategoryId" disabled id="subCategories" class="input-text">
-
                         </select>
                         <span class="text-danger" asp-validation-for=SubCategoryId></span>
                     </div>
@@ -126,9 +131,9 @@
         function CallAjax(CategoryId){
              $.ajax({
                     url: 'ChangeCategory', // مسیر اکشن کنترلر
-                    type: 'GET', 
+                    type: 'GET',
                     data: {categoryId: CategoryId},
-                    dataType: 'json', 
+                    dataType: 'json',
                     success: function (data) {
                         $('#subCategories').empty();
 
