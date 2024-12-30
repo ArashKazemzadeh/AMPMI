@@ -54,163 +54,141 @@ desired effect
 |---------------------------------------------------------|
 -->
 
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini" style="height:100% !important">
     <div class="wrapper" style="background-color:#EEEEEE">
 
         <!-- Main Header -->
         <header class="main-header">
             <!-- Header Navbar: style can be found in header.less -->
-            <nav class="navbar navbar-static-top" style='margin-right:0px ; background-color:#d5d6db ; height:80px'>
-                <div class="navbar-custom-menu" style="float:right ; width:30% ; margin-top: 10px; ">
-                    <ul class="nav navbar-nav">
-                        <!-- Back to home page -->
-                        <li class="dropdown notifications-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <img src="~/images/home.png" style="width:20px ; height:20px "/>
-                            </a>
-                        </li>
-                        <!-- Notifications: style can be found in dropdown.less -->
-                        <li class="dropdown notifications-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="~/images/notification copy.png" style="width:20px ; height:20px ">
-                                <span class="label label-warning">۱۰</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="header">۱۰ اعلان جدید</li>
-                                <li>
-                                    <!-- inner menu: contains the actual data -->
-                                    <ul class="menu">
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-warning text-yellow"></i> عنوان اعلان شماره یک
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-warning text-yellow"></i> عنوان اعلان شماره دو
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-warning text-yellow"></i> عنوان اعلان شماره سه
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-warning text-yellow"></i> عنوان اعلان شماره چهار
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-warning text-yellow"></i> عنوان اعلان شماره پنج
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="footer"><a href="#">نمایش همه</a></li>
-                            </ul>
-                        </li>
-                        <!-- Show Date -->
-                        <li class="dropdown notifications-menu">
-                            <p style="margin-top:15px ; margin-right:20px">امروز: ۱۹ آذر 1403</p>
-                        </li>
-                    </ul>
-                </div>
-                <!-- Hello to user -->
-                <div style="text-align:center ;
-                            margin-top:10px ;
-                            width:40% ;
-                            float:right"
-                >
-                    <p style="margin-top:15px; font-size:20px">به انجمن قطعه سازان موتور سیکلت خوش آمدید </p>
-                </div>
-                <!-- Welcome text -->
-                <div style="text-align:center ; margin-top:10px ; float:left ; margin-left:10px">
-                    <button disabled
-                            style="margin-top:5px;
-                                   background-color:lightskyblue ;
-                                   border:none; height:50px;
-                                   border-radius:20px;
-                                   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">
-                        <img src="~/images/user.png" style="width:20px ; height:20px;margin-top:-5px " />
-                        سلام: توکا
-                    </button>
+            <nav class="navbar navbar-static-top">
+                <div class="row nav-cls">
+                    <div class="col-md-4">
+                        <ul class="nav navbar-nav">
+                            <!-- Back to home page -->
+                            <li class="dropdown notifications-menu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <img class="nav-Icon" src="~/images/home.png" />
+                                </a>
+                            </li>
+                            <!-- Notifications: style can be found in dropdown.less -->
+                            <li class="dropdown notifications-menu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <img class="nav-Icon" src="~/images/notification copy.png">
+                                    <span class="label label-warning">۱۰</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="header">۱۰ اعلان جدید</li>
+                                    <li>
+                                        <!-- inner menu: contains the actual data -->
+                                        <ul class="menu">
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-warning text-yellow"></i> عنوان اعلان شماره یک
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-warning text-yellow"></i> عنوان اعلان شماره دو
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-warning text-yellow"></i> عنوان اعلان شماره سه
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-warning text-yellow"></i> عنوان اعلان شماره چهار
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-warning text-yellow"></i> عنوان اعلان شماره پنج
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="footer"><a href="#">نمایش همه</a></li>
+                                </ul>
+                            </li>
+                            <!-- Show Date -->
+                            <li class="dropdown notifications-menu">
+                                <p class="nav-Date">امروز: ۱۹ آذر 1403</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Hello to user -->
+                    <div class="col-md-6 welcome">
+                        <p class="nav-welcome">به انجمن قطعه سازان موتور سیکلت خوش آمدید </p>
+                    </div>
+                    <!-- Welcome text -->
+                    <div class="col-md-2">
+                        <div class="nav-companyName">
+                            <img class="nav-NameIcon" src="~/images/user.png" />
+                            <span>سلام: توکا</span>
+                        </div>
+                    </div>
                 </div>
             </nav>
         </header>
         <!-- right side column. contains the logo and sidebar -->
-        <div>
-            <aside class="main-sidebar" style="margin-top:100px;
-                                           background-color:white;
-                                           border-radius:25px;
-                                           margin-right:20px;
-                                           margin-left:20px;
-                                           padding-top: 20px;
-                                           float:right;
-                                           width:20%">
-                <div style="width:100%; text-align:center">
-                    <button style="border-radius:50%;
-                               border:none;
-                               box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">
-                        <img src="~/images/add user.png" style="width:100px ; height:100px " />
+        <div class="container-fluid">
+            <div class="col-md-2 menu">
+                <div class="profile-Pic">
+                    <button class="profile-Pic-btn">
+                        <img class="profile-Pic-img" src="~/images/add user.png" />
                     </button>
                 </div>
                 <!-- sidebar: style can be found in sidebar.less -->
                 <section class="sidebar">
                     <!-- Sidebar Menu -->
-                    <ul class="sidebar-menu" data-widget="tree" style="margin-top:20px; margin-right:10px">
+                    <ul class="sidebar-menu menu-Item" data-widget="tree">
                         <!-- User Profile -->
-                        <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
-                            <a href="#">
-                                <img src="~/images/user.png" style="width:20px ; height:20px" />
-                                <span style="padding-right:10px; color:#000000">پروفایل کاربری</span>
+                        <li class="dropdown notifications-menu Dashboard-hover">
+                            <a asp-area="Company" asp-controller=CompanyProfile asp-action=EditCompanyProfile>
+                                <img class="nav-NameIcon" src="~/images/user.png" />
+                                <span class="menu-Item-Text">پروفایل کاربری</span>
                             </a>
                         </li>
                         <!-- Change Password -->
-                        <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
-                            <a href="#">
-                                <img src="~/images/user.png" style="width:20px ; height:20px" />
-                                <span style="padding-right:10px; color:#000000">تغییر رمز عبور</span>
+                        <li class="dropdown notifications-menu Dashboard-hover">
+                            <a asp-area="Company" asp-controller=CompanyProfile asp-action=ChangePassword>
+                                <img class="nav-NameIcon" src="~/images/lock copy.png"/>
+                                <span class="menu-Item-Text">تغییر رمز عبور</span>
                             </a>
                         </li>
-                        <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
-                            <a href="#">
-                                <img src="~/images/image copy.png" style="width:20px ; height:20px" />
-                                <span style="padding-right:10px; color:#000000">گالری تصاویر</span>
+                        <li class="dropdown notifications-menu Dashboard-hover">
+                            <a asp-area="Company" asp-controller=CompanyPicture asp-action=EditCompanyPicture>
+                                <img class="nav-NameIcon" src="~/images/image copy.png"/>
+                                <span class="menu-Item-Text">گالری تصاویر</span>
                             </a>
                         </li>
-                        <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
-                            <a href="#">
-                                <img src="~/images/clapperboard copy.png" style="width:20px ; height:20px" />
-                                <span style="padding-right:10px; color:#000000">تیزر تبلیغاتی</span>
+                        <li class="dropdown notifications-menu Dashboard-hover">
+                            <a asp-area="Company" asp-controller=CompanyTeaser asp-action=EditCompanyTeaser>
+                                <img class="nav-NameIcon" src="~/images/clapperboard copy.png"/>
+                                <span class="menu-Item-Text">تیزر تبلیغاتی</span>
                             </a>
                         </li>
-                        <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
-                            <a asp-area="" asp-controller=Category asp-action=CategoryList>
-                                <img src="~/images/product copy.png" style="width:20px ; height:20px" />
-                                <span style="padding-right:10px; color:#000000">محصولات</span>
+                        <li class="dropdown notifications-menu Dashboard-hover">
+                            <a asp-area="Company" asp-controller=Product asp-action=ProductList>
+                                <img class="nav-NameIcon" src="~/images/product copy.png"/>
+                                <span class="menu-Item-Text">محصولات</span>
                             </a>
                         </li>
-                        <li class="dropdown notifications-menu Dashboard-hover" style="margin-bottom:10px">
-                            <a asp-area="Admin" asp-controller="SubCategory" asp-action="SubCategoryList">
-                                <img src="~/images/product copy.png" style="width:20px ; height:20px" />
-                                <span style="padding-right:10px; color:#000000">اعلان‌ها</span>
+                        <li class="dropdown notifications-menu Dashboard-hover">
+                            <a asp-area="Company" asp-controller="Notification" asp-action="NotifList">
+                                <img class="nav-NameIcon" src="~/images/notification copy.png"/>
+                                <span class="menu-Item-Text">اعلان‌ها</span>
                             </a>
                         </li>
                     </ul>
                     <!-- /.sidebar-menu -->
                 </section>
                 <!-- /.sidebar -->
-            </aside>
+            </div>
 
             <!-- Content Wrapper. Contains page content -->
-            <div class="content-wrapper"
-                 style="float:left;
-                    width:75%;
-                    margin-top:25px;
-                    background-color:white;
-                    border-radius:25px;
-                    margin-left:25px">
+            <div class="col-md-9 menu">
                 <!-- Content Header (Page header) -->
                 <section class="content container-fluid">
                     @RenderBody()
