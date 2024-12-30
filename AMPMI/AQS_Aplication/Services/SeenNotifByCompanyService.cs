@@ -15,8 +15,13 @@ namespace AQS_Application.Services
             _context = context;
         }
 
-        public async Task<long> Create(SeenNotifByCompany seenNotifByCompany)
+        public async Task<long> Create(int notifId,int companyId)
         {
+            var seenNotifByCompany = new SeenNotifByCompany() 
+            {
+                NotificationId = notifId,
+                CompanyId = companyId
+            };
             var row = _context.SeenNotifByCompanies.Add(seenNotifByCompany);
 
             int result = await _context.SaveChangesAsync();
@@ -57,6 +62,15 @@ namespace AQS_Application.Services
                 .Include(s => s.Company)
                 .Include(s => s.Notification)
                 .FirstOrDefaultAsync(s => s.Id == id);
+        }
+        public async Task<List<SeenNotifByCompany>> ReadByCompanyId(int companyId)
+        {
+            return await _context.SeenNotifByCompanies.Where(x => x.CompanyId == companyId).ToListAsync();
+        }
+        public async Task<bool> NotifIsSeenByCompany(int notifId,int companyId)
+        {
+            return await _context.SeenNotifByCompanies.AnyAsync(x => x.NotificationId == notifId &&
+            x.CompanyId == companyId);
         }
     }
 }
