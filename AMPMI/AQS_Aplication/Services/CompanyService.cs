@@ -4,7 +4,6 @@ using AQS_Application.Interfaces.IServices.BaseServices;
 using AQS_Common.Enums;
 using Domin.Entities;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
 
 namespace AQS_Application.Services
 {
