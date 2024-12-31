@@ -9,13 +9,13 @@ namespace WebSite.EndPoint.Models.ProductViewModel
 
         public string Description { get; set; } = null!;
 
-        public Guid? PictureFileName { get; set; }
+        public string? PictureFileName { get; set; }
 
         public long? CompanyId { get; set; }
 
         public int SubCategoryId { get; set; }
         public string? CompanyName { get; set; }
-        public Guid? CompanyLogoRout { get; set; }
+        public string? CompanyLogoRout { get; set; }
 
     }
 }

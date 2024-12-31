@@ -115,7 +115,7 @@ namespace AQS_Application.Services
             return result > 0 ? ResultOutPutMethodEnum.savechanged : ResultOutPutMethodEnum.dontSaved;
         }
 
-        public async Task<ResultOutPutMethodEnum> UpdateLogoRout(int id, Guid logoRout)
+        public async Task<ResultOutPutMethodEnum> UpdateLogoRout(int id, string logoRout)
         {
             var existingCompany = await _context.Companies.FindAsync(id);
 
