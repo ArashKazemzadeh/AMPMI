@@ -2,9 +2,13 @@
 public partial class CompanyPicture
 {
     /// <summary>
-    /// شناسه و نام فایل 
+    /// شناسه  
     /// </summary>
-    public Guid Id { get; set; }
+    public long Id { get; set; }
+    /// <summary>
+    /// مسیر فایل
+    /// </summary>
+    public required string PictureFileName { get; set; }
 
     public long? CompanyId { get; set; }
 

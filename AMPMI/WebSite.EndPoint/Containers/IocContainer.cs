@@ -31,6 +31,7 @@ public static class IocContainer
         builder.Services.AddScoped<ICategoryService, CategoryService>();
         builder.Services.AddScoped<ISubCategoryService, SubCategoryService>();
         builder.Services.AddScoped<IFileServices, FileService>();
+        builder.Services.AddScoped<ICompanyPictureService, CompanyPictureService>();
     }
 }
 

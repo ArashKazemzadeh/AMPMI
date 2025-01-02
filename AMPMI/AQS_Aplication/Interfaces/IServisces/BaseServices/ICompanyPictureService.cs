@@ -1,15 +1,15 @@
-﻿using Domin.Entities;
+﻿using AQS_Common.Enums;
+using Domin.Entities;
 
 namespace AQS_Application.Interfaces.IServices.BaseServices
 {
     public interface ICompanyPictureService
     {
-        Task<bool> Create(CompanyPicture companyPicture);
-        Task Delete(int id);
-        Task<List<CompanyPicture>> Read();
-        Task<CompanyPicture> ReadById(int id);
-        Task<CompanyPicture> Update(CompanyPicture companyPicture);
+        Task<long> Create(long companyId, string pictureFileName);
+        Task<ResultOutPutMethodEnum> Delete(long id);
+        Task<List<CompanyPicture>> ReadAll();
+        Task<List<CompanyPicture>> ReadAllByCompany(long companyId);
+        Task<CompanyPicture?> ReadById(long id);
+        Task<ResultOutPutMethodEnum> Update(long id,long companyId, string pictureFileName);
     }
-
-
 }
