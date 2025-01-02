@@ -43,8 +43,6 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(ShowPage));
         }
-
-        [HttpPost]
         public async Task<IActionResult> Delete(long id)
         {
             if (id < 1)
