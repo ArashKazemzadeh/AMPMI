@@ -16,6 +16,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         private readonly IFileServices _fileServices;
 
         static List<SubCategory> subCategories;
+        const string PictureFolder = "Product";
 
         public ProductController(IProductService productService, ICategoryService categoryService,IFileServices fileServices)
         {
@@ -150,14 +151,12 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> EditProduct(ProductVM productVM)
         {
-            long companyId = Convert.ToInt64(User.Identity.Name);
             Product existProdcut = new Product()
             {
                 Id = productVM.Id,
                 Name = productVM.Name,
                 Description = productVM.Description,
-                PictureFileName = null, // TODO
-                CompanyId = companyId,
+                CompanyId = productVM.CompanyId,
                 SubCategoryId = productVM.SubCategoryId
             };
             try
@@ -166,7 +165,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                 {
                     if (_fileServices.DeleteFile(productVM.PictureFileSrc))
                     {
-                        string newPicture = await _fileServices.SaveFileAsync(productVM.PictureFileName, "Product");
+                        string newPicture = await _fileServices.SaveFileAsync(productVM.PictureFileName, PictureFolder);
                         if (string.IsNullOrEmpty(newPicture))
                         {
                             ViewData["error"] = "خطایی در هنگام ثبت تصویر رخ داد";
@@ -202,11 +201,6 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         }
         public async Task<IActionResult> NotConfirmedProductList()
         {
-            long companyId = 1;
-            if (User.Identity.IsAuthenticated)
-            {
-                companyId = Convert.ToInt64(User.Identity.Name);
-            }
             List<Product> data = await _productService.ReadNotConfirmed();
             int rowNum = 1;
             List<ListProductVM> products = data.Select(x => new ListProductVM()
@@ -229,16 +223,26 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         /// </summary>
         /// <param name="productId"></param>
         /// <returns></returns>
-        public IActionResult ConfirmProduct(int productId)
+        public async Task<IActionResult> ConfirmProduct(long productId)
         {
+            Product existProduct=await _productService.ReadById(productId);
+            if (existProduct != null)
+            {
+                existProduct.IsConfirmed = true;
+                await _productService.Update(existProduct);
+            }
+            else
+            {
+                TempData["error"]="محصول مورد نظر یافت نشد";
+            }
             return RedirectToAction(nameof(NotConfirmedProductList));
         }
-        public async Task<IActionResult> DeleteProduct(long id)
+        public async Task<IActionResult> DeleteProduct(long productId)
         {
-            Product product = await _productService.ReadById(id);
+            Product product = await _productService.ReadById(productId);
             if (product != null)
             {
-                var result = await _productService.Delete(id);
+                var result = await _productService.Delete(productId);
                 if (result != ResultOutPutMethodEnum.savechanged)
                     TempData["error"] = "خطایی در هنگام حذف کالا رخ داد";
             }

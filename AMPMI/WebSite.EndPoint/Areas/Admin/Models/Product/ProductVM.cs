@@ -11,9 +11,14 @@ namespace WebSite.EndPoint.Areas.Admin.Models.Product
         public string Name { get; set; } 
 
         public string Description { get; set; } = null!;
-
+        /// <summary>
+        /// برای آپلود عکس 
+        /// </summary>
         public IFormFile PictureFileName { get; set; }
-        public string PictureFileSrc { get; set; }
+        /// <summary>
+        /// برای نمایش آدرس عکس ذخیره شده
+        /// </summary>
+        public string? PictureFileSrc { get; set; }
         public bool IsPictureChanged { get; set; }
 
         public bool IsConfirmed { get; set; }
