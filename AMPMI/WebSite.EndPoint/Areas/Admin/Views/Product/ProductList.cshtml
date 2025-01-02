@@ -1,9 +1,16 @@
-﻿@{
+﻿@model List<WebSite.EndPoint.Areas.Admin.Models.Product.ListProductVM>
+@{
     Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
 }
 <div class="container-fluid">
+    @if (TempData["error"] is not null)
+    {
+        <div class="row">
+            <p style="color:red;">@TempData["error"].ToString()</p>
+        </div>
+    }
     <div class="row">
-        <a href="@Url.Action("EditProduct","Product")" id="new"> <img class="img-Icon" src="~/images/addition copy.png" /> </a>
+        <a href="@Url.Action("NewProduct","Product")" id="new"> <img class="img-Icon" src="~/images/addition copy.png" /> </a>
     </div>
     <div class="row">
         <table id="myTable" class="display tbStyle">
@@ -20,6 +27,19 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="td-Icon">@item.RowNum</td>
+                        <td>@item.Name</td>
+                        <td>@item.Description</td>
+                        <td>@item.CompanyName</td>
+                        <td>@item.CategoryName</td>
+                        <td>@item.SubCategoryName</td>
+                        <td class="td-Icon"><a href="@Url.Action("EditProduct","Product",new{area="Admin",id=item.Id})"><img class="img-Icon" src="~/images/editing.png" /></a></td>
+                        <td class="td-Icon"><a onclick="return DeleteRow(event)" href="@Url.Action("DeleteProduct","Product",new{area="Admin",id=item.Id})"><img class="img-Icon" src="~/images\recycle.png" /></a></td>
+                    </tr>
+                }
                 <tr>
                     <td class="td-Icon">1</td>
                     <td>Row</td>
@@ -27,8 +47,8 @@
                     <td>Row</td>
                     <td>Row 1 Data 2</td>
                     <td>Row</td>
-                    <td class="td-Icon"><a><img class="img-Icon" src="~/images/editing.png" /></a></td>
-                    <td class="td-Icon"><a><img class="img-Icon" src="~/images\recycle.png" /></a></td>
+                    <td class="td-Icon"><a href="@Url.Action("EditProduct","Product",new{area="Admin",id=2})"><img class="img-Icon" src="~/images/editing.png" /></a></td>
+                    <td class="td-Icon"><a onclick="return DeleteRow(event)" href="@Url.Action("DeleteProduct","Product",new{area="Admin",id=2})"><img class="img-Icon" src="~/images\recycle.png" /></a></td>
                 </tr>
                 <tr>
                     <td class="td-Icon">1</td>
@@ -37,8 +57,8 @@
                     <td>Row</td>
                     <td>Row 1 Data 2</td>
                     <td>Row</td>
-                    <td class ="td-Icon"><a><img class="img-Icon" src="~/images/editing.png" /></a></td>
-                    <td class="td-Icon"><a><img class="img-Icon" src="~/images\recycle.png" /></a></td>
+                    <td class="td-Icon"><a href="@Url.Action("EditProduct","Product",new{area="Admin",id=4})"><img class="img-Icon" src="~/images/editing.png" /></a></td>
+                    <td class="td-Icon"><a onclick="return DeleteRow(event)" href="@Url.Action("DeleteProduct","Product",new{area="Admin",id=3})"><img class="img-Icon" src="~/images\recycle.png" /></a></td>
                 </tr>
             </tbody>
         </table>
@@ -51,6 +71,18 @@
             .setAttribute('dir', 'rtl'); // Demo only
 
         new DataTable('#myTable');
+
+        function DeleteRow(event){
+            var isConfirmd= confirm("آیا از حذف این ردیف اطمینان دارید ؟")
+            if(!isConfirmd){
+                event.preventDefault();
+                return false;
+            }
+            else{
+                return true;
+            }
+
+        }
 
     </script>
 }

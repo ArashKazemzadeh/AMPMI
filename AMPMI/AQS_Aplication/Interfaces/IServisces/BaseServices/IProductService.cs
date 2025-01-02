@@ -8,6 +8,7 @@ namespace AQS_Application.Interfaces.IServices.BaseServices
         Task<long> Create(Product product);
         Task<ResultOutPutMethodEnum> Delete(long id);
         Task<List<Product>> Read();
+        Task<List<Product>> ReadNotConfirmed();
         Task<Product?> ReadById(long id);
         Task<List<Product>> ReadByCompanyId(long id);
         Task<ResultOutPutMethodEnum> Update(Product product);
