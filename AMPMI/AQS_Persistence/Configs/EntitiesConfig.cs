@@ -1,4 +1,5 @@
-﻿using Domin.Entities;
+﻿using AQS_Domin.Entities;
+using Domin.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace AQS_Persistence.Configs;
@@ -62,6 +63,11 @@ public static class EntitiesConfig
             entity.HasOne(d => d.Category).WithMany(p => p.SubCategories)
                 .HasForeignKey(d => d.CategoryId)
                 .HasConstraintName("FK_SubCategory_Category");
+        });
+        modelBuilder.Entity<MiscellaneousData>(entity =>
+        {
+            entity.HasIndex(e => e.Key).IsUnique();
+            entity.HasIndex(e => e.Value).IsUnique();
         });
     }
 }
