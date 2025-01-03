@@ -1,20 +1,28 @@
-﻿@{
+﻿@model List<WebSite.EndPoint.Areas.Admin.Models.Category.CategoryReadVM>
+@{
     Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
 }
 
-<div class="contaienr">
+<div class="container">
+    <div>
+        @if (ViewData["Message"] is not null)
+        {
+            <p style="color : red">@ViewData["Message"]?.ToString()</p>
+        }
+    </div>
     <div>
         <a href="#" id="new"> <img class="img-Icon" src="~/images/addition copy.png" /> </a>
         <a hidden href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
-        <a hidden href="#" id="cancle"><img class="img-Icon" src="~/images/cancel.png" /></a>
+        <a hidden href="#" id="cancel"><img class="img-Icon" src="~/images/cancel.png" /></a>
+
     </div>
     <div hidden id="newForm" style="margin-top:20px;">
-        <form>
-
+        <form asp-area="Admin" asp-controller="Category" asp-action="Save" enctype="multipart/form-data" method="post">
+            <input hidden type="text" name="id" />
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label input-Label">نام گروه اصلی:</label>
                 <div class="col-sm-4">
-                    <input type="text" class="input-text">
+                    <input type="text" name="Name" class="input-text" placeholder="نام گروه اصلی را وارد کنید">
                 </div>
             </div>
             <div class="form-group row">
@@ -38,19 +46,35 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td class="td-Icon">1</td>
-                    <td>گروه 1</td>
-                    
-                    <td class="td-Icon"><a href="#" id="edit"><img class="img-Icon" src="~/images/editing.png" /></a></td>
-                    <td class="td-Icon"><a href="#"><img class="img-Icon" src="~/images/recycle.png" /></a></td>
-                </tr>
-                <tr>
-                    <td class="td-Icon">2</td>
-                    <td>گروه 2</td>
-                    <td class="td-Icon"><a href="#" id="edit"><img class="img-Icon" src="~/images/editing.png" /></a></td>
-                    <td class="td-Icon"><a href="#"><img class="img-Icon" src="~/images/recycle.png" /></a></td>
-                </tr>
+                @{
+                    long rowIndex = 1;
+                }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="td-Icon">
+                            @rowIndex
+                        </td>
+                        <td>
+                            @item.Name
+                        </td>
+                        <td class="td-Icon">
+                            <a href="#" class="btn edit-btn"
+                               data-id="@item.Id"
+                               data-name="@item.Name"
+                               data-img="@item.PictureFileName">
+                                <img class="img-Icon" src="~/images/editing.png" />
+                            </a>
+                        </td>
+
+                        <td class="td-Icon">
+                            <a href="@Url.Action("Delete" ,"Category" , new {area = "Admin" , id = @item.Id})" id="cancel">
+                                <img class="img-Icon" src="~/images/cancel.png" />
+                            </a>
+                        </td>
+                    </tr>
+                    rowIndex++;
+                }
             </tbody>
         </table>
     </div>
@@ -58,15 +82,14 @@
 @section Scripts
 {
     <script>
+
           document.querySelector('#myTable')
-            .setAttribute('dir', 'rtl'); // Demo only
+            .setAttribute('dir', 'rtl');
 
         new DataTable('#myTable');
 
         $("#new").click(function(){
             $("#newForm").show();
-            $("#save").show();
-            $("#cancle").show();
         });
 
         function HideForm()
@@ -78,22 +101,53 @@
             HideForm();
         });
 
-        $("#cancle").click(function(){
+        $("#cancel").click(function(){
             HideForm();
-            $("#save").hide();
-            $("#cancle").hide();
         });
 
-         $("#edit").click(function(){
+        // اضافه کردن رویداد کلیک به دکمه ویرایش
+        $(".edit-btn").click(function (event) {
+            event.preventDefault();
+
+            // دریافت داده‌های مربوطه از دکمه
+            var id = $(this).data("id");
+            var name = $(this).data("name");
+            var img = $(this).data("img");
+
+            // انتقال داده‌ها به فرم
+            $("input[name='id']").val(id);
+            $("input[name='Name']").val(name);
+            $("#getFile").val(""); // پاک کردن مقدار ورودی فایل
+
+            // نمایش فرم
             $("#newForm").show();
-            $("#save").show();
         });
 
-        function getfile () {
-            document.querySelector('#getFile').click();
+        function HideForm() {
+            $("#newForm").hide();
+            // پاک کردن مقادیر فرم
+            $("input[name='id']").val("");
+            $("input[name='Name']").val("");
+            $("#getFile").val("");
         }
 
+        //صدا زدن هنگام ذخیره
+         $("#save").click(function (event) {
+             event.preventDefault();
+             $("#newForm").submit();
+         });
+
+         $("#cancel").click(function (event) {
+             event.preventDefault();
+             $("#newForm").hide();
+         });
+
+        function getfile() {
+            document.querySelector('#getFile').click();
+        }
     </script>
+
+
 
 
 }
