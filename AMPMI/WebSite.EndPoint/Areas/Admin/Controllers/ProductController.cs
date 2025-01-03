@@ -76,10 +76,11 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         }
         public async Task<IActionResult> NewProduct()
         {
-            List<Category> categories = await _categoryService.Read();
-            subCategories = categories.SelectMany(x => x.SubCategories).ToList();
+            //List<Category> categories = await _categoryService.Read();
+            //subCategories = categories.SelectMany(x => x.SubCategories).ToList();
 
-            return View("EditProduct", new ProductVM() { Categories = categories });
+            //return View("EditProduct", new ProductVM() { Categories = categories });
+            return View();
         }
         [HttpPost]
         public async Task<IActionResult> NewProduct(ProductVM productVM)
@@ -126,27 +127,28 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         public async Task<IActionResult> EditProduct(long id)
         {
             Product product = await _productService.ReadById(id);
-            if (product != null)
-            {
-                List<Category> categories = await _categoryService.Read();
-                return View(new ProductVM()
-                {
-                    Id = product.Id,
-                    CompanyId = product.CompanyId,
-                    Description = product.Description,
-                    Name = product.Name,
-                    IsConfirmed = product.IsConfirmed,
-                    PictureFileSrc = product.PictureFileName,
-                    SubCategoryId = product.SubCategoryId,
-                    CategoryId = product.SubCategory.CategoryId,
-                    Categories = categories
-                });
-            }
-            else
-            {
-                TempData["error"] = "محصول مورد نظر یافت نشد";
-                return RedirectToAction(nameof(ProductList));
-            }
+            //if (product != null)
+            //{
+            //    List<Category> categories = await _categoryService.Read();
+            //    return View(new ProductVM()
+            //    {
+            //        Id = product.Id,
+            //        CompanyId = product.CompanyId,
+            //        Description = product.Description,
+            //        Name = product.Name,
+            //        IsConfirmed = product.IsConfirmed,
+            //        PictureFileSrc = product.PictureFileName,
+            //        SubCategoryId = product.SubCategoryId,
+            //        CategoryId = product.SubCategory.CategoryId,
+            //        Categories = categories
+            //    });
+            //}
+            //else
+            //{
+            //    TempData["error"] = "محصول مورد نظر یافت نشد";
+            //    return RedirectToAction(nameof(ProductList));
+            //}
+            return View();
         }
         [HttpPost]
         public async Task<IActionResult> EditProduct(ProductVM productVM)
