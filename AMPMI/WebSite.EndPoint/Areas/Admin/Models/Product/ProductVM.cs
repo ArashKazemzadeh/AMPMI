@@ -7,6 +7,7 @@ namespace WebSite.EndPoint.Areas.Admin.Models.Product
     {
         public long Id { get; set; }
         public int RowNum { get; set; }
+
         [Required(ErrorMessage = "نام محصول نمیتواند خالی باشد")]
         public string Name { get; set; } 
 
@@ -14,7 +15,7 @@ namespace WebSite.EndPoint.Areas.Admin.Models.Product
         /// <summary>
         /// برای آپلود عکس 
         /// </summary>
-        public IFormFile PictureFileName { get; set; }
+        public IFormFile? PictureFileName { get; set; }
         /// <summary>
         /// برای نمایش آدرس عکس ذخیره شده
         /// </summary>
@@ -29,6 +30,6 @@ namespace WebSite.EndPoint.Areas.Admin.Models.Product
         public int SubCategoryId { get; set; }
         public int CategoryId { get; set; }
         //public List<SubCategory> SubCategories { get; set; }
-        public List<Category>? Categories { get; set; }
+        public List<Category> Categories { get; set; }
     }
 }

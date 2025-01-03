@@ -2,7 +2,7 @@
 using AQS_Application.Interfaces.IInfrastructure.IContext;
 using AQS_Application.Interfaces.IServices.BaseServices;
 using AQS_Application.Interfaces.IServices.IdentityServices;
-using AQS_Domin.Entities.Acounting;
+using AQS_Domin.Entities.Accounting;
 using Microsoft.AspNetCore.Identity;
 using System.Data;
 

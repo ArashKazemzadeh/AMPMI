@@ -1,5 +1,5 @@
 ﻿using AQS_Domin.Entities;
-using AQS_Domin.Entities.Acounting;
+using AQS_Domin.Entities.Accounting;
 using Domin.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;

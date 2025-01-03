@@ -1,5 +1,4 @@
-﻿using AQS_Common.Services;
-using AQS_Domin.Entities.Acounting;
+﻿using AQS_Domin.Entities.Accounting;
 using AQS_Persistence.Configs;
 using AQS_Persistence.Contexts.SqlServer;
 using Microsoft.AspNetCore.Identity;

@@ -1,4 +1,4 @@
-﻿using AQS_Domin.Entities.Acounting;
+﻿using AQS_Domin.Entities.Accounting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
