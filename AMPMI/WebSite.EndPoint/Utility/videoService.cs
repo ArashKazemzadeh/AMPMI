@@ -57,7 +57,9 @@
         {
             if (video == null || video.Length == 0)
                 throw new ArgumentException("فایل ویدیو خالی یا نامعتبر است.");
-
+            
+            if ((video.Length / 1000000) > 20)
+                throw new ArgumentException("حجم ویدیو نباید از 20 مگابایت بیشتر باشد");
             string uploadPath = Path.Combine(_env.WebRootPath, folderName);
 
             if (!Directory.Exists(uploadPath))

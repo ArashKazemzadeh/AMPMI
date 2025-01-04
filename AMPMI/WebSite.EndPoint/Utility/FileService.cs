@@ -1,4 +1,6 @@
-﻿namespace WebSite.EndPoint.Utility
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+
+namespace WebSite.EndPoint.Utility
 {
     public interface IFileServices
     {
@@ -17,9 +19,11 @@
 
         public async Task<string> SaveFileAsync(IFormFile file, string folderName = "uploads")
         {
+
             if (file == null || file.Length == 0)
                 throw new ArgumentException("File is null or empty");
-
+            if ((file.Length / 1000) > 200)
+                throw new ArgumentException("حجم عکس نباید از 200 کیلوبایت بیشتر باشد");
             string uploadPath = Path.Combine(_env.WebRootPath, folderName);
 
             if (!Directory.Exists(uploadPath))
