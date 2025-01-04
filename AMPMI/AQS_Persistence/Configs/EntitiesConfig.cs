@@ -66,7 +66,7 @@ public static class EntitiesConfig
         });
         modelBuilder.Entity<MiscellaneousData>(entity =>
         {
-            entity.HasIndex(e => e.Key).IsUnique();
+            entity.HasKey(e => e.Key);
             entity.HasIndex(e => e.Value).IsUnique();
         });
     }
