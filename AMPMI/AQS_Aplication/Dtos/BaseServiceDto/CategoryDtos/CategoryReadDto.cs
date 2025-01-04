@@ -9,4 +9,3 @@ public class CategoryReadDto
 
     public string PictureFileName { get; set; }
 }
-

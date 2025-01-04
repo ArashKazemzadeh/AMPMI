@@ -1,8 +1,10 @@
-﻿using AQS_Application.Interfaces.IServices.BaseServices;
+﻿using AQS_Application.Dtos.BaseServiceDto.SubCategoryDto;
+using AQS_Application.Interfaces.IServices.BaseServices;
 using AQS_Common.Enums;
 using Domin.Entities;
 using Microsoft.AspNetCore.Mvc;
 using WebSite.EndPoint.Areas.Company.Models.Product;
+using WebSite.EndPoint.Utility;
 
 namespace WebSite.EndPoint.Areas.Company.Controllers
 {
@@ -12,17 +14,18 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
         private readonly IProductService _productService;
         private readonly ISubCategoryService _subCategoryService;
         private readonly ICategoryService _categoryService;
-
-        static List<SubCategory> subCategories;
-
+        private readonly IFileServices _fileServices;
+        static List<SubCategoryReadDto> subCategories;
+        const string PictureFolder = "Product";
         public ProductController(IProductService productService, ISubCategoryService subCategoryService,
-            ICategoryService categoryService)
+            ICategoryService categoryService, IFileServices fileServices)
         {
             this._productService = productService;
             this._subCategoryService = subCategoryService;
             this._categoryService = categoryService;
+            _fileServices = fileServices;
         }
-        public static List<SubCategory> GetSubCategoryByCategory(int categoryId)
+        public static List<SubCategoryReadDto> GetSubCategoryByCategory(int categoryId)
         {
             if (subCategories != null && subCategories.Count() > 0)
             {
@@ -30,15 +33,8 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
             }
             else
             {
-                // Seed Data Just For Test
-                return new List<SubCategory>() {
-                   new SubCategory{ Id =1 ,Name = "اولیش" },
-                   new SubCategory{ Id =2 ,Name = "دومیش" },
-                   new SubCategory{ Id =3 ,Name = "سومیش" },
-                   new SubCategory{ Id =4 ,Name = "چهارمیش" },
-                };
+                return new List<SubCategoryReadDto>();
             }
-            //return new List<SubCategory>();
         }
         public async Task<IActionResult> ProductList()
         {
@@ -51,7 +47,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
             int rowNum = 1;
             List<ListProductVM> products = data.Select(x => new ListProductVM()
             {
-                RowNum=rowNum++,
+                RowNum = rowNum++,
                 Id = x.Id,
                 CompanyId = x.CompanyId,
                 Description = x.Description,
@@ -69,7 +65,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("EditProduct",productVM );
+                return View("EditProduct", productVM);
             }
             if (productVM.Id > 0)
                 return await EditProduct(productVM);
@@ -78,24 +74,34 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
         }
         public async Task<IActionResult> NewProduct()
         {
-            List<Category> categories = await _categoryService.Read();
+            var categories = await _categoryService.ReadAlIncludeSub();
             subCategories = categories.SelectMany(x => x.SubCategories).ToList();
-
             return View("EditProduct", new ProductVM() { Categories = categories });
         }
         [HttpPost]
         public async Task<IActionResult> NewProduct(ProductVM productVM)
         {
-            long companyId = Convert.ToInt64(User.Identity.Name);
             Product newProduct = new Product()
             {
                 Name = productVM.Name,
                 Description = productVM.Description,
-                PictureFileName = null,
-                CompanyId = companyId,
+                CompanyId = Convert.ToInt64(User.Identity.Name),
                 IsConfirmed = false,
                 SubCategoryId = productVM.SubCategoryId
             };
+            if (productVM.PictureFileName != null)
+            {
+                string picureFilePath = await _fileServices.SaveFileAsync(productVM.PictureFileName, "Product");
+                if (string.IsNullOrEmpty(picureFilePath))
+                {
+                    ViewData["error"] = "خطایی در هنگام ثبت تصویر رخ داد";
+                    return View("EditProduct", productVM);
+                }
+                else
+                {
+                    newProduct.PictureFileName = picureFilePath;
+                }
+            }
             try
             {
                 long id = await _productService.Create(newProduct);
@@ -123,8 +129,10 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
             Product product = await _productService.ReadById(id);
             if (product != null)
             {
-                List<Category> categories = await _categoryService.Read();
-                return View(new ProductVM() 
+                var categories = await _categoryService.ReadAlIncludeSub();
+                subCategories = categories.SelectMany(x => x.SubCategories).ToList();
+
+                return View(new ProductVM()
                 {
                     Id = product.Id,
                     CompanyId = product.CompanyId,
@@ -146,18 +154,32 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
         [HttpPost]
         public async Task<IActionResult> EditProduct(ProductVM productVM)
         {
-            long companyId = Convert.ToInt64(User.Identity.Name);
             Product existProdcut = new Product()
             {
                 Id = productVM.Id,
                 Name = productVM.Name,
                 Description = productVM.Description,
-                PictureFileName = null, // TODO
-                CompanyId = companyId,
+                CompanyId = Convert.ToInt64(User.Identity.Name),
                 SubCategoryId = productVM.SubCategoryId
             };
             try
             {
+                if (productVM.IsPictureChanged)
+                {
+                    if (await _fileServices.DeleteFile(productVM.PictureFileSrc))
+                    {
+                        string newPicture = await _fileServices.SaveFileAsync(productVM.PictureFileName, PictureFolder);
+                        if (string.IsNullOrEmpty(newPicture))
+                        {
+                            ViewData["error"] = "خطایی در هنگام ثبت تصویر رخ داد";
+                            return View("EditProduct", productVM);
+                        }
+                        else
+                        {
+                            existProdcut.PictureFileName = newPicture;
+                        }
+                    }
+                }
                 var result = await _productService.Update(existProdcut);
                 if (result == ResultOutPutMethodEnum.savechanged)
                     return RedirectToAction(nameof(ProductList));
@@ -178,8 +200,9 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
             Product product = await _productService.ReadById(id);
             if (product != null)
             {
-                var result=await _productService.Delete(id);
-                if(result!=ResultOutPutMethodEnum.savechanged)
+                await _fileServices.DeleteFile(product.PictureFileName);
+                var result = await _productService.Delete(id);
+                if (result != ResultOutPutMethodEnum.savechanged)
                     TempData["error"] = "خطایی در هنگام حذف کالا رخ داد";
             }
             else

@@ -48,7 +48,7 @@ namespace AQS_Application.Services
 
         public async Task<Product?> ReadById(long id)
         {
-            return await _context.Products.Include(x=>x.Company).AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
+            return await _context.Products.Include(x=>x.Company).FirstOrDefaultAsync(i => i.Id == id);
         }
         public async Task<List<Product>> ReadByCompanyId(long id)
         {
