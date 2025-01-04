@@ -95,5 +95,41 @@ namespace AQS_Application.Services
             return result > 0 ? ResultOutPutMethodEnum.savechanged : ResultOutPutMethodEnum.dontSaved;
         }
 
+
+
+        public async Task<GetPictureeResultDto> GetPictureRout(int id)
+        {
+            if (id <= 0)
+            {
+                return new GetPictureeResultDto
+                {
+                    Path = "",
+                    Message = "شناسه نامعتبر است."
+                };
+            }
+
+            var picturePath = await _context.Categories
+                .Where(c => c.Id == id)
+                .Select(c => c.PictureFileName)
+                .FirstOrDefaultAsync();
+
+            if (string.IsNullOrEmpty(picturePath))
+            {
+                return new GetPictureeResultDto
+                {
+                    Path = "",
+                    Message = $"هیچ تصویری برای شناسه {id} یافت نشد."
+                };
+            }
+
+            return new GetPictureeResultDto
+            {
+                Path = picturePath,
+                Message = "تصویر با موفقیت یافت شد."
+            };
+        }
+
+
+
     }
 }

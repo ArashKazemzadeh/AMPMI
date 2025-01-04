@@ -14,5 +14,6 @@ namespace AQS_Application.Interfaces.IServices.BaseServices
         Task<ResultOutPutMethodEnum> Update(int id, string name);
         Task<ResultOutPutMethodEnum> UpdatePicture(int id, string pictureFileName);
         Task<List<CategoryIncludeSubCategoriesDto>> ReadAlIncludeSub();
+        Task<GetPictureeResultDto> GetPictureRout(int id);
     }
 }

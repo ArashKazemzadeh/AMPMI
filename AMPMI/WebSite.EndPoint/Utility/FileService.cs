@@ -21,7 +21,7 @@ namespace WebSite.EndPoint.Utility
         {
 
             if (file == null || file.Length == 0)
-                throw new ArgumentException("File is null or empty");
+                throw new ArgumentException("عکس بارگذاری نشده است");
             if ((file.Length / 1000) > 200)
                 throw new ArgumentException("حجم عکس نباید از 200 کیلوبایت بیشتر باشد");
             string uploadPath = Path.Combine(_env.WebRootPath, folderName);
@@ -59,7 +59,7 @@ namespace WebSite.EndPoint.Utility
             if (File.Exists(fullPath))
                 return Task.FromResult(fullPath);
 
-            throw new FileNotFoundException("File not found", relativePath);
+            throw new FileNotFoundException("عکس قبلی جهت جایگزینی پیدا نشد", relativePath);
         }
     }
 }
