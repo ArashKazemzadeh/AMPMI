@@ -1,4 +1,5 @@
 ﻿using AQS_Aplication.Dtos.BaseServiceDto.CategoryDto;
+using AQS_Application.Dtos.BaseServiceDto.CategoryDtos;
 using AQS_Common.Enums;
 using Domin.Entities;
 
@@ -12,5 +13,6 @@ namespace AQS_Application.Interfaces.IServices.BaseServices
         Task<Category?> ReadById(int id);
         Task<ResultOutPutMethodEnum> Update(int id, string name);
         Task<ResultOutPutMethodEnum> UpdatePicture(int id, string pictureFileName);
+        Task<List<CategoryIncludeSubCategoriesDto>> ReadAlIncludeSub();
     }
 }

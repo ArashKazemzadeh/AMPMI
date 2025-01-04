@@ -1,4 +1,6 @@
 ﻿using AQS_Aplication.Dtos.BaseServiceDto.CategoryDto;
+using AQS_Application.Dtos.BaseServiceDto.CategoryDtos;
+using AQS_Application.Dtos.BaseServiceDto.SubCategoryDto;
 using AQS_Application.Interfaces.IInfrastructure.IContext;
 using AQS_Application.Interfaces.IServices.BaseServices;
 using AQS_Common.Enums;
@@ -47,10 +49,20 @@ namespace AQS_Application.Services
             return categories ?? new List<CategoryReadDto>();
         }
 
-        public async Task<List<Category>> ReadAllWithSub()
+        public async Task<List<CategoryIncludeSubCategoriesDto>> ReadAlIncludeSub()
         {
             var categories = await _context.Categories.Include(c => c.SubCategories).ToListAsync();
-            return categories ?? new List<Category>();
+            return categories.Select(c => new CategoryIncludeSubCategoriesDto
+            {
+                Id = c.Id,
+                Name = c.Name,
+                PictureFileName = c.PictureFileName,
+                SubCategories = c.SubCategories != null ? c.SubCategories.Select(sc => new SubCategoryReadDto
+                {
+                    Id = sc.Id,
+                    Name = sc.Name
+                }).ToList() : new List<SubCategoryReadDto>()
+            }).ToList();
         }
         public async Task<Category?> ReadById(int id)
         {

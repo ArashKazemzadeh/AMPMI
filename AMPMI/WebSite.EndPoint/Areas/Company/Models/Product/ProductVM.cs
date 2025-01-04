@@ -1,4 +1,6 @@
-﻿using Domin.Entities;
+﻿using AQS_Aplication.Dtos.BaseServiceDto.CategoryDto;
+using AQS_Application.Dtos.BaseServiceDto.CategoryDtos;
+using Domin.Entities;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebSite.EndPoint.Areas.Company.Models.Product
@@ -12,8 +14,6 @@ namespace WebSite.EndPoint.Areas.Company.Models.Product
 
         public string Description { get; set; } = null!;
 
-        public IFormFile PictureFileName { get; set; }
-
         public bool IsConfirmed { get; set; }
 
         public long? CompanyId { get; set; }
@@ -21,7 +21,13 @@ namespace WebSite.EndPoint.Areas.Company.Models.Product
         [Range(0.1,double.MaxValue,ErrorMessage ="گروه فرعی انتخاب نشده است")]
         public int SubCategoryId { get; set; }
         public int CategoryId { get; set; }
-        //public List<SubCategory> SubCategories { get; set; }
-        public List<Category>? Categories { get; set; }
+        /// <summary>
+        /// برای نمایش آدرس عکس ذخیره شده
+        /// </summary>
+        public string? PictureFileSrc { get; set; }
+        public bool IsPictureChanged { get; set; }
+        public IFormFile PictureFileName { get; set; }
+
+        public List<CategoryIncludeSubCategoriesDto>? Categories { get; set; }
     }
 }

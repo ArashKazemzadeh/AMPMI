@@ -1,5 +1,6 @@
-﻿using AQS_Application.Interfaces.IServices.BaseServices;
-using AQS_Application.Services;
+﻿using AQS_Application.Dtos.BaseServiceDto.CategoryDtos;
+using AQS_Application.Dtos.BaseServiceDto.SubCategoryDto;
+using AQS_Application.Interfaces.IServices.BaseServices;
 using AQS_Common.Enums;
 using Domin.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +16,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         private readonly ICategoryService _categoryService;
         private readonly IFileServices _fileServices;
 
-        static List<SubCategory> subCategories;
+        static List<SubCategoryReadDto> subCategories;
         const string PictureFolder = "Product";
 
         public ProductController(IProductService productService, ICategoryService categoryService,IFileServices fileServices)
@@ -24,7 +25,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
             this._categoryService = categoryService;
             this._fileServices = fileServices;
         }
-        public static List<SubCategory> GetSubCategoryByCategory(int categoryId)
+        public static List<SubCategoryReadDto> GetSubCategoryByCategory(int categoryId)
         {
             if (subCategories != null && subCategories.Count() > 0)
             {
@@ -32,15 +33,8 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
             }
             else
             {
-                // Seed Data Just For Test
-                return new List<SubCategory>() {
-                   new SubCategory{ Id =1 ,Name = "اولیش" },
-                   new SubCategory{ Id =2 ,Name = "دومیش" },
-                   new SubCategory{ Id =3 ,Name = "سومیش" },
-                   new SubCategory{ Id =4 ,Name = "چهارمیش" },
-                };
+                return new List<SubCategoryReadDto>();
             }
-            //return new List<SubCategory>();
         }
         public async Task<IActionResult> ProductList()
         {
@@ -76,11 +70,10 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         }
         public async Task<IActionResult> NewProduct()
         {
-            //List<Category> categories = await _categoryService.Read();
-            //subCategories = categories.SelectMany(x => x.SubCategories).ToList();
+            List<CategoryIncludeSubCategoriesDto> categories = await _categoryService.ReadAlIncludeSub();
+            subCategories = categories.SelectMany(x => x.SubCategories).ToList();
 
-            //return View("EditProduct", new ProductVM() { Categories = categories });
-            return View();
+            return View("EditProduct", new ProductVM() { Categories = categories });
         }
         [HttpPost]
         public async Task<IActionResult> NewProduct(ProductVM productVM)
@@ -127,28 +120,28 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         public async Task<IActionResult> EditProduct(long id)
         {
             Product product = await _productService.ReadById(id);
-            //if (product != null)
-            //{
-            //    List<Category> categories = await _categoryService.Read();
-            //    return View(new ProductVM()
-            //    {
-            //        Id = product.Id,
-            //        CompanyId = product.CompanyId,
-            //        Description = product.Description,
-            //        Name = product.Name,
-            //        IsConfirmed = product.IsConfirmed,
-            //        PictureFileSrc = product.PictureFileName,
-            //        SubCategoryId = product.SubCategoryId,
-            //        CategoryId = product.SubCategory.CategoryId,
-            //        Categories = categories
-            //    });
-            //}
-            //else
-            //{
-            //    TempData["error"] = "محصول مورد نظر یافت نشد";
-            //    return RedirectToAction(nameof(ProductList));
-            //}
-            return View();
+            if (product != null)
+            {
+                List<CategoryIncludeSubCategoriesDto> categories = await _categoryService.ReadAlIncludeSub();
+                subCategories = categories.SelectMany(x => x.SubCategories).ToList();
+                return View(new ProductVM()
+                {
+                    Id = product.Id,
+                    CompanyId = product.CompanyId,
+                    Description = product.Description,
+                    Name = product.Name,
+                    IsConfirmed = product.IsConfirmed,
+                    PictureFileSrc = product.PictureFileName,
+                    SubCategoryId = product.SubCategoryId,
+                    CategoryId = product.SubCategory.CategoryId,
+                    Categories = categories
+                });
+            }
+            else
+            {
+                TempData["error"] = "محصول مورد نظر یافت نشد";
+                return RedirectToAction(nameof(ProductList));
+            }
         }
         [HttpPost]
         public async Task<IActionResult> EditProduct(ProductVM productVM)
@@ -165,7 +158,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
             {
                 if (productVM.IsPictureChanged)
                 {
-                    if (_fileServices.DeleteFile(productVM.PictureFileSrc))
+                    if (await _fileServices.DeleteFile(productVM.PictureFileSrc))
                     {
                         string newPicture = await _fileServices.SaveFileAsync(productVM.PictureFileName, PictureFolder);
                         if (string.IsNullOrEmpty(newPicture))
@@ -244,6 +237,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
             Product product = await _productService.ReadById(productId);
             if (product != null)
             {
+                await _fileServices.DeleteFile(product.PictureFileName);
                 var result = await _productService.Delete(productId);
                 if (result != ResultOutPutMethodEnum.savechanged)
                     TempData["error"] = "خطایی در هنگام حذف کالا رخ داد";

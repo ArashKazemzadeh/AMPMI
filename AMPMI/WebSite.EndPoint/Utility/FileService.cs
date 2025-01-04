@@ -3,8 +3,8 @@
     public interface IFileServices
     {
         Task<string> SaveFileAsync(IFormFile file, string folderName);
-        bool DeleteFile(string relativePath);
-        string GetFilePath(string relativePath);
+        Task<bool> DeleteFile(string relativePath);
+        Task<string> GetFilePath(string relativePath);
     }
     public class FileService : IFileServices
     {
@@ -36,24 +36,24 @@
             return Path.Combine(folderName, uniqueFileName).Replace("\\", "/");
         }
 
-        public bool DeleteFile(string relativePath)
+        public Task<bool> DeleteFile(string relativePath)
         {
             string fullPath = Path.Combine(_env.WebRootPath, relativePath);
 
             if (File.Exists(fullPath))
             {
                 File.Delete(fullPath);
-                return true;
+                return Task.FromResult(true);
             }
-            return false;
+            return Task.FromResult(false);
         }
 
-        public string GetFilePath(string relativePath)
+        public Task<string> GetFilePath(string relativePath)
         {
             string fullPath = Path.Combine(_env.WebRootPath, relativePath);
 
             if (File.Exists(fullPath))
-                return fullPath;
+                return Task.FromResult(fullPath);
 
             throw new FileNotFoundException("File not found", relativePath);
         }
