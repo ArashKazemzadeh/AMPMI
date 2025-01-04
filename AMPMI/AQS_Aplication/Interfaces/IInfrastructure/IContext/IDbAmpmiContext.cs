@@ -3,6 +3,7 @@ using AQS_Domin.Entities.Accounting;
 using Domin.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using System.Collections.Generic;
 
 
 namespace AQS_Application.Interfaces.IInfrastructure.IContext
@@ -32,6 +33,7 @@ namespace AQS_Application.Interfaces.IInfrastructure.IContext
 
         DbSet<SubCategory> SubCategories { get; set; }
         DbSet<Banner> Banners { get; set; }
+        DbSet< MiscellaneousData> MiscellaneousData { get; set; }
         #endregion
 
         #region SaveChanges()
