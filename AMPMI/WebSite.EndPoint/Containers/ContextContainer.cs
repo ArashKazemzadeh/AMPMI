@@ -40,11 +40,12 @@ namespace WebSite.EndPoint.ServicesConfigs
 
             builder.Services.ConfigureApplicationCookie(option =>
             {
-                option.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+                option.ExpireTimeSpan = TimeSpan.FromMinutes(30);
                 option.LoginPath = "/Login/Login";
                 option.AccessDeniedPath = "/Account/AccessDenied";
                 option.SlidingExpiration = true;
             });
+            
         }
     }
 }

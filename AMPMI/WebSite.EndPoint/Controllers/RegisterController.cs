@@ -143,38 +143,47 @@ namespace WebSite.EndPoint.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(CreateCompanyMV createCompany) //ok
         {
-            if (!ModelState.IsValid)
-                return View(createCompany);
-
-            RegisterIdentityDTO newCompany = createCompany.ConvertToRegisterIdentityDTO();
-
-            if (newCompany == null)
-                return View(createCompany);
-
-            var result = await _registrationService.RegisterAsync(newCompany, CompanyRole);
-
-            if (result.userId > 0 && string.IsNullOrEmpty(result.errorMessage))
+            try
             {
-                return RedirectToAction("SuccessPage", new { id = result.userId });
-            }
-            else
-            {
-                // تقسیم خطاها و افزودن به ModelState
-                string[] errors = result.errorMessage.Split(',');
-                foreach (var error in errors)
+                if (!ModelState.IsValid)
+                    return View(createCompany);
+
+                RegisterIdentityDTO newCompany = createCompany.ConvertToRegisterIdentityDTO();
+
+                if (newCompany == null)
+                    return View(createCompany);
+
+                var result = await _registrationService.RegisterAsync(newCompany, CompanyRole);
+
+                if (result.userId > 0 && string.IsNullOrEmpty(result.errorMessage))
                 {
-                    if (error.Contains("ایمیل"))
-                        ModelState.AddModelError("Email", error.Trim());
-                    else if (error.Contains("شماره موبایل"))
-                        ModelState.AddModelError("Mobile", error.Trim());
-                    else if (error.Contains("رمز عبور"))
-                        ModelState.AddModelError("Password", error.Trim());
-                    else
-                        ModelState.AddModelError(string.Empty, error.Trim());
+                    return RedirectToAction("SuccessPage", new { id = result.userId });
                 }
+                else
+                {
+                    // تقسیم خطاها و افزودن به ModelState
+                    string[] errors = result.errorMessage.Split(',');
+                    foreach (var error in errors)
+                    {
+                        if (error.Contains("ایمیل"))
+                            ModelState.AddModelError("Email", error.Trim());
+                        else if (error.Contains("شماره موبایل"))
+                            ModelState.AddModelError("Mobile", error.Trim());
+                        else if (error.Contains("رمز عبور"))
+                            ModelState.AddModelError("Password", error.Trim());
+                        else
+                            ModelState.AddModelError(string.Empty, error.Trim());
+                    }
 
+                    return Redirect("/home/index/");
+                }
+            }
+            catch (Exception)
+            {
+                //ToDo : ویو مدل
                 return View(createCompany);
             }
+           
         }
     }
 }

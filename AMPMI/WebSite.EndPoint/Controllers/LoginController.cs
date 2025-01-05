@@ -53,26 +53,22 @@ namespace WebSite.EndPoint.Controllers
 
             if (result.IsSuccess)
             {
-                if (result.Role == AdminRoleName)
-                {
-                    return RedirectToAction
-                     (
-                      actionName: "panel",
-                      controllerName: "admin",
-                      routeValues: new { area = "admin", userId = result.UserId }
-                     );
-                }
-                else
-                {
-                    //کاربر وارد شده وارد این صفحه میشه و فقط
-                    //در صورتی که تایید شده باشه امکان ورود به پنل رو داره
-                    return RedirectToAction
-                       (
-                        actionName: "CompanyDetail",
-                        controllerName: "Company",
-                        routeValues: new { area = "Company", companyId = result.UserId }
-                       );
-                }
+                //if (result.Role == AdminRoleName)
+                //{
+                //    return RedirectToAction
+                //     (
+                //      actionName: "panel",
+                //      controllerName: "admin",
+                //      routeValues: new { area = "admin", userId = result.UserId }
+                //     );
+                //}
+                //else
+                //{
+                var userIdClaim = User.FindFirst("UserId")?.Value;
+                long.TryParse(userIdClaim, out var userId);
+                var id = userId;
+                return Redirect("/home/index/");
+                //}
             }
             else
             {
@@ -184,21 +180,23 @@ namespace WebSite.EndPoint.Controllers
                     var result = await _loginService.LoginWithOtp(model.Mobile);
                     if (result.Role == CompanyRoleName)
                     {
-                        return RedirectToAction
-                            (
-                             actionName: "panel",
-                             controllerName: "company",
-                             routeValues: new { area = "Company", userId = result.UserId }
-                            );
+                        //return RedirectToAction
+                        //    (
+                        //     actionName: "panel",
+                        //     controllerName: "company",
+                        //     routeValues: new { area = "Company", userId = result.UserId }
+                        //    );
+                        return Redirect("/home/index/");
                     }
                     else if (result.Role == AdminRoleName)
                     {
-                        return RedirectToAction
-                          (
-                           actionName: "panel",
-                           controllerName: "admin",
-                           routeValues: new { area = "admin", userId = result.UserId }
-                          );
+                        //return RedirectToAction
+                        //  (
+                        //   actionName: "panel",
+                        //   controllerName: "admin",
+                        //   routeValues: new { area = "admin", userId = result.UserId }
+                        //  );
+                        return Redirect("/home/index/");
                     }
                 }
                 else

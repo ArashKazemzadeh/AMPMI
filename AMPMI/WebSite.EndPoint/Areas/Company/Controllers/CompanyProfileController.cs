@@ -1,7 +1,10 @@
 ﻿using AQS_Application.Interfaces.IServices.BaseServices;
+using AQS_Application.Interfaces.IServices.IdentityServices;
 using AQS_Common.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WebSite.EndPoint.Utility;
+using WebSite.EndPoint.Areas.Company.Models;
+using WebSite.EndPoint.Areas.Company.Models.Profile;
 
 namespace WebSite.EndPoint.Areas.Company.Controllers
 {
@@ -9,23 +12,41 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
     public class CompanyProfileController : Controller
     {
         private readonly ICompanyService _companyService;
-        private readonly IVideoService _videosService;
+        private readonly IRegistrationService _registrationService;
 
-        const string TeaserPath = "Teaser";
-        public CompanyProfileController(ICompanyService companyService,IVideoService videoService)
+        public CompanyProfileController(ICompanyService companyService, IRegistrationService registrationService)
         {
-            this._companyService = companyService;        
-            this._videosService = videoService;
+            this._companyService = companyService;
+            _registrationService = registrationService;
         }
         public IActionResult EditCompanyProfile()
         {
             return View();
         }
-        public IActionResult ChangePassword()
+        public async Task<IActionResult> ChangePassword()
         {
-            return View();
+            var model = new PasswordEditVm();
+            return View(model);
         }
-        public async Task<IActionResult> EditTeaser(string msg="")
+
+        
+        public async Task<IActionResult> ChangePassword(PasswordEditVm model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var companyId = Convert.ToInt64(User.Identity.Name);
+            var result = await _registrationService
+                .ChangePasswordAsync(companyId, model.CurrentPassword, model.NewPassword);
+            if (result.userId < 1)
+            {
+                ViewData["Message"] = result.errorMessage;
+                return View(model);
+            }
+            return Redirect("/company/CompanyPanel/panel");
+        }
+        public async Task<IActionResult> EditTeaser(string msg = "")//OK
         {
             if (!string.IsNullOrEmpty(msg))
             {
@@ -44,7 +65,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> EditTeaser(IFormFile teaser)
+        public async Task<IActionResult> EditTeaser(IFormFile teaser) //OK
         {
             if (teaser == null)
             {
@@ -59,27 +80,16 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
             var company = await _companyService.ReadById(companyId);
             if (company != null)
             {
-                try
-                {
-                    string teaserPath = await _videosService.SaveVideoAsync(teaser, TeaserPath);
-                    if (!string.IsNullOrEmpty(teaserPath))
-                    {
-                        company.TeaserGuid = teaserPath;
-                        var result = await _companyService.Update(company);
-                        if (result == ResultOutPutMethodEnum.savechanged)
-                            msg = "تغییرات با موفقیت ذخیره شد";
-                        else
-                            msg = "خطا در هنگام ذخیره اطلاعات ";
-                    }
-                }
-                catch (Exception)
-                {
+                company.TeaserGuid = "Something"; // TODO : Video Service is unavailable
+                var result = await _companyService.Update(company);
+                if (result == ResultOutPutMethodEnum.savechanged)
+                    msg = "تغییرات با موفقیت ذخیره شد";
+                else
                     msg = "خطا در هنگام ذخیره اطلاعات ";
-                }
             }
             return RedirectToAction(nameof(EditTeaser), new { msg = msg });
         }
-        public async Task<IActionResult> DeleteTeaser()
+        public async Task<IActionResult> DeleteTeaser()//OK
         {
             long companyId = 9;
             if (User.Identity.IsAuthenticated)
@@ -90,24 +100,12 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
             var company = await _companyService.ReadById(companyId);
             if (company != null)
             {
-                try
-                {
-                    if (_videosService.DeleteVideo(company.TeaserGuid))
-                    {
-                        company.TeaserGuid = string.Empty;
-                        var result = await _companyService.Update(company);
-                        if (result == ResultOutPutMethodEnum.savechanged)
-                            msg = "تغییرات با موفقیت ذخیره شد";
-                        else
-                            msg = "خطا در هنگام ذخیره اطلاعات ";
-                    }
-                    else
-                        msg = "ویدیو مورد نظر یافت نشد";
-                }
-                catch (Exception)
-                {
+                company.TeaserGuid = string.Empty;
+                var result = await _companyService.Update(company);
+                if (result == ResultOutPutMethodEnum.savechanged)
+                    msg = "تغییرات با موفقیت ذخیره شد";
+                else
                     msg = "خطا در هنگام ذخیره اطلاعات ";
-                }
             }
             return RedirectToAction(nameof(EditTeaser), new { msg = msg });
         }

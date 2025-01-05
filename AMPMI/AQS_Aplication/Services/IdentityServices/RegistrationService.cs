@@ -5,13 +5,15 @@ using AQS_Application.Interfaces.IServices.IdentityServices;
 using AQS_Domin.Entities.Accounting;
 using Microsoft.AspNetCore.Identity;
 using System.Data;
+using System.Security.Claims;
 
 namespace YourNamespace.Services
 {
-    public class RegistrationService(UserManager<User> userManager, RoleManager<Role> roleManager, ICompanyService companyService, IDbAmpmiContext context) : IRegistrationService
+    public class RegistrationService(UserManager<User> userManager, RoleManager<Role> roleManager, ICompanyService companyService, SignInManager<User> signInManager, IDbAmpmiContext context) : IRegistrationService
     {
         private readonly UserManager<User> _userManager = userManager;
         private readonly RoleManager<Role> _roleManager = roleManager;
+        private readonly SignInManager<User> _signInManager = signInManager;
         private readonly ICompanyService _companyService = companyService;
         private readonly IDbAmpmiContext _context = context;
         public async Task<ResultRegisterIdentityDto> ChangePasswordAsync(long userId, string currentPassport, string newPassword)
@@ -131,6 +133,21 @@ namespace YourNamespace.Services
                     {
                         throw new Exception("ثبت نام انجام نشد.");
                     }
+                    else
+                    {
+                        // اضافه کردن UserId به Claims
+                        var claims = new List<Claim>
+                        {
+                            new Claim("UserId", user.Id.ToString()) // اضافه کردن UserId به Claims
+                         };
+
+                        var identity = new ClaimsIdentity(claims, IdentityConstants.ApplicationScheme);
+                        var principal = new ClaimsPrincipal(identity);
+
+                        await _signInManager.SignInAsync(user, false); // ورود کاربر با Claims
+
+                        // یا برای ذخیره‌سازی در کوکی‌ها یا JWT، در اینجا فرآیند وارد شدن را انجام می‌دهید
+                    }
 
                     // در صورت موفقیت، تراکنش را commit می‌کنیم
                     await transaction.CommitAsync();
@@ -160,8 +177,9 @@ namespace YourNamespace.Services
                     };
                 }
             }
-
         }
 
     }
+
 }
+
