@@ -1,6 +1,7 @@
 ﻿using AQS_Application.Interfaces.IServices.BaseServices;
 using AQS_Common.Enums;
 using Microsoft.AspNetCore.Mvc;
+using WebSite.EndPoint.Utility;
 
 namespace WebSite.EndPoint.Areas.Company.Controllers
 {
@@ -8,9 +9,13 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
     public class CompanyProfileController : Controller
     {
         private readonly ICompanyService _companyService;
-        public CompanyProfileController(ICompanyService companyService)
+        private readonly IVideoService _videosService;
+
+        const string TeaserPath = "Teaser";
+        public CompanyProfileController(ICompanyService companyService,IVideoService videoService)
         {
             this._companyService = companyService;        
+            this._videosService = videoService;
         }
         public IActionResult EditCompanyProfile()
         {
@@ -54,12 +59,23 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
             var company = await _companyService.ReadById(companyId);
             if (company != null)
             {
-                company.TeaserGuid = "Something"; // TODO : Video Service is unavailable
-                var result = await _companyService.Update(company);
-                if (result == ResultOutPutMethodEnum.savechanged)
-                    msg = "تغییرات با موفقیت ذخیره شد";
-                else
+                try
+                {
+                    string teaserPath = await _videosService.SaveVideoAsync(teaser, TeaserPath);
+                    if (!string.IsNullOrEmpty(teaserPath))
+                    {
+                        company.TeaserGuid = teaserPath;
+                        var result = await _companyService.Update(company);
+                        if (result == ResultOutPutMethodEnum.savechanged)
+                            msg = "تغییرات با موفقیت ذخیره شد";
+                        else
+                            msg = "خطا در هنگام ذخیره اطلاعات ";
+                    }
+                }
+                catch (Exception)
+                {
                     msg = "خطا در هنگام ذخیره اطلاعات ";
+                }
             }
             return RedirectToAction(nameof(EditTeaser), new { msg = msg });
         }
@@ -74,12 +90,24 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
             var company = await _companyService.ReadById(companyId);
             if (company != null)
             {
-                company.TeaserGuid = string.Empty;
-                var result = await _companyService.Update(company);
-                if (result == ResultOutPutMethodEnum.savechanged)
-                    msg = "تغییرات با موفقیت ذخیره شد";
-                else
+                try
+                {
+                    if (_videosService.DeleteVideo(company.TeaserGuid))
+                    {
+                        company.TeaserGuid = string.Empty;
+                        var result = await _companyService.Update(company);
+                        if (result == ResultOutPutMethodEnum.savechanged)
+                            msg = "تغییرات با موفقیت ذخیره شد";
+                        else
+                            msg = "خطا در هنگام ذخیره اطلاعات ";
+                    }
+                    else
+                        msg = "ویدیو مورد نظر یافت نشد";
+                }
+                catch (Exception)
+                {
                     msg = "خطا در هنگام ذخیره اطلاعات ";
+                }
             }
             return RedirectToAction(nameof(EditTeaser), new { msg = msg });
         }
