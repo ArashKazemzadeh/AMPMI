@@ -37,8 +37,18 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
             {
                 return View(model);
             }
-            var companyId = await _loginService.GetUserIdAsync(User);
-            if (companyId < 1)
+            if (model.CurrentPassword == model.NewPassword) 
+            {
+                ViewData["error"] = "گذرواژه فعلی و رمز عبور جدید نمی‌توانند یکسان باشند";
+                return View(model);
+            }
+
+            long companyId = 0;
+            if (User.Identity.IsAuthenticated)
+            {
+                companyId = await _loginService.GetUserIdAsync(User);
+            }
+            else /*if (companyId < 1)*/
             {
                 ViewData["error"] = "شما نیاز به ورود مجدد دارید. مدت زمان شما به پایان رسیده است.";
                 return View(model);
@@ -47,7 +57,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
             if (!checkPassword)
             {
                 ViewData["error"] = "گذرواژه فعلی صحیح نیست";
-                View(model);
+                return View(model);
             }
             var result = await _registrationService
                 .ChangePasswordAsync(companyId, model.CurrentPassword, model.NewPassword);
