@@ -36,7 +36,7 @@ public class DbAmpmiContext(DbContextOptions<DbAmpmiContext> options) : Identity
     public virtual DbSet<SubCategory> SubCategories { get; set; }
 
     public virtual DbSet<Banner> Banners { get; set; }
-    public DbSet<MiscellaneousData> MiscellaneousData { get; set; }
+    public virtual DbSet<MiscellaneousData> MiscellaneousDatas { get; set; }
 
     #endregion
 

@@ -4,13 +4,19 @@
 }
 
 <div class="container-fluid">
+    @if (ViewData["error"] is not null)
+    {
+        <div class="row">
+            <p class="text-danger border-5">@ViewData["error"].ToString()</p>
+        </div>
+    }
     <div>
         <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
     </div>
     <div>
         <form asp-area="Company" asp-action="EditCompanyProfile" asp-controller="CompanyProfile" method="post">
             <div class="row mt-2 userEditRow">
-
+                <input asp-for="Id" type="hidden"/>
                 <div class="col-md-6 my-2">
                     <label for="Cname" class="labelText">نام شرکت</label>
                     <input asp-for="Name" class="labelText input-text" type="text" id="Cname" />
@@ -30,7 +36,7 @@
                     <input asp-for="Email" class="labelText input-text" type="text" id="CEmail" />
                 </div>
             </div>
-            <div class="row mt-2 userEditRow">
+            @* <div class="row mt-2 userEditRow">
                 <div class="col-md-6 my-2">
                     <label for="CPass" class="labelText">رمز عبور</label>
                     <input asp-for="CurrentPassword" class="labelText input-text" type="text" id="CPass" />
@@ -41,7 +47,7 @@
                     <input asp-for="ComparePassword" class="labelText input-text" type="text" id="CPassAgain" />
                     <span asp-validation-for="ComparePassword" class="text-danger"></span>
                 </div>
-            </div>
+            </div> *@
             <div class="row mt-2 userEditRow">
                 <div class="col-md-6 my-2">
                     <label for="CAddress" class="labelText">آدرس</label>

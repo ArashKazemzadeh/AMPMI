@@ -10,7 +10,7 @@ using WebSite.EndPoint.Areas.Company.Models.Profile;
 namespace WebSite.EndPoint.Areas.Company.Controllers
 {
     [Area("Company")]
-    //[Authorize]
+    [Authorize]
     public class CompanyProfileController : Controller
     {
         private readonly ICompanyService _companyService;
@@ -38,7 +38,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
             {
                 return View(model);
             }
-            if (model.CurrentPassword == model.NewPassword) 
+            if (model.CurrentPassword == model.NewPassword)
             {
                 ViewData["error"] = "گذرواژه فعلی و رمز عبور جدید نمی‌توانند یکسان باشند";
                 return View(model);
@@ -63,7 +63,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
             var result = await _registrationService
                 .ChangePasswordAsync(companyId, model.CurrentPassword, model.NewPassword);
 
-            if (result.userId == 0 )
+            if (result.userId == 0)
             {
                 ViewData["error"] = result.errorMessage;
                 return View(model);
@@ -80,7 +80,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
             var company = await _companyService.ReadById(companyId);
             var model = new CompanyEditProfileVM
             {
-                Id = company.Id,
+                Id = companyId,
                 Name = company.Name,
                 ManagerName = company.ManagerName,
                 MobileNumber = company.MobileNumber,
@@ -91,15 +91,27 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
                 Partnership = company.Partnership,
                 QualityGrade = company.QualityGrade,
                 Iso = company.Iso,
-                About = company.About
+                About = company.About,
+                LogoRout = company.LogoRout,
+                //CurrentPassword = null,
+                //ComparePassword = null
             };
             return View(model);
         }
         [HttpPost]
-        public async Task<IActionResult> EditCompanyProfile(CompanyEditProfileVM companyEditProfileVM)
+        public async Task<IActionResult> EditCompanyProfile(CompanyEditProfileVM companyEditProfileVM) //ToDo
         {
+            var dto = companyEditProfileVM.MapToDto(companyEditProfileVM);
+            var resultMessage = await _companyService.UpdateEditProfile(dto);
+            ViewData["error"] = resultMessage == ResultOutPutMethodEnum.savechanged ? "مشخصات ویرایش شد" :
+                                      resultMessage == ResultOutPutMethodEnum.recordNotFounded ? "کاربر یافت نشد" :
+                                      "مشخطات ویرایش نشد";
+            if (ResultOutPutMethodEnum.savechanged == resultMessage)
+            {
+                return Redirect("/Company/CompanyPanel/Panel");
+            }
 
-            return View();
+            return View(companyEditProfileVM);
         }
         public async Task<IActionResult> EditTeaser(string msg = "")//OK
         {
@@ -132,7 +144,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
                 companyId = await _loginService.GetUserIdAsync(User);
             }
             string msg = string.Empty;
-            var company = await _companyService.ReadById(companyId);
+            var company = await _companyService.ReadById(companyId);////؟؟؟؟؟؟؟؟؟؟؟
             if (company != null)
             {
                 company.TeaserGuid = "Something"; // TODO : Video Service is unavailable
