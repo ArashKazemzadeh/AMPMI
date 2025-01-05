@@ -1,0 +1,137 @@
+﻿@model List<WebSite.EndPoint.Areas.Company.Models.CompanyPicture.CompanyPictureVM>
+@{
+    Layout = "~/Areas/Company/Views/Shared/_layout.cshtml";
+}
+@section CSS
+{
+    <style>
+        .prevImage {
+        width: 100%;
+        height: 100%;
+        }
+    </style>
+}
+<div class="contaienr">
+    @if (TempData["msg"] is not null)
+    {
+        <div class="row">
+            <p style="color:red;">@TempData["msg"].ToString()</p>
+        </div>
+    }
+    <div>
+        <a href="#" id="new"> <img class="img-Icon" src="~/images/addition copy.png" /> </a>
+        <a hidden href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
+        <a hidden href="#" id="cancle"><img class="img-Icon" src="~/images/cancel.png" /></a>
+    </div>
+    <div hidden id="newForm" style="margin-top:20px;">
+        <form id="saveForm" asp-area="Company" asp-controller="CompanyPicture" asp-action="NewPicture" enctype="multipart/form-data" method="post">
+            <div class="form-group row">
+                <div class="col-sm-2 upBtn">
+                    <button type="button" class="btn-submit btnUpload" onclick="getfile()">بارگذاری تصویر</button>
+                    <input id="getFile" style="display:none" class="form-control-file" type="file" name="img" accept="image/*">
+                </div>
+                <div id="preview" class="col-sm-2 ShowPic"></div>
+                <div class="col-sm-8">
+                    <sapn>حداکثر حجم مجاز جهت بارگذاری فایل 200 کیلو بایت است.</sapn>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div>
+        <table id="myTable" class="display tbStyle">
+            <thead>
+                <tr>
+                    <th>ردیف</th>
+                    <th>تصویر بارگذاری شده</th>
+                    <th>حذف</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int rowNum = 1;
+                    foreach(var item in Model){
+                        <tr>
+                            <td class="td-Icon">@rowNum++</td>
+                            <td><img class="img img-fluid" src="@item.PictureFileName" style="width:100%;height:100%;" /></td>
+                            <td class="td-Icon"><a href="@Url.Action("Delete","CompanyPicture",new{area="Company",id=item.Id})"><img class="img-Icon" src="~/images/recycle.png" /></a></td>
+                        </tr>
+                    }
+                }
+                <tr>
+                    <td class="td-Icon">1</td>
+                    <td></td>
+                    <td class="td-Icon"><a href="@Url.Action("Delete","CompanyPicture",new{area="Company",id=2})"><img class="img-Icon" src="~/images/recycle.png" /></a></td>
+                </tr>
+                <tr>
+                    <td class="td-Icon">1</td>
+                    <td></td>
+                    <td class="td-Icon"><a href="@Url.Action("Delete","CompanyPicture",new{area="Company",id=3})"><img class="img-Icon" src="~/images/recycle.png" /></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+@section Scripts
+{
+    <script>
+          document.querySelector('#myTable')
+            .setAttribute('dir', 'rtl'); // Demo only
+
+        new DataTable('#myTable');
+
+        $("#new").click(function(){
+            $("#newForm").show();
+            $("#save").show();
+            $("#cancle").show();
+        });
+
+        function HideForm()
+        {
+            $("#newForm").hide();
+        }
+
+        $("#save").click(function(){
+            HideForm();
+            event.preventDefault();
+            $("#saveForm").submit();
+        });
+
+        $("#cancle").click(function(){
+            HideForm();
+            $("#save").hide();
+            $("#cancle").hide();
+        });
+
+         $("#edit").click(function(){
+            $("#newForm").show();
+            $("#save").show();
+        });
+
+        function getfile () {
+            document.querySelector('#getFile').click();
+        }
+
+        $("#getFile").on('change',function(){
+            const file = this.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    // ایجاد یا جایگزینی تصویر در باکس
+                    const img = $("<img>")
+                    .attr("src", e.target.result)
+                    .addClass("img")
+                    .addClass("prevImage");
+
+                    $("#preview").empty().append(img);
+                };
+                reader.readAsDataURL(file);
+            } else {
+                $("#preview").html("پیش‌نمایش");
+            }
+        });
+
+    </script>
+
+
+}
