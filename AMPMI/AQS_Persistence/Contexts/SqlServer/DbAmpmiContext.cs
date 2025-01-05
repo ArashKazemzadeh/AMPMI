@@ -3,6 +3,7 @@ using AQS_Domin.Entities;
 using AQS_Domin.Entities.Accounting;
 using AQS_Persistence.Configs;
 using Domin.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 

@@ -6,8 +6,8 @@
 {
     <style>
         .prevImage {
-            width: 100%;
-            height: 100%;
+        width: 100%;
+        height: 100%;
         }
     </style>
 }
@@ -31,6 +31,7 @@
                         <select id="categories" class="input-text">
                             @if (Model.Categories != null)
                             {
+                                <option value="0">گروه اصلی را انتخاب کنید</option>
                                 foreach (var item in Model.Categories)
                                 {
                                     if (Model.CategoryId == item.Id)
@@ -43,9 +44,6 @@
                                     }
                                 }
                             }
-                            <option selected>گروه اصلی را انتخاب کنید</option>
-                            <option>گروه 1</option>
-                            <option>گروه 2</option>
                         </select>
                     </div>
                 </div>
@@ -78,7 +76,7 @@
                     </div>
                     <div id="preview" class="col-sm-2 ShowPic">
                         @if(!string.IsNullOrEmpty(Model.PictureFileSrc)){
-                            <img class="prevImage" src="Model.PictureFileSrc" />
+                            <img class="prevImage" src="@Model.PictureFileSrc" />
                         }
                     </div>
                     <input id="isPictureChanged" hidden value="false" name="IsPictureChanged" />
@@ -118,6 +116,7 @@
                 $("#preview").html("پیش‌نمایش");
             }
         });
+ 
 
         var lastCategoryId=0;
 
@@ -126,14 +125,14 @@
             var selectedValue = $(this).val();
             if(selectedValue != lastCategoryId)
             {
-                CallAjax(selectedValue);
+                CallAjax(selectedValue,@Model.SubCategoryId);
                 lastCategoryId=selectedValue;
             }
         });
 
-        function CallAjax(CategoryId){
+        function CallAjax(CategoryId,selectedSubCategory=0){
              $.ajax({
-                    url: 'ChangeCategory', // مسیر اکشن کنترلر
+                    url: "/Admin/Product/ChangeCategory", // مسیر اکشن کنترلر
                     type: 'GET',
                     data: {categoryId: CategoryId},
                     dataType: 'json',
@@ -142,16 +141,24 @@
 
                         $('#subCategories').append('<option value="">انتخاب کنید</option>');
                         $.each(data, function (index, item) {
-                            $('#subCategories').append('<option value="' + item.id + '">' + item.name + '</option>');
+                            if(item.id == selectedSubCategory){
+                                 $('#subCategories').append('<option selected value="' + item.id + '">' + item.name + '</option>');
+                            }
+                            else
+                            {
+                                 $('#subCategories').append('<option value="' + item.id + '">' + item.name + '</option>');
+                            }
                         });
 
                         $("#subCategories").prop('disabled',false);
                     },
-                    error: function (xhr, status, error) {
-                        console.log(error);
+                    error: function (xhr, status, err) {
+                        console.log(err);
                         $("#subCategories").prop('disabled',true);
                     }
              });
+             lastCategoryId=CategoryId;
+
         }
 
         $("#save").click(function(event){
@@ -160,5 +167,14 @@
         });
 
     </script>
+
+    @if (Model.SubCategoryId > 0)
+    {
+        <script>
+            $(document).ready(function () {
+                $("#categories").trigger("change");
+            });
+        </script>
+    }
 
 }

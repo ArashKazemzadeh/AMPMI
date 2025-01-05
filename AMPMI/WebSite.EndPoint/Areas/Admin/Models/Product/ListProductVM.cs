@@ -14,7 +14,7 @@
         public bool IsConfirmed { get; set; }
 
         public long? CompanyId { get; set; }
-        public string CompanyName { get; set; }
+        public string? CompanyName { get; set; }
 
         public string SubCategoryName { get; set; }
         public string CategoryName { get; set; }
