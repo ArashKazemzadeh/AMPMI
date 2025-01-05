@@ -42,7 +42,7 @@ namespace WebSite.EndPoint.ServicesConfigs
             {
                 option.ExpireTimeSpan = TimeSpan.FromMinutes(30);
                 option.LoginPath = "/Login/Login";
-                option.AccessDeniedPath = "/Account/AccessDenied";
+                option.AccessDeniedPath = "/Login/AccessDenied";
                 option.SlidingExpiration = true;
             });
             

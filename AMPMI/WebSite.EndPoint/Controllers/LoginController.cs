@@ -3,6 +3,7 @@ using AQS_Application.Interfaces.IServices.BaseServices;
 using AQS_Application.Interfaces.IServices.IdentityServices;
 using AQS_Application.Interfaces.IServices.IThirdParitesServices;
 using AQS_Common.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using System.Net;
@@ -64,9 +65,6 @@ namespace WebSite.EndPoint.Controllers
                 //}
                 //else
                 //{
-                var userIdClaim = User.FindFirst("UserId")?.Value;
-                long.TryParse(userIdClaim, out var userId);
-                var id = userId;
                 return Redirect("/home/index/");
                 //}
             }
@@ -212,6 +210,12 @@ namespace WebSite.EndPoint.Controllers
         {
             await _loginService.LogoutAsync();
             return RedirectToAction(actionName: "Index", controllerName: "Home");
+        }
+
+        [AllowAnonymous]
+        public IActionResult AccessDenied()
+        {
+            return Content("عدم دسترسی");
         }
     }
 }

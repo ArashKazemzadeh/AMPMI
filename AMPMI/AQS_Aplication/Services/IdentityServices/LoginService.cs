@@ -3,23 +3,32 @@ using AQS_Application.Interfaces.IServices.BaseServices;
 using AQS_Application.Interfaces.IServices.IdentityServices;
 using AQS_Domin.Entities.Accounting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 
 namespace AQS_Application.Services.IdentityServices
 {
-    public class LoginService
-         (
+    public class LoginService : ILoginService
+    {
+
+        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
+        private readonly ICompanyService _companyService;
+
+        public LoginService(
          SignInManager<User> signInManager,
          UserManager<User> userManager,
          ICompanyService companyService
-         ) : ILoginService
-    {
-
-        private readonly SignInManager<User> _signInManager = signInManager;
-        private readonly UserManager<User> _userManager = userManager;
-        private readonly ICompanyService _companyService = companyService;
-
+         )
+        {
+            _signInManager = signInManager;
+            _userManager = userManager;
+            _companyService = companyService;
+        }
+        public async Task<long> GetUserIdAsync(ClaimsPrincipal user)
+        {
+            var appUser = await _userManager.GetUserAsync(user);
+            return Convert.ToInt64(appUser?.Id);
+        }
         public async Task<LoginResultDto> LoginWithPasswordAsync(string mobile, string password)
         {
             if (string.IsNullOrEmpty(mobile) || string.IsNullOrEmpty(password))
@@ -51,16 +60,6 @@ namespace AQS_Application.Services.IdentityServices
                 };
             }
 
-            var pass = await _userManager.CheckPasswordAsync(user, password);
-            if (!pass)
-            {
-                return new LoginResultDto
-                {
-                    IsSuccess = false,
-                    Message = LoginOutPutMessegeEnum.InvalidPassword
-                };
-            }
-
             if (await _userManager.IsLockedOutAsync(user))
             {
                 return new LoginResultDto
@@ -70,20 +69,23 @@ namespace AQS_Application.Services.IdentityServices
                 };
             }
 
-            // اضافه کردن Claims شامل UserId، نقش و سایر اطلاعات
-            var roles = await _userManager.GetRolesAsync(user);
-            var claims = new List<Claim>
+            var isPasswordValid = await _userManager.CheckPasswordAsync(user, password);
+            if (!isPasswordValid)
             {
-                new Claim(ClaimTypes.Name, user.UserName),
-                new Claim("UserId", user.Id.ToString()),
-                new Claim(ClaimTypes.Role, roles.FirstOrDefault() ?? "None")
-            };
+                return new LoginResultDto
+                {
+                    IsSuccess = false,
+                    Message = LoginOutPutMessegeEnum.InvalidPassword
+                };
+            }
 
-            var identity = new ClaimsIdentity(claims, IdentityConstants.ApplicationScheme);
-            var principal = new ClaimsPrincipal(identity);
+            // خروج از سیستم برای جلوگیری از نشست‌های فعال قبلی
+            await _signInManager.SignOutAsync();
 
-            await _signInManager.Context.SignInAsync(IdentityConstants.ApplicationScheme, principal);
+            // انجام لاگین
+            await _signInManager.SignInAsync(user, isPersistent: true);
 
+            var roles = await _userManager.GetRolesAsync(user);
             return new LoginResultDto
             {
                 IsSuccess = true,
@@ -95,8 +97,19 @@ namespace AQS_Application.Services.IdentityServices
 
         public async Task<LoginResultDto> LoginWithOtp(string mobile)
         {
+            // بررسی صحت ورودی
+            if (string.IsNullOrEmpty(mobile))
+            {
+                return new LoginResultDto
+                {
+                    IsSuccess = false,
+                    Message = LoginOutPutMessegeEnum.Invalid
+                };
+            }
+
+            // پیدا کردن شرکت مربوط به شماره موبایل
             var company = await _companyService.ReadByMobileNumber(mobile);
-            if (company == null)
+            if (company == null || company.Id == 0)
             {
                 return new LoginResultDto
                 {
@@ -105,6 +118,7 @@ namespace AQS_Application.Services.IdentityServices
                 };
             }
 
+            // پیدا کردن کاربر مرتبط
             var user = await _userManager.FindByIdAsync(company.Id.ToString());
             if (user == null)
             {
@@ -115,20 +129,24 @@ namespace AQS_Application.Services.IdentityServices
                 };
             }
 
-            // اضافه کردن Claims شامل UserId، نقش و سایر اطلاعات
-            var roles = await _userManager.GetRolesAsync(user);
-            var claims = new List<Claim>
+            // بررسی وضعیت قفل کاربر
+            if (await _userManager.IsLockedOutAsync(user))
             {
-                new Claim(ClaimTypes.Name, user.UserName),
-                new Claim("UserId", user.Id.ToString()),
-                new Claim(ClaimTypes.Role, roles.FirstOrDefault() ?? "None")
-            };
+                return new LoginResultDto
+                {
+                    IsSuccess = false,
+                    Message = LoginOutPutMessegeEnum.LockedOut
+                };
+            }
 
-            var identity = new ClaimsIdentity(claims, IdentityConstants.ApplicationScheme);
-            var principal = new ClaimsPrincipal(identity);
+            // خروج از سشن قبلی (در صورت وجود)
+            await _signInManager.SignOutAsync();
 
-            await _signInManager.Context.SignInAsync(IdentityConstants.ApplicationScheme, principal);
+            // انجام لاگین جدید
+            await _signInManager.SignInAsync(user, isPersistent: true);
 
+            // بازیابی نقش‌های کاربر
+            var roles = await _userManager.GetRolesAsync(user);
             return new LoginResultDto
             {
                 IsSuccess = true,
@@ -138,6 +156,12 @@ namespace AQS_Application.Services.IdentityServices
             };
         }
 
+        public async Task<bool> IsValidPassword(long userId, string currentPass)
+        {
+            User user = await _userManager.FindByIdAsync(userId.ToString());
+            if (user == null) { return false; }
+            return await _userManager.CheckPasswordAsync(user, currentPass);
+        }
         public async Task LogoutAsync()
         {
             await _signInManager.SignOutAsync();

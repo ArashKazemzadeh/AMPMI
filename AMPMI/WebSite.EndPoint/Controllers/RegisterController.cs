@@ -157,30 +157,17 @@ namespace WebSite.EndPoint.Controllers
 
                 if (result.userId > 0 && string.IsNullOrEmpty(result.errorMessage))
                 {
-                    return RedirectToAction("SuccessPage", new { id = result.userId });
+                    return Redirect("/home/index/");
                 }
                 else
                 {
-                    // تقسیم خطاها و افزودن به ModelState
-                    string[] errors = result.errorMessage.Split(',');
-                    foreach (var error in errors)
-                    {
-                        if (error.Contains("ایمیل"))
-                            ModelState.AddModelError("Email", error.Trim());
-                        else if (error.Contains("شماره موبایل"))
-                            ModelState.AddModelError("Mobile", error.Trim());
-                        else if (error.Contains("رمز عبور"))
-                            ModelState.AddModelError("Password", error.Trim());
-                        else
-                            ModelState.AddModelError(string.Empty, error.Trim());
-                    }
-
-                    return Redirect("/home/index/");
+                    ViewData["error"] = result.errorMessage;
+                    return View(createCompany);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //ToDo : ویو مدل
+                ViewData["error"] = ex.Message;
                 return View(createCompany);
             }
            

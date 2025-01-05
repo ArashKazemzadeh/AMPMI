@@ -9,42 +9,63 @@ using WebSite.EndPoint.Areas.Company.Models.Profile;
 namespace WebSite.EndPoint.Areas.Company.Controllers
 {
     [Area("Company")]
+    //[Authorize]
     public class CompanyProfileController : Controller
     {
         private readonly ICompanyService _companyService;
         private readonly IRegistrationService _registrationService;
+        private readonly ILoginService _loginService;
 
-        public CompanyProfileController(ICompanyService companyService, IRegistrationService registrationService)
+        public CompanyProfileController(
+            ICompanyService companyService,
+            IRegistrationService registrationService,
+            ILoginService loginService)
         {
-            this._companyService = companyService;
+            _companyService = companyService;
             _registrationService = registrationService;
+            _loginService = loginService;
         }
-        public IActionResult EditCompanyProfile()
-        {
-            return View();
-        }
-        public async Task<IActionResult> ChangePassword()
+        public Task<IActionResult> ChangePassword()
         {
             var model = new PasswordEditVm();
-            return View(model);
+            return Task.FromResult<IActionResult>(View(model));
         }
-
-        
+        [HttpPost]
         public async Task<IActionResult> ChangePassword(PasswordEditVm model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
-            var companyId = Convert.ToInt64(User.Identity.Name);
-            var result = await _registrationService
-                .ChangePasswordAsync(companyId, model.CurrentPassword, model.NewPassword);
-            if (result.userId < 1)
+            var companyId = await _loginService.GetUserIdAsync(User);
+            if (companyId < 1)
             {
-                ViewData["Message"] = result.errorMessage;
+                ViewData["error"] = "شما نیاز به ورود مجدد دارید. مدت زمان شما به پایان رسیده است.";
                 return View(model);
             }
-            return Redirect("/company/CompanyPanel/panel");
+            var checkPassword = await _loginService.IsValidPassword(companyId, model.CurrentPassword);
+            if (!checkPassword)
+            {
+                ViewData["error"] = "گذرواژه فعلی صحیح نیست";
+                View(model);
+            }
+            var result = await _registrationService
+                .ChangePasswordAsync(companyId, model.CurrentPassword, model.NewPassword);
+
+            if (result.userId == 0 )
+            {
+                ViewData["error"] = result.errorMessage;
+                return View(model);
+            }
+            else
+            {
+                await _loginService.LogoutAsync();
+                return Redirect("/login/login");
+            }
+        }
+        public IActionResult EditCompanyProfile()
+        {
+            return View();
         }
         public async Task<IActionResult> EditTeaser(string msg = "")//OK
         {
@@ -52,10 +73,10 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
             {
                 ViewData["msg"] = msg;
             }
-            long companyId = 9;
+            long companyId = 9;//Todo
             if (User.Identity.IsAuthenticated)
             {
-                companyId = Convert.ToInt64(User.Identity.Name);
+                companyId = await _loginService.GetUserIdAsync(User);
             }
             var company = await _companyService.ReadById(companyId);
             if (company != null)
@@ -74,7 +95,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
             long companyId = 9;
             if (User.Identity.IsAuthenticated)
             {
-                companyId = Convert.ToInt64(User.Identity.Name);
+                companyId = await _loginService.GetUserIdAsync(User);
             }
             string msg = string.Empty;
             var company = await _companyService.ReadById(companyId);
@@ -94,7 +115,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
             long companyId = 9;
             if (User.Identity.IsAuthenticated)
             {
-                companyId = Convert.ToInt64(User.Identity.Name);
+                companyId = await _loginService.GetUserIdAsync(User);
             }
             string msg = string.Empty;
             var company = await _companyService.ReadById(companyId);

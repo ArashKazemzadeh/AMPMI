@@ -133,22 +133,7 @@ namespace YourNamespace.Services
                     {
                         throw new Exception("ثبت نام انجام نشد.");
                     }
-                    else
-                    {
-                        // اضافه کردن UserId به Claims
-                        var claims = new List<Claim>
-                        {
-                            new Claim("UserId", user.Id.ToString()) // اضافه کردن UserId به Claims
-                         };
-
-                        var identity = new ClaimsIdentity(claims, IdentityConstants.ApplicationScheme);
-                        var principal = new ClaimsPrincipal(identity);
-
-                        await _signInManager.SignInAsync(user, false); // ورود کاربر با Claims
-
-                        // یا برای ذخیره‌سازی در کوکی‌ها یا JWT، در اینجا فرآیند وارد شدن را انجام می‌دهید
-                    }
-
+                    await _signInManager.SignInAsync(user, true);
                     // در صورت موفقیت، تراکنش را commit می‌کنیم
                     await transaction.CommitAsync();
 
@@ -167,7 +152,7 @@ namespace YourNamespace.Services
                     {
                         await _userManager.DeleteAsync(user);
                         if (await _companyService.IsExistById(user.Id))
-                            await _userManager.DeleteAsync(user);
+                            await _companyService.Delete(user.Id);
                     }
 
                     return new ResultRegisterIdentityDto
