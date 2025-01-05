@@ -6,7 +6,10 @@ namespace WebSite.EndPoint.Areas.Admin.Models.Category
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string PictureFileName { get; set; }
+        /// <summary>
+        /// مسیرعکس
+        /// </summary>
+        public string PictureRout { get; set; }
 
         internal static List<CategoryReadVM> ConvertToModel(List<CategoryReadDto> dto)
         {
@@ -18,7 +21,7 @@ namespace WebSite.EndPoint.Areas.Admin.Models.Category
                 {
                     Id = item.Id,
                     Name = item.Name,
-                    PictureFileName = item.PictureFileName,
+                    PictureRout = item.PictureFileName,
                 });
             }
 

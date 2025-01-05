@@ -23,7 +23,7 @@ namespace AQS_Application.Services
 
             if (result > 0)
             {
-                return row.Entity.Id; 
+                return row.Entity.Id;
             }
 
             return -1;
@@ -47,8 +47,7 @@ namespace AQS_Application.Services
         public async Task<List<SubCategory>> ReadAll()
         {
             var result = await _context.SubCategories
-                .Include(sc => sc.Category) 
-                .Include(sc => sc.Products) 
+                .Include(sc => sc.Category)
                 .ToListAsync();
 
             return result ?? new List<SubCategory>();
@@ -57,7 +56,7 @@ namespace AQS_Application.Services
         public async Task<SubCategory?> ReadById(int id)
         {
             return await _context.SubCategories
-                .Include(sc => sc.Category) 
+                .Include(sc => sc.Category)
                 .Include(sc => sc.Products)
                 .FirstOrDefaultAsync(sc => sc.Id == id);
         }
@@ -70,16 +69,13 @@ namespace AQS_Application.Services
             {
                 return ResultOutPutMethodEnum.recordNotFounded;
             }
-
-            if (subCategory.Name != null && existingSubCategory.Name != subCategory.Name)
-            {
-                existingSubCategory.Name = subCategory.Name;
-            }
+            existingSubCategory.Name = subCategory.Name;
+            existingSubCategory.CategoryId = subCategory.CategoryId;
 
             int result = await _context.SaveChangesAsync();
 
-            return result > 0 
-                ? ResultOutPutMethodEnum.savechanged 
+            return result > 0
+                ? ResultOutPutMethodEnum.savechanged
                 : ResultOutPutMethodEnum.dontSaved;
         }
     }

@@ -1,34 +1,16 @@
-﻿@{
+﻿@model List<WebSite.EndPoint.Areas.Admin.Models.SubCategory.ListSubCategoryVM>
+@{
     Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
 }
-
 <div class="container-fluid">
-    <div>
-        <a href="#" id="new"> <img class="img-Icon" src="~/images/addition copy.png" /> </a>
-        <a hidden href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
-        <a hidden href="#" id="cancle"><img class="img-Icon" src="~/images/cancel.png" /></a>
-    </div>
-    <div hidden id="newForm" class="row">
-        <form>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label input-Label">گروه اصلی:</label>
-                <div class="col-sm-4">
-                    <select class="input-text">
-                        <option selected>یک گروه اصلی را انتخاب کنید</option>
-                        <option>گزینه 1</option>
-                        <option>گزینه21</option>
-                        <option>گزینه3</option>
-                        <option>گزینه41</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label input-Label">نام گروه فرعی:</label>
-                <div class="col-sm-4">
-                    <input type="text" class="input-text" id="staticEmail">
-                </div>
-            </div>
-        </form>
+    @if (TempData["error"] is not null)
+    {
+        <div class="row">
+            <p style="color:red;">@TempData["error"].ToString()</p>
+        </div>
+    }
+    <div class="row">
+        <a href="@Url.Action("NewSubCategory","SubCategory")" id="new"> <img class="img-Icon" src="~/images/addition copy.png" /> </a>
     </div>
     <div class="row">
         <table id="myTable" class="display tbStyle">
@@ -42,20 +24,16 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td class="td-Icon">1</td>
-                    <td>Row</td>
-                    <td>Row 1 Data 2</td>
-                    <td class="td-Icon"><a href="#" id="edit"><img class="img-Icon" src="~/images/editing.png" /></a></td>
-                    <td class="td-Icon"><a><img class="img-Icon" src="~/images\recycle.png" /></a></td>
-                </tr>
-                <tr>
-                    <td class="td-Icon">2</td>
-                    <td>Rod</td>
-                    <td>Row 1 Data 2</td>
-                    <td class="td-Icon"><a href="#" id="edit"><img class="img-Icon" src="~/images/editing.png" /></a></td>
-                    <td class="td-Icon"><a><img class="img-Icon" src="~/images\recycle.png" /></a></td>
-                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="td-Icon">@item.RowNum</td>
+                        <td>@item.Name</td>
+                        <td>@item.CategoryName</td>
+                        <td class="td-Icon"><a href="@Url.Action("EditSubCategory","SubCategory",new{area="Admin",id = item.Id})"><img class="img-Icon" src="~/images/editing.png" /></a></td>
+                        <td class="td-Icon"><a onclick="return DeleteRow(event)" href="@Url.Action("DeleteSubCategory","SubCategory",new{area="Admin",id = item.Id})"><img class="img-Icon" src="~/images\recycle.png" /></a></td>
+                    </tr>
+                }
             </tbody>
         </table>
     </div>
@@ -68,33 +46,18 @@
 
         new DataTable('#myTable');
 
-        $("#new").click(function(){
-            $("#newForm").show();
-            $("#save").show();
-            $("#cancle").show();
-        });
+        function DeleteRow(event){
+            var isConfirmd= confirm("آیا از حذف این ردیف اطمینان دارید ؟")
+            if(!isConfirmd){
+                event.preventDefault();
+                return false;
+            }
+            else{
+                return true;
+            }
 
-        function HideForm()
-        {
-            $("#newForm").hide();
         }
 
-        $("#save").click(function(){
-            HideForm();
-        });
-
-        $("#cancle").click(function(){
-            HideForm();
-            $("#save").hide();
-            $("#cancle").hide();
-        });
-
-        $("#edit").click(function(){
-            $("#newForm").show();
-            $("#save").show();
-        });
-
     </script>
-
-
 }
+
