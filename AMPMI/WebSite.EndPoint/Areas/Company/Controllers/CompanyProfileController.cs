@@ -4,6 +4,7 @@ using AQS_Common.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebSite.EndPoint.Areas.Company.Models;
+using WebSite.EndPoint.Areas.Company.Models.Company;
 using WebSite.EndPoint.Areas.Company.Models.Profile;
 
 namespace WebSite.EndPoint.Areas.Company.Controllers
@@ -73,8 +74,31 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
                 return Redirect("/login/login");
             }
         }
-        public IActionResult EditCompanyProfile()
+        public async Task<IActionResult> EditCompanyProfile()
         {
+            long companyId = await _loginService.GetUserIdAsync(User);
+            var company = await _companyService.ReadById(companyId);
+            var model = new CompanyEditProfileVM
+            {
+                Id = company.Id,
+                Name = company.Name,
+                ManagerName = company.ManagerName,
+                MobileNumber = company.MobileNumber,
+                Email = company.Email,
+                Address = company.Address,
+                Brands = company.Brands,
+                Capacity = company.Capacity,
+                Partnership = company.Partnership,
+                QualityGrade = company.QualityGrade,
+                Iso = company.Iso,
+                About = company.About
+            };
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditCompanyProfile(CompanyEditProfileVM companyEditProfileVM)
+        {
+
             return View();
         }
         public async Task<IActionResult> EditTeaser(string msg = "")//OK
