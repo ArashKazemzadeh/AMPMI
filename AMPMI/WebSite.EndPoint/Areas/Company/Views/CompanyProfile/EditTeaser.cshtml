@@ -16,12 +16,22 @@
         <form id="saveForm" asp-area="Company" asp-controller="CompanyProfile" asp-action="EditTeaser" enctype="multipart/form-data" method="post">
             <div class="form-group row">
                 <div class="col-sm-2 upBtn">
-                    <button class="btn-submit btnUpload" onclick="getfile()">بارگذاری تیزر</button>
+                    <button type="button" class="btn-submit btnUpload" onclick="getfile()">بارگذاری تیزر</button>
                     <input value="@ViewData["src"]" id="getFile" style="display:none" class="form-control-file" type="file" name="teaser" accept="video/*">
                 </div>
-                <div class="col-sm-2 ShowPic"></div>
+                <div class="col-sm-2">  
+                    <video src="@(ViewData["src"]!=null?ViewData["src"]:"")" muted id="videoPreview" controls style="width : 100%; height:100%;" width="600">
+                        مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
+                    </video>
+                </div>
                 <div class="col-sm-4">
-                    <a href="@Url.Action("CompanyProfile","DeleteTeaser",new{area="Company"})" id="cancle"><img class="img-Icon" src="~/images/recycle.png" /></a><br />
+                    @if (ViewData["src"] is not null){
+                        <a href="@Url.Action("DeleteTeaser","CompanyProfile",new{area="Company"})" id="cancle"><img class="img-Icon" src="~/images/recycle.png" /></a>
+                        <br />
+                    }else{
+                        <a href="#" onclick="DeleteVideo()" id="cancle"><img class="img-Icon" src="~/images/recycle.png" /></a>
+                        <br />
+                    }
                     <sapn>حداکثر حجم مجاز جهت بارگذاری فایل 20 مگابایت است.</sapn>
                 </div>
             </div>
@@ -40,6 +50,34 @@
         $("#save").click(function(event){
             event.preventDefault();
             $("#saveForm").submit();
+        });
+
+        function DeleteVideo(){
+            alert("del");
+            $("#getFile").val("");
+            $('#videoPreview').attr('src', ''); // حذف منبع ویدئو
+            $('#videoPreview')[0].load(); // بازنشانی ویدئو
+        }
+
+
+        $('#getFile').on('change', function (event) {
+            const videoFile = event.target.files[0]; // فایل انتخاب شده توسط کاربر
+            const videoPreview = $('#videoPreview')[0]; // دریافت عنصر ویدئو
+            if (videoFile) {
+                const fileURL = URL.createObjectURL(videoFile); // ایجاد URL موقت از فایل
+                videoPreview.src = fileURL; // تنظیم URL به عنوان منبع ویدیو
+                videoPreview.load(); // بارگذاری ویدیو
+
+                // رویداد timeupdate برای کنترل حلقه ۵ ثانیه‌ای
+                $(videoPreview).on('timeupdate', function () {
+                    if (videoPreview.currentTime >= 5) {
+                        videoPreview.currentTime = 0; // بازگشت به ثانیه ۰
+                        videoPreview.play(); // شروع دوباره پخش
+                    }
+                });
+
+                videoPreview.play(); // شروع پخش خودکار
+            }
         });
 
     </script>

@@ -78,5 +78,18 @@ namespace AQS_Application.Services
                 ? ResultOutPutMethodEnum.savechanged
                 : ResultOutPutMethodEnum.dontSaved;
         }
+        public async Task<bool> IsSubCategoryHaveProduct(int id)
+        {
+            var subcategory = await _context.SubCategories
+                .Where(x => x.Id == id)
+                .Include(x => x.Products)
+                .FirstOrDefaultAsync();
+
+            if(subcategory != null && subcategory.Products != null && subcategory.Products.Count > 0)
+                return true;
+            else
+                return false;
+
+        }
     }
 }

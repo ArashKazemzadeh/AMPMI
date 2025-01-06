@@ -15,5 +15,11 @@ namespace AQS_Application.Interfaces.IServices.BaseServices
         Task<ResultOutPutMethodEnum> UpdatePicture(int id, string pictureFileName);
         Task<List<CategoryIncludeSubCategoriesDto>> ReadAlIncludeSub();
         Task<GetPictureeResultDto> GetPictureRout(int id);
+        /// <summary>
+        /// ایا دسته بندی شامل دسته بندی فرعی است 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<bool> IsCategoryHaveChildren(int id);
     }
 }

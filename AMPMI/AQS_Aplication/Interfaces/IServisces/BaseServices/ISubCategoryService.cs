@@ -38,5 +38,11 @@ namespace AQS_Application.Interfaces.IServices.BaseServices
         /// <param name="subCategory">مدل زیر دسته‌بندی</param>
         /// <returns>وضعیت عملیات به‌روزرسانی</returns>
         Task<ResultOutPutMethodEnum> Update(SubCategory subCategory);
+        /// <summary>
+        /// بررسی اینکه آیا گروه فرعی شامل محصول است یا خیر
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<bool> IsSubCategoryHaveProduct(int id);
     }
 }

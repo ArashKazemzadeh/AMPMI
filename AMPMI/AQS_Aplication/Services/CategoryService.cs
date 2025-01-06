@@ -130,7 +130,17 @@ namespace AQS_Application.Services
             };
         }
 
+        public async Task<bool> IsCategoryHaveChildren(int id)
+        {
+            var category = await _context.Categories
+                .Where(x => x.Id == id)
+                .Include(x=>x.SubCategories)
+                .FirstOrDefaultAsync();
 
-
+            if (category != null && category.SubCategories != null && category.SubCategories.Count > 0)
+                return true;
+            else
+                return false;
+        }
     }
 }

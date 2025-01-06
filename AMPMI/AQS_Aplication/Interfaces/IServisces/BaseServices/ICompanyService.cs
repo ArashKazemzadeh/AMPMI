@@ -16,7 +16,7 @@ namespace AQS_Application.Interfaces.IServices.BaseServices
         /// </summary>
         /// <param name="company"></param>
         /// <returns></returns>
-        Task<ResultOutPutMethodEnum> Update(Company company);
+        Task<ResultOutPutMethodEnum> UpdateTeaser(Company company);
         Task<ResultOutPutMethodEnum> UpdateEditProfile(CompanyEditProfileDto dto);
         Task<ResultOutPutMethodEnum> IsCompany(long id, bool isCompany);
         Task<bool> IsExistByMobileNumber(string mobile);

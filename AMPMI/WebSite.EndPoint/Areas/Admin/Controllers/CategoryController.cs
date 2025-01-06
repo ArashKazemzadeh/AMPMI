@@ -69,14 +69,14 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            Category category = await _categoryService.ReadById(id);
+            Category category = await _categoryService.ReadById(id); // TODO : Use DTO
             if (category != null)
             {
                 return View(new CategoryEditVM()
                 {
                     Id = category.Id,
                     Name = category.Name,
-                    PreviousPictureRout = $"/{category.PictureFileName}" // TODO : اینو چیز کن
+                    PreviousPictureRout = category.PictureFileName
                 });
             }
             else
@@ -126,14 +126,21 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
+            if(await _categoryService.IsCategoryHaveChildren(id))
+            {
+                TempData["Message"]= "گروه اصلی شامل گروه فرعی است . امکان حذف کردن وجود ندارد";
+                return RedirectToAction(nameof(CategoryList));
+            }
+
             var getResultDto = await _categoryService.GetPictureRout(id);
             if (!string.IsNullOrEmpty(getResultDto.Message))
             {
                 TempData["Message"] = getResultDto.Message;
-                return RedirectToAction(nameof(CategoryList));
+                //return RedirectToAction(nameof(CategoryList));
             }
+            if(!string.IsNullOrEmpty(getResultDto.Path))
+                await _fileServices.DeleteFile(getResultDto.Path);
 
-            await _fileServices.DeleteFile(getResultDto.Path);
             var resultMessage = await _categoryService.Delete(id);
 
             TempData["Message"] = resultMessage == ResultOutPutMethodEnum.savechanged ? "دسته بندی اصلی حذف شد" :

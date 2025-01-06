@@ -175,9 +175,9 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                 }
 
                 var result = await _productService.Update(existProdcut);
-                if (result == ResultOutPutMethodEnum.savechanged)
+                if (result == ResultOutPutMethodEnum.savechanged || result == ResultOutPutMethodEnum.dontSaved)
                     return RedirectToAction(nameof(ProductList));
-                else
+                else 
                 {
                     ViewData["error"] = "خطایی در هنگام ثبت کالا رخ داد";
                     return View(productVM);
@@ -234,15 +234,19 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
             }
             return RedirectToAction(nameof(NotConfirmedProductList));
         }
-        public async Task<IActionResult> DeleteProduct(long productId)
+        public async Task<IActionResult> DeleteProduct(long id)
         {
-            Product product = await _productService.ReadById(productId);
+            Product product = await _productService.ReadById(id);
             if (product != null)
             {
-                await _fileServices.DeleteFile(product.PictureFileName);
-                var result = await _productService.Delete(productId);
-                if (result != ResultOutPutMethodEnum.savechanged)
-                    TempData["error"] = "خطایی در هنگام حذف کالا رخ داد";
+                if(!string.IsNullOrEmpty(product.PictureFileName) && await _fileServices.DeleteFile(product.PictureFileName))
+                {
+                    var result = await _productService.Delete(id);
+                    if (result != ResultOutPutMethodEnum.savechanged)
+                        TempData["error"] = "خطایی در هنگام حذف کالا رخ داد";
+                }
+                else
+                    TempData["error"] = "خطا در هنگام پاک کردن تصویر";
             }
             else
             {

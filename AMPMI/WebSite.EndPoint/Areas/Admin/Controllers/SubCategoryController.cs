@@ -134,6 +134,11 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
 
         public async Task<IActionResult> DeleteSubCategory(int id)
         {
+            if(await _subCategoryService.IsSubCategoryHaveProduct(id))
+            {
+                TempData["error"] = "گروه فرعی شامل محصول است . امکان حذف وجود ندارد";
+                return RedirectToAction(nameof(SubCategoryList));
+            }
             var resultMessage = await _subCategoryService.Delete(id);
 
             TempData["error"] = resultMessage == ResultOutPutMethodEnum.savechanged ? "گروه فرعی حذف شد" :

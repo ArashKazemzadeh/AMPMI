@@ -26,7 +26,7 @@ namespace WebSite.EndPoint.Areas.Company.Models.Product
         /// </summary>
         public string? PictureFileSrc { get; set; }
         public bool IsPictureChanged { get; set; }
-        public IFormFile PictureFileName { get; set; }
+        public IFormFile? PictureFileName { get; set; }
 
         public List<CategoryIncludeSubCategoriesDto>? Categories { get; set; }
     }
