@@ -1,5 +1,7 @@
 ﻿using AQS_Common.Enums;
 using AQS_Domin.Entities;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AQS_Application.Interfaces.IServices.BaseServices
 {
@@ -8,28 +10,26 @@ namespace AQS_Application.Interfaces.IServices.BaseServices
         /// <summary>
         /// ایجاد یک بنر جدید
         /// </summary>
-        /// <param name="banner">مدل بنر</param>
-        /// <returns>شناسه بنر جدید</returns>
-        Task<Guid> Create(Guid banner);
+        Task<bool> Create(BannerIdEnum bannerId, string rout);
 
         /// <summary>
-        /// حذف بنر
+        /// حذف یک بنر بر اساس Id
         /// </summary>
-        /// <param name="id">شناسه بنر</param>
-        /// <returns>وضعیت عملیات حذف</returns>
-        Task<ResultOutPutMethodEnum> Delete(Guid id);
+        Task<ResultOutPutMethodEnum> Delete(BannerIdEnum bannerId);
 
         /// <summary>
-        /// دریافت همه بنرها
+        /// خواندن همه بنرها
         /// </summary>
-        /// <returns>لیست بنرها</returns>
-        Task<List<Guid>> ReadAll();
+        Task<List<Banner>> ReadAll();
 
         /// <summary>
-        /// دریافت یک بنر بر اساس شناسه
+        /// خواندن یک بنر بر اساس Id
         /// </summary>
-        /// <param name="id">شناسه بنر</param>
-        /// <returns>مدل بنر</returns>
-        Task<Guid?> ReadById(Guid id);
+        Task<Banner?> ReadById(BannerIdEnum bannerId);
+
+        /// <summary>
+        /// ویرایش یک بنر بر اساس Id
+        /// </summary>
+        Task<bool> Update(BannerIdEnum bannerId, string newRout);
     }
 }

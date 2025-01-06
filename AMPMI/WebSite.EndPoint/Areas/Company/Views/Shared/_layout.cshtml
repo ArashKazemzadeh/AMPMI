@@ -135,7 +135,7 @@ desired effect
                                 var managerName = "";
                                 if (User.Identity.IsAuthenticated)
                                 {
-                                     managerName = await _loginService.GetUserByClaims(User);
+                                     managerName = await _loginService.GetManagerNameByClaims(User);
                                 }
                                 if (managerName != null )
                                 {

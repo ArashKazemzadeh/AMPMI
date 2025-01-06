@@ -15,28 +15,26 @@ namespace AQS_Application.Services
             _context = context;
         }
 
-        public async Task<Guid> Create(Guid banner)
+        // ایجاد بنر جدید
+        public async Task<bool> Create(BannerIdEnum bannerId, string rout)
         {
             var newBanner = new Banner
             {
-                Id = banner 
+                Id = bannerId,
+                Rout = rout
             };
 
-            _context.Banners.Add(newBanner);
+            await _context.Banners.AddAsync(newBanner);
 
             int result = await _context.SaveChangesAsync();
 
-            if (result > 0)
-            {
-                return newBanner.Id;
-            }
-
-            return Guid.Empty; 
+            return result > 0 ? true : false;
         }
 
-        public async Task<ResultOutPutMethodEnum> Delete(Guid id)
+        // حذف بنر با استفاده از Id
+        public async Task<ResultOutPutMethodEnum> Delete(BannerIdEnum bannerId)
         {
-            var banner = await _context.Banners.FindAsync(id);
+            var banner = await _context.Banners.FirstOrDefaultAsync(b => b.Id == bannerId);
 
             if (banner != null)
             {
@@ -46,19 +44,41 @@ namespace AQS_Application.Services
                     : ResultOutPutMethodEnum.dontSaved;
             }
 
-            return ResultOutPutMethodEnum.recordNotFounded; 
+            return ResultOutPutMethodEnum.recordNotFounded;
         }
 
-        public async Task<List<Guid>> ReadAll()
+        // خواندن همه بنرها
+        public async Task<List<Banner>> ReadAll()
         {
-            var result = await _context.Banners.Select(b => b.Id).ToListAsync();
-            return result ?? new List<Guid>(); 
+            var result = await _context.Banners.ToListAsync();
+            return result ?? new List<Banner>();
         }
 
-        public async Task<Guid?> ReadById(Guid id)
+        // خواندن بنر بر اساس Id
+        public async Task<Banner?> ReadById(BannerIdEnum bannerId)
         {
-            var banner = await _context.Banners.FindAsync(id);
-            return banner?.Id; 
+            return await _context.Banners.FirstOrDefaultAsync(b => b.Id == bannerId);
+        }
+
+        // ویرایش بنر
+        public async Task<bool> Update(BannerIdEnum bannerId, string newRout)
+        {
+            var banner = await _context.Banners.FirstOrDefaultAsync(b => b.Id == bannerId);
+
+            if (banner == null)
+            {
+                banner = new Banner
+                {
+                    Id = bannerId,
+                    Rout = newRout
+                };
+                _context.Banners.Add(banner);
+            }
+            else
+            {
+                banner.Rout = newRout;
+            }
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }

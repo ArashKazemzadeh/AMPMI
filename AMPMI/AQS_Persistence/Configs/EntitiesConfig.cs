@@ -52,11 +52,11 @@ public static class EntitiesConfig
 
         modelBuilder.Entity<SiteAdmin>(entity =>
         {
-            entity.Property(e => e.Id).ValueGeneratedNever();//هنگام ثبت نام شماسه یوزر به  این شناسه مپ میشه
+            entity.Property(e => e.Id).ValueGeneratedNever();
         });
         modelBuilder.Entity<Company>(entity =>
         {
-            entity.Property(e => e.Id).ValueGeneratedNever();//هنگام ثبت نام شماسه یوزر به  این شناسه مپ میشه
+            entity.Property(e => e.Id).ValueGeneratedNever();
         });
         modelBuilder.Entity<SubCategory>(entity =>
         {
@@ -68,6 +68,13 @@ public static class EntitiesConfig
         {
             entity.HasKey(e => e.Key);
             entity.HasIndex(e => e.Value).IsUnique();
+        });
+
+        modelBuilder.Entity<Banner>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Id)
+                  .ValueGeneratedNever();
         });
     }
 }
