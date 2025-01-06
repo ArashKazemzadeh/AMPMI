@@ -1,4 +1,6 @@
-﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+﻿@using AQS_Application.Interfaces.IServices.IdentityServices
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@inject ILoginService _loginService
 <!DOCTYPE html>
 <html dir="rtl" lang="fa-IR">
 <head>
@@ -19,12 +21,12 @@
     <!-- Theme style -->
     <link href="~/css/AdminLTE.css" rel="stylesheet" />
     <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
-       page. However, you can choose any other skin. Make sure you
-       apply the skin class to the body tag so the changes take effect. -->
+    page. However, you can choose any other skin. Make sure you
+    apply the skin class to the body tag so the changes take effect. -->
     @*     <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
  *@    <link href="~/css/skin-blue.min.css" rel="stylesheet" />
     <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <!-- customize adminlte -->
     <link href="~/css/customize-adminlte.css" rel="stylesheet" />
     <link href="~/css/CustomDashboard.css" rel="stylesheet" />
@@ -125,7 +127,18 @@ desired effect
                     <div class="col-md-2">
                         <div class="nav-companyName">
                             <img class="nav-NameIcon" src="~/images/user.png" />
-                            <span>سلام: توکا</span>
+                            @{
+                                var managerName = User.Identity.Name;
+                                if (managerName != null)
+                                {
+                                    <span> @managerName</span>
+                                }
+                                else
+                                {
+                                    <span>نام شرکت ثبت نشده است</span>
+                                }
+                            }
+                            
                         </div>
                     </div>
                 </div>

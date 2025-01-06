@@ -42,7 +42,8 @@ namespace WebSite.EndPoint.Areas.Company.Models.Company
         public string? About { get; set; }
 
         public string? LogoRout { get; set; }
-
+        public IFormFile Logo { get; set; } // برای فایل لوگو
+        public bool IsPictureChanged { get; set; }
         public CompanyEditProfileDto MapToDto(CompanyEditProfileVM company)
         {
             return new CompanyEditProfileDto

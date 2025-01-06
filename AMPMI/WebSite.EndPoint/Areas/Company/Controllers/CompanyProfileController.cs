@@ -3,9 +3,11 @@ using AQS_Application.Interfaces.IServices.IdentityServices;
 using AQS_Common.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebSite.EndPoint.Areas.Admin.Models.Category;
 using WebSite.EndPoint.Areas.Company.Models;
 using WebSite.EndPoint.Areas.Company.Models.Company;
 using WebSite.EndPoint.Areas.Company.Models.Profile;
+using WebSite.EndPoint.Utility;
 
 namespace WebSite.EndPoint.Areas.Company.Controllers
 {
@@ -16,15 +18,19 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
         private readonly ICompanyService _companyService;
         private readonly IRegistrationService _registrationService;
         private readonly ILoginService _loginService;
+        private readonly IFileServices _fileServices;
 
+        const string PictureFolder = "CompanyProfile";
         public CompanyProfileController(
             ICompanyService companyService,
             IRegistrationService registrationService,
-            ILoginService loginService)
+            ILoginService loginService,
+            IFileServices fileServices)
         {
             _companyService = companyService;
             _registrationService = registrationService;
             _loginService = loginService;
+            _fileServices = fileServices;
         }
         public Task<IActionResult> ChangePassword()
         {
@@ -101,17 +107,47 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
         [HttpPost]
         public async Task<IActionResult> EditCompanyProfile(CompanyEditProfileVM companyEditProfileVM) //ToDo
         {
-            var dto = companyEditProfileVM.MapToDto(companyEditProfileVM);
-            var resultMessage = await _companyService.UpdateEditProfile(dto);
-            ViewData["error"] = resultMessage == ResultOutPutMethodEnum.savechanged ? "مشخصات ویرایش شد" :
-                                      resultMessage == ResultOutPutMethodEnum.recordNotFounded ? "کاربر یافت نشد" :
-                                      "مشخطات ویرایش نشد";
-            if (ResultOutPutMethodEnum.savechanged == resultMessage)
+            try
             {
-                return Redirect("/Company/CompanyPanel/Panel");
-            }
+                string newRout = "";
+                if (companyEditProfileVM.IsPictureChanged)
+                {
+                    if (!string.IsNullOrEmpty(companyEditProfileVM.LogoRout))
+                    {
+                        var isDelete = await _fileServices.DeleteFile(companyEditProfileVM.LogoRout);
+                    }
 
-            return View(companyEditProfileVM);
+                    newRout = await _fileServices.SaveFileAsync(companyEditProfileVM.Logo, PictureFolder);
+
+                    if (string.IsNullOrEmpty(newRout))
+                    {
+                        ViewData["error"] = "خطایی در هنگام دخیره تصویر رخ داد";
+                        return RedirectToAction(nameof(EditCompanyProfile));
+                    }
+
+                    if (newRout.Substring(0) != "/")
+                        newRout = "/" + newRout;
+                    companyEditProfileVM.LogoRout = newRout;
+                }
+                
+                var dto = companyEditProfileVM.MapToDto(companyEditProfileVM);
+                var resultMessage = await _companyService.UpdateEditProfile(dto);
+                ViewData["error"] = resultMessage == ResultOutPutMethodEnum.savechanged ? "مشخصات ویرایش شد" :
+                                          resultMessage == ResultOutPutMethodEnum.recordNotFounded ? "کاربر یافت نشد" :
+                                          "مشخطات ویرایش نشد";
+
+                if (ResultOutPutMethodEnum.savechanged == resultMessage)
+                {
+                    return Redirect("/Company/CompanyPanel/Panel");
+                }
+
+                return View(companyEditProfileVM);
+            }
+            catch (Exception ex)
+            {
+                ViewData["error"] = ex.Message;
+                return View(companyEditProfileVM);
+            }
         }
         public async Task<IActionResult> EditTeaser(string msg = "")//OK
         {

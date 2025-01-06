@@ -26,6 +26,7 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Company\Data\" />
+    <Folder Include="wwwroot\CompanyProfile\" />
     <!-- <Folder Include="Models\AcountingViewModel\Login\" /> -->
   </ItemGroup>
 
