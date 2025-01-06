@@ -201,7 +201,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
             var company = await _companyService.ReadById(companyId);
             if (company != null)
             {
-                if (_videoService.DeleteVideo(company.TeaserGuid))
+                if (await _videoService.DeleteVideo(company.TeaserGuid))
                 {
                     company.TeaserGuid = string.Empty;
                     var result = await _companyService.UpdateTeaser(company);

@@ -99,7 +99,7 @@ namespace WebSite.EndPoint.Utility
         public Task<bool> DeleteVideo(string relativePath)
         {
             if (string.IsNullOrEmpty(relativePath))
-                return false;
+                return Task.FromResult(false);
             relativePath = relativePath.Remove(0, 1); // Remove First / 
 
             string fullPath = Path.Combine(_env.WebRootPath, relativePath);
