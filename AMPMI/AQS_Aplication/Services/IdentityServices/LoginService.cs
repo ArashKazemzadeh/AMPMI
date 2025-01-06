@@ -29,6 +29,20 @@ namespace AQS_Application.Services.IdentityServices
             var appUser = await _userManager.GetUserAsync(user);
             return Convert.ToInt64(appUser?.Id);
         }
+        public async Task<string?> GetUserByClaims(ClaimsPrincipal user)
+        {
+            var appUser = await _userManager.GetUserAsync(user);
+
+            if (appUser == null)
+            {
+                return "";
+            }
+
+            var userId = Convert.ToInt64(appUser.Id);
+            var company = await _companyService.ReadById(userId);
+
+            return company?.ManagerName;
+        }
         public async Task<LoginResultDto> LoginWithPasswordAsync(string mobile, string password)
         {
             if (string.IsNullOrEmpty(mobile) || string.IsNullOrEmpty(password))
