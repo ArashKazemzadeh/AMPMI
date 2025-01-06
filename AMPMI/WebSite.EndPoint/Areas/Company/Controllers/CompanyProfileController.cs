@@ -162,9 +162,8 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
             long companyId = await _loginService.GetUserIdAsync(User);
             var company = await _companyService.ReadById(companyId);
             if (company != null)
-            {
                 ViewData["src"] = company.TeaserGuid;
-            }
+            
             return View();
         }
         [HttpPost]

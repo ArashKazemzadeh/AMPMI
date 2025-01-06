@@ -42,6 +42,7 @@
                         <button type="button" class="btn-submit btnUpload" onclick="getfile()">بارگذاری تصویر</button>
                         <input asp-for="Picture" id="getFile" style="display:none" class="form-control-file" type="file" accept="image/*">
                     </div>
+                    <span class="text-danger" asp-validation-for=Picture></span>
                     <div id="preview" class="col-sm-2 ShowPic">
                         @if (!string.IsNullOrEmpty(Model.PreviousPictureRout))
                         {

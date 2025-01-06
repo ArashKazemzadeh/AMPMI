@@ -41,28 +41,32 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
             return View("Edit", new CategoryEditVM());
         }
         [HttpPost]
-        public async Task<IActionResult> Create(IFormFile picture, string name)
+        public async Task<IActionResult> Create(CategoryEditVM categoryEditVM)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("Edit",categoryEditVM);
+            }
             try
             {
-                var rout = await _fileServices.SaveFileAsync(picture, PictureFolder);
+                var rout = await _fileServices.SaveFileAsync(categoryEditVM.Picture, PictureFolder);
                 if (string.IsNullOrEmpty(rout))
                 {
                     ViewData["Message"] = "خطایی در هنگام ثبت تصویر رخ داد";
+                    return View("Edit", categoryEditVM);
                 }
                 else
                 {
-                    long id = await _categoryService.Create(name, rout);
+                    long id = await _categoryService.Create(categoryEditVM.Name, rout);
                     TempData["Message"] = id > 0 ? "دسته بندی اصلی با موفقیت ایجاد شد" : "دسته بندی اصلی جدید ایجاد نشد";
-
                 }
                 return RedirectToAction(nameof(CategoryList));
 
             }
             catch (Exception ex)
             {
-                TempData["Message"] = ex.Message;
-                return RedirectToAction(nameof(CategoryList));
+                ViewData["Message"] = ex.Message;
+                return View("Edit", categoryEditVM);
             }
         }
 
@@ -90,19 +94,22 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(CategoryEditVM categoryEditVM)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("Edit",categoryEditVM);
+            }
             try
             {
                 string newRout = "";
                 if (categoryEditVM.IsPictureChanged)
                 {
-
                     var isDelete = await _fileServices.DeleteFile(categoryEditVM.PreviousPictureRout);
                     newRout = await _fileServices.SaveFileAsync(categoryEditVM.Picture, PictureFolder);
 
                     if (string.IsNullOrEmpty(newRout))
                     {
                         ViewData["Message"] = "خطایی در هنگام ثبت تصویر رخ داد";
-                        return RedirectToAction(nameof(CategoryList));
+                        return View(categoryEditVM);
                     }
                 }
                 var resultMessage = await _categoryService.Update(categoryEditVM.Id, categoryEditVM.Name);
@@ -156,7 +163,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
             if (categoryEditVM.Id > 0)
                 return await Edit(categoryEditVM);
             else
-                return await Create(categoryEditVM.Picture, categoryEditVM.Name);
+                return await Create(categoryEditVM);
         }
     }
 }
