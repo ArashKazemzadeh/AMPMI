@@ -4,6 +4,12 @@
 }
 <div class="wrapper default">
     <div class=" container">
+        @if (ViewData["error"] is not null)
+        {
+            <div class="row">
+                <p style="color:red;">@ViewData["error"].ToString()</p>
+            </div>
+        }
         <div class="row">
             <div class="main-content col-12 col-md-7 col-lg-5 mx-auto">
                 <div class="account-box pb-2">

@@ -33,7 +33,7 @@ namespace AQS_Application.Interfaces.IInfrastructure.IContext
 
         DbSet<SubCategory> SubCategories { get; set; }
         DbSet<Banner> Banners { get; set; }
-        DbSet< MiscellaneousData> MiscellaneousData { get; set; }
+        DbSet< MiscellaneousData> MiscellaneousDatas { get; set; }
         #endregion
 
         #region SaveChanges()

@@ -3,6 +3,7 @@ using AQS_Domin.Entities;
 using AQS_Domin.Entities.Accounting;
 using AQS_Persistence.Configs;
 using Domin.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
@@ -35,7 +36,7 @@ public class DbAmpmiContext(DbContextOptions<DbAmpmiContext> options) : Identity
     public virtual DbSet<SubCategory> SubCategories { get; set; }
 
     public virtual DbSet<Banner> Banners { get; set; }
-    public DbSet<MiscellaneousData> MiscellaneousData { get; set; }
+    public virtual DbSet<MiscellaneousData> MiscellaneousDatas { get; set; }
 
     #endregion
 

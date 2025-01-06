@@ -5,13 +5,15 @@ using AQS_Application.Interfaces.IServices.IdentityServices;
 using AQS_Domin.Entities.Accounting;
 using Microsoft.AspNetCore.Identity;
 using System.Data;
+using System.Security.Claims;
 
 namespace YourNamespace.Services
 {
-    public class RegistrationService(UserManager<User> userManager, RoleManager<Role> roleManager, ICompanyService companyService, IDbAmpmiContext context) : IRegistrationService
+    public class RegistrationService(UserManager<User> userManager, RoleManager<Role> roleManager, ICompanyService companyService, SignInManager<User> signInManager, IDbAmpmiContext context) : IRegistrationService
     {
         private readonly UserManager<User> _userManager = userManager;
         private readonly RoleManager<Role> _roleManager = roleManager;
+        private readonly SignInManager<User> _signInManager = signInManager;
         private readonly ICompanyService _companyService = companyService;
         private readonly IDbAmpmiContext _context = context;
         public async Task<ResultRegisterIdentityDto> ChangePasswordAsync(long userId, string currentPassport, string newPassword)
@@ -131,7 +133,7 @@ namespace YourNamespace.Services
                     {
                         throw new Exception("ثبت نام انجام نشد.");
                     }
-
+                    await _signInManager.SignInAsync(user, true);
                     // در صورت موفقیت، تراکنش را commit می‌کنیم
                     await transaction.CommitAsync();
 
@@ -150,7 +152,7 @@ namespace YourNamespace.Services
                     {
                         await _userManager.DeleteAsync(user);
                         if (await _companyService.IsExistById(user.Id))
-                            await _userManager.DeleteAsync(user);
+                            await _companyService.Delete(user.Id);
                     }
 
                     return new ResultRegisterIdentityDto
@@ -160,8 +162,9 @@ namespace YourNamespace.Services
                     };
                 }
             }
-
         }
 
     }
+
 }
+

@@ -4,17 +4,34 @@
 
 
 <div class="container-fluid">
-    <div class="row">
-        <a class="btn" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
-    </div>
-    <div class="row">
-        <div id="editAboutUs">
+    <h3>درباره ما</h3>
+
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-info">
+            @TempData["Message"]
         </div>
-    </div>
+    }
+
+    <form method="post" action="@Url.Action("SaveAboutUs", "AboutUs")">
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <button type="submit" class="btn"><img class="img-Icon" src="~/images/diskette copy.png" /></button>
+        </div>
+        <div class="row">
+            <textarea id="editAboutUs" name="content" style="display: none;">@Html.Raw(ViewBag.AboutUsContent)</textarea>
+        </div>
+    </form>
 </div>
 @section Scripts
 {
     <script>
-        new RichTextEditor("#editAboutUs");
+      
+        var editor = new RichTextEditor("#editAboutUs");
+
+        $("form").on("submit", function () {
+            var content = editor.getHTML();
+            $("#editAboutUs").val(content);
+        });
     </script>
 }

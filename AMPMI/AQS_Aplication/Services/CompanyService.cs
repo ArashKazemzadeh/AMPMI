@@ -1,9 +1,11 @@
-﻿using AQS_Application.Dtos.IdentityServiceDto;
+﻿using AQS_Application.Dtos.BaseServiceDto.Company;
+using AQS_Application.Dtos.IdentityServiceDto;
 using AQS_Application.Interfaces.IInfrastructure.IContext;
 using AQS_Application.Interfaces.IServices.BaseServices;
 using AQS_Common.Enums;
 using Domin.Entities;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace AQS_Application.Services
 {
@@ -72,42 +74,10 @@ namespace AQS_Application.Services
             if (existingCompany == null)
                 return ResultOutPutMethodEnum.recordNotFounded;
 
-            if (company.Name != null && existingCompany.Name != company.Name)
-                existingCompany.Name = company.Name;
-
-            if (company.ManagerName != null && existingCompany.ManagerName != company.ManagerName)
-                existingCompany.ManagerName = company.ManagerName;
-
-            if (company.MobileNumber != null && existingCompany.MobileNumber != company.MobileNumber)
-                existingCompany.MobileNumber = company.MobileNumber;
-
-            if (company.Email != null && existingCompany.Email != company.Email)
-                existingCompany.Email = company.Email;
-
-            if (company.Address != null && existingCompany.Address != company.Address)
-                existingCompany.Address = company.Address;
-
-            if (company.Brands != null && existingCompany.Brands != company.Brands)
-                existingCompany.Brands = company.Brands;
-
-            if (company.Capacity != existingCompany.Capacity)
-                existingCompany.Capacity = company.Capacity;
-
-            if (company.Partnership != null && existingCompany.Partnership != company.Partnership)
-                existingCompany.Partnership = company.Partnership;
-
-            if (company.QualityGrade != null && existingCompany.QualityGrade != company.QualityGrade)
-                existingCompany.QualityGrade = company.QualityGrade;
-
-            if (company.Iso != null && existingCompany.Iso != company.Iso)
-                existingCompany.Iso = company.Iso;
-
-            if (company.About != null && existingCompany.About != company.About)
-                existingCompany.About = company.About;
-
-            //ToDo : Create Method
             if (company.TeaserGuid != null && existingCompany.TeaserGuid != company.TeaserGuid)
                 existingCompany.TeaserGuid = company.TeaserGuid;// 
+           
+            _context.Companies.Update(existingCompany);
 
             int result = await _context.SaveChangesAsync();
 
@@ -122,6 +92,7 @@ namespace AQS_Application.Services
                 return ResultOutPutMethodEnum.recordNotFounded;
 
             existingCompany.LogoRout = logoRout;
+            _context.Companies.Update(existingCompany);
             int result = await _context.SaveChangesAsync();
 
             return result > 0 ?
@@ -148,6 +119,56 @@ namespace AQS_Application.Services
         public async Task<Company?> ReadByMobileNumber(string mobile)
         {
             return await _context.Companies.FirstOrDefaultAsync(c => c.MobileNumber == mobile);
+        }
+
+        public async Task<ResultOutPutMethodEnum> UpdateEditProfile(CompanyEditProfileDto company)
+        {
+            var existingCompany = await _context.Companies.FindAsync(company.Id);
+
+            if (existingCompany == null)
+                return ResultOutPutMethodEnum.recordNotFounded;
+
+            if (existingCompany.Name != company.Name)
+                existingCompany.Name = company.Name;
+
+            if ( existingCompany.ManagerName != company.ManagerName)
+                existingCompany.ManagerName = company.ManagerName;
+
+            if ( existingCompany.MobileNumber != company.MobileNumber)
+                existingCompany.MobileNumber = company.MobileNumber;
+
+            if ( existingCompany.Email != company.Email)
+                existingCompany.Email = company.Email;
+
+            if (existingCompany.Address != company.Address)
+                existingCompany.Address = company.Address;
+
+            if ( existingCompany.Brands != company.Brands)
+                existingCompany.Brands = company.Brands;
+
+            if (company.Capacity != existingCompany.Capacity)
+                existingCompany.Capacity = company.Capacity;
+
+            if (existingCompany.Partnership != company.Partnership)
+                existingCompany.Partnership = company.Partnership;
+
+            if ( existingCompany.QualityGrade != company.QualityGrade)
+                existingCompany.QualityGrade = company.QualityGrade;
+
+            if (existingCompany.Iso != company.Iso)
+                existingCompany.Iso = company.Iso;
+
+            if ( existingCompany.About != company.About)
+                existingCompany.About = company.About;
+
+            if (existingCompany.LogoRout != company.LogoRout)
+                existingCompany.LogoRout = company.LogoRout;
+
+            _context.Companies.Update(existingCompany);
+
+            int result = await _context.SaveChangesAsync();
+
+            return result > 0 ? ResultOutPutMethodEnum.savechanged : ResultOutPutMethodEnum.dontSaved;
         }
     }
 }

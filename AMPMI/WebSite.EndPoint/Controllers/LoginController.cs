@@ -3,6 +3,7 @@ using AQS_Application.Interfaces.IServices.BaseServices;
 using AQS_Application.Interfaces.IServices.IdentityServices;
 using AQS_Application.Interfaces.IServices.IThirdParitesServices;
 using AQS_Common.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using System.Net;
@@ -53,26 +54,19 @@ namespace WebSite.EndPoint.Controllers
 
             if (result.IsSuccess)
             {
-                if (result.Role == AdminRoleName)
-                {
-                    return RedirectToAction
-                     (
-                      actionName: "panel",
-                      controllerName: "admin",
-                      routeValues: new { area = "admin", userId = result.UserId }
-                     );
-                }
-                else
-                {
-                    //کاربر وارد شده وارد این صفحه میشه و فقط
-                    //در صورتی که تایید شده باشه امکان ورود به پنل رو داره
-                    return RedirectToAction
-                       (
-                        actionName: "CompanyDetail",
-                        controllerName: "Company",
-                        routeValues: new { area = "Company", companyId = result.UserId }
-                       );
-                }
+                //if (result.Role == AdminRoleName)
+                //{
+                //    return RedirectToAction
+                //     (
+                //      actionName: "panel",
+                //      controllerName: "admin",
+                //      routeValues: new { area = "admin", userId = result.UserId }
+                //     );
+                //}
+                //else
+                //{
+                return Redirect("/home/index/");
+                //}
             }
             else
             {
@@ -184,21 +178,23 @@ namespace WebSite.EndPoint.Controllers
                     var result = await _loginService.LoginWithOtp(model.Mobile);
                     if (result.Role == CompanyRoleName)
                     {
-                        return RedirectToAction
-                            (
-                             actionName: "panel",
-                             controllerName: "company",
-                             routeValues: new { area = "Company", userId = result.UserId }
-                            );
+                        //return RedirectToAction
+                        //    (
+                        //     actionName: "panel",
+                        //     controllerName: "company",
+                        //     routeValues: new { area = "Company", userId = result.UserId }
+                        //    );
+                        return Redirect("/home/index/");
                     }
                     else if (result.Role == AdminRoleName)
                     {
-                        return RedirectToAction
-                          (
-                           actionName: "panel",
-                           controllerName: "admin",
-                           routeValues: new { area = "admin", userId = result.UserId }
-                          );
+                        //return RedirectToAction
+                        //  (
+                        //   actionName: "panel",
+                        //   controllerName: "admin",
+                        //   routeValues: new { area = "admin", userId = result.UserId }
+                        //  );
+                        return Redirect("/home/index/");
                     }
                 }
                 else
@@ -214,6 +210,12 @@ namespace WebSite.EndPoint.Controllers
         {
             await _loginService.LogoutAsync();
             return RedirectToAction(actionName: "Index", controllerName: "Home");
+        }
+
+        [AllowAnonymous]
+        public IActionResult AccessDenied()
+        {
+            return Content("عدم دسترسی");
         }
     }
 }
