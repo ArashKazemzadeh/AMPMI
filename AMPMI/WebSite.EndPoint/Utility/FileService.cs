@@ -42,6 +42,9 @@ namespace WebSite.EndPoint.Utility
 
         public Task<bool> DeleteFile(string relativePath)
         {
+            if (string.IsNullOrEmpty(relativePath))
+                return Task.FromResult(false);
+            relativePath = relativePath.Remove(0, 1); // Remove First / 
             string fullPath = Path.Combine(_env.WebRootPath, relativePath);
 
             if (File.Exists(fullPath))

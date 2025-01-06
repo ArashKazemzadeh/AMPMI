@@ -19,18 +19,22 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
         private readonly IRegistrationService _registrationService;
         private readonly ILoginService _loginService;
         private readonly IFileServices _fileServices;
+        private readonly IVideoService _videoService;
 
         const string PictureFolder = "CompanyProfile";
+        const string TeaserFoldr = "CompanyTeaser";
         public CompanyProfileController(
             ICompanyService companyService,
             IRegistrationService registrationService,
             ILoginService loginService,
-            IFileServices fileServices)
+            IFileServices fileServices,
+            IVideoService videoService)
         {
             _companyService = companyService;
             _registrationService = registrationService;
             _loginService = loginService;
             _fileServices = fileServices;
+            _videoService = videoService;
         }
         public Task<IActionResult> ChangePassword()
         {
@@ -155,11 +159,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
             {
                 ViewData["msg"] = msg;
             }
-            long companyId = 9;//Todo
-            if (User.Identity.IsAuthenticated)
-            {
-                companyId = await _loginService.GetUserIdAsync(User);
-            }
+            long companyId = await _loginService.GetUserIdAsync(User);
             var company = await _companyService.ReadById(companyId);
             if (company != null)
             {
@@ -171,20 +171,21 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
         public async Task<IActionResult> EditTeaser(IFormFile teaser) //OK
         {
             if (teaser == null)
-            {
                 return View();
-            }
-            long companyId = 9;
-            if (User.Identity.IsAuthenticated)
-            {
-                companyId = await _loginService.GetUserIdAsync(User);
-            }
+
+            long companyId = await _loginService.GetUserIdAsync(User);
+
             string msg = string.Empty;
-            var company = await _companyService.ReadById(companyId);////؟؟؟؟؟؟؟؟؟؟؟
+            var company = await _companyService.ReadById(companyId);
             if (company != null)
             {
-                company.TeaserGuid = "Something"; // TODO : Video Service is unavailable
-                var result = await _companyService.Update(company);
+                string teaserPath= await _videoService.SaveVideoAsync(teaser, TeaserFoldr);
+                if (string.IsNullOrEmpty(teaserPath)) 
+                {
+                    msg = "خطا در هنگام ذخیره ویدیو";
+                }
+                company.TeaserGuid = teaserPath;
+                var result = await _companyService.UpdateTeaser(company);
                 if (result == ResultOutPutMethodEnum.savechanged)
                     msg = "تغییرات با موفقیت ذخیره شد";
                 else
@@ -194,19 +195,21 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
         }
         public async Task<IActionResult> DeleteTeaser()//OK
         {
-            long companyId = 9;
-            if (User.Identity.IsAuthenticated)
-            {
-                companyId = await _loginService.GetUserIdAsync(User);
-            }
+
+            long companyId = await _loginService.GetUserIdAsync(User);
             string msg = string.Empty;
             var company = await _companyService.ReadById(companyId);
             if (company != null)
             {
-                company.TeaserGuid = string.Empty;
-                var result = await _companyService.Update(company);
-                if (result == ResultOutPutMethodEnum.savechanged)
-                    msg = "تغییرات با موفقیت ذخیره شد";
+                if (_videoService.DeleteVideo(company.TeaserGuid))
+                {
+                    company.TeaserGuid = string.Empty;
+                    var result = await _companyService.UpdateTeaser(company);
+                    if (result == ResultOutPutMethodEnum.savechanged)
+                        msg = "تغییرات با موفقیت ذخیره شد";
+                    else
+                        msg = "خطا در هنگام ذخیره اطلاعات ";
+                }
                 else
                     msg = "خطا در هنگام ذخیره اطلاعات ";
             }

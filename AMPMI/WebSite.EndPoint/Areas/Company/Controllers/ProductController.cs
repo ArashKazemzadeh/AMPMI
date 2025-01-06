@@ -1,7 +1,9 @@
 ﻿using AQS_Application.Dtos.BaseServiceDto.SubCategoryDto;
 using AQS_Application.Interfaces.IServices.BaseServices;
+using AQS_Application.Interfaces.IServices.IdentityServices;
 using AQS_Common.Enums;
 using Domin.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebSite.EndPoint.Areas.Company.Models.Product;
 using WebSite.EndPoint.Utility;
@@ -9,21 +11,25 @@ using WebSite.EndPoint.Utility;
 namespace WebSite.EndPoint.Areas.Company.Controllers
 {
     [Area("Company")]
+    [Authorize]
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
         private readonly ISubCategoryService _subCategoryService;
         private readonly ICategoryService _categoryService;
         private readonly IFileServices _fileServices;
+        private readonly ILoginService _loginService;
+
         static List<SubCategoryReadDto> subCategories;
         const string PictureFolder = "Product";
         public ProductController(IProductService productService, ISubCategoryService subCategoryService,
-            ICategoryService categoryService, IFileServices fileServices)
+            ICategoryService categoryService, IFileServices fileServices,ILoginService loginService)
         {
             this._productService = productService;
             this._subCategoryService = subCategoryService;
             this._categoryService = categoryService;
-            _fileServices = fileServices;
+            this._fileServices = fileServices;
+            this._loginService = loginService;
         }
         public static List<SubCategoryReadDto> GetSubCategoryByCategory(int categoryId)
         {
@@ -38,11 +44,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
         }
         public async Task<IActionResult> ProductList()
         {
-            long companyId = 1;
-            if (User.Identity.IsAuthenticated)
-            {
-                companyId = Convert.ToInt64(User.Identity.Name);
-            }
+            long companyId = await _loginService.GetUserIdAsync(User);
             List<Product> data = await _productService.ReadByCompanyId(companyId);
             int rowNum = 1;
             List<ListProductVM> products = data.Select(x => new ListProductVM()
@@ -81,11 +83,12 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
         [HttpPost]
         public async Task<IActionResult> NewProduct(ProductVM productVM)
         {
+            long companyId = await _loginService.GetUserIdAsync(User);
             Product newProduct = new Product()
             {
                 Name = productVM.Name,
                 Description = productVM.Description,
-                CompanyId = Convert.ToInt64(User.Identity.Name),
+                CompanyId = companyId,
                 IsConfirmed = false,
                 SubCategoryId = productVM.SubCategoryId
             };
@@ -139,7 +142,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
                     Description = product.Description,
                     Name = product.Name,
                     IsConfirmed = product.IsConfirmed,
-                    PictureFileName = null, // TODO
+                    PictureFileSrc = product.PictureFileName,
                     SubCategoryId = product.SubCategoryId,
                     CategoryId = product.SubCategory.CategoryId,
                     Categories = categories
@@ -154,12 +157,14 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
         [HttpPost]
         public async Task<IActionResult> EditProduct(ProductVM productVM)
         {
+            long companyId = await _loginService.GetUserIdAsync(User);
+
             Product existProdcut = new Product()
             {
                 Id = productVM.Id,
                 Name = productVM.Name,
                 Description = productVM.Description,
-                CompanyId = Convert.ToInt64(User.Identity.Name),
+                CompanyId = companyId,
                 SubCategoryId = productVM.SubCategoryId
             };
             try
@@ -181,7 +186,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
                     }
                 }
                 var result = await _productService.Update(existProdcut);
-                if (result == ResultOutPutMethodEnum.savechanged)
+                if (result == ResultOutPutMethodEnum.savechanged || result == ResultOutPutMethodEnum.dontSaved)
                     return RedirectToAction(nameof(ProductList));
                 else
                 {
@@ -200,10 +205,15 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
             Product product = await _productService.ReadById(id);
             if (product != null)
             {
-                await _fileServices.DeleteFile(product.PictureFileName);
-                var result = await _productService.Delete(id);
-                if (result != ResultOutPutMethodEnum.savechanged)
+                if (!string.IsNullOrEmpty(product.PictureFileName) && await _fileServices.DeleteFile(product.PictureFileName))
+                {
+                    var result = await _productService.Delete(id);
+                    if (result != ResultOutPutMethodEnum.savechanged)
+                        TempData["error"] = "خطایی در هنگام حذف کالا رخ داد";
+                }
+                else
                     TempData["error"] = "خطایی در هنگام حذف کالا رخ داد";
+
             }
             else
             {

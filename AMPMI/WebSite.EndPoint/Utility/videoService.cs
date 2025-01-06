@@ -1,4 +1,6 @@
-﻿namespace WebSite.EndPoint.Utility
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+
+namespace WebSite.EndPoint.Utility
 {
     /// <summary>
     /// اینترفیس مدیریت فایل‌های ویدیو شامل عملیات ذخیره، حذف، بازیابی و لیست کردن فایل‌ها.
@@ -72,7 +74,7 @@
             {
                 await video.CopyToAsync(stream);
             }
-
+            folderName = "/" + folderName;
             return Path.Combine(folderName, uniqueFileName).Replace("\\", "/");
         }
 
@@ -96,6 +98,10 @@
         /// <inheritdoc/>
         public bool DeleteVideo(string relativePath)
         {
+            if (string.IsNullOrEmpty(relativePath))
+                return false;
+            relativePath = relativePath.Remove(0, 1); // Remove First / 
+
             string fullPath = Path.Combine(_env.WebRootPath, relativePath);
 
             if (File.Exists(fullPath))

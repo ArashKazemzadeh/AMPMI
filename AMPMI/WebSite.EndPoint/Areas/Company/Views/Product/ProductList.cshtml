@@ -35,31 +35,11 @@
                         <td>@item.SubCategoryName</td>
                         <td>@item.Id</td>
                         <td>@item.Name</td>
-                        <td class="td-Icon"><input value="@item.IsConfirmed" type="checkbox"></td>
+                        <td class="td-Icon"><input disabled value="@item.IsConfirmed" type="checkbox"></td>
                         <td class="td-Icon"><a href="@Url.Action("EditProduct","Product",new{area="Company",id=item.Id})"><img class="img-Icon" src="~/images/editing.png" /></a></td>
                         <td class="td-Icon"><a onclick="return DeleteRow(event)" href="@Url.Action("DeleteProduct","Product",new{area="Company",id=item.Id})"><img class="img-Icon" src="~/images\recycle.png" /></a></td>
                     </tr>
                 }
-                <tr>
-                    <td class="td-Icon">1</td>
-                    <td>گروه اصلی 1</td>
-                    <td>گروه فرعی 1</td>
-                    <td>کد محصول 1</td>
-                    <td>نام محصول 1</td>
-                    <td class="td-Icon"><input type="checkbox"></td>
-                    <td class="td-Icon"><a href="@Url.Action("EditProduct","Product")"><img class="img-Icon" src="~/images/editing.png" /></a></td>
-                    <td class="td-Icon"><a><img class="img-Icon" src="~/images\recycle.png" /></a></td>
-                </tr>
-                <tr>
-                    <td class="td-Icon">2</td>
-                    <td>گروه اصلی 2</td>
-                    <td>گروه فرعی 2</td>
-                    <td>کد محصول 2</td>
-                    <td>نام محصول 2</td>
-                    <td class="td-Icon"><input type="checkbox"></td>
-                    <td class="td-Icon"><a href="@Url.Action("EditProduct","Product",new{area="Company",id=2})"><img class="img-Icon" src="~/images/editing.png" /></a></td>
-                    <td class="td-Icon"><a onclick="return DeleteRow(event)" href="@Url.Action("DeleteProduct","Product",new{area="Company",id=2})"><img class="img-Icon" src="~/images\recycle.png" /></a></td>
-                </tr>
             </tbody>
         </table>
     </div>

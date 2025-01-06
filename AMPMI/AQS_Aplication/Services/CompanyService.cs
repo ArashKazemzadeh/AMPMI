@@ -67,7 +67,7 @@ namespace AQS_Application.Services
             return await _context.Companies.AnyAsync(c => c.MobileNumber == mobile);
         }
 
-        public async Task<ResultOutPutMethodEnum> Update(Company company)
+        public async Task<ResultOutPutMethodEnum> UpdateTeaser(Company company)
         {
             var existingCompany = await _context.Companies.FindAsync(company.Id);
 
