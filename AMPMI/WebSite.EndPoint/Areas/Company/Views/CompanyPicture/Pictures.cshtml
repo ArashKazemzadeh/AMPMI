@@ -51,22 +51,12 @@
                     int rowNum = 1;
                     foreach(var item in Model){
                         <tr>
-                            <td class="td-Icon">@rowNum++</td>
-                            <td><img class="img img-fluid" src="@item.PictureFileName" style="width:100%;height:100%;" /></td>
+                            <td class="td-Icon">@(rowNum++)</td>
+                            <td><img class="img img-fluid" src="@item.PictureFileName" style="width:30px;height:30px;" /></td>
                             <td class="td-Icon"><a href="@Url.Action("Delete","CompanyPicture",new{area="Company",id=item.Id})"><img class="img-Icon" src="~/images/recycle.png" /></a></td>
                         </tr>
                     }
                 }
-                <tr>
-                    <td class="td-Icon">1</td>
-                    <td></td>
-                    <td class="td-Icon"><a href="@Url.Action("Delete","CompanyPicture",new{area="Company",id=2})"><img class="img-Icon" src="~/images/recycle.png" /></a></td>
-                </tr>
-                <tr>
-                    <td class="td-Icon">1</td>
-                    <td></td>
-                    <td class="td-Icon"><a href="@Url.Action("Delete","CompanyPicture",new{area="Company",id=3})"><img class="img-Icon" src="~/images/recycle.png" /></a></td>
-                </tr>
             </tbody>
         </table>
     </div>
