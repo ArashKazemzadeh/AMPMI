@@ -20,7 +20,7 @@ namespace WebSite.EndPoint.Utility
         /// </summary>
         /// <param name="relativePath">مسیر نسبی فایل ویدیو برای حذف.</param>
         /// <returns>اگر فایل با موفقیت حذف شد، مقدار true برمی‌گرداند و در غیر این صورت false.</returns>
-        bool DeleteVideo(string relativePath);
+        Task<bool> DeleteVideo(string relativePath);
 
         /// <summary>
         /// دریافت مسیر کامل فیزیکی فایل ویدیو با استفاده از مسیر نسبی آن.
@@ -96,7 +96,7 @@ namespace WebSite.EndPoint.Utility
         }
 
         /// <inheritdoc/>
-        public bool DeleteVideo(string relativePath)
+        public Task<bool> DeleteVideo(string relativePath)
         {
             if (string.IsNullOrEmpty(relativePath))
                 return false;
@@ -107,9 +107,9 @@ namespace WebSite.EndPoint.Utility
             if (File.Exists(fullPath))
             {
                 File.Delete(fullPath);
-                return true;
+                return Task.FromResult(true);
             }
-            return false;
+            return Task.FromResult(false);
         }
 
         /// <inheritdoc/>

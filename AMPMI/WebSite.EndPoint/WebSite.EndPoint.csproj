@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\CompanyProfile\**" />
+    <Content Remove="wwwroot\CompanyProfile\**" />
+    <EmbeddedResource Remove="wwwroot\CompanyProfile\**" />
+    <None Remove="wwwroot\CompanyProfile\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
       <PrivateAssets>all</PrivateAssets>
@@ -26,7 +33,6 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Company\Data\" />
-    <Folder Include="wwwroot\CompanyProfile\" />
     <!-- <Folder Include="Models\AcountingViewModel\Login\" /> -->
   </ItemGroup>
 

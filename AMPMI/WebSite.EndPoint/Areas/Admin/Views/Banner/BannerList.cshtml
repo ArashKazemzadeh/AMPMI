@@ -1,121 +1,94 @@
-﻿@{
+﻿@model WebSite.EndPoint.Areas.Admin.Models.Banner.MultiBannerViewModel
+
+@{
     Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
 }
 
+
 <style>
-    .menuIcon{
-        width:30px;
-        height:30px;
-        margin-left:5px;
+    .menuIcon {
+        width: 30px;
+        height: 30px;
+        margin-left: 5px;
     }
 
-    .btnUpload{
-        width:100%;
+    .btnUpload {
+        width: 100%;
     }
 
-    .uploadDiv{
-        margin-top:100px;
+    .uploadDiv {
+        margin-top: 100px;
     }
 
-    .uploadDiv1{
+    .uploadDiv1 {
         margin-top: 10px;
     }
 </style>
 
 <script type="text/javascript">
-
-    function getfile () {
-        return document.getElementById('getFile').click();
+    function showFileName(input, labelId) {
+        if (input.files && input.files[0]) {
+            document.getElementById(labelId).innerText = input.files[0].name;
+        }
     }
 
-    function showFileName(e){
-
+    function removeVideo(videoId) {
+        document.getElementById(videoId).value = null;
+        document.getElementById("VideoName" + videoId).innerText = "ویدیویی انتخاب نشده است";
     }
-
-    function removeVideo(){
-        
-    }
-
-    function doEdit(){
-        
-    }
-
-    function doSave(){
-        
-    }
-
-
 </script>
 
-<!--Banner Menu-->
+<!-- Banner Menu -->
 <div>
-    <a href="#" onclick="doSave()">
-        <img class="img-Icon"
-             src="~/images/diskette copy.png" />
+    <a href="#" onclick="document.getElementById('bannerForm').submit();">
+        <img class="img-Icon" src="~/images/diskette copy.png" />
     </a>
 </div>
 
-<div class="row uploadDiv">
-    <div class="col-md-3 my-2">
-        <form>
-            <button class="btn btn-submit btnUpload" onclick="getfile()">بارگذاری ویدیو اول</button>
-            <input type='file'
-                   id="getFile"
-                   style="display:none"
-                   accept="audio/*,video/*,image/*"
-                   placeholder="بارگذاری ویدیو اول"
-                   onchange="showFileName(this)">
-        </form>
+<form id="bannerForm" asp-area="Admin" asp-action="SaveBanners" asp-controller="Banner" method="post" enctype="multipart/form-data">
+    <div class="row uploadDiv">
+        <div class="col-md-3 my-2">
+            <button type="button" class="btn btn-submit btnUpload" onclick="document.getElementById('Banner1').click();">بارگذاری ویدیو اول</button>
+            <input type="file" id="Banner1" name="Banner1" style="display:none" accept="audio/*,video/*,image/*" onchange="showFileName(this, 'VideoName1')" />
+        </div>
+        <div class="col-md-2 my-2">
+            <span id="VideoName1">ویدیویی انتخاب نشده است</span>
+        </div>
+        <div class="col-md-2 my-2">
+            <a href="#" onclick="removeVideo('Banner1')">
+                <img class="img-Icon" src="~/images/recycle.png" />
+            </a>
+        </div>
     </div>
-    <div class="col-md-2 my-2">
-        <span id="VideoName1"></span>
+
+    <div class="row uploadDiv1">
+        <div class="col-md-3 my-2">
+            <button type="button" class="btn btn-submit btnUpload" onclick="document.getElementById('Banner2').click();">بارگذاری ویدیو دوم</button>
+            <input type="file" id="Banner2" name="Banner2" style="display:none" accept="audio/*,video/*,image/*" onchange="showFileName(this, 'VideoName2')" />
+        </div>
+        <div class="col-md-2 my-2">
+            <span id="VideoName2">ویدیویی انتخاب نشده است</span>
+        </div>
+        <div class="col-md-2 my-2">
+            <a href="#" onclick="removeVideo('Banner2')">
+                <img class="img-Icon" src="~/images/recycle.png" />
+            </a>
+        </div>
     </div>
-    <div class="col-md-2 my-2">
-        <a href="#" onclick="removeVideo()">
-            <img class="img-Icon"
-                 src="~/images/recycle.png"/>
-        </a>
+
+    <div class="row uploadDiv1">
+        <div class="col-md-3 my-2">
+            <button type="button" class="btn btn-submit btnUpload" onclick="document.getElementById('Banner3').click();">بارگذاری ویدیو سوم</button>
+            <input type="file" id="Banner3" name="Banner3" style="display:none" accept="audio/*,video/*,image/*" onchange="showFileName(this, 'VideoName3')" />
+        </div>
+        <div class="col-md-2 my-2">
+            <span id="VideoName3">ویدیویی انتخاب نشده است</span>
+        </div>
+        <div class="col-md-2 my-2">
+            <a href="#" onclick="removeVideo('Banner3')">
+                <img class="img-Icon" src="~/images/recycle.png" />
+            </a>
+        </div>
     </div>
-</div>
-<div class="row uploadDiv1">
-    <div class="col-md-3 my-2">
-        <form>
-            <button class="btn btn-submit btnUpload" onclick="getfile()">بارگذاری ویدیو دوم</button>
-            <input type='file'
-                   id="getFile"
-                   style="display:none"
-                   accept="audio/*,video/*,image/*"
-                   onchange="showFileName(this)">
-        </form>
-    </div>
-    <div class="col-md-2 my-2">
-        <span id="VideoName1"></span>
-    </div>
-    <div class="col-md-2 my-2">
-        <a href="#" onclick="removeVideo()">
-            <img class="img-Icon"
-                 src="~/images/recycle.png" />
-        </a>
-    </div>
-</div>
-<div class="row uploadDiv1">
-    <div class="col-md-3 my-2">
-        <form>
-            <button class="btn btn-submit btnUpload" onclick="getfile()">بارگذاری ویدیو سوم</button>
-            <input type='file'
-                   id="getFile"
-                   style="display:none"
-                   accept="audio/*,video/*,image/*"
-                   onchange="showFileName(this)">
-        </form>
-    </div>
-    <div class="col-md-2 my-2">
-        <span id="VideoName1"></span>
-    </div>
-    <div class="col-md-2 my-2">
-        <a href="#" onclick="removeVideo()">
-            <img class="img-Icon"
-                 src="~/images/recycle.png" />
-        </a>
-    </div>
-</div>
+</form>
+
