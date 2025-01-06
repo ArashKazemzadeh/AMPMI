@@ -10,5 +10,6 @@ namespace AQS_Application.Interfaces.IServices.IdentityServices
         Task LogoutAsync();
         Task<long> GetUserIdAsync(ClaimsPrincipal user);
         Task<bool> IsValidPassword(long userId, string currentPass);
+        Task<string?> GetUserByClaims(ClaimsPrincipal user);
     }
 }

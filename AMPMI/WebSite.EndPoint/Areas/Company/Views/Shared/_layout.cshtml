@@ -1,6 +1,7 @@
 ﻿@using AQS_Application.Interfaces.IServices.IdentityServices
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @inject ILoginService _loginService
+@inject IRegistrationService _registrationService
 <!DOCTYPE html>
 <html dir="rtl" lang="fa-IR">
 <head>
@@ -115,7 +116,10 @@ desired effect
                             </li>
                             <!-- Show Date -->
                             <li class="dropdown notifications-menu">
-                                <p class="nav-Date">امروز: ۱۹ آذر 1403</p>
+                                @{
+                                    var nowDatePersian = DateTime.Now.ToPersianDateWithFormat();
+                                 }
+                                <p class="nav-Date">  @nowDatePersian </p>
                             </li>
                         </ul>
                     </div>
@@ -128,8 +132,12 @@ desired effect
                         <div class="nav-companyName">
                             <img class="nav-NameIcon" src="~/images/user.png" />
                             @{
-                                var managerName = User.Identity.Name;
-                                if (managerName != null)
+                                var managerName = "";
+                                if (User.Identity.IsAuthenticated)
+                                {
+                                     managerName = await _loginService.GetUserByClaims(User);
+                                }
+                                if (managerName != null )
                                 {
                                     <span> @managerName</span>
                                 }
