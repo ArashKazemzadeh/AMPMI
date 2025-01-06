@@ -29,7 +29,7 @@ namespace AQS_Application.Services.IdentityServices
             var appUser = await _userManager.GetUserAsync(user);
             return Convert.ToInt64(appUser?.Id);
         }
-        public async Task<string?> GetUserByClaims(ClaimsPrincipal user)
+        public async Task<string?> GetManagerNameByClaims(ClaimsPrincipal user)
         {
             var appUser = await _userManager.GetUserAsync(user);
 
