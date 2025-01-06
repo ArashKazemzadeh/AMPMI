@@ -59,6 +59,7 @@ namespace AQS_Application.Services
                 PictureFileName = c.PictureFileName,
                 SubCategories = c.SubCategories != null ? c.SubCategories.Select(sc => new SubCategoryReadDto
                 {
+                    CategoryId = sc.CategoryId,
                     Id = sc.Id,
                     Name = sc.Name
                 }).ToList() : new List<SubCategoryReadDto>()

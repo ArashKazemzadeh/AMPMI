@@ -36,7 +36,7 @@ namespace WebSite.EndPoint.Utility
             {
                 await file.CopyToAsync(stream);
             }
-
+            folderName = "/"+folderName;
             return Path.Combine(folderName, uniqueFileName).Replace("\\", "/");
         }
 

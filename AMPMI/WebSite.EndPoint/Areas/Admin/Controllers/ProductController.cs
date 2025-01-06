@@ -3,6 +3,7 @@ using AQS_Application.Dtos.BaseServiceDto.SubCategoryDto;
 using AQS_Application.Interfaces.IServices.BaseServices;
 using AQS_Common.Enums;
 using Domin.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebSite.EndPoint.Areas.Admin.Models.Product;
 using WebSite.EndPoint.Utility;
@@ -46,7 +47,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                 Id = x.Id,
                 CompanyId = x.CompanyId,
                 Description = x.Description,
-                CompanyName = x.Company.Name,
+                CompanyName = x.Company?.Name,
                 Name = x.Name,
                 IsConfirmed = x.IsConfirmed,
                 PictureFileSrc = x.PictureFileName,
@@ -124,7 +125,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
             {
                 List<CategoryIncludeSubCategoriesDto> categories = await _categoryService.ReadAlIncludeSub();
                 subCategories = categories.SelectMany(x => x.SubCategories).ToList();
-                return View(new ProductVM()
+                return View("EditProduct", new ProductVM()
                 {
                     Id = product.Id,
                     CompanyId = product.CompanyId,
@@ -190,6 +191,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult ChangeCategory(int categoryId)
         {
             return Json(GetSubCategoryByCategory(categoryId));

@@ -76,7 +76,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                 {
                     Id = category.Id,
                     Name = category.Name,
-                    PreviousPictureRout = $"/{category.PictureFileName}"
+                    PreviousPictureRout = $"/{category.PictureFileName}" // TODO : اینو چیز کن
                 });
             }
             else
