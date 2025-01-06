@@ -19,7 +19,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
         private readonly ILoginService _loginService;
         const string PictureFolder = "Company";
         public CompanyPictureController(ICompanyPictureService companyPictureService,
-            IFileServices fileServices,ILoginService loginService)
+            IFileServices fileServices, ILoginService loginService)
         {
             this._companyPictureService = companyPictureService;
             this._fileServices = fileServices;
@@ -41,7 +41,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
         public async Task<IActionResult> Delete(long id)
         {
             var pictureRow = await _companyPictureService.ReadById(id);
-            if(pictureRow!= null && await _fileServices.DeleteFile(pictureRow.PictureFileName))
+            if (pictureRow != null && await _fileServices.DeleteFile(pictureRow.PictureFileName))
             {
                 var result = await _companyPictureService.Delete(id);
                 if (result == ResultOutPutMethodEnum.savechanged)
@@ -61,28 +61,25 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
         [HttpPost]
         public async Task<IActionResult> NewPicture(IFormFile img)
         {
-            string newPicture = await _fileServices.SaveFileAsync(img, PictureFolder);
-            if (string.IsNullOrEmpty(newPicture))
+            long companyId = await _loginService.GetUserIdAsync(User);
+            try
             {
-                ViewData["msg"] = "خطایی در هنگام ثبت تصویر رخ داد";
-                return View("Pictures");
-            }
-            else
-            {
-                long companyId = await _loginService.GetUserIdAsync(User);
-
-                try
+                string newPicture = await _fileServices.SaveFileAsync(img, PictureFolder);
+                if (string.IsNullOrEmpty(newPicture))
                 {
-                    if (await _companyPictureService.Create(companyId, newPicture) > 0)
-                        TempData["msg"] = "ثبت با موفقیت انجام شد";
-                    else
-                        TempData["msg"] = "خطا در هنگام ثبت اطلاعات";
+                    ViewData["msg"] = "خطایی در هنگام ثبت تصویر رخ داد";
+                    return View("Pictures");
                 }
-                catch (Exception)
-                {
+                if (await _companyPictureService.Create(companyId, newPicture) > 0)
+                    TempData["msg"] = "ثبت با موفقیت انجام شد";
+                else
                     TempData["msg"] = "خطا در هنگام ثبت اطلاعات";
-                }
             }
+            catch (Exception ex)
+            {
+                TempData["msg"] = ex.Message;
+            }
+
 
             return RedirectToAction(nameof(Pictures));
         }

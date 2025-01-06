@@ -25,7 +25,7 @@
                     </video>
                 </div>
                 <div class="col-sm-4">
-                    @if (ViewData["src"] is not null){
+                    @if (ViewData["src"] is not null && ViewData["src"]!=""){
                         <a href="@Url.Action("DeleteTeaser","CompanyProfile",new{area="Company"})" id="cancle"><img class="img-Icon" src="~/images/recycle.png" /></a>
                         <br />
                     }else{
@@ -53,7 +53,6 @@
         });
 
         function DeleteVideo(){
-            alert("del");
             $("#getFile").val("");
             $('#videoPreview').attr('src', ''); // حذف منبع ویدئو
             $('#videoPreview')[0].load(); // بازنشانی ویدئو
