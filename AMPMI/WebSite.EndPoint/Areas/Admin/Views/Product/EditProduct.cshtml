@@ -29,9 +29,9 @@
                     <label class="col-sm-3 col-form-label input-Label">گروه اصلی:</label>
                     <div class="col-sm-9">
                         <select id="categories" class="input-text">
+                            <option value="0">گروه اصلی را انتخاب کنید</option>
                             @if (Model.Categories != null)
                             {
-                                <option value="0">گروه اصلی را انتخاب کنید</option>
                                 foreach (var item in Model.Categories)
                                 {
                                     if (Model.CategoryId == item.Id)

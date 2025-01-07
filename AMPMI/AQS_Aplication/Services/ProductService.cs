@@ -57,7 +57,12 @@ namespace AQS_Application.Services
         }
         public async Task<List<Product>> ReadNotConfirmed()
         {
-            return await _context.Products.Where(x => x.IsConfirmed == false).ToListAsync();
+            return await _context.Products
+                .Where(x => x.IsConfirmed == false)
+                .Include(x=>x.SubCategory)
+                .ThenInclude(x=>x.Category)
+                .AsNoTracking()
+                .ToListAsync();
         }
         public async Task<ResultOutPutMethodEnum> Update(Product product)
         {

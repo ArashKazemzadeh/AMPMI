@@ -18,6 +18,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         private readonly IFileServices _fileServices;
 
         static List<SubCategoryReadDto> subCategories;
+        static List<CategoryIncludeSubCategoriesDto> _Category;
         const string PictureFolder = "Product";
 
         public ProductController(IProductService productService, ICategoryService categoryService,IFileServices fileServices)
@@ -36,6 +37,13 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
             {
                 return new List<SubCategoryReadDto>();
             }
+        }
+        public static List<CategoryIncludeSubCategoriesDto> GetCategory()
+        {
+            if (_Category != null && _Category.Count() > 0)
+                return _Category;
+            else
+                return new List<CategoryIncludeSubCategoriesDto>();
         }
         public async Task<IActionResult> ProductList()
         {
@@ -62,6 +70,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
+                productVM.Categories = GetCategory();
                 return View("EditProduct", productVM);
             }
             if (productVM.Id > 0)
@@ -71,14 +80,16 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         }
         public async Task<IActionResult> NewProduct()
         {
-            List<CategoryIncludeSubCategoriesDto> categories = await _categoryService.ReadAlIncludeSub();
-            subCategories = categories.SelectMany(x => x.SubCategories).ToList();
+            _Category = await _categoryService.ReadAlIncludeSub();
 
-            return View("EditProduct", new ProductVM() { Categories = categories });
+            subCategories = _Category.SelectMany(x => x.SubCategories).ToList();
+
+            return View("EditProduct", new ProductVM() { Categories = _Category });
         }
         [HttpPost]
         public async Task<IActionResult> NewProduct(ProductVM productVM)
         {
+            productVM.Categories = GetCategory();
             Product newProduct = new Product()
             {
                 Name = productVM.Name,
@@ -123,8 +134,8 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
             Product product = await _productService.ReadById(id);
             if (product != null)
             {
-                List<CategoryIncludeSubCategoriesDto> categories = await _categoryService.ReadAlIncludeSub();
-                subCategories = categories.SelectMany(x => x.SubCategories).ToList();
+                _Category = await _categoryService.ReadAlIncludeSub();
+                subCategories = _Category.SelectMany(x => x.SubCategories).ToList();
                 return View("EditProduct", new ProductVM()
                 {
                     Id = product.Id,
@@ -135,7 +146,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                     PictureFileSrc = product.PictureFileName,
                     SubCategoryId = product.SubCategoryId,
                     CategoryId = product.SubCategory.CategoryId,
-                    Categories = categories
+                    Categories = _Category
                 });
             }
             else
@@ -147,6 +158,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> EditProduct(ProductVM productVM)
         {
+            productVM.Categories = GetCategory();
             Product existProdcut = new Product()
             {
                 Id = productVM.Id,
@@ -200,18 +212,23 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         {
             List<Product> data = await _productService.ReadNotConfirmed();
             int rowNum = 1;
-            List<ListProductVM> products = data.Select(x => new ListProductVM()
+            List<ListProductVM> products = new List<ListProductVM>();
+            if (data != null)
             {
-                RowNum = rowNum++,
-                Id = x.Id,
-                CompanyId = x.CompanyId,
-                Description = x.Description,
-                Name = x.Name,
-                IsConfirmed = x.IsConfirmed,
-                PictureFileSrc = x.PictureFileName,
-                SubCategoryName = x.SubCategory.Name,
-                CategoryName = x.SubCategory.Category.Name
-            }).ToList();
+                products = data.Select(x => new ListProductVM()
+                {
+                    RowNum = rowNum++,
+                    Id = x.Id,
+                    CompanyId = x.CompanyId,
+                    Description = x.Description,
+                    Name = x.Name,
+                    IsConfirmed = x.IsConfirmed,
+                    PictureFileSrc = x.PictureFileName,
+                    SubCategoryName = x.SubCategory.Name,
+                    CategoryName = x.SubCategory.Category.Name
+                }).ToList();
+            }
+
 
             return View(products);
         }

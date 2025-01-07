@@ -16,6 +16,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         private readonly IFileServices _fileServices;
 
         const string PictureFolder = "SubCategory";
+        static List<CategoryReadDto> _Category = new List<CategoryReadDto>();
 
         public SubCategoryController(ISubCategoryService productService, ICategoryService categoryService, IFileServices fileServices)
         {
@@ -23,6 +24,14 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
             _categoryService = categoryService;
             _fileServices = fileServices;
         }
+        public static List<CategoryReadDto> GetCategory()
+        {
+            if (_Category != null && _Category.Count() > 0)
+                return _Category;
+            else
+                return new List<CategoryReadDto>();
+        }
+
         public async Task<IActionResult> SubCategoryList()
         {
             var data = await _subCategoryService.ReadAll();
@@ -48,13 +57,19 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         }
         public async Task<IActionResult> NewSubCategory()
         {
-            List<CategoryReadDto> categories = await _categoryService.ReadAll();
+            _Category = await _categoryService.ReadAll();
 
-            return View("EditSubCategory", new SubCategoryVM() { Categories = categories });
+            return View("EditSubCategory", new SubCategoryVM() { Categories = GetCategory()});
         }
         [HttpPost]
         public async Task<IActionResult> NewSubCategory(SubCategoryVM subCategoryVM)
         {
+            subCategoryVM.Categories = GetCategory();
+            if (subCategoryVM.CategoryId < 1)
+            {
+                ViewData["error"] = "گروه اصلی نمی تواند خالی باشد"; // TODO : must be in ViewModel
+                return View("EditSubCategory", subCategoryVM);
+            }
             SubCategory newSubCategory = new SubCategory()
             {
                 Name = subCategoryVM.Name,
@@ -87,13 +102,13 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
             SubCategory subCategory = await _subCategoryService.ReadById(id);
             if (subCategory != null)
             {
-                List<CategoryReadDto> categories = await _categoryService.ReadAll();
+                _Category = await _categoryService.ReadAll();
                 return View(new SubCategoryVM()
                 {
                     Id = subCategory.Id,
                     Name = subCategory.Name,
                     CategoryId = subCategory.CategoryId,
-                    Categories = categories
+                    Categories = GetCategory()
                 });
             }
             else
@@ -105,6 +120,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> EditSubCategory(SubCategoryVM subCategoryVM)
         {
+            subCategoryVM.Categories = GetCategory();
             SubCategory existSubCategory = new SubCategory()
             {
                 Id = subCategoryVM.Id,
@@ -122,13 +138,13 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                     return RedirectToAction(nameof(SubCategoryList));
                 else
                 {
-                    return View(subCategoryVM);
+                    return View("EditSubCategory", subCategoryVM);
                 }
             }
             catch (Exception)
             {
                 ViewData["error"] = "خطایی در هنگام ویرایش گروه فرعی رخ داد";
-                return View(subCategoryVM);
+                return View("EditSubCategory", subCategoryVM);
             }
         }
 
