@@ -3,6 +3,9 @@
 }
 
 <div class="contaienr">
+    <div class="pageName">
+        <span class="textPage">تیزر تبلیغاتی</span>
+    </div>
     @if (ViewData["msg"] is not null)
     {
         <div class="row">
@@ -24,7 +27,7 @@
                         مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
                     </video>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-8">
                     @if (ViewData["src"] is not null && ViewData["src"]!=""){
                         <a href="@Url.Action("DeleteTeaser","CompanyProfile",new{area="Company"})" id="cancle"><img class="img-Icon" src="~/images/recycle.png" /></a>
                         <br />
@@ -32,7 +35,8 @@
                         <a href="#" onclick="DeleteVideo()" id="cancle"><img class="img-Icon" src="~/images/recycle.png" /></a>
                         <br />
                     }
-                    <sapn>حداکثر حجم مجاز جهت بارگذاری فایل 20 مگابایت است.</sapn>
+                    <sapn>حداکثر حجم مجاز جهت بارگذاری فایل 20 مگابایت است.</sapn><br/>
+                    <sapn>توجــــــه: فقط 5 ثانیه اول ویدیو در این بخش قابل مشاهده است.</sapn>
                 </div>
             </div>
         </form>

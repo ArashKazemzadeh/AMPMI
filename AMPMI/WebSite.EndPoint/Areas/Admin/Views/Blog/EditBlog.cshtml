@@ -2,6 +2,14 @@
     Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
 }
 <div class="container-fluid">
+    <div class="pageName">
+        <span class="textPage">
+            <a asp-area="Admin" asp-controller="Blog" asp-action="BlogList">
+                لیست اخبار انجمن
+            </a>
+            > تعریف/ویرایش خبر
+        </span>
+    </div>
     <div class="row">
         <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
         <a href="@Url.Action("BLogList","Blog")" id="cancle"><img class="img-Icon" src="~/images/cancel.png" /></a>

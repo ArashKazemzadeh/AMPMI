@@ -12,6 +12,12 @@
     </style>
 }
 <div class="container-fluid">
+    <span class="textPage">
+        <a asp-area="Admin" asp-controller="SubCategory" asp-action="SubCategoryList">
+            لیست گروه فرعی
+        </a>
+        > تعریف/ویرایش گروه فرعی
+    </span>
     @if (ViewData["error"] is not null)
     {
         <div class="row">

@@ -11,12 +11,14 @@
     </style>
 }
 <div class="container-fluid">
-    <p>اعلان ها</p>
+    <div class="pageName">
+        <span class="textPage">اعلان‌ها</span>
+    </div>
     @foreach (var item in Model)
     {
         // TODO : یک کلاس مشخص برای زمانی که اعلان مشاهده شده باشد (IsSeen) ساخته شود
         <div class="row my-2 parent @(item.IsSeen?"":"notSeenNotif")" 
-                style="border: 2px solid #D9D9D9;padding:20px;margin-bottom: 30px; border-radius:5px">
+                style="border: 2px solid #D9D9D9;padding:20px;margin-bottom: 30px; border-radius:5px; margin-top:20px;">
             <div style="display: flex;justify-content: space-between;">
                 <h4>@item.Subject</h4>
                 <div>

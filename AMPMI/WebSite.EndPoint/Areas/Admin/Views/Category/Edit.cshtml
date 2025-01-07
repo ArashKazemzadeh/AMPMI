@@ -12,6 +12,14 @@
     </style>
 }
 <div class="container-fluid">
+    <div class="pageName">
+        <span class="textPage">
+            <a asp-area="Admin" asp-controller=Category asp-action=CategoryList>
+                لیست گروه اصلی
+            </a>
+            > تعریف/ویرایش گروه اصلی
+        </span>
+    </div>
     @if (ViewData["Message"] is not null)
     {
         <div class="row">

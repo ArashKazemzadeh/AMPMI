@@ -3,6 +3,14 @@
 }
 
 <div class="container-fluid">
+    <div class="pageName">
+        <span class="textPage">
+            <a asp-area="Admin" asp-controller=User asp-action=UserList>
+                لیست کاربران
+            </a>
+            > تعریف/ویرایش کاربران
+        </span>
+    </div>
     <div>
         <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
         <a href="@Url.Action("UserList","User")" id="cancle"><img class="img-Icon" src="~/images/cancel.png" /></a>
