@@ -1,4 +1,5 @@
-﻿using AQS_Application.Dtos.BaseServiceDto.SubCategoryDto;
+﻿using AQS_Application.Dtos.BaseServiceDto.CategoryDtos;
+using AQS_Application.Dtos.BaseServiceDto.SubCategoryDto;
 using AQS_Application.Interfaces.IServices.BaseServices;
 using AQS_Application.Interfaces.IServices.IdentityServices;
 using AQS_Common.Enums;
@@ -21,6 +22,8 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
         private readonly ILoginService _loginService;
 
         static List<SubCategoryReadDto> subCategories;
+        static List<CategoryIncludeSubCategoriesDto> _Category;
+
         const string PictureFolder = "Product";
         public ProductController(IProductService productService, ISubCategoryService subCategoryService,
             ICategoryService categoryService, IFileServices fileServices,ILoginService loginService)
@@ -41,6 +44,13 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
             {
                 return new List<SubCategoryReadDto>();
             }
+        }
+        public static List<CategoryIncludeSubCategoriesDto> GetCategory()
+        {
+            if (_Category != null && _Category.Count() > 0)
+                return _Category;
+            else
+                return new List<CategoryIncludeSubCategoriesDto>();
         }
         public async Task<IActionResult> ProductList()
         {
@@ -67,6 +77,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
         {
             if (!ModelState.IsValid)
             {
+                productVM.Categories = GetCategory();
                 return View("EditProduct", productVM);
             }
             if (productVM.Id > 0)
@@ -76,13 +87,14 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
         }
         public async Task<IActionResult> NewProduct()
         {
-            var categories = await _categoryService.ReadAlIncludeSub();
-            subCategories = categories.SelectMany(x => x.SubCategories).ToList();
-            return View("EditProduct", new ProductVM() { Categories = categories });
+            _Category = await _categoryService.ReadAlIncludeSub();
+            subCategories = _Category.SelectMany(x => x.SubCategories).ToList();
+            return View("EditProduct", new ProductVM() { Categories = _Category });
         }
         [HttpPost]
         public async Task<IActionResult> NewProduct(ProductVM productVM)
         {
+            productVM.Categories = GetCategory();
             long companyId = await _loginService.GetUserIdAsync(User);
             Product newProduct = new Product()
             {
@@ -132,8 +144,8 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
             Product product = await _productService.ReadById(id);
             if (product != null)
             {
-                var categories = await _categoryService.ReadAlIncludeSub();
-                subCategories = categories.SelectMany(x => x.SubCategories).ToList();
+                _Category = await _categoryService.ReadAlIncludeSub();
+                subCategories = _Category.SelectMany(x => x.SubCategories).ToList();
 
                 return View(new ProductVM()
                 {
@@ -145,7 +157,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
                     PictureFileSrc = product.PictureFileName,
                     SubCategoryId = product.SubCategoryId,
                     CategoryId = product.SubCategory.CategoryId,
-                    Categories = categories
+                    Categories = _Category
                 });
             }
             else
@@ -158,6 +170,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
         public async Task<IActionResult> EditProduct(ProductVM productVM)
         {
             long companyId = await _loginService.GetUserIdAsync(User);
+            productVM.Categories = GetCategory();
 
             Product existProdcut = new Product()
             {

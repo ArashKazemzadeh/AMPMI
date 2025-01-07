@@ -29,6 +29,7 @@
                     <label class="col-sm-3 col-form-label input-Label">گروه اصلی:</label>
                     <div class="col-sm-9">
                         <select id="categories" class="input-text" name="CategoryId">
+                            <option selected>گروه اصلی را انتخاب کنید</option>
                             @if (Model.Categories != null)
                             {
                                 foreach (var item in Model.Categories)
@@ -43,7 +44,6 @@
                                     }
                                 }
                             }
-                            <option selected>گروه اصلی را انتخاب کنید</option>
                         </select>
                     </div>
                 </div>
