@@ -67,7 +67,10 @@
                 <!-- Right Account Section -->
 
             </div>
-            <div class="me-5 align-items-center dropdown">
+             @await Component.InvokeAsync("Profile") 
+
+
+@*             <div class="me-5 align-items-center dropdown">
                 <a href="@Url.Action("Login","Login")" title="حساب کاربری من" class="text-white">
                     <i class="fa fa-user" aria-hidden="true"></i>
                 </a>
@@ -75,14 +78,14 @@
                     <a href="@Url.Action("Panel","CompanyPanel",new {area ="Company"})">داشبورد</a>
                     <a href="@Url.Action("NotifList","Notification",new {area ="Company"})">اعلان‌ها</a>
                 </div>
-            </div>
-            <div style="width:15%;" class="me-5 d-flex align-items-center">
+            </div> *@
+@*             <div style="width:15%;" class="me-5 d-flex align-items-center">
                     <a 
                         href="@Url.Action("Login","Login")" 
                         title="ثبت‌نام/ورود"
                         class="text-white">ثبت‌نام/ورود
                     </a>
-            </div>
+            </div> *@
         </div>
     </nav>
     <div class="">

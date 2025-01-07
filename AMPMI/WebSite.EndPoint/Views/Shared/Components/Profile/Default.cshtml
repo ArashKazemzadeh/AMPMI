@@ -1,0 +1,25 @@
+﻿@model WebSite.EndPoint.Models.ViewComponents.ProfileVM
+
+@if(Model.IsLogin)
+{
+    <div class="me-5 align-items-center dropdown">
+        <a style="margin-left:10rem;" href="#" title="حساب کاربری @Model.UserName" class="text-white">
+            <i class="fa fa-user" aria-hidden="true"></i>
+            <span class="p-2">@(!string.IsNullOrEmpty(Model.UserName)?Model.UserName:"")</span>
+        </a>
+        <div class="dropdown-content">
+            <a href="@Url.Action("Panel","CompanyPanel",new {area ="Company"})">داشبورد</a>
+            <a href="@Url.Action("NotifList","Notification",new {area ="Company"})">اعلان‌ها</a>
+        </div>
+    </div>
+}
+else
+{
+    <div style="width:15%;" class="me-5 d-flex align-items-center">
+        <a href="@Url.Action("Login","Login")"
+           title="ثبت‌نام/ورود"
+           class="text-white">
+            ثبت‌نام/ورود
+        </a>
+    </div>
+}
