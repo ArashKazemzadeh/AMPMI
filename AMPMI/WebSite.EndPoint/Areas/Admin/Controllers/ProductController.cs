@@ -122,9 +122,9 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                     return View("EditProduct", productVM);
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                ViewData["error"] = "خطایی در هنگام ثبت کالا رخ داد";
+                ViewData["error"] = e.Message;
                 return View("EditProduct", productVM);
             }
         }
@@ -195,9 +195,9 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                     return View(productVM);
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                ViewData["error"] = "خطایی در هنگام ثبت کالا رخ داد";
+                ViewData["error"] = e.Message;
                 return View(productVM);
             }
         }
