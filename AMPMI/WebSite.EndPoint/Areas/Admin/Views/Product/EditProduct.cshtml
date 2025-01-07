@@ -12,6 +12,14 @@
     </style>
 }
 <div class="container-fluid">
+    <div class="pageName">
+        <span class="textPage">
+            <a asp-area="Admin" asp-controller="Product" asp-action="ProductList">
+                لیست محصولات
+            </a>
+            > تعریف/ویرایش محصول
+        </span>
+    </div>
     @if (ViewData["error"] is not null)
     {
         <div class="row">

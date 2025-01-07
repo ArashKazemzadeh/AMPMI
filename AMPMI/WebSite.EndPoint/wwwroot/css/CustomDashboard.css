@@ -156,3 +156,15 @@ td.td-Icon {
     padding-right: 10px;
     color: #000000
 }
+
+.pageName {
+    background-color: #F0F0F0;
+    width: 100%;
+    border-radius:5px;
+    padding:5px;
+}
+
+.textPage {
+    color: #001594;
+    margin-right:10px;
+}
