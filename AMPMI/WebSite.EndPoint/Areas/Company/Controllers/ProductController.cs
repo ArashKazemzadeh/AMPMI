@@ -26,7 +26,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
 
         const string PictureFolder = "Product";
         public ProductController(IProductService productService, ISubCategoryService subCategoryService,
-            ICategoryService categoryService, IFileServices fileServices,ILoginService loginService)
+            ICategoryService categoryService, IFileServices fileServices, ILoginService loginService)
         {
             this._productService = productService;
             this._subCategoryService = subCategoryService;
@@ -104,21 +104,22 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
                 IsConfirmed = false,
                 SubCategoryId = productVM.SubCategoryId
             };
-            if (productVM.PictureFileName != null)
-            {
-                string picureFilePath = await _fileServices.SaveFileAsync(productVM.PictureFileName, "Product");
-                if (string.IsNullOrEmpty(picureFilePath))
-                {
-                    ViewData["error"] = "خطایی در هنگام ثبت تصویر رخ داد";
-                    return View("EditProduct", productVM);
-                }
-                else
-                {
-                    newProduct.PictureFileName = picureFilePath;
-                }
-            }
             try
             {
+                if (productVM.PictureFileName != null)
+                {
+                    string picureFilePath = await _fileServices.SaveFileAsync(productVM.PictureFileName, "Product");
+                    if (string.IsNullOrEmpty(picureFilePath))
+                    {
+                        ViewData["error"] = "خطایی در هنگام ثبت تصویر رخ داد";
+                        return View("EditProduct", productVM);
+                    }
+                    else
+                    {
+                        newProduct.PictureFileName = picureFilePath;
+                    }
+                }
+
                 long id = await _productService.Create(newProduct);
                 if (id > 0)
                     return RedirectToAction(nameof(ProductList));
@@ -128,9 +129,9 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
                     return View("EditProduct", productVM);
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                ViewData["error"] = "خطایی در هنگام ثبت کالا رخ داد";
+                ViewData["error"] = e.Message;
                 return View("EditProduct", productVM);
             }
         }
@@ -207,9 +208,9 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
                     return View(productVM);
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                ViewData["error"] = "خطایی در هنگام ثبت کالا رخ داد";
+                ViewData["error"] = e.Message;
                 return View(productVM);
             }
         }
