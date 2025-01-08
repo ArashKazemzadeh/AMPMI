@@ -10,17 +10,24 @@ namespace AQS_Application.Interfaces.IServices.BaseServices
         Task<long> Create(RegisterIdentityDTO company, long id);
         Task<ResultOutPutMethodEnum> Delete(long id);
         Task<List<Company>> Read();
-        Task<Company?> ReadById(long id);
+        Task<CompanyEditProfileDto?> ReadByIdAsync(long id);
         /// <summary>
         /// فقط تیزر را اپدیت میکند
         /// </summary>
         /// <param name="company"></param>
         /// <returns></returns>
-        Task<ResultOutPutMethodEnum> UpdateTeaser(Company company);
+        Task<ResultOutPutMethodEnum> UpdateTeaser(CompanyEditProfileDto company);
         Task<ResultOutPutMethodEnum> UpdateEditProfile(CompanyEditProfileDto dto);
         Task<ResultOutPutMethodEnum> IsCompany(long id, bool isCompany);
         Task<bool> IsExistByMobileNumber(string mobile);
         Task<bool> IsExistById(long id);
         Task<Company?> ReadByMobileNumber(string mobile);
+        /// <summary>
+        /// ارسال درخواست به ادمین برای تبدیل شدن کاربر به شرکت
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="sendRequest"></param>
+        /// <returns></returns>
+        Task<ResultOutPutMethodEnum> SendRequest(long id, bool sendRequest);
     }
 }

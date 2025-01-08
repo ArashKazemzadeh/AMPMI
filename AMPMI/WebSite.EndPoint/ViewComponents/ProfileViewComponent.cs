@@ -19,6 +19,10 @@ namespace WebSite.EndPoint.ViewComponents
             ProfileVM profileVM = new ProfileVM();
             if (companyId > 0)
             {
+//Arash-UserList-20250108
+                //var company = await _companyService.ReadByIdAsync(companyId);
+//=======
+//Developers
                 profileVM.IsLogin = true;
                 profileVM.UserId = companyId;
                 profileVM.UserName = await _loginService.GetManagerNameByClaims(UserClaimsPrincipal);

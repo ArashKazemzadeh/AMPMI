@@ -39,7 +39,7 @@ namespace AQS_Application.Services.IdentityServices
             }
 
             var userId = Convert.ToInt64(appUser.Id);
-            var company = await _companyService.ReadById(userId);
+            var company = await _companyService.ReadByIdAsync(userId);
 
             return company?.ManagerName;
         }

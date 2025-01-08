@@ -1,10 +1,10 @@
-﻿using AQS_Application.Interfaces.IServices.BaseServices;
+﻿using AQS_Application.Dtos.BaseServiceDto.Company;
+using AQS_Application.Interfaces.IServices.BaseServices;
 using AQS_Application.Interfaces.IServices.IdentityServices;
 using AQS_Common.Enums;
+using Humanizer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WebSite.EndPoint.Areas.Admin.Models.Category;
-using WebSite.EndPoint.Areas.Company.Models;
 using WebSite.EndPoint.Areas.Company.Models.Company;
 using WebSite.EndPoint.Areas.Company.Models.Profile;
 using WebSite.EndPoint.Utility;
@@ -12,7 +12,7 @@ using WebSite.EndPoint.Utility;
 namespace WebSite.EndPoint.Areas.Company.Controllers
 {
     [Area("Company")]
-    [Authorize]
+    //[Authorize(Roles = "Admin,Company")]
     public class CompanyProfileController : Controller
     {
         private readonly ICompanyService _companyService;
@@ -86,9 +86,26 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
         }
         public async Task<IActionResult> EditCompanyProfile()
         {
+            if (TempData["SendRequestToAdmin"] is not null)
+                ViewData["error"] = TempData["SendRequestToAdmin"];
+
+            CompanyEditProfileVM model = await EditProfileModelCreator();
+
+            return View(model);
+        }
+
+        private async Task<CompanyEditProfileVM> EditProfileModelCreator()
+        {
             long companyId = await _loginService.GetUserIdAsync(User);
-            var company = await _companyService.ReadById(companyId);
-            var model = new CompanyEditProfileVM    
+//Arash-UserList-20250108
+            var company = await _companyService.ReadByIdAsync(companyId);
+            if (company == null)
+            {
+                ViewData["error"] = "کاربر یافت نشد";
+                return new CompanyEditProfileVM();
+            }
+            var model = new CompanyEditProfileVM
+//============================
             {
                 Id = companyId,
                 Name = company.Name,
@@ -102,12 +119,12 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
                 QualityGrade = company.QualityGrade,
                 Iso = company.Iso,
                 About = company.About,
-                LogoRout = company.LogoRout,
-                //CurrentPassword = null,
-                //ComparePassword = null
+                LogoRout = company.LogoRout == null ? string.Empty : company.LogoRout,
+                SendRequest = company.SendRequest
             };
-            return View(model);
+            return model;
         }
+
         [HttpPost]
         public async Task<IActionResult> EditCompanyProfile(CompanyEditProfileVM companyEditProfileVM) //ToDo
         {
@@ -118,7 +135,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
                 {
                     if (!string.IsNullOrEmpty(companyEditProfileVM.LogoRout))
                     {
-                        var isDelete = await _fileServices.DeleteFile(companyEditProfileVM.LogoRout);
+                        bool isDelete = await _fileServices.DeleteFile(companyEditProfileVM.LogoRout);
                     }
 
                     newRout = await _fileServices.SaveFileAsync(companyEditProfileVM.Logo, PictureFolder);
@@ -129,16 +146,15 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
                         return RedirectToAction(nameof(EditCompanyProfile));
                     }
 
-                    if (newRout.Substring(0) != "/")
-                        newRout = "/" + newRout;
                     companyEditProfileVM.LogoRout = newRout;
                 }
-                
+
                 var dto = companyEditProfileVM.MapToDto(companyEditProfileVM);
+
                 var resultMessage = await _companyService.UpdateEditProfile(dto);
                 ViewData["error"] = resultMessage == ResultOutPutMethodEnum.savechanged ? "مشخصات ویرایش شد" :
-                                          resultMessage == ResultOutPutMethodEnum.recordNotFounded ? "کاربر یافت نشد" :
-                                          "مشخطات ویرایش نشد";
+                                    resultMessage == ResultOutPutMethodEnum.recordNotFounded ? "کاربر یافت نشد" :
+                                    "مشخطات ویرایش نشد";
 
                 if (ResultOutPutMethodEnum.savechanged == resultMessage)
                 {
@@ -153,21 +169,37 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
                 return View(companyEditProfileVM);
             }
         }
-        public async Task<IActionResult> EditTeaser(string msg = "")//OK
+        public async Task<IActionResult> SendRequestToAdmin(long id, bool sendRequest)
+        {
+            var resultMessage = await _companyService.SendRequest(id, sendRequest);
+
+            TempData["SendRequestToAdmin"] =
+                                resultMessage == ResultOutPutMethodEnum.savechanged ? "درخواست ارسال شد" :
+                                resultMessage == ResultOutPutMethodEnum.recordNotFounded ? "مشخصات کاربری یافت نشد." :
+                                resultMessage == ResultOutPutMethodEnum.duplicateRecord ? "شما قبلا درخواست داده اید"
+                                : "ارسال درخواست با مشکل مواجه شد";
+
+            return RedirectToAction(nameof(EditCompanyProfile));
+        }
+
+        
+        public async Task<IActionResult> EditTeaser(string msg = "")
         {
             if (!string.IsNullOrEmpty(msg))
             {
                 ViewData["msg"] = msg;
             }
+
             long companyId = await _loginService.GetUserIdAsync(User);
-            var company = await _companyService.ReadById(companyId);
+            var company = await _companyService.ReadByIdAsync(companyId);
             if (company != null)
                 ViewData["src"] = company.TeaserGuid;
-            
+
             return View();
         }
+
         [HttpPost]
-        public async Task<IActionResult> EditTeaser(IFormFile teaser) //OK
+        public async Task<IActionResult> EditTeaser(IFormFile teaser)
         {
             if (teaser == null)
                 return View();
@@ -175,11 +207,11 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
             long companyId = await _loginService.GetUserIdAsync(User);
 
             string msg = string.Empty;
-            var company = await _companyService.ReadById(companyId);
+            var company = await _companyService.ReadByIdAsync(companyId);
             if (company != null)
             {
-                string teaserPath= await _videoService.SaveVideoAsync(teaser, TeaserFoldr);
-                if (string.IsNullOrEmpty(teaserPath)) 
+                string teaserPath = await _videoService.SaveVideoAsync(teaser, TeaserFoldr);
+                if (string.IsNullOrEmpty(teaserPath))
                 {
                     msg = "خطا در هنگام ذخیره ویدیو";
                 }
@@ -197,7 +229,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
 
             long companyId = await _loginService.GetUserIdAsync(User);
             string msg = string.Empty;
-            var company = await _companyService.ReadById(companyId);
+            var company = await _companyService.ReadByIdAsync(companyId);
             if (company != null)
             {
                 if (await _videoService.DeleteVideo(company.TeaserGuid))

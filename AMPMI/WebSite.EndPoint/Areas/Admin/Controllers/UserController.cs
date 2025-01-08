@@ -1,17 +1,124 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AQS_Application.Interfaces.IServices.BaseServices;
+using AQS_Common.Enums;
+using Microsoft.AspNetCore.Mvc;
+using WebSite.EndPoint.Areas.Admin.Models.Company;
+using WebSite.EndPoint.Areas.Company.Models.Company;
+using WebSite.EndPoint.Utility;
 
 namespace WebSite.EndPoint.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class UserController : Controller
     {
-        public IActionResult UserList()
+        private readonly ICompanyService _companyService;
+        private readonly IFileServices _fileServices;
+        private const string PictureFolder = "CompanyProfile";
+
+        public UserController(ICompanyService companyService, IFileServices fileServices)
         {
-            return View();
+            _companyService = companyService;
+            _fileServices = fileServices;
         }
-        public IActionResult EditUser()
+        public async Task<IActionResult> UserList()
         {
-            return View();
+            var company = await _companyService.Read();
+
+            var model = company.Select(c => new CompanyVM
+            {
+                Id = c.Id,
+                Name = c.Name,
+                ManagerName = c.ManagerName,
+                MobileNumber = c.MobileNumber,
+                Email = c.Email,
+                IsCompany = c.IsCompany,
+                SendRequst = c.SendRequst
+            }).ToList();
+            return View(model);
+        }
+        public async Task<IActionResult> DeleteUser(long id)
+        {
+            var result = await _companyService.Delete(id);
+            if (result == ResultOutPutMethodEnum.savechanged)
+                TempData["msg"] = "حذف با موفقیت انجام شد";
+            else if (result == ResultOutPutMethodEnum.recordNotFounded)
+                TempData["msg"] = "کاربر مورد نظر یافت نشد";
+            else
+                TempData["msg"] = "خطا در هنگام حذف اطلاعات";
+
+            return RedirectToAction(nameof(UserList));
+        }
+
+        public async Task<IActionResult> EditUser(long id)
+        {
+            var company = await _companyService.ReadByIdAsync(id);
+            if (company == null)
+            {
+                TempData["msg"] = "کاربر مورد نظر یافت نشد";
+                return RedirectToAction(nameof(UserList));
+            }
+            var model = new CompanyVM
+            {
+                Id = company.Id,
+                Name = company.Name,
+                ManagerName = company.ManagerName,
+                MobileNumber = company.MobileNumber,
+                Email = company.Email,
+                Address = company.Address,
+                Brands = company.Brands,
+                Capacity = company.Capacity,
+                Partnership = company.Partnership,
+                QualityGrade = company.QualityGrade,
+                Iso = company.Iso,
+                About = company.About,
+                LogoRout = company.LogoRout == null ? string.Empty : company.LogoRout,
+                IsCompany = company.IsCompany,
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditUser(CompanyEditProfileVM companyEditProfileVM)
+        {
+            try
+            {
+                string newRout = "";
+                if (companyEditProfileVM.IsPictureChanged)
+                {
+                    if (!string.IsNullOrEmpty(companyEditProfileVM.LogoRout))
+                    {
+                        bool isDelete = await _fileServices.DeleteFile(companyEditProfileVM.LogoRout);
+                    }
+
+                    newRout = await _fileServices.SaveFileAsync(companyEditProfileVM.Logo, PictureFolder);
+
+                    if (string.IsNullOrEmpty(newRout))
+                    {
+                        ViewData["error"] = "خطایی در هنگام دخیره تصویر رخ داد";
+                        return RedirectToAction(nameof(UserList));
+                    }
+
+                    companyEditProfileVM.LogoRout = newRout;
+                }
+
+                var dto = companyEditProfileVM.MapToDto(companyEditProfileVM);
+
+                var resultMessage = await _companyService.UpdateEditProfile(dto);
+                ViewData["error"] = resultMessage == ResultOutPutMethodEnum.savechanged ? "مشخصات ویرایش شد" :
+                                    resultMessage == ResultOutPutMethodEnum.recordNotFounded ? "کاربر یافت نشد" :
+                                    "مشخطات ویرایش نشد";
+
+                //if (ResultOutPutMethodEnum.savechanged == resultMessage)
+                //{
+                //    return Redirect("/Company/CompanyPanel/Panel");
+                //}
+
+                return View(companyEditProfileVM);
+            }
+            catch (Exception ex)
+            {
+                ViewData["error"] = ex.Message;
+                return View(companyEditProfileVM);
+            }
         }
     }
 }

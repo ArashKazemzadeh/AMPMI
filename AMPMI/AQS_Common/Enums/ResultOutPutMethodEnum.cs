@@ -8,7 +8,7 @@ public enum ResultOutPutMethodEnum
     savechanged = 1,
     dontSaved = 0,
     recordNotFounded = 2,
-    duplicateRecord = 3
+    duplicateRecord = 3 ,
 }
 
 

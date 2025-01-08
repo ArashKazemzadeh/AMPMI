@@ -30,6 +30,10 @@ public partial class Company
     public string? LogoRout { get; set; }
 
     public bool IsCompany { get; set; }
+    /// <summary>
+    /// درخواست به ادمین برای تبدیل شدن به شرکت
+    /// </summary>
+    public bool SendRequst { get; set; }
 
     public string? TeaserGuid { get; set; }
 
