@@ -11,7 +11,7 @@ namespace AQS_Application.Interfaces.IServices.BaseServices
         /// <param name="notifId">شناسه اعلان</param>
         /// <param name="companyId">شناسه کمپانی</param>
         /// <returns>شناسه رکورد جدید</returns>
-        Task<long> Create(int notifId, int companyId);
+        Task<long> Create(int notifId, long companyId);
 
         /// <summary>
         /// حذف رکورد مشاهده اعلان توسط شرکت
@@ -37,13 +37,13 @@ namespace AQS_Application.Interfaces.IServices.BaseServices
         /// </summary>
         /// <param name="companyId"></param>
         /// <returns></returns>
-        Task<List<SeenNotifByCompany>> ReadByCompanyId(int companyId);
+        Task<List<SeenNotifByCompany>> ReadByCompanyId(long companyId);
         /// <summary>
         /// بررسی اینکه ایا یک اعلان توسط یک کمپانی مشاهده شده است یا خیر
         /// </summary>
         /// <param name="notifId"></param>
         /// <param name="companyId"></param>
         /// <returns></returns>
-        Task<bool> NotifIsSeenByCompany(int notifId, int companyId);
+        Task<bool> NotifIsSeenByCompany(int notifId, long companyId);
     }
 }
