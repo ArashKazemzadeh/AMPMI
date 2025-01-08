@@ -97,6 +97,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
         private async Task<CompanyEditProfileVM> EditProfileModelCreator()
         {
             long companyId = await _loginService.GetUserIdAsync(User);
+//Arash-UserList-20250108
             var company = await _companyService.ReadByIdAsync(companyId);
             if (company == null)
             {
@@ -104,6 +105,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
                 return new CompanyEditProfileVM();
             }
             var model = new CompanyEditProfileVM
+//============================
             {
                 Id = companyId,
                 Name = company.Name,

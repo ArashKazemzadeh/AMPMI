@@ -34,11 +34,16 @@ namespace AQS_Application.Interfaces.IServices.BaseServices
         /// </summary>
         /// <returns>لیست اعلان‌ها</returns>
         Task<List<NotificationReadAdminDto>> ReadAll();
+        /// <summary>
+        /// نوتیف های دیده نشده توسط یک کمپانی را برمیگرداند
+        /// </summary>
+        /// <returns></returns>
+        Task<List<NotificationReadAdminDto>> ReadAllUnSeen(long companyId);
 
         /// <summary>
         /// دریافت یک اعلان با شناسه
         /// </summary>
-        /// <param name="id">شناسه اعلان</param>
+        /// <param name="id">شناسه÷ اعلان</param>
         /// <returns>اعلان مورد نظر</returns>
         Task<Notification?> ReadById(long id);
 

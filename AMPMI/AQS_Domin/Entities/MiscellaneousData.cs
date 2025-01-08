@@ -1,4 +1,6 @@
-﻿namespace AQS_Domin.Entities;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace AQS_Domin.Entities;
 
 
 
@@ -11,6 +13,7 @@ public class MiscellaneousData
     /// <summary>
     /// uniq
     /// </summary>
+    [Column(TypeName = "nvarchar(max)")]
     public required string Value { get; set; }
 }
 

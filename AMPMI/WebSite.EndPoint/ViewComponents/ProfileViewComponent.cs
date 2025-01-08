@@ -8,11 +8,9 @@ namespace WebSite.EndPoint.ViewComponents
     public class ProfileViewComponent : ViewComponent
     {
         private readonly ILoginService _loginService;
-        private readonly ICompanyService _companyService;
         public ProfileViewComponent(ILoginService loginService,ICompanyService companyService)
         {
             this._loginService = loginService;
-            this._companyService = companyService;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
@@ -21,10 +19,13 @@ namespace WebSite.EndPoint.ViewComponents
             ProfileVM profileVM = new ProfileVM();
             if (companyId > 0)
             {
-                var company = await _companyService.ReadByIdAsync(companyId);
+//Arash-UserList-20250108
+                //var company = await _companyService.ReadByIdAsync(companyId);
+//=======
+//Developers
                 profileVM.IsLogin = true;
                 profileVM.UserId = companyId;
-                profileVM.UserName = company?.Name;
+                profileVM.UserName = await _loginService.GetManagerNameByClaims(UserClaimsPrincipal);
             }
 
             return View(profileVM);
