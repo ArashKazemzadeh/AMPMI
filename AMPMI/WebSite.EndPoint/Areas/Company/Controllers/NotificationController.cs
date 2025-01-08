@@ -1,5 +1,6 @@
 ﻿using AQS_Application.Dtos.BaseServiceDto.NotificationDtos;
 using AQS_Application.Interfaces.IServices.BaseServices;
+using AQS_Application.Interfaces.IServices.IdentityServices;
 using Domin.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,19 +9,23 @@ using WebSite.EndPoint.Areas.Company.Models;
 namespace WebSite.EndPoint.Areas.Company.Controllers
 {
     [Area("Company")]
+    [Authorize]
     public class NotificationController : Controller
     {
         private readonly INotificationService _notificationService;
         private readonly ISeenNotifByCompanyService _seenNotifByCompanyService;
+        private readonly ILoginService _loginService;
+
         public NotificationController(INotificationService notificationService,
-            ISeenNotifByCompanyService seenNotifByCompanyService)
+            ISeenNotifByCompanyService seenNotifByCompanyService,ILoginService loginService)
         {
             this._notificationService = notificationService;  
             this._seenNotifByCompanyService = seenNotifByCompanyService;
+            this._loginService = loginService;
         }
         public async Task<IActionResult> NotifList()
         {
-            int companyId = 9; // just for test
+            long companyId = await _loginService.GetUserIdAsync(User);
             List<NotificationReadAdminDto> allData = await _notificationService.ReadAll();
             List<SeenNotifByCompany> seenData = await _seenNotifByCompanyService.ReadByCompanyId(companyId);
             List<NotifVM> notifList = allData.Select(x => new NotifVM() 
@@ -29,11 +34,8 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
                 Subject = x.Subject,
                 Description = x.Description,
                 CreateAt = x.CreateAt.ToPersianDate(),
-                IsSeen = seenData.Exists(x=>x.NotificationId == x.Id)
+                IsSeen = seenData.Any(m => m.NotificationId == x.Id)
             }).ToList();
-
-            if (notifList.Count == 0)
-                return View(NotifVM.Seed());
 
             return View(notifList);
         }
@@ -42,7 +44,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> SeenNotif(int notifId)
         {
-            int companyId = 9;
+            long companyId = await _loginService.GetUserIdAsync(User);
             try
             {
                 if (!await _seenNotifByCompanyService.NotifIsSeenByCompany(notifId, companyId))

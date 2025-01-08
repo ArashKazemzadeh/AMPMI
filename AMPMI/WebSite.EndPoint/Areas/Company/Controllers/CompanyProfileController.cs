@@ -88,7 +88,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
         {
             long companyId = await _loginService.GetUserIdAsync(User);
             var company = await _companyService.ReadById(companyId);
-            var model = new CompanyEditProfileVM
+            var model = new CompanyEditProfileVM    
             {
                 Id = companyId,
                 Name = company.Name,
