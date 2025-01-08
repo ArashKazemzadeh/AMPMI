@@ -1,4 +1,5 @@
-﻿using AQS_Application.Interfaces.IInfrastructure.IContext;
+﻿using AQS_Application.Dtos.BaseServiceDto.BlogDtos;
+using AQS_Application.Interfaces.IInfrastructure.IContext;
 using AQS_Application.Interfaces.IServices.BaseServices;
 using AQS_Common.Enums;
 using Domin.Entities;
@@ -56,6 +57,24 @@ namespace AQS_Application.Services
             var blogs = await _context.Blogs.Include(b => b.BlogPictures).AsNoTracking().ToListAsync();
             return blogs ?? new List<Blog>();
         }
+        public async Task<List<BlogReadHomeDto>> ReadTop3()
+        {            
+            // TODO : Description Must be summarize
+            var blogs = await _context.Blogs
+                .OrderBy(x => x.CreateUpdateAt)
+                .Take(3)
+                .Select(x=>new BlogReadHomeDto() 
+                {
+                    Id = x.Id,
+                    CreateUpdateAt = x.CreateUpdateAt,
+                    Description = x.Description,
+                    HeaderPictureFileName = x.HeaderPictureFileName,
+                    Subject = x.Subject,
+                    VideoFileName = x.VideoFileName
+                })
+                .ToListAsync();
+            return blogs ?? new List<BlogReadHomeDto>();
+        }
 
         /// <summary>
         /// متد برای خواندن بلاگ با شناسه
@@ -99,7 +118,7 @@ namespace AQS_Application.Services
         /// <param name="id"></param>
         /// <param name="headerPictureFileName"></param>
         /// <returns></returns>
-        public async Task<ResultOutPutMethodEnum> UpdateHeaderPicture(int id, Guid headerPictureFileName)
+        public async Task<ResultOutPutMethodEnum> UpdateHeaderPicture(int id, string headerPictureFileName)
         {
             var existingBlog = await _context.Blogs.FindAsync(id);
             if (existingBlog == null)
@@ -118,7 +137,7 @@ namespace AQS_Application.Services
         /// <param name="id"></param>
         /// <param name="videoFileName"></param>
         /// <returns></returns>
-        public async Task<ResultOutPutMethodEnum> UpdateVideoFile(int id, Guid videoFileName)
+        public async Task<ResultOutPutMethodEnum> UpdateVideoFile(int id, string videoFileName)
         {
             var existingBlog = await _context.Blogs.FindAsync(id);
             if (existingBlog == null)
