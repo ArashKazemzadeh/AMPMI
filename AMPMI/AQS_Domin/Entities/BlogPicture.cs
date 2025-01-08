@@ -1,10 +1,11 @@
 ﻿namespace Domin.Entities;
 public partial class BlogPicture
 {
+    public int Id { get; set; }
     /// <summary>
-    /// شناسه و نام فایل
+    /// نام فایل
     /// </summary>
-    public Guid Id { get; set; }
+    public string Route { get; set; }
 
     public int? BlogId { get; set; }
 
