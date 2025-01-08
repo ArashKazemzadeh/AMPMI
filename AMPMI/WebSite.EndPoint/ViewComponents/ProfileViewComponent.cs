@@ -21,7 +21,7 @@ namespace WebSite.EndPoint.ViewComponents
             ProfileVM profileVM = new ProfileVM();
             if (companyId > 0)
             {
-                var company = await _companyService.ReadById(companyId);
+                var company = await _companyService.ReadByIdAsync(companyId);
                 profileVM.IsLogin = true;
                 profileVM.UserId = companyId;
                 profileVM.UserName = company?.Name;
