@@ -1,14 +1,16 @@
-﻿@{
+﻿@using WebSite.EndPoint.Areas.Admin.Models.Company
+@model List<CompanyVM>
+@{
     Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
 }
 
 <div class="container-fluid">
     <div class="pageName">
-        <span class="textPage">لیست کاربران</span>
+        <a href="@Url.Action("UserList","User")" class="textPage">لیست کاربران</a>
     </div>
-    <div class="row">
+   @*  <div class="row">
         <a href="@Url.Action("EditUser","User")" id="new"> <img class="img-Icon" src="~/images/addition copy.png" /> </a>
-    </div>
+    </div> *@
     <div class="row">
         <table id="myTable" class="display tbStyle">
             <thead>
@@ -25,41 +27,50 @@
             </thead>
             <tbody>
                 <tr>
-                    <td class="td-Icon">1</td>
-                    <td>نام ا</td>
-                    <td>First@gmail.com</td>
-                    <td>09124332121</td>
-                    <td>کاربر</td>
-                    <td class="td-Icon"><input type="checkbox"></td>
-                    <td class="td-Icon">
-                        <a href="@Url.Action("EditUser","User")">
-                            <img class="img-Icon" src="~/images/editing.png" />
-                        </a>
-                    </td>
-                    <td class="td-Icon">
-                        <a href="">
-                            <img class="img-Icon" src="~/images/recycle.png" />
-                        </a>
-                    </td>
+                    @{
+                        int row = 1;
+                        const string user = "کاربر";
+                        const string company = "تولید کننده";
+                    }
+                    @foreach (var item in Model)
+                    {
+                        <td class="td-Icon">@row</td>
+                        <td class="td-Icon">@item.Name</td>
+                        <td class="td-Icon">@item.Email</td>
+                        <td class="td-Icon">@item.MobileNumber</td>
+                        <td class="td-Icon">
+                            @if (item.IsCompany)
+                            {
+                                @user
+                            }
+                            else
+                            {
+                                @company
+                            }
+                        </td>
+                        <td class="td-Icon">
+
+                            <input type="checkbox"
+                            @(item.SendRequst ? "checked" : "")
+                                   disabled />
+
+                        </td>
+
+                        <td class="td-Icon">
+                            <a href="@Url.Action("EditUser","User" , new{area= "Admin" , id = item.Id})">
+                                <img class="img-Icon" src="~/images/editing.png" />
+                            </a>
+                        </td>
+                        <td class="td-Icon">
+                            <a href="@Url.Action("DeleteUser","User" , new{area= "Admin" , id = item.Id})">
+                                <img class="img-Icon" src="~/images/recycle.png" />
+                            </a>
+                        </td>
+                        row++;
+                    }
+
                 </tr>
-                <tr>
-                    <td class="td-Icon">2</td>
-                    <td>نام 2</td>
-                    <td>Second@gmail.com</td>
-                    <td>09124332555</td>
-                    <td>تولید کننده</td>
-                    <td class="td-Icon"><input type="checkbox"/></td>
-                    <td class="td-Icon">
-                        <a href="@Url.Action("EditUser","User")">
-                            <img class="img-Icon" src="~/images/editing.png" />
-                        </a>
-                    </td>
-                    <td class="td-Icon">
-                        <a href="">
-                            <img class="img-Icon" src="~/images/recycle.png" />
-                        </a>
-                    </td>
-                </tr>
+               
             </tbody>
         </table>
     </div>

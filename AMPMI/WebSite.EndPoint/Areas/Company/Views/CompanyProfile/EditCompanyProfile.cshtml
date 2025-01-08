@@ -12,10 +12,10 @@
     <div class="pageName">
          <span class="textPage">پروفایل کاربری</span>  
     </div>
-    @if (TempData["error"] is not null)
+    @if (ViewData["error"] is not null)
     {
         <div class="row">
-            <p style="color:red;">@TempData["Message"].ToString()</p>
+            <p style="color:red;">@ViewData["error"]?.ToString()</p>
         </div>
     }
     <div>
@@ -45,18 +45,7 @@
                     <input asp-for="Email" class="labelText input-text" type="text" id="CEmail" />
                 </div>
             </div>
-            @* <div class="row mt-2 userEditRow">
-                <div class="col-md-6 my-2">
-                    <label for="CPass" class="labelText">رمز عبور</label>
-                    <input asp-for="CurrentPassword" class="labelText input-text" type="text" id="CPass" />
-                    <span asp-validation-for="CurrentPassword" class="text-danger"></span>
-                </div>
-                <div class="col-md-6 my-2">
-                    <label for="CPassAgain" class="labelText">تکرار رمز عبور</label>
-                    <input asp-for="ComparePassword" class="labelText input-text" type="text" id="CPassAgain" />
-                    <span asp-validation-for="ComparePassword" class="text-danger"></span>
-                </div>
-            </div> *@
+           
             <div class="row mt-2 userEditRow">
                 <div class="col-md-6 my-2">
                     <label for="CAddress" class="labelText">آدرس</label>
@@ -98,7 +87,7 @@
                         <input asp-for="Logo" id="getFile" style="display:none" class="form-control-file" type="file" accept="image/*">
                     </div>
                     <div id="preview" class="col-sm-2 ShowPic">
-                        @if (!string.IsNullOrEmpty(Model.LogoRout))
+                        @if (Model != null && !string.IsNullOrEmpty(Model.LogoRout))
                         {
                             <img class="prevImage" src="@Model.LogoRout" />
                         }
@@ -114,11 +103,15 @@
         </form>
     </div>
     <div>
-        <div class="row mt-2">
-            <div class="col-md-5 my-2">
-                <button class="btn-submit btnUpload input-text">ارسال درخواست جهت شناسایی به عنوان تولید کننده</button>
+        @if (Model.SendRequest == false)
+        {
+            <div class="row mt-2">
+                <div class="col-md-5 my-2">
+                    <a href="@Url.Action("SendRequestToAdmin","CompanyProfile",new{area="Company" , id = Model.Id , sendRequest = true})" class="btn-submit btnUpload input-text">ارسال درخواست جهت شناسایی به عنوان تولید کننده</a>
+                </div>
             </div>
-        </div>
+        }
+       
     </div>
 </div>
 

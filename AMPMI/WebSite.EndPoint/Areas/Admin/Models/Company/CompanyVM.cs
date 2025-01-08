@@ -1,14 +1,10 @@
 ﻿using Domin.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AQS_Application.Dtos.BaseServiceDto.Company
+namespace WebSite.EndPoint.Areas.Admin.Models.Company
 {
-    public class CompanyEditProfileDto
+    public class CompanyVM
     {
+        //public string   Password { get; set; } = null!;
         public long Id { get; set; }
         public string Name { get; set; }
         public string ManagerName { get; set; }
@@ -22,12 +18,16 @@ namespace AQS_Application.Dtos.BaseServiceDto.Company
         public string? Iso { get; set; }
         public string? About { get; set; }
         public string? LogoRout { get; set; }
+        public string? Logo { get; set; }
+        public bool IsPictureChanged { get; set; }
         public bool IsCompany { get; set; }
-        public bool SendRequest { get; set; }
+        public bool SendRequst { get; set; }
         public string? TeaserGuid { get; set; }
-        public virtual ICollection<CompanyPicture> CompanyPictures { get; set; } = new List<CompanyPicture>();
-        public virtual ICollection<Product> Products { get; set; } = new List<Product>();
-        public virtual ICollection<SeenNotifByCompany> SeenNotifByCompanies { get; set; } = new List<SeenNotifByCompany>();
-    }
 
+        //public virtual ICollection<CompanyPicture> CompanyPictures { get; set; } = new List<CompanyPicture>();
+
+        //public virtual ICollection<Product> Products { get; set; } = new List<Product>();
+
+        //public virtual ICollection<SeenNotifByCompany> SeenNotifByCompanies { get; set; } = new List<SeenNotifByCompany>();
+    }
 }

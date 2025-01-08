@@ -13,7 +13,7 @@ namespace WebSite.EndPoint.Controllers
         {
             _companyService = companyService;
         }
-        public async Task<IActionResult> CompanyList() //Todo : view : Atie
+        public async Task<IActionResult> CompanyList()
         {
             List<Company> result = await _companyService.Read();
             List<CompanyVM> resultVM = result.Select(x => new CompanyVM 
@@ -27,9 +27,9 @@ namespace WebSite.EndPoint.Controllers
 
             return View(resultVM);
         }
-        public async Task<IActionResult> CompanyDetail(long companyId) //OK
+        public async Task<IActionResult> CompanyDetail(long companyId)
         {
-            Company? result = await _companyService.ReadById(companyId);
+            var result = await _companyService.ReadByIdAsync(companyId);
             if (result != null)
             {
                 CompanyDetailVM companyDetailVM = new CompanyDetailVM()
@@ -50,14 +50,6 @@ namespace WebSite.EndPoint.Controllers
             }
             else
             {
-                //CompanyDetailVM obj = new CompanyDetailVM() 
-                //{
-                //    Address = "تهرانسر",
-                //    MobileNumber= "42342324",
-                //    Name="پرتو سازان",
-
-                //};
-                //return View(obj);
                 return NotFound();
             }
             

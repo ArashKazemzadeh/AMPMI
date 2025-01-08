@@ -5,7 +5,6 @@ using AQS_Application.Interfaces.IServices.BaseServices;
 using AQS_Common.Enums;
 using Domin.Entities;
 using Microsoft.EntityFrameworkCore;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace AQS_Application.Services
 {
@@ -58,16 +57,36 @@ namespace AQS_Application.Services
             return result ?? new List<Company>();
         }
 
-        public async Task<Company?> ReadById(long id)
+        public async Task<CompanyEditProfileDto?> ReadByIdAsync(long id)
         {
-            return await _context.Companies.FirstOrDefaultAsync(c => c.Id == id);
+            return await _context.Companies
+                .Where(c => c.Id == id)
+                .Select(c => new CompanyEditProfileDto
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    ManagerName = c.ManagerName,
+                    MobileNumber = c.MobileNumber,
+                    Email = c.Email,
+                    Address = c.Address,
+                    Brands = c.Brands,
+                    Capacity = c.Capacity,
+                    Partnership = c.Partnership,
+                    QualityGrade = c.QualityGrade,
+                    Iso = c.Iso,
+                    About = c.About,
+                    LogoRout = c.LogoRout ?? string.Empty,
+                    SendRequest = c.SendRequst
+                })
+                .FirstOrDefaultAsync();
         }
+
         public async Task<bool> IsExistByMobileNumber(string mobile)
         {
             return await _context.Companies.AnyAsync(c => c.MobileNumber == mobile);
         }
 
-        public async Task<ResultOutPutMethodEnum> UpdateTeaser(Company company)
+        public async Task<ResultOutPutMethodEnum> UpdateTeaser(CompanyEditProfileDto company)
         {
             var existingCompany = await _context.Companies.FindAsync(company.Id);
 
@@ -111,7 +130,21 @@ namespace AQS_Application.Services
             return await _context.SaveChangesAsync() > 0 ?
                 ResultOutPutMethodEnum.savechanged : ResultOutPutMethodEnum.dontSaved;
         }
+        public async Task<ResultOutPutMethodEnum> SendRequest(long id, bool sendRequest)
+        {
+            var existingCompany = await _context.Companies.FindAsync(id);
 
+            if (existingCompany == null)
+                return ResultOutPutMethodEnum.recordNotFounded;
+
+            if (existingCompany.SendRequst)
+                return ResultOutPutMethodEnum.duplicateRecord;
+
+            existingCompany.SendRequst = sendRequest;
+
+            return await _context.SaveChangesAsync() > 0 ?
+                ResultOutPutMethodEnum.savechanged : ResultOutPutMethodEnum.dontSaved;
+        }
         public async Task<bool> IsExistById(long id)
         {
             return await _context.Companies.AnyAsync(c => c.Id == id);
@@ -170,6 +203,8 @@ namespace AQS_Application.Services
 
             return result > 0 ? ResultOutPutMethodEnum.savechanged : ResultOutPutMethodEnum.dontSaved;
         }
+
+        
     }
 }
 

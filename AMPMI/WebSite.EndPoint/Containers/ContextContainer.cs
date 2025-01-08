@@ -8,7 +8,7 @@ namespace WebSite.EndPoint.ServicesConfigs
 {
     public static class ContextContainer
     {
-       public static void DatabaseContext(WebApplicationBuilder builder, string? connection)
+        public static void DatabaseContext(WebApplicationBuilder builder, string? connection)
         {
             builder.Services.AddDbContext<DbAmpmiContext>(options => options.UseSqlServer(connection));
 
@@ -22,7 +22,8 @@ namespace WebSite.EndPoint.ServicesConfigs
             builder.Services.Configure<IdentityOptions>(options =>
             {
                 options.User.RequireUniqueEmail = true;
-                options.User.AllowedUserNameCharacters = 
+                options.User.AllowedUserNameCharacters =
+                "" +
                 " " +
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" +
                 "0123456789" +
@@ -45,7 +46,7 @@ namespace WebSite.EndPoint.ServicesConfigs
                 option.AccessDeniedPath = "/Login/AccessDenied";
                 option.SlidingExpiration = true;
             });
-            
+
         }
     }
 }
