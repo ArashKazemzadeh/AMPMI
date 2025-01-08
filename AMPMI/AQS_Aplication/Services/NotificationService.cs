@@ -10,10 +10,12 @@ namespace AQS_Application.Services
     public class NotificationService : INotificationService
     {
         private readonly IDbAmpmiContext _context;
+        private readonly ISeenNotifByCompanyService _seenNotifByCompany;
 
-        public NotificationService(IDbAmpmiContext context)
+        public NotificationService(IDbAmpmiContext context, ISeenNotifByCompanyService seenNotifByCompany)
         {
             _context = context;
+            _seenNotifByCompany = seenNotifByCompany;
         }
 
         public async Task<long> Create(string subject, string description)
@@ -75,6 +77,26 @@ namespace AQS_Application.Services
                 .ToListAsync();
 
             return notifications == null ? new List<NotificationReadAdminDto>() : notifications;
+        }
+        public async Task<List<NotificationReadAdminDto>> ReadAllUnSeen(long companyId)
+        {
+            var allNotif = await ReadAll();
+            var seenNotifsByCompay = await _seenNotifByCompany.ReadByCompanyId(companyId);
+            List<NotificationReadAdminDto> result = new List<NotificationReadAdminDto>();
+            foreach(var item in allNotif)
+            {
+                if(!seenNotifsByCompay.Any(x=>x.NotificationId == item.Id))
+                {
+                    result.Add(new NotificationReadAdminDto() 
+                    { 
+                        Id=item.Id,
+                        Subject = item.Subject,
+                        CreateAt=item.CreateAt,
+                        Description = item.Description
+                    });
+                }
+            }
+            return result;
         }
 
 
