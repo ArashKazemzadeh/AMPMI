@@ -29,7 +29,7 @@ namespace WebSite.EndPoint.Controllers
         }
         public async Task<IActionResult> CompanyDetail(long companyId)
         {
-            var result = await _companyService.ReadByIdAsync(companyId);
+            var result = await _companyService.ReadByIdIncludePicturesAndProducts(companyId);
             if (result != null)
             {
                 CompanyDetailVM companyDetailVM = new CompanyDetailVM()
@@ -38,9 +38,14 @@ namespace WebSite.EndPoint.Controllers
                     Address = result.Address,
                     MobileNumber = result.MobileNumber,
                     Name = result.Name,
+                    About = result.About,
                     TeaserGuid = result.TeaserGuid,
+                    ManagerName= result.ManagerName,
+                    CompanyPictures = result.CompanyPictures.Select(x=>x.PictureFileName).ToList(),
+                    Email = result.Email,
                     Products = result.Products.Select(x => new ProductVM()
                     {
+                        Id = x.Id,
                         Name = x.Name,
                         PictureFileName = x.PictureFileName
                     }).ToList()

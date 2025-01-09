@@ -4,80 +4,80 @@
 }
 <style>
     .card {
-        background-color: white;
-        border-radius: 10px;
-        margin: 10px;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: white;
+    border-radius: 10px;
+    margin: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
     .companyLogo{
-        border-radius: 50%;
-        background-color: #003C61;
-        width: 100px;
-        height: 100px;
-        margin-right: 5px;
-        margin: 5px auto
+    border-radius: 50%;
+    background-color: #003C61;
+    width: 100px;
+    height: 100px;
+    margin-right: 5px;
+    margin: 5px auto
     }
     .companyInfo {
-        background-color: #ECECEC;
-        padding: 10px;
+    background-color: #ECECEC;
+    padding: 10px;
     }
     .aboutCompany{
-        text-align: justify;
-        text-justify: inter-word
+    text-align: justify;
+    text-justify: inter-word
     }
     .searchProduct{
-        width: 100%;
-        border: 0;
+    width: 100%;
+    border: 0;
 
     }
     input::placeholder{
-        color: #C3C3C3;
-        text-align:center;
+    color: #C3C3C3;
+    text-align:center;
     }
     input:focus {
-        outline: none;
+    outline: none;
     }
     .btnSearch {
-        background-color: #00A2FF;
-        width: 100%;
-        align-items:center;
+    background-color: #00A2FF;
+    width: 100%;
+    align-items:center;
     }
     .productCard{
-        background-color: #003C61;
-        z-index:1;
-        height: 320px;
-        position: relative;
+    background-color: #003C61;
+    z-index:1;
+    height: 320px;
+    position: relative;
     }
     .productDetail{
-        color: #FFFFFF;
+    color: #FFFFFF;
     }
     .productDetailLoc {
-        bottom:5px;
-        position: absolute;
-        left:50%;
-        transform: translate(-50%, -50%);
-        margin: 0 auto;
+    bottom:5px;
+    position: absolute;
+    left:50%;
+    transform: translate(-50%, -50%);
+    margin: 0 auto;
     }
     .productCard1 {
-        background-color: #FFFFFF;
-        z-index: 2;
-        border-radius: 10px;
-        width:100%;
-        height: 265px;
-        position: relative;
+    background-color: #FFFFFF;
+    z-index: 2;
+    border-radius: 10px;
+    width:100%;
+    height: 265px;
+    position: relative;
     }
     .productName {
-        color: #000000;
+    color: #000000;
     }
     .productCard2 {
-        background-color: #003C61;
-        z-index: 3;
-        border-radius: 10px;
-        margin: 0 auto;
-        height: 160px;
-        width: 160px;
-        position: relative;
-        margin-top:15px;
+    background-color: #003C61;
+    z-index: 3;
+    border-radius: 10px;
+    margin: 0 auto;
+    height: 160px;
+    width: 160px;
+    position: relative;
+    margin-top:15px;
     }
 </style>
 <div class="body-default container">
@@ -90,19 +90,18 @@
             <div class="col-md-8 my-2 card">
                 <div class="row mt-2">
                     <div class="col-md-3 my-2" style="text-align:center">
-                        <img src="~/blog/blog-1.jpg" 
-                             class="img-fluid companyLogo">
+                        <img src="@Model.LogoRout" class="img-fluid companyLogo">
                         <p>@Model.Name</p>
                     </div>
                     <div class="col-md-8 my-2">
                         <div class="companyInfo">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-user fa-lg"></i><span class="p-2">@Model.ManagerName</span>
                             <span></span><br />
-                            <i class="fa fa-phone fa-lg"></i>
+                            <i class="fa fa-phone fa-lg"></i><span class="p-2">@Model.MobileNumber</span>
                             <span></span><br />
-                            <i class="fa fa-map"></i>
+                            <i class="fa fa-map"></i><span class="p-2">@Model.Address</span>
                             <span></span><br />
-                            <i class="fa fa-envelope"></i>
+                            <i class="fa fa-envelope"></i><span class="p-2">@Model.Email</span>
                             <span></span><br />
                             <i class="fa fa-globe fa-lg"></i>
                             <span></span><br />
@@ -121,10 +120,6 @@
                 <div class="col-md-9 my-2">
                     <p class="aboutCompany">
                         @Model.About
-                        هیئت مدیره انجمن تولیدکنندگان قطعات مجموعه‌های موتورسیکلت و دوچرخه با دعوت از کلیه فعالان صنعتی
-                        در این بخش جهت حضور و مشارکت فعال در ساماندهی انجمن و تشکیل کارگروه‌های لازم و عقد قراردادهای تأمین قطعات
-                        با سازندگان موتورسیکلت و دورچرخه، تقاضای استفده موثر و حداکثری از شرایط بسیار مساعد پیش رو را
-                        درخواست می‌نماید.
                     </p>
                 </div>
             </div>
@@ -136,16 +131,15 @@
                         <div class="carousel-inner">
                             @if (Model.CompanyPictures != null)
                             {
+                                int c = 0;
                                 foreach (var item in Model.CompanyPictures)
                                 {
-                                    <div class="carousel-item active">
-                                        <img src="@item" class="d-block w-100" alt="...">
+                                    <div class="carousel-item @(c==0?"active":"")">
+                                        <img style="aspect-ratio: 16 / 9;" src="@item" class=" img-fluid d-block w-100" alt="...">
                                     </div>
+                                    c++;
                                 }
                             }
-                            <div class="carousel-item active">
-                                <img src="..." class="d-block w-100" alt="...">
-                            </div>
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -160,8 +154,7 @@
             </div>
             <div class="col-md-6 my-2">
                 <div class="card" style="height:300px;">
-                    <video>
-                        <source type="video/mp4" />
+                    <video muted src="@Model.TeaserGuid" controls>
                     </video>
                 </div>
             </div>
@@ -188,50 +181,20 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3 my-2">
-                <div class="card productCard">
-                    <a href="#" class="productDetailLoc"><span class="productDetail">اطلاعات محصول</span></a>
-                    <div class="productCard1">
-                        <a class="productDetailLoc" style="width:70%"><span class="productName">راهنمای چراغ عقب هوندا تولیدی شرکت حدید روان</span></a>
-                        <div class="productCard2">
-                            <img/>
+            @foreach(var item in Model.Products)
+            {
+                <div class="col-md-3 my-2">
+                    <div class="card productCard">
+                        <a href="@Url.Action("ProductDetail","Product",new{productId=item.Id})" class="productDetailLoc"><span class="productDetail">اطلاعات محصول</span></a>
+                        <div class="productCard1">
+                            <a class="productDetailLoc" style="width:70%"><span class="productName">@item.Name</span></a>
+                            <div class="productCard2">
+                                <img class="img img-fluid" src="@item.PictureFileName" />
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-3 my-2">
-                <div class="card productCard">
-                    <a href="#" class="productDetailLoc"><span class="productDetail">اطلاعات محصول</span></a>
-                    <div class="productCard1">
-                        <a class="productDetailLoc" style="width:70%"><span class="productName">راهنمای چراغ عقب هوندا تولیدی شرکت حدید روان</span></a>
-                        <div class="productCard2">
-                            <img />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 my-2">
-                <div class="card productCard">
-                    <a href="#" class="productDetailLoc"><span class="productDetail">اطلاعات محصول</span></a>
-                    <div class="productCard1">
-                        <a class="productDetailLoc" style="width:70%"><span class="productName">راهنمای چراغ عقب هوندا تولیدی شرکت حدید روان</span></a>
-                        <div class="productCard2">
-                            <img />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 my-2">
-                <div class="card productCard">
-                    <a href="#" class="productDetailLoc"><span class="productDetail">اطلاعات محصول</span></a>
-                    <div class="productCard1">
-                        <a class="productDetailLoc" style="width:70%"><span class="productName">راهنمای چراغ عقب هوندا تولیدی شرکت حدید روان</span></a>
-                        <div class="productCard2">
-                            <img />
-                        </div>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
     </section>
 </div>

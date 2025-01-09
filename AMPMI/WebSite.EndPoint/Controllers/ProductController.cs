@@ -12,13 +12,33 @@ namespace WebSite.EndPoint.Controllers
         {
             this._productService = productService;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> ProductList()
         {
-            return View();
+            List<Product> result = await _productService.Read();
+            List<ProductVM> resultVM = result.Select(x => new ProductVM
+            {
+                Id = x.Id,
+                Name = x.Name,
+                PictureFileName = x.PictureFileName
+            }).ToList();
+
+            return View(resultVM);
+        }
+        public async Task<IActionResult> CategoryProductsList(int categoryId)
+        {
+            List<Product> result = await _productService.ReadByCategoryId(categoryId);
+            List<ProductVM> resultVM = result.Select(x => new ProductVM
+            {
+                Id = x.Id,
+                Name = x.Name,
+                PictureFileName = x.PictureFileName
+            }).ToList();
+
+            return View(nameof(ProductList), resultVM);
         }
         public async Task<IActionResult> ProductDetail(int productId) //Ok
         {
-            Product? product = await _productService.ReadById(productId);
+            Product? product = await _productService.ReadByIdIncludeCategoryAndSubCategoryAndCompany(productId);
             if(product != null)
             {
                 ProductDetailVM productDetailVM = new ProductDetailVM() 
@@ -29,26 +49,16 @@ namespace WebSite.EndPoint.Controllers
                     SubCategoryId = product.SubCategoryId,
                     CompanyId = product.CompanyId ?? -1,
                     CompanyName = product.Company?.Name,
-                    CompanyLogoRout = product.Company?.LogoRout
+                    CompanyLogoRout = product.Company?.LogoRout,
+                    CategoryId = product.SubCategory.CategoryId,
+                    CategoryName = product.SubCategory.Category.Name                    
                 };
 
                 return View(productDetailVM);
             }
             else
             {
-                ////just for test
-                //ProductDetailVM productDetailVM = new ProductDetailVM()
-                //{
-                //    Name = "محصول تست",
-                //    Description = "چرتو پرت",
-                //    PictureFileName = null,
-                //    SubCategoryId = 2,
-                //    CompanyId = 1,
-                //    CompanyName = "تست است",
-                //    CompanyLogoRout = null
-                //};
-                //return View(productDetailVM);
-                return NotFound();
+                return View(new ProductDetailVM());
             }
         }
     }

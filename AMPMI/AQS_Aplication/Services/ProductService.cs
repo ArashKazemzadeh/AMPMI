@@ -50,6 +50,22 @@ namespace AQS_Application.Services
         {
             return await _context.Products.Include(x=>x.Company).FirstOrDefaultAsync(i => i.Id == id);
         }
+        public async Task<Product?> ReadByIdIncludeCategoryAndSubCategoryAndCompany(long id)
+        {
+            return await _context.Products
+                .Include(x=>x.Company)
+                .Include(x => x.SubCategory)
+                .ThenInclude(m => m.Category)
+                .FirstOrDefaultAsync(c => c.Id == id);
+        }
+        public async Task<List<Product>> ReadByCategoryId(int categoryId)
+        {
+            return await _context.Products
+                .Include(x => x.SubCategory)
+                .Where(l => l.SubCategory.CategoryId == categoryId)
+                .AsNoTracking()
+                .ToListAsync();
+        }
         public async Task<List<Product>> ReadByCompanyId(long id)
         {
             return await _context.Products.Where(x => x.CompanyId == id).Include(x => x.SubCategory)

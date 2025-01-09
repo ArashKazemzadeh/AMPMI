@@ -16,7 +16,7 @@ namespace AQS_Application.Services
             _context = context;
         }
 
-        public async Task<long> Create(RegisterIdentityDTO company , long id)
+        public async Task<long> Create(RegisterIdentityDTO company, long id)
         {
             var row = _context.Companies
                 .Add(new Company
@@ -75,8 +75,37 @@ namespace AQS_Application.Services
                     QualityGrade = c.QualityGrade,
                     Iso = c.Iso,
                     About = c.About,
+                    TeaserGuid = c.TeaserGuid,
                     LogoRout = c.LogoRout ?? string.Empty,
                     SendRequest = c.SendRequst
+                })
+                .FirstOrDefaultAsync();
+        }
+        public async Task<CompanyEditProfileDto?> ReadByIdIncludePicturesAndProducts(long id)
+        {
+            return await _context.Companies
+                .Where(c => c.Id == id)
+                .Include(x=>x.CompanyPictures)
+                .Include(y=>y.Products)
+                .Select(c => new CompanyEditProfileDto
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    ManagerName = c.ManagerName,
+                    MobileNumber = c.MobileNumber,
+                    Email = c.Email,
+                    Address = c.Address,
+                    Brands = c.Brands,
+                    Capacity = c.Capacity,
+                    Partnership = c.Partnership,
+                    QualityGrade = c.QualityGrade,
+                    Iso = c.Iso,
+                    About = c.About,
+                    LogoRout = c.LogoRout ?? string.Empty,
+                    SendRequest = c.SendRequst,
+                    TeaserGuid = c.TeaserGuid,
+                    CompanyPictures = c.CompanyPictures,
+                    Products = c.Products
                 })
                 .FirstOrDefaultAsync();
         }
@@ -95,7 +124,7 @@ namespace AQS_Application.Services
 
             if (company.TeaserGuid != null && existingCompany.TeaserGuid != company.TeaserGuid)
                 existingCompany.TeaserGuid = company.TeaserGuid;// 
-           
+
             _context.Companies.Update(existingCompany);
 
             int result = await _context.SaveChangesAsync();
@@ -164,19 +193,19 @@ namespace AQS_Application.Services
             if (existingCompany.Name != company.Name)
                 existingCompany.Name = company.Name;
 
-            if ( existingCompany.ManagerName != company.ManagerName)
+            if (existingCompany.ManagerName != company.ManagerName)
                 existingCompany.ManagerName = company.ManagerName;
 
-            if ( existingCompany.MobileNumber != company.MobileNumber)
+            if (existingCompany.MobileNumber != company.MobileNumber)
                 existingCompany.MobileNumber = company.MobileNumber;
 
-            if ( existingCompany.Email != company.Email)
+            if (existingCompany.Email != company.Email)
                 existingCompany.Email = company.Email;
 
             if (existingCompany.Address != company.Address)
                 existingCompany.Address = company.Address;
 
-            if ( existingCompany.Brands != company.Brands)
+            if (existingCompany.Brands != company.Brands)
                 existingCompany.Brands = company.Brands;
 
             if (company.Capacity != existingCompany.Capacity)
@@ -185,13 +214,13 @@ namespace AQS_Application.Services
             if (existingCompany.Partnership != company.Partnership)
                 existingCompany.Partnership = company.Partnership;
 
-            if ( existingCompany.QualityGrade != company.QualityGrade)
+            if (existingCompany.QualityGrade != company.QualityGrade)
                 existingCompany.QualityGrade = company.QualityGrade;
 
             if (existingCompany.Iso != company.Iso)
                 existingCompany.Iso = company.Iso;
 
-            if ( existingCompany.About != company.About)
+            if (existingCompany.About != company.About)
                 existingCompany.About = company.About;
 
             if (existingCompany.LogoRout != company.LogoRout)
@@ -204,7 +233,7 @@ namespace AQS_Application.Services
             return result > 0 ? ResultOutPutMethodEnum.savechanged : ResultOutPutMethodEnum.dontSaved;
         }
 
-        
+
     }
 }
 
