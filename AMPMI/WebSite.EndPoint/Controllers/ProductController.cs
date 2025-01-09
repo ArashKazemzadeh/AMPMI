@@ -67,6 +67,7 @@ namespace WebSite.EndPoint.Controllers
             if (string.IsNullOrEmpty(name))
                 return View("ProductList", new List<ProductVM>());
             var result = new List<Product>();
+            name = name.Trim();
             if(categorySelected > 0)
             {
                 result = await _productService.SearchProductByNameAndCategory(name, categorySelected);
