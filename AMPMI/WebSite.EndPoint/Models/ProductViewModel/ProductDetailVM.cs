@@ -14,6 +14,8 @@ namespace WebSite.EndPoint.Models.ProductViewModel
         public long? CompanyId { get; set; }
 
         public int SubCategoryId { get; set; }
+        public int CategoryId { get; set; }
+        public string CategoryName { get; set; }
         public string? CompanyName { get; set; }
         public string? CompanyLogoRout { get; set; }
 

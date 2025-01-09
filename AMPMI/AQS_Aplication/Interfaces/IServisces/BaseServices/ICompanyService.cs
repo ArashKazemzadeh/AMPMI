@@ -12,6 +12,12 @@ namespace AQS_Application.Interfaces.IServices.BaseServices
         Task<List<Company>> Read();
         Task<CompanyEditProfileDto?> ReadByIdAsync(long id);
         /// <summary>
+        /// دیتای کمپانی را به همراه محصولات و تصاویر کمپانی برمیگرداند
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<CompanyEditProfileDto?> ReadByIdIncludePicturesAndProducts(long id);
+        /// <summary>
         /// فقط تیزر را اپدیت میکند
         /// </summary>
         /// <param name="company"></param>

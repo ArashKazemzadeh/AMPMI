@@ -70,7 +70,7 @@
             @foreach (var item in Model.Categories)
             {
                 <div class="col-md-3 col-sm-6 service-box-col">
-                    <a href="#">
+                    <a href="@Url.Action("CategoryProductsList","Product",new {categoryId=item.Id})">
                         <figure>
                             <div class="service-image">
                                 <img class="img img-fluid" src="@item.PictureFileName" />
@@ -112,7 +112,7 @@
                 </div>
             }
 
-@*             <div class="col-sm-4">
+            @*             <div class="col-sm-4">
                 <div class="media feature-box">
                     <div class="media-left">
                         <span class="feature-icon">
@@ -142,19 +142,21 @@
         <div style="direction : ltr;" class="owl-carousel">
             @foreach (var item in Model.Companies)
             {
-                @if(!string.IsNullOrEmpty(item.Logo))
+                @if (!string.IsNullOrEmpty(item.Logo))
                 {
                     <div class=" service-box-col ">
                         <figure>
                             <div class="service-image">
-                                <img class="img-fluid" src="@item.Logo" />
+                                <a href="@Url.Action("CompanyDetail","Company",new {companyId=item.Id})">
+                                    <img class="img-fluid" src="@item.Logo" />
+                                </a>
                             </div>
-                            <a>@item.Name</a>
+                            <a href="@Url.Action("CompanyDetail","Company",new {companyId=item.Id})">@item.Name</a>
                         </figure>
                     </div>
                 }
             }
-@*             <div class=" service-box-col ">
+            @*             <div class=" service-box-col ">
                 <figure>
                     <div class="service-image">
                         <i class="flaticon-screen-1"></i>
@@ -222,7 +224,8 @@
             </div>
         </div>
         <div class="row mb-0">
-            @foreach(var item in Model.Blogs){
+            @foreach (var item in Model.Blogs)
+            {
                 <div class="col-md-4">
                     <div class="blog-wrap">
                         <div class="blog-image">

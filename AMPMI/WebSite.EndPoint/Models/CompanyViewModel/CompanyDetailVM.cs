@@ -7,6 +7,8 @@ namespace WebSite.EndPoint.Models.CompanyViewModel
     {
         public string Name { get; set; } = null!;
         public string MobileNumber { get; set; } = null!;
+        public string ManagerName { get; set; }
+        public string Email { get; set; }
         public string Address { get; set; } = null!;
         public string? LogoRout { get; set; }
         public string? TeaserGuid { get; set; }
