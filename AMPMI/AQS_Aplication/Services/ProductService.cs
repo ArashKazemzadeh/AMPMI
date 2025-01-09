@@ -50,6 +50,22 @@ namespace AQS_Application.Services
         {
             return await _context.Products.Include(x=>x.Company).FirstOrDefaultAsync(i => i.Id == id);
         }
+        public async Task<List<Product>> SearchProductByName(string name)
+        {
+            name = $"%{name}%";
+            return await _context.Products
+                .Where(p => EF.Functions.Like(p.Name, name))
+                .ToListAsync();
+        }
+        public async Task<List<Product>> SearchProductByNameAndCategory(string name, int categoryId)
+        {
+            name = $"%{name}%";
+            return await _context.Products
+                .Include(x=>x.SubCategory)
+                .Where(m=>m.SubCategory.CategoryId == categoryId)
+                .Where(p => EF.Functions.Like(p.Name, name))
+                .ToListAsync();
+        }
         public async Task<Product?> ReadByIdIncludeCategoryAndSubCategoryAndCompany(long id)
         {
             return await _context.Products

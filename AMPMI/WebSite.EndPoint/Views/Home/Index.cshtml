@@ -21,11 +21,11 @@
                         <div class="container">
                             <div class="text-right">
                                 <div class="subscribe-form">
-                                    <form id="subscribe-form" class="subscribe-form" action="#">
+                                    <form id="search-form" method="post" asp-action="SearchProduct" asp-controller="Product" class="subscribe-form">
                                         <div class="input-group subscribe-box d-flex">
                                             <input type="text"
                                                    style="height:auto;border-radius: 0; border-top-right-radius: 25px; border-bottom-right-radius: 25px;"
-                                                   class="form-control" name="mcemail" autocomplete="off" id="mcemail"
+                                                   class="form-control" name="name" autocomplete="off" id="mcemail"
                                                    placeholder="نام موتور سیکلت، قطعه یا سازنده را جستجو نمایید ...">
                                             <div class="dropdown">
                                                 <button class="btn btn-default dropdown-toggle" style="border-radius:0;" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
@@ -34,11 +34,12 @@
                                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                     @foreach (var item in Model.Categories)
                                                     {
-                                                        <li><a class="dropdown-item" href="#">@item.Name</a></li>
+                                                        <li><a class="dropdown-item" data-value="@item.Id" href="#">@item.Name</a></li>
                                                     }
-                                                    <li><a class="dropdown-item" href="#">متفرقه</a></li>
+                                                    <li><a class="dropdown-item" data-value="-1" href="#">متفرقه</a></li>
                                                 </ul>
                                             </div>
+                                            <input hidden id="categorySelected" name="categorySelected" />
                                             <button style="padding: 14px 20px; border-radius:0; border-top-left-radius: 25px; border-bottom-left-radius: 25px;"
                                                     class="btn btn-default subscribe-btn" type="submit">
                                                 <i class="fa fa-search" aria-hidden="true"></i>
@@ -329,6 +330,16 @@
             autoplayTimeout:1000,
             autoplayHoverPause:true
         });
+
+        $(".dropdown-item").on('click',function(){
+            var selectedId = $(this).data("value");
+            var selectedName = $(this).text();
+            $("#dropdownMenuButton").text(selectedName);
+            $("#categorySelected").val(selectedId);
+        });
+
+
     </script>
+
 }
 

@@ -61,5 +61,28 @@ namespace WebSite.EndPoint.Controllers
                 return View(new ProductDetailVM());
             }
         }
+        [HttpPost]
+        public async Task<IActionResult> SearchProduct(string name, int categorySelected = -1)
+        {
+            if (string.IsNullOrEmpty(name))
+                return View("ProductList", new List<ProductVM>());
+            var result = new List<Product>();
+            if(categorySelected > 0)
+            {
+                result = await _productService.SearchProductByNameAndCategory(name, categorySelected);
+            }
+            else
+            {
+                result = await _productService.SearchProductByName(name);
+            }
+            List<ProductVM> products = result.Select(x => new ProductVM() 
+            {
+                Id = x.Id,
+                Name = x.Name,
+                PictureFileName= x.PictureFileName
+            }).ToList();
+
+            return View("ProductList", products);
+        }
     }
 }
