@@ -1,8 +1,16 @@
 ﻿@{
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
-
+@if (TempData["ErrorMessage"] != null)
+{
+    <p class="alert alert-danger">@TempData["ErrorMessage"]</p>
+}
+@if (TempData["SuccessMessage"] != null)
+{
+    <p class="alert alert-success">@TempData["SuccessMessage"]</p>
+}
 <div class="wrapper default">
+    
     <div class="container">
         <div class="row">
             <div class="main-content col-12 col-md-7 col-lg-5 mx-auto">
@@ -35,9 +43,21 @@
                                 </div>
                             </div>
                         </form>
-                        <div class="mb-3">
-                            <a href="@Url.Action("Login","Login")" class="btn-link-border">بازگشت به صفحه ورود</a>
-                        </div>
+                        @{
+                            if (Model.ErrorMessage == "مدت زمان استفاده از کد به پایان رسیده است.")
+                            {
+                                <div class="d-flex justify-content-between mb-3">
+                                    <a href="@Url.Action("ResendOtp","Register",new {mobile = Model.Mobile})" class="btn-link-border">ارسال مجدد کد تایید</a>
+                                    <a href="@Url.Action("Login","Login")" class="btn-link-border">بازگشت به صفحه ورود</a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="mb-3">
+                                    <a href="@Url.Action("Login","Login")" class="btn-link-border">بازگشت به صفحه ورود</a>
+                                </div>
+                            }
+                        }
                     </div>
                 </div>
             </div>
