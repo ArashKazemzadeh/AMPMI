@@ -36,7 +36,16 @@
         <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
     </div>
     <div>
-        <form enctype="multipart/form-data" id="saveForm" asp-area="Company" asp-action="EditCompanyProfile" asp-controller="CompanyProfile" method="post">
+        <form enctype="multipart/form-data" id="saveForm" asp-area="Admin" asp-action="EditUser" asp-controller="User" method="post">
+            <div class="row mt-2 userEditRow">
+                <div class="col-md-6 my-2">
+                    <div class="form-check d-flex align-items-center">
+                        <input asp-for="IsCompany" class="form-check-input me-2" type="checkbox" id="CisCompany" />
+                        <label for="CisCompany" class="form-check-label mb-0">تغییر نقش به تولید کننده</label>
+                    </div>
+                </div>
+            </div>
+
             <div class="row mt-2 userEditRow">
                 <input asp-for="Id" type="hidden" />
                 <input type="hidden" asp-for="LogoRout" />
