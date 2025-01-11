@@ -1,5 +1,4 @@
 ﻿using AQS_Application.Dtos.BaseServiceDto.Company;
-using System.ComponentModel.DataAnnotations;
 
 namespace WebSite.EndPoint.Areas.Company.Models.Company
 {
@@ -21,6 +20,7 @@ namespace WebSite.EndPoint.Areas.Company.Models.Company
         public IFormFile Logo { get; set; } // برای فایل لوگو
         public bool IsPictureChanged { get; set; }
         public bool SendRequest { get; set; }
+        public bool IsCompany { get; set; }
 
         public CompanyEditProfileDto MapToDto(CompanyEditProfileVM company)
         {
@@ -39,6 +39,7 @@ namespace WebSite.EndPoint.Areas.Company.Models.Company
                 Iso = company.Iso,
                 About = company.About,
                 LogoRout = company.LogoRout,
+               
             };
         }
 
@@ -59,6 +60,7 @@ namespace WebSite.EndPoint.Areas.Company.Models.Company
                 Iso = company.Iso,
                 About = company.About,
                 LogoRout = company.LogoRout == null ? string.Empty : company.LogoRout,
+                IsCompany = company.IsCompany,
             };
         }
 

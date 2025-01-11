@@ -77,7 +77,9 @@ namespace AQS_Application.Services
                     About = c.About,
                     TeaserGuid = c.TeaserGuid,
                     LogoRout = c.LogoRout ?? string.Empty,
-                    SendRequest = c.SendRequst
+                    SendRequest = c.SendRequst,
+                    IsCompany = c.IsCompany
+                    
                 })
                 .FirstOrDefaultAsync();
         }

@@ -120,7 +120,8 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
                 Iso = company.Iso,
                 About = company.About,
                 LogoRout = company.LogoRout == null ? string.Empty : company.LogoRout,
-                SendRequest = company.SendRequest
+                SendRequest = company.SendRequest,
+                IsCompany = company.IsCompany,
             };
             return model;
         }

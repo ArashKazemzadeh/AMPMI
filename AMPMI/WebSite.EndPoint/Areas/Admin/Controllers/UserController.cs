@@ -102,6 +102,9 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
 
                 var dto = CompanyVM.MapToDto(CompanyVM);
 
+                if(dto.IsCompany)
+                await _companyService.IsCompany(dto.Id , dto.IsCompany);
+
                 var resultMessage = await _companyService.UpdateEditProfile(dto);
                 ViewData["error"] = resultMessage == ResultOutPutMethodEnum.savechanged ? "مشخصات ویرایش شد" :
                                     resultMessage == ResultOutPutMethodEnum.recordNotFounded ? "کاربر یافت نشد" :
