@@ -24,9 +24,9 @@
                                     <form id="search-form" method="post" asp-action="SearchProduct" asp-controller="Product" class="subscribe-form">
                                         <div class="input-group subscribe-box d-flex">
                                             <input type="text"
-                                                   style="height:auto;border-radius: 0; border-top-right-radius: 25px; border-bottom-right-radius: 25px;"
-                                                   class="form-control" name="name" autocomplete="off" id="mcemail"
-                                                   placeholder="نام موتور سیکلت، قطعه یا سازنده را جستجو نمایید ...">
+                                            style="height:auto;border-radius: 0; border-top-right-radius: 25px; border-bottom-right-radius: 25px;"
+                                            class="form-control" name="name" autocomplete="off" id="mcemail"
+                                            placeholder="نام موتور سیکلت، قطعه یا سازنده را جستجو نمایید ...">
                                             <div class="dropdown">
                                                 <button class="btn btn-default dropdown-toggle" style="border-radius:0;" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                                     انتخاب دسته‌بندی
@@ -41,7 +41,7 @@
                                             </div>
                                             <input hidden id="categorySelected" name="categorySelected" />
                                             <button style="padding: 14px 20px; border-radius:0; border-top-left-radius: 25px; border-bottom-left-radius: 25px;"
-                                                    class="btn btn-default subscribe-btn" type="submit">
+                                            class="btn btn-default subscribe-btn" type="submit">
                                                 <i class="fa fa-search" aria-hidden="true"></i>
                                             </button>
                                         </div>
@@ -86,34 +86,32 @@
 </section>
 <!-- Service Section End -->
 <!-- Banner Section Start -->
-<section class="padding-bottom-50" id="features">
-    <div class="container">
-        <div class="row text-center">
-            <div class="col-sm-12">
-                <div class="section-title">
-                    <h2 class="section-title-divider primary-divider">بنر</h2>
-                    <!-- SECTION TITLE -->
-                    <p>
-                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="row margin-bottom-0">
-            @foreach (var item in Model.Banners)
-            {
-                <div class="col-sm-4">
-                    <div class="media feature-box">
-                        <div class="media-left">
-                        </div>
-                        <div class="media-body">
-                            <video autoplay style="width:100%;height:100%;" muted src="@item.Rout"></video>
-                        </div>
+@if (Model.Banners.Count > 0) 
+{
+    <section class="padding-bottom-50" id="features">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-sm-12">
+                    <div class="section-title">
+                        <h2 class="section-title-divider primary-divider">بنر</h2>
                     </div>
                 </div>
-            }
+            </div>
+            <div class="row margin-bottom-0">
+                @foreach (var item in Model.Banners)
+                {
+                    <div class="col-sm-4">
+                        <div class="media feature-box">
+                            <div class="media-left">
+                            </div>
+                            <div class="media-body">
+                                <video autoplay style="width:100%;height:100%;" muted src="@item.Rout"></video>
+                            </div>
+                        </div>
+                    </div>
+                }
 
-            @*             <div class="col-sm-4">
+                @*             <div class="col-sm-4">
                 <div class="media feature-box">
                     <div class="media-left">
                         <span class="feature-icon">
@@ -126,9 +124,11 @@
                     </div>
                 </div>
  *@            
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+
+}
 <!-- Banner Section End -->
 <!-- Service Section Start -->
 <section class="padding-bottom-50" id="service2">
