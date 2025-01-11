@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AQS_Domin")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ad06dd696f89c613e0b373b485f1149e67b84d8c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4b29ca28ddf392bdcd91f69987c1efa7029f7121")]
 [assembly: System.Reflection.AssemblyProductAttribute("AQS_Domin")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AQS_Domin")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

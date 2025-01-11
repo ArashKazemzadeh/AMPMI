@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AQS_Common")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2bde65e6b256d6f73dd4b14e6610e2a50131b747")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4b29ca28ddf392bdcd91f69987c1efa7029f7121")]
 [assembly: System.Reflection.AssemblyProductAttribute("AQS_Common")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AQS_Common")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

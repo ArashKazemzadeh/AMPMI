@@ -8,11 +8,29 @@
     <div class="pageName">
         <a href="@Url.Action("UserList","User")" class="textPage">لیست کاربران</a>
     </div>
-   @*  <div class="row">
-        <a href="@Url.Action("EditUser","User")" id="new"> <img class="img-Icon" src="~/images/addition copy.png" /> </a>
-    </div> *@
+
     <div class="row">
-        <table id="myTable" class="display tbStyle">
+        <div class="col-md-12">
+            <a id="new" href="#"> <img class="img-Icon" src="~/images/addition copy.png" /></a>
+           @*  فرم زیر رو گداشتم همینجوری باشه تا تکلیف نحوه اضافه کردن کاربر جدید رو بدونم بعد تصمیم بگیریم *@
+
+           @*  <a hidden id="save" href="#"> <img class="img-Icon" src="~/images/diskette copy.png" /></a>
+            <a hidden id="cancle" href="#"><img class="img-Icon" src="~/images/cancel.png" /></a>
+            <!-- Form to create a new notification -->
+            <form id="newForm" asp-area="Admin" asp-controller="Notification" asp-action="Create" method="post" hidden>
+                <div class="form-group">
+                    <label for="Subject" style="float:right;">موضوع اعلان:</label>
+
+                    <input type="text" id="Subject" name="subject" class="form-control input-text" placeholder="موضوع اعلان را وارد کنید" />
+                </div>
+                <div class="form-group">
+                    <label for="Description" style="float:right;">متن اعلان:</label>
+                    <textarea id="Description" name="description" class="form-control input-text" rows="5" placeholder="متن متن را وارد کنید"></textarea>
+
+                </div>
+            </form> *@
+        </div>
+        <table id="userable" class="display tbStyle">
             <thead>
                 <tr>
                     <th>ردیف</th>
@@ -26,15 +44,16 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    @{
-                        int row = 1;
-                        const string user = "کاربر";
-                        const string company = "تولید کننده";
-                    }
-                    @foreach (var item in Model)
-                    {
-                        <td class="td-Icon">@row</td>
+
+                @{
+                    const string user = "کاربر";
+                    const string company = "تولید کننده";
+                    long rowIndex = 1;
+                }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="td-Icon">@rowIndex</td>
                         <td class="td-Icon">@item.Name</td>
                         <td class="td-Icon">@item.Email</td>
                         <td class="td-Icon">@item.MobileNumber</td>
@@ -66,11 +85,12 @@
                                 <img class="img-Icon" src="~/images/recycle.png" />
                             </a>
                         </td>
-                        row++;
-                    }
+                        
+                    </tr>
+                    rowIndex++;
+                }
 
-                </tr>
-               
+
             </tbody>
         </table>
     </div>
@@ -79,12 +99,53 @@
 @section Scripts
 {
     <script>
-          document.querySelector('#myTable')
-            .setAttribute('dir', 'rtl'); // Demo only
+        document.querySelector('#userable')
+            .setAttribute('dir', 'rtl');
+        new DataTable('#userable');
 
-        new DataTable('#myTable');
+        // لطفا پاک نکنید فغلا
+        // $("#new").click(function(){
+        //     $("#newForm").show();
+        //     $("#save").show();
+        //     $("#cancle").show();
+        // });
 
+        // function DeleteRow(event){
+        //     var isConfirmd= confirm("آیا از حذف این ردیف اطمینان دارید ؟")
+        //     if(!isConfirmd){
+        //         event.preventDefault();
+        //         return false;
+        //     }
+        //     else{
+        //         return true;
+        //     }
+
+        // }
+
+        // function HideForm()
+        // {
+        //     $("#newForm").hide();
+        // }
+
+        // $("#save").click(function(){
+        //     HideForm();
+        // });
+
+        // $("#cancle").click(function(){
+        //     HideForm();
+        //     $("#save").hide();
+        //     $("#cancle").hide();
+        // });
+        //  $("#save").click(function (event) {
+        //     event.preventDefault();
+        //     $("#newForm").submit();
+        // });
+
+
+        // $("#cancle").click(function (event) {
+        //     event.preventDefault();
+        //     $("#newForm").hide();
+        // });
     </script>
-
 
 }

@@ -1,26 +1,18 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\ArashKaf\\Desktop\\Project_AMPMI\\AMPMI\\AMPMI\\",
+  "WorkspaceRootPath": "C:\\Users\\ArashKaf\\Desktop\\AMPMI\\AMPMI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9493B81C-AC68-47EB-85ED-F3B71465A8B8}|WebSite.EndPoint\\WebSite.EndPoint.csproj|c:\\users\\arashkaf\\desktop\\project_ampmi\\ampmi\\ampmi\\website.endpoint\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{9493B81C-AC68-47EB-85ED-F3B71465A8B8}|WebSite.EndPoint\\WebSite.EndPoint.csproj|solutionrelative:website.endpoint\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{9493B81C-AC68-47EB-85ED-F3B71465A8B8}|WebSite.EndPoint\\WebSite.EndPoint.csproj|c:\\users\\arashkaf\\desktop\\ampmi\\ampmi\\website.endpoint\\areas\\admin\\views\\user\\edituser.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9493B81C-AC68-47EB-85ED-F3B71465A8B8}|WebSite.EndPoint\\WebSite.EndPoint.csproj|solutionrelative:website.endpoint\\areas\\admin\\views\\user\\edituser.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9EE74EAF-6D82-4505-8675-ABE74A18E8D0}|AQS_Persistence\\AQS_Persistence.csproj|c:\\users\\arashkaf\\desktop\\project_ampmi\\ampmi\\ampmi\\aqs_persistence\\contexts\\databasecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EE74EAF-6D82-4505-8675-ABE74A18E8D0}|AQS_Persistence\\AQS_Persistence.csproj|solutionrelative:aqs_persistence\\contexts\\databasecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9493B81C-AC68-47EB-85ED-F3B71465A8B8}|WebSite.EndPoint\\WebSite.EndPoint.csproj|c:\\users\\arashkaf\\desktop\\ampmi\\ampmi\\website.endpoint\\areas\\admin\\views\\user\\userlist.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9493B81C-AC68-47EB-85ED-F3B71465A8B8}|WebSite.EndPoint\\WebSite.EndPoint.csproj|solutionrelative:website.endpoint\\areas\\admin\\views\\user\\userlist.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7DAEBB5E-5375-4293-9B11-59E7D6A2E16D}|AQS_Aplication\\AQS_Aplication.csproj|c:\\users\\arashkaf\\desktop\\project_ampmi\\ampmi\\ampmi\\aqs_aplication\\interfaces\\context\\idatabasecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7DAEBB5E-5375-4293-9B11-59E7D6A2E16D}|AQS_Aplication\\AQS_Aplication.csproj|solutionrelative:aqs_aplication\\interfaces\\context\\idatabasecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBB75E25-C324-499A-8CE2-0E3CEBFE8147}|AQS_Domin\\AQS_Domin.csproj|c:\\users\\arashkaf\\desktop\\project_ampmi\\ampmi\\ampmi\\aqs_domin\\entities\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBB75E25-C324-499A-8CE2-0E3CEBFE8147}|AQS_Domin\\AQS_Domin.csproj|solutionrelative:aqs_domin\\entities\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBB75E25-C324-499A-8CE2-0E3CEBFE8147}|AQS_Domin\\AQS_Domin.csproj|c:\\users\\arashkaf\\desktop\\project_ampmi\\ampmi\\ampmi\\aqs_domin\\entities\\notification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBB75E25-C324-499A-8CE2-0E3CEBFE8147}|AQS_Domin\\AQS_Domin.csproj|solutionrelative:aqs_domin\\entities\\notification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9493B81C-AC68-47EB-85ED-F3B71465A8B8}|WebSite.EndPoint\\WebSite.EndPoint.csproj|c:\\users\\arashkaf\\desktop\\ampmi\\ampmi\\website.endpoint\\areas\\admin\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9493B81C-AC68-47EB-85ED-F3B71465A8B8}|WebSite.EndPoint\\WebSite.EndPoint.csproj|solutionrelative:website.endpoint\\areas\\admin\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -35,63 +27,41 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\ArashKaf\\Desktop\\Project_AMPMI\\AMPMI\\AMPMI\\WebSite.EndPoint\\Views\\Home\\Index.cshtml",
-              "RelativeDocumentMoniker": "WebSite.EndPoint\\Views\\Home\\Index.cshtml",
-              "ToolTip": "C:\\Users\\ArashKaf\\Desktop\\Project_AMPMI\\AMPMI\\AMPMI\\WebSite.EndPoint\\Views\\Home\\Index.cshtml",
-              "RelativeToolTip": "WebSite.EndPoint\\Views\\Home\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Title": "EditUser.cshtml",
+              "DocumentMoniker": "C:\\Users\\ArashKaf\\Desktop\\AMPMI\\AMPMI\\WebSite.EndPoint\\Areas\\Admin\\Views\\User\\EditUser.cshtml",
+              "RelativeDocumentMoniker": "WebSite.EndPoint\\Areas\\Admin\\Views\\User\\EditUser.cshtml",
+              "ToolTip": "C:\\Users\\ArashKaf\\Desktop\\AMPMI\\AMPMI\\WebSite.EndPoint\\Areas\\Admin\\Views\\User\\EditUser.cshtml",
+              "RelativeToolTip": "WebSite.EndPoint\\Areas\\Admin\\Views\\User\\EditUser.cshtml",
+              "ViewState": "AgIAAFEAAAAAAAAAAAAAAGMAAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-11-20T07:33:04.878Z",
+              "WhenOpened": "2025-01-11T09:37:06.117Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UserList.cshtml",
+              "DocumentMoniker": "C:\\Users\\ArashKaf\\Desktop\\AMPMI\\AMPMI\\WebSite.EndPoint\\Areas\\Admin\\Views\\User\\UserList.cshtml",
+              "RelativeDocumentMoniker": "WebSite.EndPoint\\Areas\\Admin\\Views\\User\\UserList.cshtml",
+              "ToolTip": "C:\\Users\\ArashKaf\\Desktop\\AMPMI\\AMPMI\\WebSite.EndPoint\\Areas\\Admin\\Views\\User\\UserList.cshtml",
+              "RelativeToolTip": "WebSite.EndPoint\\Areas\\Admin\\Views\\User\\UserList.cshtml",
+              "ViewState": "AgIAADAAAAAAAAAAAAAAAE4AAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-01-11T09:07:29.773Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "IDataBaseContext.cs",
-              "DocumentMoniker": "C:\\Users\\ArashKaf\\Desktop\\Project_AMPMI\\AMPMI\\AMPMI\\AQS_Aplication\\Interfaces\\Context\\IDataBaseContext.cs",
-              "RelativeDocumentMoniker": "AQS_Aplication\\Interfaces\\Context\\IDataBaseContext.cs",
-              "ToolTip": "C:\\Users\\ArashKaf\\Desktop\\Project_AMPMI\\AMPMI\\AMPMI\\AQS_Aplication\\Interfaces\\Context\\IDataBaseContext.cs",
-              "RelativeToolTip": "AQS_Aplication\\Interfaces\\Context\\IDataBaseContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAASAAAAAAAAAA==",
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Users\\ArashKaf\\Desktop\\AMPMI\\AMPMI\\WebSite.EndPoint\\Areas\\Admin\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "WebSite.EndPoint\\Areas\\Admin\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\ArashKaf\\Desktop\\AMPMI\\AMPMI\\WebSite.EndPoint\\Areas\\Admin\\Controllers\\UserController.cs",
+              "RelativeToolTip": "WebSite.EndPoint\\Areas\\Admin\\Controllers\\UserController.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAowDIAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-20T06:35:34.028Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "DataBaseContext.cs",
-              "DocumentMoniker": "C:\\Users\\ArashKaf\\Desktop\\Project_AMPMI\\AMPMI\\AMPMI\\AQS_Persistence\\Contexts\\DataBaseContext.cs",
-              "RelativeDocumentMoniker": "AQS_Persistence\\Contexts\\DataBaseContext.cs",
-              "ToolTip": "C:\\Users\\ArashKaf\\Desktop\\Project_AMPMI\\AMPMI\\AMPMI\\AQS_Persistence\\Contexts\\DataBaseContext.cs",
-              "RelativeToolTip": "AQS_Persistence\\Contexts\\DataBaseContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-20T06:20:56.538Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Notification.cs",
-              "DocumentMoniker": "C:\\Users\\ArashKaf\\Desktop\\Project_AMPMI\\AMPMI\\AMPMI\\AQS_Domin\\Entities\\Notification.cs",
-              "RelativeDocumentMoniker": "AQS_Domin\\Entities\\Notification.cs",
-              "ToolTip": "C:\\Users\\ArashKaf\\Desktop\\Project_AMPMI\\AMPMI\\AMPMI\\AQS_Domin\\Entities\\Notification.cs",
-              "RelativeToolTip": "AQS_Domin\\Entities\\Notification.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-20T05:56:39.513Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Product.cs",
-              "DocumentMoniker": "C:\\Users\\ArashKaf\\Desktop\\Project_AMPMI\\AMPMI\\AMPMI\\AQS_Domin\\Entities\\Product.cs",
-              "RelativeDocumentMoniker": "AQS_Domin\\Entities\\Product.cs",
-              "ToolTip": "C:\\Users\\ArashKaf\\Desktop\\Project_AMPMI\\AMPMI\\AMPMI\\AQS_Domin\\Entities\\Product.cs",
-              "RelativeToolTip": "AQS_Domin\\Entities\\Product.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-20T05:43:33.031Z"
+              "WhenOpened": "2025-01-11T09:07:23.883Z",
+              "EditorCaption": ""
             }
           ]
         }
