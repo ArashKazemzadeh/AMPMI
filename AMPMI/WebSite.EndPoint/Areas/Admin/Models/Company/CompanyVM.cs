@@ -1,4 +1,5 @@
-﻿using Domin.Entities;
+﻿using AQS_Application.Dtos.BaseServiceDto.Company;
+using Domin.Entities;
 
 namespace WebSite.EndPoint.Areas.Admin.Models.Company
 {
@@ -18,7 +19,7 @@ namespace WebSite.EndPoint.Areas.Admin.Models.Company
         public string? Iso { get; set; }
         public string? About { get; set; }
         public string? LogoRout { get; set; }
-        public string? Logo { get; set; }
+        public IFormFile Logo { get; set; }
         public bool IsPictureChanged { get; set; }
         public bool IsCompany { get; set; }
         public bool SendRequst { get; set; }
@@ -29,5 +30,37 @@ namespace WebSite.EndPoint.Areas.Admin.Models.Company
         //public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 
         //public virtual ICollection<SeenNotifByCompany> SeenNotifByCompanies { get; set; } = new List<SeenNotifByCompany>();
+
+
+
+
+
+
+
+
+
+
+
+
+        public CompanyEditProfileDto MapToDto(CompanyVM company)
+        {
+            return new CompanyEditProfileDto
+            {
+                Id = company.Id,
+                Name = company.Name,
+                ManagerName = company.ManagerName,
+                MobileNumber = company.MobileNumber,
+                Email = company.Email,
+                Address = company.Address,
+                Brands = company.Brands,
+                Capacity = company.Capacity,
+                Partnership = company.Partnership,
+                QualityGrade = company.QualityGrade,
+                Iso = company.Iso,
+                About = company.About,
+                LogoRout = company.LogoRout == null ? string.Empty : company.LogoRout,
+                IsCompany = company.IsCompany,
+            };
+        }
     }
 }

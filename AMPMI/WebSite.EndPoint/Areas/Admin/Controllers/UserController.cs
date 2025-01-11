@@ -2,12 +2,12 @@
 using AQS_Common.Enums;
 using Microsoft.AspNetCore.Mvc;
 using WebSite.EndPoint.Areas.Admin.Models.Company;
-using WebSite.EndPoint.Areas.Company.Models.Company;
 using WebSite.EndPoint.Utility;
 
 namespace WebSite.EndPoint.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    //[Authorize(Roles ="Admin")]
     public class UserController : Controller
     {
         private readonly ICompanyService _companyService;
@@ -77,19 +77,19 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditUser(CompanyEditProfileVM companyEditProfileVM)
+        public async Task<IActionResult> EditUser(CompanyVM CompanyVM)
         {
             try
             {
                 string newRout = "";
-                if (companyEditProfileVM.IsPictureChanged)
+                if (CompanyVM.IsPictureChanged)
                 {
-                    if (!string.IsNullOrEmpty(companyEditProfileVM.LogoRout))
+                    if (!string.IsNullOrEmpty(CompanyVM.LogoRout))
                     {
-                        bool isDelete = await _fileServices.DeleteFile(companyEditProfileVM.LogoRout);
+                        bool isDelete = await _fileServices.DeleteFile(CompanyVM.LogoRout);
                     }
 
-                    newRout = await _fileServices.SaveFileAsync(companyEditProfileVM.Logo, PictureFolder);
+                    newRout = await _fileServices.SaveFileAsync(CompanyVM.Logo, PictureFolder);
 
                     if (string.IsNullOrEmpty(newRout))
                     {
@@ -97,27 +97,22 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                         return RedirectToAction(nameof(UserList));
                     }
 
-                    companyEditProfileVM.LogoRout = newRout;
+                    CompanyVM.LogoRout = newRout;
                 }
 
-                var dto = companyEditProfileVM.MapToDto(companyEditProfileVM);
+                var dto = CompanyVM.MapToDto(CompanyVM);
 
                 var resultMessage = await _companyService.UpdateEditProfile(dto);
                 ViewData["error"] = resultMessage == ResultOutPutMethodEnum.savechanged ? "مشخصات ویرایش شد" :
                                     resultMessage == ResultOutPutMethodEnum.recordNotFounded ? "کاربر یافت نشد" :
                                     "مشخطات ویرایش نشد";
 
-                //if (ResultOutPutMethodEnum.savechanged == resultMessage)
-                //{
-                //    return Redirect("/Company/CompanyPanel/Panel");
-                //}
-
-                return View(companyEditProfileVM);
+                return View(CompanyVM);
             }
             catch (Exception ex)
             {
                 ViewData["error"] = ex.Message;
-                return View(companyEditProfileVM);
+                return View(CompanyVM);
             }
         }
     }
