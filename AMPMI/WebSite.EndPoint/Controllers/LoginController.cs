@@ -12,13 +12,13 @@ using WebSite.EndPoint.Models.AccountingViewModel.Register;
 
 namespace WebSite.EndPoint.Controllers
 {
-    public class LoginController : Controller //ToDo : Arash : View مونده
+    public class LoginController : Controller
     {
         private readonly ISMSOTPService _smsOtpService;
         private readonly IMemoryCache _memoryCache;
         private readonly ICompanyService _companyService;
         private readonly ILoginService _loginService;
-        private const int OtpExpirationSeconds = 120;
+        private const int OtpExpirationSeconds = 30;
         private const string CompanyRoleName = "Company";
         private const string AdminRoleName = "Admin";
         public LoginController
@@ -54,19 +54,7 @@ namespace WebSite.EndPoint.Controllers
 
             if (result.IsSuccess)
             {
-                //if (result.Role == AdminRoleName)
-                //{
-                //    return RedirectToAction
-                //     (
-                //      actionName: "panel",
-                //      controllerName: "admin",
-                //      routeValues: new { area = "admin", userId = result.UserId }
-                //     );
-                //}
-                //else
-                //{
                 return Redirect("/home/index/");
-                //}
             }
             else
             {
@@ -121,13 +109,17 @@ namespace WebSite.EndPoint.Controllers
                 ModelState.AddModelError("mobile", "شماره موبایل نامعتبر است.");
                 return View();
             }
+            HttpStatusCode result = HttpStatusCode.NoContent;
             if (!_memoryCache.TryGetValue($"OTP_{mobile}", out int otp))
             {
                 otp = await _smsOtpService.GenerateUniqueOTPAsync();
                 _memoryCache.Set($"OTP_{mobile}", otp, TimeSpan.FromSeconds(OtpExpirationSeconds));
+                result = await _smsOtpService.SendSMSForAuthentication(mobile, otp.ToString());
             }
-
-            HttpStatusCode result = await _smsOtpService.SendSMSForAuthentication(mobile, otp.ToString());
+            else
+            {
+                result = HttpStatusCode.OK;
+            }
 
             if (result == HttpStatusCode.OK)
             {
@@ -151,6 +143,7 @@ namespace WebSite.EndPoint.Controllers
             {
                 return NotFound();
             }
+
             var model = new ConfirmOtpViewModel
             {
                 Mobile = mobile,
@@ -210,6 +203,33 @@ namespace WebSite.EndPoint.Controllers
         {
             await _loginService.LogoutAsync();
             return RedirectToAction(actionName: "Index", controllerName: "Home");
+        }
+
+        public async Task<IActionResult> ResendOTP(string mobile)
+        {
+            if (string.IsNullOrWhiteSpace(mobile) || !mobile.IsValidMobileNumber())
+            {
+                TempData["ErrorMessage"] = "شماره موبایل نامعتبر است.";
+                return RedirectToAction(nameof(ConfirmOTP), new { mobile });
+            }
+
+            if (!_memoryCache.TryGetValue($"OTP_{mobile}", out int otp))
+            {
+                otp = await _smsOtpService.GenerateUniqueOTPAsync();
+                _memoryCache.Set($"OTP_{mobile}", otp, TimeSpan.FromSeconds(OtpExpirationSeconds));
+            }
+
+            HttpStatusCode result = await _smsOtpService.SendSMSForAuthentication(mobile, otp.ToString());
+            if (result == HttpStatusCode.OK)
+            {
+                TempData["SuccessMessage"] = "کد تایید با موفقیت ارسال شد.";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "ارسال کد ناموفق بود. لطفاً دوباره تلاش کنید.";
+            }
+
+            return RedirectToAction(nameof(ConfirmOTP), new { mobile });
         }
 
         [AllowAnonymous]

@@ -11,7 +11,6 @@ namespace WebSite.EndPoint.Models.AccountingViewModel.Register
         [Required(ErrorMessage = "شماره موبایل وارد نشده است.")]
         [RegularExpression(@"^(\+98|0)?9\d{9}$", ErrorMessage = "شماره موبایل نامعتبر است.")]
         public required string Mobile { get; set; }
-
         /// <summary>
         /// نام شرکت
         /// </summary>
