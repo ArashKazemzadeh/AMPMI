@@ -15,11 +15,11 @@
                 <div class="account-box">
                     <div class="account-box-title text-right">ورود </div>
                     <div class="account-box-content">
-                        <form action="/Login/Login" method="post" class="form-account">
+                        <form autocomplete="off" action="/Login/Login" method="post" class="form-account">
                             <div class="form-account-title"> شماره موبایل</div>
                             <div class="form-account-row">
                                 <label class="input-label"><i class="now-ui-icons users_single-02"></i></label>
-                                <input asp-for=Mobile class="input-field" type="text" placeholder="شماره موبایل خود را وارد نمایید">
+                                <input autocomplete="tel" asp-for=Mobile class="input-field" type="tel" placeholder="شماره موبایل خود را وارد نمایید">
                                 <span class="text-danger" asp-validation-for=Mobile></span>
                             </div>
                             <div class="form-account-title">
@@ -29,7 +29,7 @@
                                 <label class="input-label">
                                     <i class="now-ui-icons ui-1_lock-circle-open"></i>
                                 </label>
-                                <input asp-for=Password class="input-field" type="password" placeholder="رمز عبور خود را وارد نمایید">
+                                <input autocomplete="current-password" asp-for=Password class="input-field" type="password" placeholder="رمز عبور خود را وارد نمایید">
                                 <span class="text-danger" asp-validation-for=Password></span>
                             </div>
                             <div class="form-account-row form-account-submit">
