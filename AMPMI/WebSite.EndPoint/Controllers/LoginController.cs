@@ -18,7 +18,7 @@ namespace WebSite.EndPoint.Controllers
         private readonly IMemoryCache _memoryCache;
         private readonly ICompanyService _companyService;
         private readonly ILoginService _loginService;
-        private const int OtpExpirationSeconds = 120;
+        private const int OtpExpirationSeconds = 30;
         private const string CompanyRoleName = "Company";
         private const string AdminRoleName = "Admin";
         public LoginController
@@ -109,13 +109,17 @@ namespace WebSite.EndPoint.Controllers
                 ModelState.AddModelError("mobile", "شماره موبایل نامعتبر است.");
                 return View();
             }
-            //if (!_memoryCache.TryGetValue($"OTP_{mobile}", out int otp))
-            //{
-              int  otp = await _smsOtpService.GenerateUniqueOTPAsync();
+            HttpStatusCode result = HttpStatusCode.NoContent;
+            if (!_memoryCache.TryGetValue($"OTP_{mobile}", out int otp))
+            {
+                otp = await _smsOtpService.GenerateUniqueOTPAsync();
                 _memoryCache.Set($"OTP_{mobile}", otp, TimeSpan.FromSeconds(OtpExpirationSeconds));
-            //}
-
-            HttpStatusCode result = await _smsOtpService.SendSMSForAuthentication(mobile, otp.ToString());
+                result = await _smsOtpService.SendSMSForAuthentication(mobile, otp.ToString());
+            }
+            else
+            {
+                result = HttpStatusCode.OK;
+            }
 
             if (result == HttpStatusCode.OK)
             {

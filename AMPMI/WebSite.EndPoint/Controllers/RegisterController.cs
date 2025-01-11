@@ -66,13 +66,18 @@ namespace WebSite.EndPoint.Controllers
                 return View();
             }
 
-            //if (!_memoryCache.TryGetValue($"OTP_{mobile}", out int otp))
-            //{
-            int otp = await _smsOtpService.GenerateUniqueOTPAsync();
-            _memoryCache.Set($"OTP_{mobile}", otp, TimeSpan.FromSeconds(OtpExpirationSeconds));
-            //}
+            HttpStatusCode result = HttpStatusCode.NoContent;
+            if (!_memoryCache.TryGetValue($"OTP_{mobile}", out int otp))
+            {
+                otp = await _smsOtpService.GenerateUniqueOTPAsync();
+                _memoryCache.Set($"OTP_{mobile}", otp, TimeSpan.FromSeconds(OtpExpirationSeconds));
+                result = await _smsOtpService.SendSMSForAuthentication(mobile, otp.ToString());
+            }
+            else
+            {
+                result = HttpStatusCode.OK;
+            }
 
-            HttpStatusCode result =  await _smsOtpService.SendSMSForAuthentication(mobile, otp.ToString());
             if (result == HttpStatusCode.OK)
             {
                 return RedirectToAction(nameof(ConfirmOTP), new { mobile });
