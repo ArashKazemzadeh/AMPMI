@@ -22,13 +22,13 @@
             <!-- Form to create a new notification -->
             <form id="newForm" asp-area="Admin" asp-controller="Notification" asp-action="Create" method="post" hidden>
                 <div class="form-group">
-                    <label for="Subject" style="float:right;">موضوع اعلان:</label>
+                    <label for="Subject" class="input-Label">موضوع اعلان:</label>
 
-                    <input type="text" id="Subject" name="subject" class="form-control input-text" placeholder="موضوع اعلان را وارد کنید" />
+                    <input type="text" id="Subject" name="subject" class="input-text" placeholder="موضوع اعلان را وارد کنید" />
                 </div>
                 <div class="form-group">
-                    <label for="Description" style="float:right;">متن اعلان:</label>
-                    <textarea id="Description" name="description" class="form-control input-text" rows="5" placeholder="متن متن را وارد کنید"></textarea>
+                    <label for="Description" class="input-Label">متن اعلان:</label>
+                    <textarea id="Description" name="description" class="input-text" rows="5" placeholder="متن متن را وارد کنید"></textarea>
 
                 </div>
             </form>
