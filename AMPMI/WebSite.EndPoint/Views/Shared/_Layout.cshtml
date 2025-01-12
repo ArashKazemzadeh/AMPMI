@@ -25,6 +25,7 @@
     <link href="~/css/style.css" rel="stylesheet" />
     <link href="~/css/site.css" rel="stylesheet" />
     <link href="~/css/CustomLogin.css" rel="stylesheet" />
+    <link href="~/css/CustomDashboard.css" rel="stylesheet" />
     @await RenderSectionAsync("CSS", required: false)
 </head>
 <body data-spy="scroll" data-offset="62">
@@ -43,7 +44,7 @@
             </button>
 
             <div class="collapse navbar-collapse" style="justify-content:space-around;" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav ml-auto list">
                     <li class="nav-item active">
                         <a class="nav-link" href="@Url.Action("Index","Home")">صفحه اصلی</a>
                     </li>
@@ -56,11 +57,8 @@
                     <li class="nav-item">
                         <a style="color: #fff" class="nav-link" href="@Url.Action("Index","AboutUs")">درباره ما</a>
                     </li>
-@*                     <li class="nav-item">
-                        <a style="color: #fff" class="nav-link" href="#plans">تماس با ما</a>
-                    </li> *@
                     <li class="nav-item">
-                        <a style="color: #fff" class="nav-link" href="#blog">راهنمای ثبت‌نام</a>
+                        <a style="color: #fff" class="nav-link" href="@Url.Action("ContactUs","ContactUs")">تماس با ما</a>
                     </li>
                 </ul>
 

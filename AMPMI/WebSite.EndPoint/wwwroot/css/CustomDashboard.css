@@ -168,3 +168,32 @@ td.td-Icon {
     color: #001594;
     margin-right:10px;
 }
+
+
+.list li {
+    display: inline-block;
+    border-left: 2px solid;
+    padding: 5px;
+}
+
+    .list li:last-child {
+        border-left: none;
+    }
+
+.category-Pic {
+    border-radius: 50%;
+    border: none;
+    background-color: #FFFFFF;
+    width: 200px;
+    height: 200px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+.category-Pic-img {
+    width: 100px;
+    height: 100px;
+}
