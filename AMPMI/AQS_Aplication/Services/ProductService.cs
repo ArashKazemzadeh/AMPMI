@@ -16,13 +16,13 @@ namespace AQS_Application.Services
 
         public async Task<long> Create(Product product)
         {
-            var row = _context.Products.Add(product);
+            var row = await _context.Products.AddAsync(product);
 
             int result = await _context.SaveChangesAsync();
 
             if (result > 0)
             {
-                return row.Entity.Id; 
+                return row.Entity.Id;
             }
             return -1;
         }
@@ -41,14 +41,14 @@ namespace AQS_Application.Services
 
         public async Task<List<Product>> Read()
         {
-            var result = await _context.Products.Include(x=>x.Company).Include(x=>x.SubCategory).
-                ThenInclude(x=>x.Category).AsNoTracking().ToListAsync();
+            var result = await _context.Products.Include(x => x.Company).Include(x => x.SubCategory).
+                ThenInclude(x => x.Category).AsNoTracking().ToListAsync();
             return result == null ? new List<Product>() : result;
         }
 
         public async Task<Product?> ReadById(long id)
         {
-            return await _context.Products.Include(x=>x.Company).FirstOrDefaultAsync(i => i.Id == id);
+            return await _context.Products.Include(x => x.Company).FirstOrDefaultAsync(i => i.Id == id);
         }
         public async Task<List<Product>> SearchProductByName(string name)
         {
@@ -61,15 +61,15 @@ namespace AQS_Application.Services
         {
             name = $"%{name}%";
             return await _context.Products
-                .Include(x=>x.SubCategory)
-                .Where(m=>m.SubCategory.CategoryId == categoryId)
+                .Include(x => x.SubCategory)
+                .Where(m => m.SubCategory.CategoryId == categoryId)
                 .Where(p => EF.Functions.Like(p.Name, name))
                 .ToListAsync();
         }
         public async Task<Product?> ReadByIdIncludeCategoryAndSubCategoryAndCompany(long id)
         {
             return await _context.Products
-                .Include(x=>x.Company)
+                .Include(x => x.Company)
                 .Include(x => x.SubCategory)
                 .ThenInclude(m => m.Category)
                 .FirstOrDefaultAsync(c => c.Id == id);
@@ -84,15 +84,19 @@ namespace AQS_Application.Services
         }
         public async Task<List<Product>> ReadByCompanyId(long id)
         {
-            return await _context.Products.Where(x => x.CompanyId == id).Include(x => x.SubCategory)
-                .ThenInclude(x => x.Category).AsNoTracking().ToListAsync();
+            return await _context.Products
+                .Where(x => x.CompanyId == id)
+                .Include(x => x.SubCategory)
+                .ThenInclude(x => x.Category)
+                .AsNoTracking()
+                .ToListAsync();
         }
         public async Task<List<Product>> ReadNotConfirmed()
         {
             return await _context.Products
                 .Where(x => x.IsConfirmed == false)
-                .Include(x=>x.SubCategory)
-                .ThenInclude(x=>x.Category)
+                .Include(x => x.SubCategory)
+                .ThenInclude(x => x.Category)
                 .AsNoTracking()
                 .ToListAsync();
         }
@@ -109,23 +113,28 @@ namespace AQS_Application.Services
             if (product.Description != null && existingProduct.Description != product.Description)
                 existingProduct.Description = product.Description;
 
-            if (product.PictureFileName != null && existingProduct.PictureFileName != product.PictureFileName)
-                existingProduct.PictureFileName = product.PictureFileName;
-
             int result = await _context.SaveChangesAsync();
 
             return result > 0 ? ResultOutPutMethodEnum.savechanged : ResultOutPutMethodEnum.dontSaved;
         }
-        public async Task<ResultOutPutMethodEnum> UpdatePictureFileName(int id, string pictureFileName)
+        public async Task<ResultOutPutMethodEnum> UpdatePictureRout(int ProductId, string rout)
         {
-            var existingProduct = await _context.Products.FindAsync(id);
-            if (existingProduct == null)
-                return ResultOutPutMethodEnum.recordNotFounded;
-
-            existingProduct.PictureFileName = pictureFileName;
+            ProductPicture productPicture = new()
+            {
+                ProductId = ProductId,
+                Rout = rout
+            };
+            await _context.ProductPictures.AddAsync(productPicture);
 
             return await _context.SaveChangesAsync() > 1 ?
-               ResultOutPutMethodEnum.savechanged : ResultOutPutMethodEnum.dontSaved;
+               ResultOutPutMethodEnum.savechanged :
+               ResultOutPutMethodEnum.dontSaved;
+        }
+        public async Task<List<ProductPicture>> ReadPictureRouts(int productId)
+        {
+            return await _context.ProductPictures
+                .Where(x => x.ProductId == productId)
+                .ToListAsync();
         }
         public async Task<ResultOutPutMethodEnum> IsConfirmed(long id, bool isConfirmed)
         {

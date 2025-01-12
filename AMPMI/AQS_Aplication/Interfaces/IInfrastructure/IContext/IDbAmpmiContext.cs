@@ -14,26 +14,18 @@ namespace AQS_Application.Interfaces.IInfrastructure.IContext
 
         #region  DbSet<Entity>
         DbSet<Blog> Blogs { get; set; }
-
         DbSet<BlogPicture> BlogPictures { get; set; }
-
         DbSet<Category> Categories { get; set; }
-
         DbSet<Company> Companies { get; set; }
-
         DbSet<CompanyPicture> CompanyPictures { get; set; }
-
         DbSet<Notification> Notifications { get; set; }
-
         DbSet<Product> Products { get; set; }
-
         DbSet<SeenNotifByCompany> SeenNotifByCompanies { get; set; }
-
         DbSet<SiteAdmin> SiteAdmins { get; set; }
-
         DbSet<SubCategory> SubCategories { get; set; }
         DbSet<Banner> Banners { get; set; }
-        DbSet< MiscellaneousData> MiscellaneousDatas { get; set; }
+        DbSet<MiscellaneousData> MiscellaneousDatas { get; set; }
+        DbSet<ProductPicture> ProductPictures { get; set; }
         #endregion
 
         #region SaveChanges()
