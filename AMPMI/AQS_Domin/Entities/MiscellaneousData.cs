@@ -13,7 +13,6 @@ public class MiscellaneousData
     /// <summary>
     /// uniq
     /// </summary>
-    [Column(TypeName = "nvarchar(max)")]
     public required string Value { get; set; }
 }
 

@@ -67,6 +67,9 @@ public static class EntitiesConfig
         modelBuilder.Entity<MiscellaneousData>(entity =>
         {
             entity.HasKey(e => e.Key);
+
+            entity.Property(m => m.Value)
+                .HasColumnType("nvarchar(max)");
         });
 
         modelBuilder.Entity<Banner>(entity =>
