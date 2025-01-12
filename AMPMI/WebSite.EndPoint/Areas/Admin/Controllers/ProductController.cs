@@ -58,7 +58,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                 CompanyName = x.Company?.Name,
                 Name = x.Name,
                 IsConfirmed = x.IsConfirmed,
-                PictureFileSrc = x.PictureFileName,
+                //PictureFileSrc = x.PictureFileName,
                 SubCategoryName = x.SubCategory.Name,
                 CategoryName = x.SubCategory.Category.Name
             }).ToList();
@@ -109,7 +109,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                     }
                     else
                     {
-                        newProduct.PictureFileName = picureFilePath;
+                        //newProduct.PictureFileName = picureFilePath;
                     }                    
                 }
 
@@ -143,7 +143,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                     Description = product.Description,
                     Name = product.Name,
                     IsConfirmed = product.IsConfirmed,
-                    PictureFileSrc = product.PictureFileName,
+                    //PictureFileSrc = product.PictureFileName,
                     SubCategoryId = product.SubCategoryId,
                     CategoryId = product.SubCategory.CategoryId,
                     Categories = _Category
@@ -181,7 +181,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                         }
                         else
                         {
-                            existProdcut.PictureFileName = newPicture;
+                            //existProdcut.PictureFileName = newPicture;
                         }
                     }
                 }
@@ -223,7 +223,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                     Description = x.Description,
                     Name = x.Name,
                     IsConfirmed = x.IsConfirmed,
-                    PictureFileSrc = x.PictureFileName,
+                    //PictureFileSrc = x.PictureFileName,
                     SubCategoryName = x.SubCategory.Name,
                     CategoryName = x.SubCategory.Category.Name
                 }).ToList();
@@ -256,14 +256,14 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
             Product product = await _productService.ReadById(id);
             if (product != null)
             {
-                if(!string.IsNullOrEmpty(product.PictureFileName) && await _fileServices.DeleteFile(product.PictureFileName))
-                {
-                    var result = await _productService.Delete(id);
-                    if (result != ResultOutPutMethodEnum.savechanged)
-                        TempData["error"] = "خطایی در هنگام حذف کالا رخ داد";
-                }
-                else
-                    TempData["error"] = "خطا در هنگام پاک کردن تصویر";
+                //if(!string.IsNullOrEmpty(product.PictureFileName) && await _fileServices.DeleteFile(product.PictureFileName))
+                //{
+                //    var result = await _productService.Delete(id);
+                //    if (result != ResultOutPutMethodEnum.savechanged)
+                //        TempData["error"] = "خطایی در هنگام حذف کالا رخ داد";
+                //}
+                //else
+                //    TempData["error"] = "خطا در هنگام پاک کردن تصویر";
             }
             else
             {

@@ -47,7 +47,7 @@ namespace WebSite.EndPoint.Controllers
                     {
                         Id = x.Id,
                         Name = x.Name,
-                        PictureFileName = x.PictureFileName
+                        //PictureFileName = x.PictureFileName
                     }).ToList()
                 };
 

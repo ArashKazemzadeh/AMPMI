@@ -19,7 +19,7 @@ namespace WebSite.EndPoint.Controllers
             {
                 Id = x.Id,
                 Name = x.Name,
-                PictureFileName = x.PictureFileName
+                //PictureFileName = x.PictureFileName
             }).ToList();
 
             return View(resultVM);
@@ -31,7 +31,7 @@ namespace WebSite.EndPoint.Controllers
             {
                 Id = x.Id,
                 Name = x.Name,
-                PictureFileName = x.PictureFileName
+                //PictureFileName = x.PictureFileName
             }).ToList();
 
             return View(nameof(ProductList), resultVM);
@@ -45,7 +45,7 @@ namespace WebSite.EndPoint.Controllers
                 {
                     Name = product.Name,
                     Description = product.Description,
-                    PictureFileName = product.PictureFileName,
+                    //PictureFileName = product.PictureFileName,
                     SubCategoryId = product.SubCategoryId,
                     CompanyId = product.CompanyId ?? -1,
                     CompanyName = product.Company?.Name,
@@ -80,7 +80,7 @@ namespace WebSite.EndPoint.Controllers
             {
                 Id = x.Id,
                 Name = x.Name,
-                PictureFileName= x.PictureFileName
+                //PictureFileName= x.PictureFileName
             }).ToList();
 
             return View("ProductList", products);
