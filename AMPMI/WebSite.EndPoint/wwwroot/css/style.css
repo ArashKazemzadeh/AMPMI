@@ -32,13 +32,12 @@
 	src: url(../fonts/Vazir-Regular.ttf);
 }
 /* 01. General Style */
-body
- {
+body {
 	font-family: "Vazir";
-	background-color: #ffffff;
-    color: #333333;
-	font-size:16px;
-	line-height:26px;
+	background-color: #F7F7F7;
+	color: #333333;
+	font-size: 16px;
+	line-height: 26px;
 }
 ::-moz-selection { 
     color: red;
