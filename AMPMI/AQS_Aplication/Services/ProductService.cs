@@ -48,7 +48,10 @@ namespace AQS_Application.Services
 
         public async Task<Product?> ReadById(long id)
         {
-            return await _context.Products.Include(x => x.Company).FirstOrDefaultAsync(i => i.Id == id);
+            return await _context.Products
+                .Include(x => x.Company)
+                .Include(m=>m.ProductPictures)
+                .FirstOrDefaultAsync(i => i.Id == id);
         }
         public async Task<List<Product>> SearchProductByName(string name)
         {
@@ -117,7 +120,7 @@ namespace AQS_Application.Services
 
             return result > 0 ? ResultOutPutMethodEnum.savechanged : ResultOutPutMethodEnum.dontSaved;
         }
-        public async Task<ResultOutPutMethodEnum> UpdatePictureRout(int ProductId, string rout)
+        public async Task<ResultOutPutMethodEnum> UpdatePictureRout(long ProductId, string rout)
         {
             ProductPicture productPicture = new()
             {
@@ -126,16 +129,29 @@ namespace AQS_Application.Services
             };
             await _context.ProductPictures.AddAsync(productPicture);
 
-            return await _context.SaveChangesAsync() > 1 ?
+            int result = await _context.SaveChangesAsync();
+            return result > 0 ?
                ResultOutPutMethodEnum.savechanged :
                ResultOutPutMethodEnum.dontSaved;
         }
-        public async Task<List<ProductPicture>> ReadPictureRouts(int productId)
+        public async Task<List<ProductPicture>> ReadPictureRouts(long productId)
         {
             return await _context.ProductPictures
                 .Where(x => x.ProductId == productId)
                 .ToListAsync();
         }
+        public async Task<ResultOutPutMethodEnum> DeleteProductPicture(long pictureId)
+        {
+            var picture = await _context.ProductPictures.FindAsync(pictureId);
+            if (picture != null)
+            {
+                _context.ProductPictures.Remove(picture);
+                return await _context.SaveChangesAsync() > 0 ?
+                    ResultOutPutMethodEnum.savechanged : ResultOutPutMethodEnum.dontSaved;
+            }
+            return ResultOutPutMethodEnum.recordNotFounded;
+        }
+
         public async Task<ResultOutPutMethodEnum> IsConfirmed(long id, bool isConfirmed)
         {
             var existingProduct = await _context.Products.FindAsync(id);

@@ -16,20 +16,14 @@ namespace WebSite.EndPoint.Areas.Admin.Models.Product
         /// <summary>
         /// برای آپلود عکس 
         /// </summary>
-        public IFormFile? PictureFileName { get; set; }
-        /// <summary>
-        /// برای نمایش آدرس عکس ذخیره شده
-        /// </summary>
-        public string? PictureFileSrc { get; set; }
-        public bool IsPictureChanged { get; set; }
-
+        public List<IFormFile>? PictureFileName { get; set; }
         public bool IsConfirmed { get; set; }
-
         public long? CompanyId { get; set; }
         [Required(ErrorMessage = "گروه فرعی انتخاب نشده است")]
         [Range(0.1, double.MaxValue, ErrorMessage = "گروه فرعی انتخاب نشده است")]
         public int SubCategoryId { get; set; }
         public int CategoryId { get; set; }
+        public List<ProductPicture>? Pictures { get; set; } 
         public List<CategoryIncludeSubCategoriesDto>? Categories { get; set; }
 
     }

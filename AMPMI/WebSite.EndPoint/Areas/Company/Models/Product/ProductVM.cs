@@ -22,12 +22,10 @@ namespace WebSite.EndPoint.Areas.Company.Models.Product
         public int SubCategoryId { get; set; }
         public int CategoryId { get; set; }
         /// <summary>
-        /// برای نمایش آدرس عکس ذخیره شده
+        /// برای آپلود عکس
         /// </summary>
-        public string? PictureFileSrc { get; set; }
-        public bool IsPictureChanged { get; set; }
-        public IFormFile? PictureFileName { get; set; }
-
+        public List<IFormFile>? PictureFileName { get; set; }
+        public List<ProductPicture>? Pictures { get; set; }
         public List<CategoryIncludeSubCategoriesDto>? Categories { get; set; }
     }
 }
