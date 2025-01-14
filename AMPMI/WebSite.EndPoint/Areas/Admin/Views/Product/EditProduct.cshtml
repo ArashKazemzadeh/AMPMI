@@ -80,28 +80,131 @@
                     <label class="col-sm-3 col-form-label input-Label">انتخاب تصویر:</label>
                     <div class="col-sm-5 upBtn">
                         <button type="button" class="btn-submit btnUpload" onclick="getfile()">بارگذاری تصویر</button>
-                        <input asp-for="PictureFileName" id="getFile" style="display:none" class="form-control-file" type="file" accept="image/*">
+                        <input multiple name="f" id="getFile" style="display:none" class="form-control-file" type="file" accept="image/*">
                     </div>
                     <div id="preview" class="col-sm-2 ShowPic">
-                        @if(!string.IsNullOrEmpty(Model.PictureFileSrc)){
+@*                         @if(!string.IsNullOrEmpty(Model.PictureFileSrc)){
                             <img class="prevImage" src="@Model.PictureFileSrc" />
-                        }
+                        } *@
                     </div>
                     <input id="isPictureChanged" hidden value="false" name="IsPictureChanged" />
                 </div>
                 <input hidden asp-for="Id" />
-                <input hidden asp-for="PictureFileSrc" />
+               <a onclick="addPicture()" id="new"> <img class="img-Icon" src="~/images/addition copy.png" /> </a>
             </div>
+        </div>
+        <div class="row">
+            <table id="myTable" class="display tbStyle">
+                <thead>
+                    <tr>
+                        <th>ردیف</th>
+                        <th>تصویر بارگذاری شده</th>
+                        <th>حذف</th>
+                    </tr>
+                </thead>
+                <tbody>                    
+                    @{
+                        if(Model.Pictures != null)
+                        {
+                            int rowNum = 1;
+                            foreach (var item in Model.Pictures)
+                            {
+                                <tr>
+                                    <td class="td-Icon">@(rowNum++)</td>
+                                    <td><img class="img img-fluid" src="@item.Rout" style="width:30px;height:30px;" /></td>
+                                    <td class="td-Icon"><a href="@Url.Action("DeletePicture","Product",new{pictureId=item.Id,productId=item.ProductId})"><img class="img-Icon" src="~/images/recycle.png" /></a></td>
+                                </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+
         </div>
     </form>
 </div>
-
+<img hidden id="deleteIcon" class="img-Icon" src="~/images/recycle.png" />
 @section Scripts
 {
     <script>
       
         function getfile () {
             document.querySelector('#getFile').click();
+        }
+
+        $('#myTable').DataTable({
+            language: {
+                "emptyTable": "هیچ داده‌ای در جدول وجود ندارد",
+                "info": "نمایش _START_ تا _END_ از _TOTAL_ رکورد",
+                "infoEmpty": "نمایش 0 تا 0 از 0 رکورد",
+                "infoFiltered": "(فیلتر شده از _MAX_ رکورد)",
+                "lengthMenu": "نمایش _MENU_ رکورد در هر صفحه",
+                "loadingRecords": "در حال بارگذاری...",
+                "processing": "در حال پردازش...",
+                "search": "جستجو:",
+                "zeroRecords": "رکوردی با این مشخصات پیدا نشد",
+                "paginate": {
+                    "first": "اولین",
+                    "last": "آخرین",
+                    "next": "بعدی",
+                    "previous": "قبلی"
+                },
+                "aria": {
+                    "sortAscending": ": فعال‌سازی مرتب‌سازی صعودی",
+                    "sortDescending": ": فعال‌سازی مرتب‌سازی نزولی"
+                }
+            }
+        });
+
+        var rowCount = @(Model.Pictures!=null?Model.Pictures.Count: 0);
+        const fileArray = []; // آرایه برای نگهداری فایل‌ها
+
+        function addPicture()
+        {
+            const files = $("#getFile")[0].files;
+
+            if (!files || files.length === 0) {
+                alert("لطفاً یک تصویر انتخاب کنید!");
+                return;
+            }
+
+            const deleteIcon = $("#deleteIcon").attr('src');
+
+            Array.from(files).forEach((file)=>{
+                const fileIndex = fileArray.length;
+                fileArray.push(file); // افزودن فایل به آرایه
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    if(rowCount===0){
+                        $("#myTable tbody").empty();
+                    }
+                    rowCount++; // افزایش شمارنده ردیف‌ها
+
+                    // ساخت ردیف جدید
+                    const newRow = `
+                        <tr data-index="${fileIndex}">
+                            <td class="td-Icon">${rowCount}</td>
+                            <td><img class="img img-fluid" src="${e.target.result}" style="width:30px;height:30px;" /></td>
+                            <td class="td-Icon"><a data-index="${fileIndex}" onclick="DeletePic(this)"><img class="img-Icon" src="${deleteIcon}" /></a></td>
+                        </tr>
+                    `;
+
+                    // اضافه کردن ردیف به جدول
+                    $("#myTable tbody").append(newRow);
+                };
+
+            // خواندن فایل به صورت URL داده‌ای
+                reader.readAsDataURL(file);
+            });
+
+        }
+
+        function DeletePic(item){
+            const fileIndex = $(item).data("index"); // گرفتن اندیس فایل از دکمه
+            fileArray[fileIndex] = null; // حذف فایل از آرایه (با مقدار null)
+
+            // حذف ردیف از جدول
+            $(item).closest("tr").remove();
         }
 
         $("#getFile").on('change',function(){
@@ -174,6 +277,25 @@
         $("#save").click(function(event){
             event.preventDefault();
             $("#saveForm").submit();
+        });
+
+        $("#saveForm").submit(function () {
+            // اضافه کردن فایل‌ها به فرم 
+            fileArray.forEach((file, index) => {
+                if(file!=null)
+                {
+                    const fileInput = $('<input>')
+                    .attr('type', 'file')
+                    .attr('name', `PictureFileName`)
+                    .addClass('hiddenFileInput');
+
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(file);
+                    fileInput[0].files = dataTransfer.files;
+
+                    $(this).append(fileInput);
+                }
+            });
         });
 
     </script>

@@ -33,12 +33,18 @@ namespace AQS_Application.Interfaces.IServices.BaseServices
         Task<List<Product>> ReadByCompanyId(long id);
         Task<ResultOutPutMethodEnum> Update(Product product);
         Task<ResultOutPutMethodEnum> IsConfirmed(long id, bool isConfirmed);
-        Task<ResultOutPutMethodEnum> UpdatePictureRout(int productId, string rout);
+        Task<ResultOutPutMethodEnum> UpdatePictureRout(long productId, string rout);
         /// <summary>
         /// عکس های کالا
         /// </summary>
         /// <param name="productId"></param>
         /// <returns></returns>
-        Task<List<ProductPicture>> ReadPictureRouts(int productId);
+        Task<List<ProductPicture>> ReadPictureRouts(long productId);
+        /// <summary>
+        /// حذف عکس محصول
+        /// </summary>
+        /// <param name="pictureId"></param>
+        /// <returns></returns>
+        Task<ResultOutPutMethodEnum> DeleteProductPicture(long pictureId);
     }
 }

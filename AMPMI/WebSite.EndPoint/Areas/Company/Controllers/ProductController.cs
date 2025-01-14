@@ -106,23 +106,33 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
             };
             try
             {
-                if (productVM.PictureFileName != null)
-                {
-                    string picureFilePath = await _fileServices.SaveFileAsync(productVM.PictureFileName, "Product");
-                    if (string.IsNullOrEmpty(picureFilePath))
-                    {
-                        ViewData["error"] = "خطایی در هنگام ثبت تصویر رخ داد";
-                        return View("EditProduct", productVM);
-                    }
-                    else
-                    {
-                        //newProduct.PictureFileName = picureFilePath;
-                    }
-                }
-
                 long id = await _productService.Create(newProduct);
                 if (id > 0)
+                {
+                    if (productVM.PictureFileName != null)
+                    {
+                        foreach (var item in productVM.PictureFileName)
+                        {
+                            string newPicture = await _fileServices.SaveFileAsync(item, PictureFolder);
+                            if (string.IsNullOrEmpty(newPicture))
+                            {
+                                ViewData["error"] = "خطایی در هنگام ثبت تصویر رخ داد";
+                                return View("EditProduct", productVM);
+                            }
+                            else
+                            {
+                                var result = await _productService.UpdatePictureRout(id, newPicture);
+                                if (result != ResultOutPutMethodEnum.savechanged)
+                                {
+                                    ViewData["error"] = "خطایی در هنگام ثبت تصویر رخ داد";
+                                    return View("EditProduct", productVM);
+                                }
+                            }
+                        }
+                    }
+
                     return RedirectToAction(nameof(ProductList));
+                }
                 else
                 {
                     ViewData["error"] = "خطایی در هنگام ثبت کالا رخ داد";
@@ -155,6 +165,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
                     Description = product.Description,
                     Name = product.Name,
                     IsConfirmed = product.IsConfirmed,
+                    Pictures = product.ProductPictures,
                     //PictureFileSrc = product.PictureFileName,
                     SubCategoryId = product.SubCategoryId,
                     CategoryId = product.SubCategory.CategoryId,
@@ -183,11 +194,11 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
             };
             try
             {
-                if (productVM.IsPictureChanged)
+                if (productVM.PictureFileName != null)
                 {
-                    if (await _fileServices.DeleteFile(productVM.PictureFileSrc))
+                    foreach (var item in productVM.PictureFileName)
                     {
-                        string newPicture = await _fileServices.SaveFileAsync(productVM.PictureFileName, PictureFolder);
+                        string newPicture = await _fileServices.SaveFileAsync(item, PictureFolder);
                         if (string.IsNullOrEmpty(newPicture))
                         {
                             ViewData["error"] = "خطایی در هنگام ثبت تصویر رخ داد";
@@ -195,7 +206,12 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
                         }
                         else
                         {
-                            //existProdcut.PictureFileName = newPicture;
+                            var resultPic = await _productService.UpdatePictureRout(existProdcut.Id, newPicture);
+                            if (resultPic != ResultOutPutMethodEnum.savechanged)
+                            {
+                                ViewData["error"] = "خطایی در هنگام ثبت تصویر رخ داد";
+                                return View("EditProduct", productVM);
+                            }
                         }
                     }
                 }
@@ -219,21 +235,32 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
             Product product = await _productService.ReadById(id);
             if (product != null)
             {
-                //if (!string.IsNullOrEmpty(product.PictureFileName) && await _fileServices.DeleteFile(product.PictureFileName))
-                //{
-                //    var result = await _productService.Delete(id);
-                //    if (result != ResultOutPutMethodEnum.savechanged)
-                //        TempData["error"] = "خطایی در هنگام حذف کالا رخ داد";
-                //}
-                //else
-                //    TempData["error"] = "خطایی در هنگام حذف کالا رخ داد";
-
+                var productPictures = new List<ProductPicture>();
+                productPictures.AddRange(product.ProductPictures);
+                foreach (var item in productPictures)
+                {
+                    if (await _fileServices.DeleteFile(item.Rout))
+                    {
+                        await _productService.DeleteProductPicture(item.Id);
+                    }
+                }
+                var result = await _productService.Delete(id);
+                if (result != ResultOutPutMethodEnum.savechanged)
+                    TempData["error"] = "خطایی در هنگام حذف کالا رخ داد";
             }
             else
             {
                 TempData["error"] = "محصول مورد نظر یافت نشد";
             }
             return RedirectToAction(nameof(ProductList));
+        }
+        public async Task<IActionResult> DeletePicture(long pictureId, long productId)
+        {
+            var result = await _productService.DeleteProductPicture(pictureId);
+            if (result != ResultOutPutMethodEnum.savechanged)
+                TempData["error"] = "خطا در هنگام حذف تصویر محصول";
+
+            return RedirectToAction(nameof(EditProduct), new { id = productId });
         }
     }
 }
