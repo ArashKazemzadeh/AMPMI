@@ -11,6 +11,7 @@ namespace WebSite.EndPoint.Models.CompanyViewModel
         public string Email { get; set; }
         public string Address { get; set; } = null!;
         public string? LogoRout { get; set; }
+        public string? Tel { get; set; }
         public string? TeaserGuid { get; set; }
         public string? About { get; set; }
         public List<ProductVM>? Products { get; set; }

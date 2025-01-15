@@ -19,8 +19,15 @@ namespace WebSite.EndPoint.Areas.Admin.Models.Company
         public string? Iso { get; set; }
         public string? About { get; set; }
         public string? LogoRout { get; set; }
-        public IFormFile Logo { get; set; }
-        public bool IsPictureChanged { get; set; }
+        public IFormFile? Logo { get; set; }
+        public string? BannerRout { get; set; }
+        /// <summary>
+        /// آپلود فایل بنر
+        /// </summary>
+        public IFormFile? Banner { get; set; }
+        public string? Tel { get; set; }
+        public bool IsLogoChanged { get; set; }
+        public bool IsBannerChanged { get; set; }
         public bool IsCompany { get; set; }
         public bool SendRequst { get; set; }
         public string? TeaserGuid { get; set; }
@@ -30,16 +37,6 @@ namespace WebSite.EndPoint.Areas.Admin.Models.Company
         //public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 
         //public virtual ICollection<SeenNotifByCompany> SeenNotifByCompanies { get; set; } = new List<SeenNotifByCompany>();
-
-
-
-
-
-
-
-
-
-
 
 
         public CompanyEditProfileDto MapToDto(CompanyVM company)
@@ -59,7 +56,9 @@ namespace WebSite.EndPoint.Areas.Admin.Models.Company
                 Iso = company.Iso,
                 About = company.About,
                 LogoRout = company.LogoRout == null ? string.Empty : company.LogoRout,
+                BannerRout = company.BannerRout == null ? string.Empty : company.BannerRout,
                 IsCompany = company.IsCompany,
+                Tel = company.Tel,
             };
         }
     }
