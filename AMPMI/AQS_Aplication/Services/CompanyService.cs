@@ -77,9 +77,10 @@ namespace AQS_Application.Services
                     About = c.About,
                     TeaserGuid = c.TeaserGuid,
                     LogoRout = c.LogoRout ?? string.Empty,
+                    BannerRout = c.BannerRout ?? string.Empty,
                     SendRequest = c.SendRequst,
-                    IsCompany = c.IsCompany
-                    
+                    IsCompany = c.IsCompany,
+                    Tel = c.Tel
                 })
                 .FirstOrDefaultAsync();
         }
@@ -227,6 +228,12 @@ namespace AQS_Application.Services
 
             if (existingCompany.LogoRout != company.LogoRout)
                 existingCompany.LogoRout = company.LogoRout;
+            
+            if(existingCompany.BannerRout != company.BannerRout)
+                existingCompany.BannerRout = company.BannerRout;
+
+            if(existingCompany.Tel != company.Tel)
+                existingCompany.Tel = company.Tel;
 
             _context.Companies.Update(existingCompany);
 

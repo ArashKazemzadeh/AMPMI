@@ -11,7 +11,7 @@ public partial class Company
     /// <summary>
     /// الزامی نیست و می تونه شماره تلفن ثابت باشه
     /// </summary>
-    public string Tel { get; set; }
+    public string? Tel { get; set; }
     public string Email { get; set; } = null!;
     public string Address { get; set; } = null!;
     public string Password { get; set; } = null!;
@@ -27,8 +27,14 @@ public partial class Company
     /// درخواست به ادمین برای تبدیل شدن به شرکت
     /// </summary>
     public bool SendRequst { get; set; }
-    public string TeaserGuid { get; set; }
-    public string BannerRout { get; set; }
+    /// <summary>
+    /// الزامی نیست
+    /// </summary>
+    public string? TeaserGuid { get; set; }
+    /// <summary>
+    /// الزامی نیست
+    /// </summary>
+    public string? BannerRout { get; set; }
     public virtual ICollection<CompanyPicture> CompanyPictures { get; set; } = new List<CompanyPicture>();
     public virtual ICollection<Product> Products { get; set; } = new List<Product>();
     public virtual ICollection<SeenNotifByCompany> SeenNotifByCompanies { get; set; } = new List<SeenNotifByCompany>();
