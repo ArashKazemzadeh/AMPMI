@@ -48,6 +48,9 @@ namespace WebSite.EndPoint.Controllers
                     {
                         Id = x.Id,
                         Name = x.Name,
+                        PictureFileName = (x.ProductPictures != null && x.ProductPictures.Count > 0) 
+                        ? x.ProductPictures.FirstOrDefault().Rout 
+                        : ""
                         //PictureFileName = x.PictureFileName
                     }).ToList()
                 };

@@ -90,6 +90,7 @@ namespace AQS_Application.Services
                 .Where(c => c.Id == id)
                 .Include(x=>x.CompanyPictures)
                 .Include(y=>y.Products)
+                .ThenInclude(z=>z.ProductPictures)
                 .Select(c => new CompanyEditProfileDto
                 {
                     Id = c.Id,
