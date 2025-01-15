@@ -43,6 +43,7 @@ namespace WebSite.EndPoint.Controllers
                     ManagerName= result.ManagerName,
                     CompanyPictures = result.CompanyPictures.Select(x=>x.PictureFileName).ToList(),
                     Email = result.Email,
+                    Tel = result.Tel,
                     Products = result.Products.Select(x => new ProductVM()
                     {
                         Id = x.Id,

@@ -4,8 +4,8 @@
 }
 <style>
     .prevImage {
-    width: 100%;
-    height: 100%;
+        width: 100%;
+        height: 100%;
     }
 </style>
 
@@ -21,98 +21,74 @@
     <div class="pageName">
         <span class="textPage">پروفایل کاربری</span>
     </div>
-    
+
     <div>
         <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
     </div>
-    <div>
+    <div class="mt-2">
         <form enctype="multipart/form-data" id="saveForm" asp-area="Company" asp-action="EditCompanyProfile" asp-controller="CompanyProfile" method="post">
-            <div class="row mt-2 userEditRow">
-                <input asp-for="Id" type="hidden" />
-                <input type="hidden" asp-for="LogoRout" />
-                <input hidden asp-for="BannerRout" />
-                <div class="col-md-6 my-2">
+            <input asp-for="Id" type="hidden" />
+            <input type="hidden" asp-for="LogoRout" />
+            <input hidden asp-for="BannerRout" />
+            <div class="row">
+                <div class="col-md-6 userEditRow">
                     <label for="Cname" class="labelText">نام شرکت</label>
                     <input asp-for="Name" class="labelText input-text" type="text" id="Cname" />
                 </div>
-                <div class="col-md-6 my-2">
+                <div class="col-md-6 userEditRow">
                     <label for="CFoundername" class="labelText">نام مدیر عامل</label>
                     <input asp-for="ManagerName" class="labelText input-text" type="text" id="CFoundername" />
                 </div>
-            </div>
-            <div class="row mt-2 userEditRow">
-                <div class="col-md-6 my-2">
+                <div class="col-md-6 userEditRow">
                     <label for="CMobile" class="labelText">شماره موبایل</label>
                     <input asp-for="MobileNumber" class="labelText input-text" type="text" id="CMobile" />
                 </div>
-                <div class="col-md-6 my-2">
+                <div class="col-md-6 userEditRow">
                     <label for="CEmail" class="labelText">ایمیل</label>
                     <input asp-for="Email" class="labelText input-text" type="text" id="CEmail" />
                 </div>
-            </div>
-
-            <div class="row mt-2 userEditRow">
-
+                <div class="col-md-6 userEditRow">
+                    <label for="CTel" class="labelText">تلفن</label>
+                    <input asp-for="Tel" class="labelText input-text" type="text" id="CTel" />
+                </div>
+                <div class="col-md-6 userEditRow">
+                    <label for="CAddress" class="labelText">آدرس</label>
+                    <textarea asp-for="Address" id="CAddress" class="input-text"></textarea>
+                </div>
                 @if (Model.IsCompany)
                 {
-                    <div class="col-md-6 my-2">
-                        <label for="CAddress" class="labelText">آدرس</label>
-                        <textarea asp-for="Address" id="CAddress" class="input-text"></textarea>
-                    </div>
-                    <div class="col-md-6 my-2">
-                        <label for="CTel" class="labelText">تلفن</label>
-                        <input asp-for="Tel" class="labelText input-text" type="text" id="CTel" />
-                    </div>
-                }
-                else
-                {
-                    <div class="col-md-6 my-2">
-                        <label for="CAddress" class="labelText">آدرس</label>
-                        <textarea asp-for="Address" id="CAddress" class="input-text"></textarea>
-                    </div>
-                }
 
-            </div>
-            @if (Model.IsCompany)
-            {
-                <div class="row mt-2 userEditRow">
-                    <div class="col-md-6 my-2">
+                    <div class="col-md-6 userEditRow">
                         <label for="CCollab" class="labelText">همکاری با شرکت‌های</label>
                         <textarea asp-for="Partnership" id="CCollab" class="input-text"></textarea>
                     </div>
 
-                    <div class="col-md-6 my-2">
+                    <div class="col-md-6 userEditRow">
                         <label for="CBrands" class="labelText">برندهای زیر مجموعه</label>
                         <textarea asp-for="Brands" id="CBrands" class="input-text"></textarea>
                     </div>
-                </div>
-                <div class="row mt-2 userEditRow">
-                    <div class="col-md-6 my-2">
+
+                    <div class="col-md-6 userEditRow">
                         <label for="CGrade" class="labelText">گرید کیفی</label>
                         <textarea asp-for="QualityGrade" id="CGrade" class="input-text"></textarea>
                     </div>
-                    <div class="col-md-6 my-2">
+                    <div class="col-md-6 userEditRow">
                         <label for="CCapacity" class="labelText">ظرفیت تولید</label>
                         <textarea asp-for="Capacity" id="CCapacity" class="input-text"></textarea>
                     </div>
-                </div>
-
-
-            }
-
-            <div class="row mt-2 userEditRow">
-                @if (Model.IsCompany)
-                {
-                    <div class="col-md-6 my-2">
+                    <div class="col-md-6 userEditRow">
                         <label for="CAbout" class="labelText">درباره شرکت</label>
                         <textarea asp-for="About" id="CAbout" class="input-text"></textarea>
                     </div>
-                    <div class="col-md-6 my-2">
+                    <div class="col-md-6 userEditRow">
                         <label for="CIso" class="labelText">استاندارد و ایزوهای اجباری و تشویقی</label>
                         <textarea asp-for="Iso" id="CIso" class="input-text"></textarea>
                     </div>
-                   
                 }
+            </div>
+
+            <div class="row mt-2 userEditRow">
+
                 <div class="row">
                     <div class="col-md-6 my-2" style="margin-top:25px;">
                         <div class="col-sm-5 upBtn">
@@ -131,24 +107,26 @@
                             <a href="#" id="deleteLogo"><img class="img-Icon" src="~/images/recycle.png" /></a>
                         </div>
                     </div>
-                    <div class="col-md-6 my-2" style="margin-top:25px;">
-                        <div class="col-sm-5 upBtn">
-                            <button type="button" class="btn-submit btnUpload" onclick="getfileBanner()">بارگذاری بنر</button>
-                            <input asp-for="Banner" id="getFileBanner" style="display:none" class="form-control-file" type="file" accept="image/*">
-                        </div>
-                        <div id="previewBanner" class="col-sm-2 ShowPic">
-                            @if (Model != null && !string.IsNullOrEmpty(Model.BannerRout))
-                            {
-                                <img class="prevImage" src="@Model.BannerRout" />
-                            }
-                        </div>
-                        <input id="IsBannerChanged" type="hidden" asp-for="IsBannerChanged" />
+                    @if(Model.IsCompany)
+                    {
+                        <div class="col-md-6 my-2" style="margin-top:25px;">
+                            <div class="col-sm-5 upBtn">
+                                <button type="button" class="btn-submit btnUpload" onclick="getfileBanner()">بارگذاری بنر</button>
+                                <input asp-for="Banner" id="getFileBanner" style="display:none" class="form-control-file" type="file" accept="image/*">
+                            </div>
+                            <div id="previewBanner" class="col-sm-2 ShowPic">
+                                @if (Model != null && !string.IsNullOrEmpty(Model.BannerRout))
+                                {
+                                    <img class="prevImage" src="@Model.BannerRout" />
+                                }
+                            </div>
+                            <input id="IsBannerChanged" type="hidden" asp-for="IsBannerChanged" />
 
-                        <div class="col-sm-2">
-                            <a href="#" id="deleteBanner"><img class="img-Icon" src="~/images/recycle.png" /></a>
+                            <div class="col-sm-2">
+                                <a href="#" id="deleteBanner"><img class="img-Icon" src="~/images/recycle.png" /></a>
+                            </div>
                         </div>
-                    </div>
-
+                    }
                 </div>
             </div>
         </form>
@@ -169,7 +147,7 @@
 @section Scripts
 {
     <script>
-        
+
         function getfileLogo()
         {
             document.querySelector('#getFileLogo').click();
@@ -182,7 +160,7 @@
         $("#getFileLogo").on('change',function(){
             const file = this.files[0];
 
-            if (file) 
+            if (file)
             {
                 const reader = new FileReader();
                 reader.onload = function (e) {
@@ -206,7 +184,7 @@
         $("#getFileBanner").on('change',function(){
             const file = this.files[0];
 
-            if (file) 
+            if (file)
             {
                 const reader = new FileReader();
                 reader.onload = function (e) {

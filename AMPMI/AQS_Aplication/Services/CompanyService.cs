@@ -105,10 +105,12 @@ namespace AQS_Application.Services
                     Iso = c.Iso,
                     About = c.About,
                     LogoRout = c.LogoRout ?? string.Empty,
+                    BannerRout = c.BannerRout ?? string.Empty,
                     SendRequest = c.SendRequst,
                     TeaserGuid = c.TeaserGuid,
                     CompanyPictures = c.CompanyPictures,
-                    Products = c.Products
+                    Products = c.Products,
+                    Tel = c.Tel
                 })
                 .FirstOrDefaultAsync();
         }
