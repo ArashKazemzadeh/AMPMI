@@ -9,7 +9,7 @@ namespace WebSite.EndPoint.Models.ProductViewModel
 
         public string Description { get; set; } = null!;
 
-        public string? PictureFileName { get; set; }
+        public List<string>? PictureFileName { get; set; }
 
         public long? CompanyId { get; set; }
 

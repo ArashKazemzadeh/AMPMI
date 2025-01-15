@@ -31,6 +31,7 @@ namespace WebSite.EndPoint.Controllers
             {
                 Id = x.Id,
                 Name = x.Name,
+                PictureFileName = (x.ProductPictures != null && x.ProductPictures.Count > 0) ? x.ProductPictures.FirstOrDefault().Rout : ""
                 //PictureFileName = x.PictureFileName
             }).ToList();
 
@@ -45,7 +46,7 @@ namespace WebSite.EndPoint.Controllers
                 {
                     Name = product.Name,
                     Description = product.Description,
-                    //PictureFileName = product.PictureFileName,
+                    PictureFileName = product.ProductPictures.Select(m => m.Rout).ToList(),
                     SubCategoryId = product.SubCategoryId,
                     CompanyId = product.CompanyId ?? -1,
                     CompanyName = product.Company?.Name,
@@ -80,6 +81,7 @@ namespace WebSite.EndPoint.Controllers
             {
                 Id = x.Id,
                 Name = x.Name,
+                PictureFileName = (x.ProductPictures != null && x.ProductPictures.Count>0 ) ? x.ProductPictures.FirstOrDefault().Rout : ""
                 //PictureFileName= x.PictureFileName
             }).ToList();
 
