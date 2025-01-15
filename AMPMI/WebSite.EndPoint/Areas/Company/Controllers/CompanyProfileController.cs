@@ -120,8 +120,10 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
                 Iso = company.Iso,
                 About = company.About,
                 LogoRout = company.LogoRout == null ? string.Empty : company.LogoRout,
+                BannerRout = company.BannerRout == null ? string.Empty : company.BannerRout,
                 SendRequest = company.SendRequest,
                 IsCompany = company.IsCompany,
+                Tel = company.Tel
             };
             return model;
         }
@@ -131,23 +133,37 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
         {
             try
             {
-                string newRout = "";
-                if (companyEditProfileVM.IsPictureChanged)
+                if (companyEditProfileVM.IsLogoChanged)
                 {
-                    if (!string.IsNullOrEmpty(companyEditProfileVM.LogoRout))
+                    if( await DeletePicture(companyEditProfileVM.LogoRout))
+                        companyEditProfileVM.LogoRout = null;
+
+                    if (companyEditProfileVM.Logo != null)
                     {
-                        bool isDelete = await _fileServices.DeleteFile(companyEditProfileVM.LogoRout);
+                       string newLogo  = await AddPicture(companyEditProfileVM.Logo);
+                       if (string.IsNullOrEmpty(newLogo))
+                       {
+                           ViewData["error"] = "خطایی در هنگام دخیره لوگو رخ داد";
+                           return RedirectToAction(nameof(EditCompanyProfile));
+                       }
+                       companyEditProfileVM.LogoRout = newLogo;
                     }
+                }
+                if (companyEditProfileVM.IsBannerChanged)
+                {
+                    if( await DeletePicture(companyEditProfileVM.BannerRout))
+                        companyEditProfileVM.BannerRout = null;
 
-                    newRout = await _fileServices.SaveFileAsync(companyEditProfileVM.Logo, PictureFolder);
-
-                    if (string.IsNullOrEmpty(newRout))
+                    if (companyEditProfileVM.Banner != null)
                     {
-                        ViewData["error"] = "خطایی در هنگام دخیره تصویر رخ داد";
-                        return RedirectToAction(nameof(EditCompanyProfile));
+                        string newBanner = await AddPicture(companyEditProfileVM.Banner);
+                        if (string.IsNullOrEmpty(newBanner))
+                        {
+                            ViewData["error"] = "خطایی در هنگام دخیره بنر رخ داد";
+                            return RedirectToAction(nameof(EditCompanyProfile));
+                        }
+                        companyEditProfileVM.BannerRout = newBanner;
                     }
-
-                    companyEditProfileVM.LogoRout = newRout;
                 }
 
                 var dto = companyEditProfileVM.MapToDto(companyEditProfileVM);
@@ -169,6 +185,14 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
                 ViewData["error"] = ex.Message;
                 return View(companyEditProfileVM);
             }
+        }
+        private async Task<bool> DeletePicture(string route)
+        {
+            return await _fileServices.DeleteFile(route);
+        }
+        private async Task<string> AddPicture(IFormFile newPicture)
+        {
+            return  await _fileServices.SaveFileAsync(newPicture, PictureFolder);
         }
         public async Task<IActionResult> SendRequestToAdmin(long id, bool sendRequest)
         {
