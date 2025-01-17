@@ -1,56 +1,111 @@
-﻿@{
+﻿@using AQS_Application.Dtos.BaseServiceDto.BlogDtos
+@model BlogReadAdminDto
+@{
     Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+}
+@section CSS
+{
+    <style>
+        .prevImage {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 }
 <div class="container-fluid">
     <div class="pageName">
         <span class="textPage">
             <a asp-area="Admin" asp-controller="Blog" asp-action="BlogList">
-                لیست اخبار انجمن
+                لیست خبرها
             </a>
             > تعریف/ویرایش خبر
         </span>
     </div>
+    @if (ViewData["error"] is not null)
+    {
+        <div class="row">
+            <p style="color:red;">@ViewData["error"].ToString()</p>
+        </div>
+    }
     <div class="row">
         <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
-        <a href="@Url.Action("BLogList","Blog")" id="cancle"><img class="img-Icon" src="~/images/cancel.png" /></a>
+        <a href="@Url.Action("BlogList","Blog")" id="cancle"><img class="img-Icon" src="~/images/cancel.png" /></a>
     </div>
-    <form>
-        <div class="form-group row">
-            <label class="col-sm-2 col-form-label input-Label">موضوع خبر:</label>
-            <div class="col-sm-9">
-                <input type="text" class="input-text">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-2 col-form-label input-Label">متن خبر:</label>
-            <div class="col-sm-9">
-                <div id="div_editor1">
-                </div>
-            </div>
-        </div>
+    <form id="saveForm" asp-area="Admin" asp-controller="Blog" asp-action="Save" enctype="multipart/form-data" method="post">
+        <input hidden asp-for="Id" />
+
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group row">
-                    <div class="col-sm-6 upBtn">
-                        <button class="btn-submit btnUpload" onclick="getPic()">بارگذاری تصویر</button>
-                        <input id="getPic" style="display:none" class="form-control-file" type="file" name="img" accept="image/*">
+                    <label class="col-sm-2 col-form-label input-Label">موضوع خبر:</label>
+                    <div class="col-sm-9">
+                        <input asp-for="Subject" type="text" class="input-text">
                     </div>
-                    <div class="col-sm-6 ShowPic"></div>
                 </div>
-            </div>
-            <div class="col-md-6">
                 <div class="form-group row">
-                    <div class="col-sm-6 upBtn">
-                        <button class="btn-submit btnUpload" onclick="getVideo()">بارگذاری ویدیو</button>
-                        <input id="getVideo" style="display:none" class="form-control-file" type="file" name="video" accept="video/*">
+                    <label class="col-sm-2 col-form-label input-Label">متن خبر:</label>
+                    <div class="col-sm-9">
+                        @* <div id="div_editor1">
+                        </div> *@
+                        <textarea id="editAboutUs"   name="content"  style="display: none;">@Html.Raw(ViewBag.AboutUsContent)</textarea>
                     </div>
-                    <div class="col-sm-6 ShowPic"></div>
                 </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                           @* <label class="col-sm-3 col-form-label input-Label">انتخاب تصویر:</label>  *@
+                            <div class="col-sm-3 upBtn">
+                                <button type="button" class="btn-submit btnUpload m-2" onclick="getfile()">بارگذاری تصویر</button>
+                                <input asp-for="PictureFileName" multiple name="f" id="getFile" style="display:none" class="form-control-file " type="file" accept="image/*">
+                            </div>
+                            <div id="preview" class="col-sm-2 ShowPic">
+                            </div>
+                            <input id="isPictureChanged" hidden value="false" name="IsPictureChanged" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <div class="col-sm-3 upBtn">
+                                <button class="btn-submit btnUpload" onclick="getVideo()">بارگذاری ویدیو</button>
+                                <input id="getVideo" style="display:none" class="form-control-file" type="file" name="video" accept="video/*">
+                            </div>
+                            <div class="col-sm-6 ShowPic"></div>
+                        </div>
+                    </div>
+                <a onclick="addPicture()" id="new"> <img class="img-Icon" src="~/images/addition copy.png" /> </a>
             </div>
+        </div>
+        <div class="row">
+            <table id="myTable" class="display tbStyle">
+                <thead>
+                    <tr>
+                        <th>ردیف</th>
+                        <th>تصویر بارگذاری شده</th>
+                        <th>حذف</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        if (Model.BlogPictures != null)
+                        {
+                            int rowNum = 1;
+                            foreach (var item in Model.BlogPictures)
+                            {
+                                <tr>
+                                    <td class="td-Icon">@(rowNum++)</td>
+                                    <td><img class="img img-fluid" src="@item.Route" style="width:30px;height:30px;" /></td>
+                                    <td class="td-Icon"><a href="@Url.Action("DeletePicture","Blog",new{pictureId=item.Id,blogId=item.BlogId})"><img class="img-Icon" src="~/images/recycle.png" /></a></td>
+                                </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+
         </div>
     </form>
 </div>
-
+<img hidden id="deleteIcon" class="img-Icon" src="~/images/recycle.png" />
 @section Scripts
 {
     <script>
@@ -63,6 +118,131 @@
         function getVideo (){
             $('#getVideo').click();
         }
+        function getfile () {
+            document.querySelector('#getFile').click();
+        }
+
+        $('#myTable').DataTable({
+            language: {
+                "emptyTable": "هیچ داده‌ای در جدول وجود ندارد",
+                "info": "نمایش _START_ تا _END_ از _TOTAL_ رکورد",
+                "infoEmpty": "نمایش 0 تا 0 از 0 رکورد",
+                "infoFiltered": "(فیلتر شده از _MAX_ رکورد)",
+                "lengthMenu": "نمایش _MENU_ رکورد در هر صفحه",
+                "loadingRecords": "در حال بارگذاری...",
+                "processing": "در حال پردازش...",
+                "search": "جستجو:",
+                "zeroRecords": "رکوردی با این مشخصات پیدا نشد",
+                "paginate": {
+                    "first": "اولین",
+                    "last": "آخرین",
+                    "next": "بعدی",
+                    "previous": "قبلی"
+                },
+                "aria": {
+                    "sortAscending": ": فعال‌سازی مرتب‌سازی صعودی",
+                    "sortDescending": ": فعال‌سازی مرتب‌سازی نزولی"
+                }
+            }
+        });
+
+        var rowCount = @(Model.BlogPictures != null ? Model.BlogPictures.Count : 0);
+        const fileArray = []; // آرایه برای نگهداری فایل‌ها
+
+        function addPicture()
+        {
+            const files = $("#getFile")[0].files;
+
+            if (!files || files.length === 0) {
+                alert("لطفاً یک تصویر انتخاب کنید!");
+                return;
+            }
+
+            const deleteIcon = $("#deleteIcon").attr('src');
+
+            Array.from(files).forEach((file)=>{
+                const fileIndex = fileArray.length;
+                fileArray.push(file); // افزودن فایل به آرایه
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    if(rowCount===0){
+                        $("#myTable tbody").empty();
+                    }
+                    rowCount++; // افزایش شمارنده ردیف‌ها
+
+                    // ساخت ردیف جدید
+                    const newRow = `
+                        <tr data-index="${fileIndex}">
+                            <td class="td-Icon">${rowCount}</td>
+                            <td><img class="img img-fluid" src="${e.target.result}" style="width:30px;height:30px;" /></td>
+                            <td class="td-Icon"><a data-index="${fileIndex}" onclick="DeletePic(this)"><img class="img-Icon" src="${deleteIcon}" /></a></td>
+                        </tr>
+                    `;
+
+                    // اضافه کردن ردیف به جدول
+                    $("#myTable tbody").append(newRow);
+                };
+
+            // خواندن فایل به صورت URL داده‌ای
+                reader.readAsDataURL(file);
+            });
+
+        }
+
+        function DeletePic(item){
+            const fileIndex = $(item).data("index"); // گرفتن اندیس فایل از دکمه
+            fileArray[fileIndex] = null; // حذف فایل از آرایه (با مقدار null)
+
+            // حذف ردیف از جدول
+            $(item).closest("tr").remove();
+        }
+
+        $("#getFile").on('change',function(){
+            const file = this.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    // ایجاد یا جایگزینی تصویر در باکس
+                    const img = $("<img>")
+                    .attr("src", e.target.result)
+                    .addClass("img")
+                    .addClass("prevImage");
+
+                    $("#preview").empty().append(img);
+                };
+                reader.readAsDataURL(file);
+
+                $("#isPictureChanged").val(true);
+
+            } else {
+                $("#preview").html("پیش‌نمایش");
+            }
+        });
+
+        $("#save").click(function(event){
+            event.preventDefault();
+            $("#saveForm").submit();
+        });
+
+        $("#saveForm").submit(function () {
+            // اضافه کردن فایل‌ها به فرم
+            fileArray.forEach((file, index) => {
+                if(file!=null)
+                {
+                    const fileInput = $('<input>')
+                    .attr('type', 'file')
+                    .attr('name', `PictureFileName`)
+                    .addClass('hiddenFileInput');
+
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(file);
+                    fileInput[0].files = dataTransfer.files;
+
+                    $(this).append(fileInput);
+                }
+            });
+        });
 
     </script>
 }

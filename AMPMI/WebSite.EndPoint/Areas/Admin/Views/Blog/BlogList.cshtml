@@ -1,4 +1,6 @@
-﻿@{
+﻿@using AQS_Application.Dtos.BaseServiceDto.BlogDtos
+@model List<BlogReadAdminDto>
+@{
     Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
 }
 <div class="container-fluid">
@@ -6,7 +8,7 @@
         <span class="textPage">لیست اخبار انجمن</span>
     </div>
     <div class="row">
-        <a href="@Url.Action("EditBLog","Blog")" id="new"> <img class="img-Icon" src="~/images/addition copy.png" /> </a>
+        <a href="@Url.Action("CreateBlog","Blog")" id="new"> <img class="img-Icon" src="~/images/addition copy.png" /> </a>
     </div>
     <div class="row">
         <table id="myTable" class="display tbStyle">
@@ -20,28 +22,37 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td style="text-align:center">1</td>
-                    <td>گروه 1</td>
-                    <td>گروه 1</td>
-
-                    <td style="text-align:center"><a href="@Url.Action("EditBLog","Blog")"><img class="img-Icon" src="~/images/editing.png" /></a></td>
-                    <td style="text-align:center"><a href="#"><img class="img-Icon" src="~/images/recycle.png" /></a></td>
-                </tr>
-                <tr>
-                    <td style="text-align:center">2</td>
-                    <td>گروه 2</td>
-                    <td>گروه 1</td>
-                    <td style="text-align:center"><a href="@Url.Action("EditBLog","Blog")"><img class="img-Icon" src="~/images/editing.png" /></a></td>
-                    <td style="text-align:center"><a href="#"><img class="img-Icon" src="~/images/recycle.png" /></a></td>
-                </tr>
+                @{
+                    int row = 1;
+                }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td style="text-align:center">@row</td>
+                        <td>@item.Subject</td>
+                        <td>@item.Description</td>
+                        <td style="text-align:center">
+                            <a href="@Url.Action("EditBLog", "Blog", new { area = "Admin", id = item.Id })">
+                                <img class="img-Icon" src="~/images/editing.png" />
+                            </a>
+                        </td>
+                        <td style="text-align:center">
+                            <a href="@Url.Action("DeleteBLog", "Blog", new { area = "Admin", id = item.Id })">
+                                <img class="img-Icon" src="~/images/recycle.png" />
+                            </a>
+                        </td>
+                    </tr>
+                    row++;
+                }
             </tbody>
+
         </table>
     </div>
 </div>
 @section Scripts
 {
     <script>
+
           document.querySelector('#myTable')
             .setAttribute('dir', 'rtl'); // Demo only
 

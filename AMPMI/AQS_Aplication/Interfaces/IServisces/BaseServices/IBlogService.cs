@@ -8,12 +8,20 @@ namespace AQS_Application.Interfaces.IServices.BaseServices
     {
         Task<int> Create(Blog blog);
         Task<ResultOutPutMethodEnum> Delete(int id);
-        Task<List<Blog>> Read();
+        Task<ResultOutPutMethodEnum> DeleteProductPicture(long pictureId);
+        Task<List<BlogReadAdminDto>> Read();
         Task<List<BlogReadHomeDto>> ReadTop3();
+        /// <summary>
+        /// منسوخ کنید
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         Task<Blog?> ReadById(int id);
+        Task<BlogReadAdminDto?> ReadByIdAsync(int id);
         Task<ResultOutPutMethodEnum> Update(Blog blog);
         Task<ResultOutPutMethodEnum> UpdateHeaderPicture(int id, string headerPictureFileName);
         Task<ResultOutPutMethodEnum> UpdateVideoFile(int id, string videoFileName);
+        Task<ResultOutPutMethodEnum> UpdatePictureRout(int blogId, string rout);
     }
 
 }
