@@ -12,6 +12,8 @@ namespace AQS_Application.Interfaces.IServices.IdentityServices
         /// <returns></returns>
         Task<ResultRegisterIdentityDto> RegisterAsync(RegisterIdentityDTO registerIdentityDTO, string role);
         Task<ResultRegisterIdentityDto> ChangePasswordAsync(long userId, string currentPassport, string newPassword);
+        Task<ResultRegisterIdentityDto> RegisterAsync(RegisterIdentityDTO registerIdentityDTO, string role, bool isLogin);
+        Task<bool> DeleteUserAsync(long userId);
     }
 
 }
