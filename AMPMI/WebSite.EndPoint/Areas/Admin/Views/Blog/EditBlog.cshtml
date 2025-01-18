@@ -47,10 +47,9 @@
                     </div>
                 </div>
                 <!-- video -->
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label input-Label">انتخاب ویدیو :</label>
-                    <div class="row uploadDiv">
-                        <div class="col-sm-5 upBtn">
+                <div class="form-group row my-4" style="margin-top:30px;">
+                    <div class="uploadDiv">
+                        <div class="col-sm-4 upBtn">
                             <button type="button" class="btn btn-submit btnUpload" onclick="document.getElementById('blogvid').click();">بارگذاری ویدیو </button>
                             <input type="file" id="blogvid" name="blogvid" style="display:none" accept="video/*" onchange="showFileName(this, 'videoPreview1')" />
                         </div>
@@ -72,18 +71,19 @@
 
                 <!-- video -->
                 <!--pictures -->
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label input-Label">انتخاب تصاویر :</label>
-                    <div class="col-sm-5 upBtn">
+                <div class="form-group row" style="margin-top:30px;">
+                    <div class="col-sm-4 upBtn">
                         <button type="button" class="btn-submit btnUpload" onclick="getfile()">بارگذاری تصویر</button>
                         <input multiple name="f" id="getFile" style="display:none" class="form-control-file" type="file" accept="image/*">
                     </div>
                     <div id="preview" class="col-sm-2 ShowPic"></div>
+                    <div class="col-sm-4 ">
+                        <button type="button" class="btn btn-submit btnUpload" onclick="addPicture()" id="new">افزودن به جدول</button>
+                    </div>
                     <input id="isPictureChanged" hidden value="false" name="IsPictureChanged" />
                 </div>
                 <!--pictures -->
                 <input hidden asp-for="Id" />
-                <a onclick="addPicture()" id="new"> <img class="img-Icon" src="~/images/addition copy.png" /> </a>
             </div>
         </div>
         <div class="row">
@@ -234,37 +234,6 @@
             }
         });
 
-        function CallAjax(CategoryId,selectedSubCategory=0){
-             $.ajax({
-                    url: "/Admin/Product/ChangeCategory", // مسیر اکشن کنترلر
-                    type: 'GET',
-                    data: {categoryId: CategoryId},
-                    dataType: 'json',
-                    success: function (data) {
-                        $('#subCategories').empty();
-
-                        $('#subCategories').append('<option value="">انتخاب کنید</option>');
-                        $.each(data, function (index, item) {
-                            if(item.id == selectedSubCategory){
-                                 $('#subCategories').append('<option selected value="' + item.id + '">' + item.name + '</option>');
-                            }
-                            else
-                            {
-                                 $('#subCategories').append('<option value="' + item.id + '">' + item.name + '</option>');
-                            }
-                        });
-
-                        $("#subCategories").prop('disabled',false);
-                    },
-                    error: function (xhr, status, err) {
-                        console.log(err);
-                        $("#subCategories").prop('disabled',true);
-                    }
-             });
-             lastCategoryId=CategoryId;
-
-        }
-
         $("#save").click(function(event){
             event.preventDefault();
             $("#saveForm").submit();
@@ -290,55 +259,46 @@
         });
 
         //video
-        function showFileName(input, labelId) {
-                 if (input.files && input.files[0]) {
-                     const videoFile = input.files[0]; // فایل انتخاب شده توسط کاربر
-                     const videoPreview = document.getElementById(labelId); // دریافت عنصر ویدئو
-                     if (videoFile)
-                     {
-                         const fileURL = URL.createObjectURL(videoFile); // ایجاد URL موقت از فایل
-                         videoPreview.src = fileURL; // تنظیم URL به عنوان منبع ویدیو
-                         videoPreview.load(); // بارگذاری ویدیو
+        function showFileName(input, labelId) 
+        {
+            if (input.files && input.files[0]) {
+                const videoFile = input.files[0]; // فایل انتخاب شده توسط کاربر
+                const videoPreview = document.getElementById(labelId); // دریافت عنصر ویدئو
+                if (videoFile)
+                {
+                    const fileURL = URL.createObjectURL(videoFile); // ایجاد URL موقت از فایل
+                    videoPreview.src = fileURL; // تنظیم URL به عنوان منبع ویدیو
+                    videoPreview.load(); // بارگذاری ویدیو
 
-                         // رویداد timeupdate برای کنترل حلقه ۵ ثانیه‌ای
-                         $(videoPreview).on('timeupdate', function () {
-                             if (videoPreview.currentTime >= 5) {
-                                 videoPreview.currentTime = 0; // بازگشت به ثانیه ۰
-                                 videoPreview.play(); // شروع دوباره پخش
-                             }
-                         });
+                    // رویداد timeupdate برای کنترل حلقه ۵ ثانیه‌ای
+                    $(videoPreview).on('timeupdate', function () {
+                        if (videoPreview.currentTime >= 5) {
+                            videoPreview.currentTime = 0; // بازگشت به ثانیه ۰
+                            videoPreview.play(); // شروع دوباره پخش
+                        }
+                    });
 
-                         videoPreview.play(); // شروع پخش خودکار
-                     }
+                    videoPreview.play(); // شروع پخش خودکار
+                }
 
-                 }
-             }
+            }
+        }
 
-             function removeVideo(button) {
-                 const parent = $(button).closest(".uploadDiv");
-                 if(parent){
-                     const video = parent.find("video");
-                     if(video){
-                         $(video).attr('src', ''); // حذف منبع ویدئو
-                         // $(video).load(); // بازنشانی ویدئو
-                     }
-                     const input = parent.find("input");
-                     if(input){
-                         $(input).val("");
-                     }
-                 }
-             }
-
-
-
-
-
-
-
-
-
-
-
+        function removeVideo(button) 
+        {
+            const parent = $(button).closest(".uploadDiv");
+            if(parent){
+                const video = parent.find("video");
+                if(video){
+                    $(video).attr('src', ''); // حذف منبع ویدئو
+                    // $(video).load(); // بازنشانی ویدئو
+                }
+                const input = parent.find("input");
+                if(input){
+                    $(input).val("");
+                }
+            }
+        }
 
 
                      // تغییرات در بارگذاری تصویر هدر
