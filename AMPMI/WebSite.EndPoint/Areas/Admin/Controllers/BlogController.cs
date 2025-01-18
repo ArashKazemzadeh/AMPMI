@@ -27,24 +27,23 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         public async Task<IActionResult> BlogList()
         {
             List<BlogReadAdminDto> blogs = await _blogService.Read();
-
             return View(blogs);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Save(BlogReadAdminDto dto,string content, IFormFile blogvid)
+        public async Task<IActionResult> Save(BlogReadAdminDto dto, string content, IFormFile blogvid)
         {
             if (dto.Id > 0)
                 return await EditBlog(dto, content, blogvid);
             else
-                return await CreateBlog(dto, content,blogvid);
+                return await CreateBlog(dto, content, blogvid);
         }
         public async Task<IActionResult> CreateBlog()
         {
             return View("EditBlog", new BlogReadAdminDto());
         }
         [HttpPost]
-        public async Task<IActionResult> CreateBlog(BlogReadAdminDto dto,string content, IFormFile blogvid)//todo
+        public async Task<IActionResult> CreateBlog(BlogReadAdminDto dto, string content, IFormFile blogvid)//todo
         {
             Blog newBlog = new Blog()
             {
@@ -123,8 +122,9 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                     Subject = blog.Subject,
                     Description = blog.Description,
                     BlogPictures = blog.BlogPictures,
+                    VideoFileName = blog.VideoFileName,
                 });
-                
+
             }
             else
             {
@@ -134,12 +134,12 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditBlog(BlogReadAdminDto dto,string content,IFormFile blogvid)
+        public async Task<IActionResult> EditBlog(BlogReadAdminDto dto, string content, IFormFile blogvid)
         {
             Blog existBlog = new Blog()
             {
                 Id = dto.Id,
-                Description = content,
+                Description = content
             };
             try
             {
@@ -203,7 +203,6 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
             var blog = await _blogService.ReadByIdAsync(id);
             if (blog != null)
             {
-
                 var blogPictures = new List<BlogPicture>();
                 blogPictures.AddRange(blog.BlogPictures);
                 foreach (var item in blogPictures)
@@ -214,6 +213,8 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                     }
                 }
                 var result = await _blogService.Delete(id);
+                if (result == ResultOutPutMethodEnum.savechanged)
+                    await _videoServices.DeleteVideo(blog.VideoFileName);
                 if (result != ResultOutPutMethodEnum.savechanged)
                     TempData["error"] = "خطایی در هنگام حذف خبر رخ داد";
             }

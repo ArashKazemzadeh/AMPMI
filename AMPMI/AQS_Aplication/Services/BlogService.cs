@@ -63,7 +63,7 @@ namespace AQS_Application.Services
                     Description = b.Description,
                     CreateUpdateAt = b.CreateUpdateAt,
                     VideoFileName = b.VideoFileName,
-                    HeaderPictureFileName = b.HeaderPictureFileName,
+                    PreviousHeaderRout = b.HeaderPictureFileName,
                     BlogPictures = b.BlogPictures.Select(bp => new BlogPicture
                     {
                         Id = bp.Id,
@@ -119,7 +119,7 @@ namespace AQS_Application.Services
                     Description = b.Description,
                     CreateUpdateAt = b.CreateUpdateAt,
                     VideoFileName = b.VideoFileName,
-                    HeaderPictureFileName = b.HeaderPictureFileName,
+                    PreviousHeaderRout = b.HeaderPictureFileName,
                     BlogPictures = b.BlogPictures.Select(bp => new BlogPicture
                     {
                         Id = bp.Id,

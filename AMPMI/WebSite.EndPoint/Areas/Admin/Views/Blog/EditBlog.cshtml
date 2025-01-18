@@ -46,28 +46,31 @@
                         <textarea id="div_editor1" name="content" style="display: none;">@Html.Raw(ViewBag.BlogContent)</textarea>
                     </div>
                 </div>
-                <!--video-->
+                <!-- video -->
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label input-Label">انتخاب ویدیو :</label>
-                <div class="row uploadDiv">
+                    <div class="row uploadDiv">
                         <div class="col-sm-5 upBtn">
-                        <button type="button" class="btn btn-submit btnUpload" onclick="document.getElementById('blogvid').click();">بارگذاری ویدیو </button>
+                            <button type="button" class="btn btn-submit btnUpload" onclick="document.getElementById('blogvid').click();">بارگذاری ویدیو </button>
                             <input type="file" id="blogvid" name="blogvid" style="display:none" accept="video/*" onchange="showFileName(this, 'videoPreview1')" />
-                    </div>
-                        <div class="col-sm-1 upBtn">
-                        <video src="@Model.VideoFileName" muted id="videoPreview1" controls style="width : 100%; height:100%;" width="600">
-                            مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
-                        </video>
-                    </div>
-                        <div class="col-sm-1 upBtn">
-                        <a href="#" onclick="removeVideo(this)">
-                            <img class="img-Icon" src="~/images/recycle.png" />
-                        </a>
-                    </div>
+                        </div>
+                        <div class="col-sm-6" style="display: flex; align-items: center;">
+
+                            <video src="@Model.VideoFileName" muted id="videoPreview1" controls style="width: 70%; height: 120px;">
+
+                                مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
+                            </video>
+                            <div class="col-md-4 upBtn" style="margin-left: 10px;">
+                                <a href="#" onclick="removeVideo(this)">
+                                    <img class="img-Icon" src="~/images/recycle.png" />
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!--video-->
+
+                <!-- video -->
                 <!--pictures -->
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label input-Label">انتخاب تصاویر :</label>
@@ -325,6 +328,41 @@
                      }
                  }
              }
+
+
+
+
+
+
+
+
+
+
+
+
+
+                     // تغییرات در بارگذاری تصویر هدر
+               // تغییرات در بارگذاری تصویر هدر
+        $("#headerPicture").on('change', function () {
+            const file = this.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    $("#headerPreview").html('<img src="' + e.target.result + '" class="img img-fluid prevImage" style="width: 100px; height: 100px;" />');
+                    $("#headerPreview").append('<a href="javascript:void(0)" onclick="removeHeaderImage()" class="col-md-4 upBtn" style="margin-left: 10px;"><img class="img-Icon" src="~/images/recycle.png" /></a>');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // حذف تصویر هدر
+        function removeHeaderImage() {
+            $("#headerPicture").val(""); // پاک کردن فایل از ورودی
+            $("#headerPreview").html(""); // پاک کردن پیش‌نمایش تصویر
+        }
+
+
     </script>
 
    

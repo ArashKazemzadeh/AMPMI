@@ -28,7 +28,9 @@ namespace AQS_Application.Dtos.BaseServiceDto.BlogDtos
         public string Description { get; set; } = null!;
         public DateTime? CreateUpdateAt { get; set; }
         public string? VideoFileName { get; set; }
-        public string? HeaderPictureFileName { get; set; }
+        public IFormFile HeaderPictureFileName { get; set; }
+        public bool IsHeaderChanged { get; set; }
+        public string? PreviousHeaderRout { get; set; }
         public List<IFormFile>? PictureFileName { get; set; }
         public virtual List<BlogPicture>? BlogPictures { get; set; } = new List<BlogPicture>();
     }

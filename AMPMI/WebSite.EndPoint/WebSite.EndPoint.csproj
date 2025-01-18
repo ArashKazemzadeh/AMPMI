@@ -38,4 +38,8 @@
     <ProjectReference Include="..\ThirdParties\ThirdParties.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\BlogVideoFiles\" />
+  </ItemGroup>
+
 </Project>
