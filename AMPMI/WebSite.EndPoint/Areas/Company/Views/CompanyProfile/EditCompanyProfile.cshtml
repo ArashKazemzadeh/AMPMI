@@ -11,17 +11,15 @@
 
 <div class="container-fluid">
 
-    @if (ViewData["error"] is not null)
-    {
-        <div class="row">
-            <p style="color:red;">@ViewData["error"]?.ToString()</p>
-        </div>
-    }
-
     <div class="pageName">
         <span class="textPage">پروفایل کاربری</span>
     </div>
-
+    @if (ViewData["error"] is not null)
+    {
+        <div style="padding:10px">
+            <p style="color:red;">@ViewData["error"]?.ToString()</p>
+        </div>
+    }
     <div>
         <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
     </div>
@@ -41,7 +39,11 @@
                 </div>
                 <div class="col-md-6 userEditRow">
                     <label for="CMobile" class="labelText">شماره موبایل</label>
-                    <input asp-for="MobileNumber" class="labelText input-text" type="text" id="CMobile" />
+                    <input asp-for="MobileNumber" 
+                        class="labelText input-text"
+                        oninput="this.value=this.value.replace(/(?![0-9])./gmi,'')" 
+                        type="text" 
+                        id="CMobile" />
                 </div>
                 <div class="col-md-6 userEditRow">
                     <label for="CEmail" class="labelText">ایمیل</label>
@@ -49,7 +51,10 @@
                 </div>
                 <div class="col-md-6 userEditRow">
                     <label for="CTel" class="labelText">تلفن</label>
-                    <input asp-for="Tel" class="labelText input-text" type="text" id="CTel" />
+                    <input asp-for="Tel" 
+                        class="labelText input-text"
+                        oninput="this.value=this.value.replace(/(?![0-9])./gmi,'')" 
+                        type="text" id="CTel" />
                 </div>
                 <div class="col-md-6 userEditRow">
                     <label for="CAddress" class="labelText">آدرس</label>
