@@ -23,7 +23,7 @@ namespace AQS_Application.Services
         /// <returns></returns>
         public async Task<int> Create(Blog blog)
         {
-            blog.CreateUpdateAt = DateTime.Now; 
+            blog.CreateUpdateAt = DateTime.Now;
 
             var row = _context.Blogs.Add(blog);
             int result = await _context.SaveChangesAsync();
@@ -52,18 +52,38 @@ namespace AQS_Application.Services
         /// متد برای خواندن تمامی بلاگ‌ها
         /// </summary>
         /// <returns></returns>
-        public async Task<List<Blog>> Read()
+        public async Task<List<BlogReadAdminDto>> Read()
         {
-            var blogs = await _context.Blogs.Include(b => b.BlogPictures).AsNoTracking().ToListAsync();
-            return blogs ?? new List<Blog>();
+            var blogs = await _context.Blogs
+                .Include(b => b.BlogPictures)
+                .Select(b => new BlogReadAdminDto
+                {
+                    Id = b.Id,
+                    Subject = b.Subject,
+                    Description = b.Description,
+                    CreateUpdateAt = b.CreateUpdateAt,
+                    VideoFileName = b.VideoFileName,
+                    PreviousHeaderRout = b.HeaderPictureFileName,
+                    BlogPictures = b.BlogPictures.Select(bp => new BlogPicture
+                    {
+                        Id = bp.Id,
+                        BlogId = bp.BlogId,
+                        Route = bp.Route
+                    }).ToList()
+                })
+                .ToListAsync();
+
+            return blogs ?? new List<BlogReadAdminDto>();
         }
+
+
         public async Task<List<BlogReadHomeDto>> ReadTop3()
-        {            
+        {
             // TODO : Description Must be summarize
             var blogs = await _context.Blogs
                 .OrderBy(x => x.CreateUpdateAt)
                 .Take(3)
-                .Select(x=>new BlogReadHomeDto() 
+                .Select(x => new BlogReadHomeDto()
                 {
                     Id = x.Id,
                     CreateUpdateAt = x.CreateUpdateAt,
@@ -78,6 +98,7 @@ namespace AQS_Application.Services
 
         /// <summary>
         /// متد برای خواندن بلاگ با شناسه
+        /// این متد منسوخ شده است و بهتر است از متد ReadByIdAsync استفاده شود
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -85,6 +106,28 @@ namespace AQS_Application.Services
         {
             return await _context.Blogs.Include(b => b.BlogPictures)
                                        .FirstOrDefaultAsync(b => b.Id == id);
+        }
+        public async Task<BlogReadAdminDto?> ReadByIdAsync(int id)
+        {
+            return await _context.Blogs
+                .Include(b => b.BlogPictures)
+                .Where(b => b.Id == id)
+                .Select(b => new BlogReadAdminDto
+                {
+                    Id = b.Id,
+                    Subject = b.Subject,
+                    Description = b.Description,
+                    CreateUpdateAt = b.CreateUpdateAt,
+                    VideoFileName = b.VideoFileName,
+                    PreviousHeaderRout = b.HeaderPictureFileName,
+                    BlogPictures = b.BlogPictures.Select(bp => new BlogPicture
+                    {
+                        Id = bp.Id,
+                        BlogId = bp.BlogId,
+                        Route = bp.Route
+                    }).ToList()
+                })
+                .FirstOrDefaultAsync();
         }
 
         /// <summary>
@@ -102,7 +145,7 @@ namespace AQS_Application.Services
             if (blog.Subject != null && existingBlog.Subject != blog.Subject)
                 existingBlog.Subject = blog.Subject;
 
-            if (blog.Description != null  && existingBlog.Description != blog.Description)
+            if (blog.Description != null && existingBlog.Description != blog.Description)
                 existingBlog.Description = blog.Description;
 
             existingBlog.CreateUpdateAt = DateTime.Now;
@@ -148,6 +191,31 @@ namespace AQS_Application.Services
 
             int result = await _context.SaveChangesAsync();
             return result > 0 ? ResultOutPutMethodEnum.savechanged : ResultOutPutMethodEnum.dontSaved;
+        }
+        public async Task<ResultOutPutMethodEnum> UpdatePictureRout(int blogId, string rout)
+        {
+            BlogPicture blogPicture = new()
+            {
+                BlogId = blogId,
+                Route = rout
+            };
+            await _context.BlogPictures.AddAsync(blogPicture);
+
+            int result = await _context.SaveChangesAsync();
+            return result > 0 ?
+               ResultOutPutMethodEnum.savechanged :
+               ResultOutPutMethodEnum.dontSaved;
+        }
+        public async Task<ResultOutPutMethodEnum> DeleteBlogPicture(int pictureId)
+        {
+            var picture = await _context.BlogPictures.FindAsync(pictureId);
+            if (picture != null)
+            {
+                _context.BlogPictures.Remove(picture);
+                return await _context.SaveChangesAsync() > 0 ?
+                    ResultOutPutMethodEnum.savechanged : ResultOutPutMethodEnum.dontSaved;
+            }
+            return ResultOutPutMethodEnum.recordNotFounded;
         }
     }
 }

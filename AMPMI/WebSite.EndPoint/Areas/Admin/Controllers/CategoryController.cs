@@ -31,8 +31,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
             var categories = await _categoryService.ReadAll();
             var model = CategoryReadVM.ConvertToModel(categories);
 
-            //if (model.Count < 1)
-            //    model = CategoryReadVM.Seed();
+
 
             return View(model);
         }
