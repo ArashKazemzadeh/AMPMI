@@ -650,7 +650,7 @@ a:focus {
 .sidebar-menu,
 .main-sidebar .user-panel,
 .sidebar-menu > li.header {
-  white-space: nowrap;
+/*  white-space: nowrap;*/
   overflow: hidden;
 }
 .sidebar-menu:hover {
