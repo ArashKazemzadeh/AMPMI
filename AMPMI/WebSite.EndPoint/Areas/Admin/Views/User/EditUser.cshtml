@@ -36,7 +36,7 @@
         <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
     </div>
     <div class="mt-2">
-        <form enctype="multipart/form-data" id="saveForm" asp-area="Admin" asp-action="EditUser" asp-controller="User" method="post">
+        <form enctype="multipart/form-data" id="saveForm" asp-area="Admin" asp-action="Save" asp-controller="User" method="post">
             <div class="row mt-2 userEditRow">
                 <div class="col-md-6 my-2">
                     <div class="form-check d-flex align-items-center">
@@ -103,7 +103,7 @@
 
                 <div class="col-md-6 my-2" style="margin-top:25px;">
                     <div class="col-sm-5 upBtn">
-                        <button type="button" class="btn btn-submit btnUpload" onclick="getfileLogo()">بارگذاری تصویر</button>
+                        <button type="button" class="btn btn-submit btnUpload" onclick="GetfileLogo()">بارگذاری تصویر</button>
                         <input asp-for="Logo" id="getfileLogo" style="display:none" class="form-control-file" type="file" accept="image/*">
                     </div>
                     <div id="previewLogo" class="col-sm-2 ShowPic">
@@ -151,24 +151,24 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> 
 </div>
 
 @section Scripts
 {
     <script>
 
-        function getfileLogo()
+        function GetfileLogo()
         {
-            document.querySelector('#getFileLogo').click();
+            document.querySelector('#getfileLogo').click();
         }
         function getfileBanner()
         {
             document.querySelector('#getFileBanner').click();
         }
 
-                $("#getFileLogo").on('change',function(){
-            const file = this.files[0];
+        $("#getfileLogo").on('change',function(){
+        const file = this.files[0];
 
             if (file)
             {
@@ -215,17 +215,16 @@
             }
         });
 
-
-
         $("#save").click(function(event){
             event.preventDefault();
             $("#saveForm").submit();
         });
 
+
         $("#deleteLogo").click(function(event) {
             event.preventDefault();
             $("#previewLogo").html("");
-            $("#getFileLogo").val("");
+            $("#getfileLogo").val("");
             $("#IsLogoChanged").val(true); // changed - deleted
         });
 

@@ -45,7 +45,7 @@ namespace YourNamespace.Services
                 };
             }
         }
-        public async Task<ResultRegisterIdentityDto> RegisterAsync(RegisterIdentityDTO registerIdentityDTO, string role)
+        public async Task<ResultRegisterIdentityDto> RegisterAsync(RegisterIdentityDTO registerIdentityDTO, string role, bool isLogin)
         {
             using (var transaction = await _context.Database.BeginTransactionAsync())
             {
@@ -133,7 +133,11 @@ namespace YourNamespace.Services
                     {
                         throw new Exception("ثبت نام انجام نشد.");
                     }
-                    await _signInManager.SignInAsync(user, true);
+                    if (isLogin)
+                    {
+                        await _signInManager.SignInAsync(user, true);
+                    }
+
                     // در صورت موفقیت، تراکنش را commit می‌کنیم
                     await transaction.CommitAsync();
 
@@ -161,6 +165,28 @@ namespace YourNamespace.Services
                         errorMessage = "خطا در انجام عملیات: " + ex.Message
                     };
                 }
+            }
+        }
+        public async Task<ResultRegisterIdentityDto> RegisterAsync(RegisterIdentityDTO registerIdentityDTO, string role)
+        {
+            return await RegisterAsync(registerIdentityDTO, role, true);
+        }
+        public async Task<bool> DeleteUserAsync(long userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            if (user == null)
+            {
+                return false;
+            }
+
+            var result = await _userManager.DeleteAsync(user);
+            if (result.Succeeded)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
