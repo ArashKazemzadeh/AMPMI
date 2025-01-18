@@ -206,7 +206,7 @@ namespace AQS_Application.Services
                ResultOutPutMethodEnum.savechanged :
                ResultOutPutMethodEnum.dontSaved;
         }
-        public async Task<ResultOutPutMethodEnum> DeleteProductPicture(long pictureId)
+        public async Task<ResultOutPutMethodEnum> DeleteBlogPicture(int pictureId)
         {
             var picture = await _context.BlogPictures.FindAsync(pictureId);
             if (picture != null)

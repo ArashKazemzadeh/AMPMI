@@ -8,7 +8,7 @@ namespace AQS_Application.Interfaces.IServices.BaseServices
     {
         Task<int> Create(Blog blog);
         Task<ResultOutPutMethodEnum> Delete(int id);
-        Task<ResultOutPutMethodEnum> DeleteProductPicture(long pictureId);
+        Task<ResultOutPutMethodEnum> DeleteBlogPicture(int pictureId);
         Task<List<BlogReadAdminDto>> Read();
         Task<List<BlogReadHomeDto>> ReadTop3();
         /// <summary>
