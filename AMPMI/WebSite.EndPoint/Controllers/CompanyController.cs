@@ -18,11 +18,15 @@ namespace WebSite.EndPoint.Controllers
             List<Company> result = await _companyService.Read();
             List<CompanyVM> resultVM = result.Select(x => new CompanyVM 
             {
+                Id = x.Id,
                 Address = x.Address,
                 LogoRout = x.LogoRout,
                 MobileNumber = x.MobileNumber,
                 Name = x.Name,
-                TeaserGuid = x.TeaserGuid
+                TeaserGuid = x.TeaserGuid,
+                Email = x.Email,
+                ManagerName = x.ManagerName,
+                Tel = x.Tel,
             }).ToList();
 
             return View(resultVM);
