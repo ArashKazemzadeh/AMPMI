@@ -15,7 +15,7 @@ namespace AQS_Application.Services
             _context = context;
         }
 
-        public async Task<long> Create(int notifId,long companyId)
+        public async Task<long> Create(long notifId,long companyId)
         {
             var seenNotifByCompany = new SeenNotifByCompany() 
             {
@@ -65,9 +65,17 @@ namespace AQS_Application.Services
         }
         public async Task<List<SeenNotifByCompany>> ReadByCompanyId(long companyId)
         {
-            return await _context.SeenNotifByCompanies.Where(x => x.CompanyId == companyId).ToListAsync();
+            return await _context.SeenNotifByCompanies
+                .Where(x => x.CompanyId == companyId)
+                .ToListAsync();
         }
-        public async Task<bool> NotifIsSeenByCompany(int notifId,long companyId)
+        public async Task<List<SeenNotifByCompany>> ReadByNotifId(long notifId)
+        {
+            return await _context.SeenNotifByCompanies
+                .Where(x => x.NotificationId == notifId)
+                .ToListAsync();
+        }
+        public async Task<bool> NotifIsSeenByCompany(long notifId,long companyId)
         {
             return await _context.SeenNotifByCompanies.AnyAsync(x => x.NotificationId == notifId &&
             x.CompanyId == companyId);

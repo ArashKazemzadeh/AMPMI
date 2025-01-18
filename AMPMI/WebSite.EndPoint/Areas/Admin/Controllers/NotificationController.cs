@@ -25,9 +25,6 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
             var Notifications = await _notificationService.ReadAll();
             var model = NotificationReadByAdminVM.ConvertToModel(Notifications);
 
-            if (model.Count < 1)
-                model = NotificationReadByAdminVM.Seed();
-
             return View(model);
         }
 

@@ -37,6 +37,11 @@ namespace AQS_Application.Services
         public async Task<ResultOutPutMethodEnum> Delete(long id)
         {
             var notification = await _context.Notifications.FindAsync(id);
+            var seenNotif = await _seenNotifByCompany.ReadByNotifId(id);
+            foreach(var item in seenNotif)
+            {
+                await _seenNotifByCompany.Delete(item.Id);
+            }
             if (notification != null)
             {
                 _context.Notifications.Remove(notification);
@@ -67,6 +72,7 @@ namespace AQS_Application.Services
         {
             var notifications = await _context.Notifications
                 .Where(n => n.CreateAt >= DateTime.UtcNow.AddDays(-366))
+                .OrderByDescending(n => n.CreateAt)
                 .Select(n => new NotificationReadAdminDto
                 {
                     Id = n.Id,
