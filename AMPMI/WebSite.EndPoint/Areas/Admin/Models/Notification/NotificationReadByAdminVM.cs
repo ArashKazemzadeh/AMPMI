@@ -26,34 +26,6 @@ namespace WebSite.EndPoint.Areas.Admin.Models.Notification
 
             return result;
         }
-        internal static List<NotificationReadByAdminVM> Seed()
-        {
-
-            return new List<NotificationReadByAdminVM>
-            {
-                new NotificationReadByAdminVM
-                {   Id = 1,
-                    Subject = "اطلاعیه مهم",
-                    Description = "به اطلاع می‌رساند سرویس جدید اضافه شده است.",
-                    CreateAt = DateTime.Now
-                },
-                new NotificationReadByAdminVM
-                {
-                    Id = 2,
-                    Subject = "هشدار سیستم",
-                    Description = "عملکرد سیستم با موفقیت انجام شد.",
-                    CreateAt = DateTime.Now.AddDays(-1)
-                },
-                new NotificationReadByAdminVM
-                {
-                    Id=3,
-                    Subject = "بروزرسانی",
-                    Description = "نسخه جدید سیستم منتشر شده است.",
-                    CreateAt = DateTime.Now.AddDays(-2)
-                }
-            };
-        }
-
     }
 }
 

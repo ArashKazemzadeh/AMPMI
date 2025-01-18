@@ -241,6 +241,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                     IsConfirmed = x.IsConfirmed,
                     //PictureFileSrc = x.PictureFileName,
                     SubCategoryName = x.SubCategory.Name,
+                    CompanyName = x.Company?.Name,
                     CategoryName = x.SubCategory.Category.Name
                 }).ToList();
             }

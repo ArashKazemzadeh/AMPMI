@@ -102,6 +102,7 @@ namespace AQS_Application.Services
         {
             return await _context.Products
                 .Where(x => x.IsConfirmed == false)
+                .Include(x=>x.Company)
                 .Include(x => x.SubCategory)
                 .ThenInclude(x => x.Category)
                 .AsNoTracking()
