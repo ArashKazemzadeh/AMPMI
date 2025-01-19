@@ -2,6 +2,19 @@
 @{
     ViewData["Title"] = "CompanyList";
 }
+<style>
+    .companyLogo {
+        border-radius: 50%;
+        background-color: #003C61;
+        width: 100px;
+        height: 100px;
+        margin-right: 5px;
+        margin: 5px auto
+    }
+    .hasImg{
+        background-color: #FFFFFF;
+    }
+</style>
 <div class="body-default container">
     <div class="row">
         <form>
@@ -27,14 +40,10 @@
                         margin:10px;
                         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                         <div class="col-md-3 my-2" style="text-align:center">
-                            <div style="border-radius:50%;
-                                background-color:#003C61;
-                                width:100px;
-                                height:100px;
-                                margin-right:5px;
-                                margin:5px auto">
-                                <img style="border-radius:50%;" class="img img-fluid" src="@item.LogoRout" />
+                            <div class="companyLogo @(!string.IsNullOrEmpty(item.LogoRout) ? "hasImg":"")">
+                                <img class="img img-fluid companyLogo" src="@item.LogoRout" />
                             </div>
+                            <br/>
                             <p>@item.Name</p>
                         </div>
                         <div class="col-md-9 my-2">
