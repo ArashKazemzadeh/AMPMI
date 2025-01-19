@@ -9,13 +9,13 @@
     margin: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
-    .companyLogo{
-    border-radius: 50%;
-    background-color: #003C61;
-    width: 100px;
-    height: 100px;
-    margin-right: 5px;
-    margin: 5px auto
+    .companyLogo {
+        border-radius: 50%;
+        background-color: #003C61;
+        width: 100px;
+        height: 100px;
+        margin-right: 5px;
+        margin: 5px auto
     }
     .companyInfo {
     background-color: #ECECEC;
@@ -79,6 +79,9 @@
     position: relative;
     margin-top:15px;
     }
+    .hasImg{
+    background-color: #FFFFFF;
+    }
 </style>
 <div class="body-default container">
     <!-- Company Section -->
@@ -87,7 +90,7 @@
                     align-items: center;
                     display: flex">
             @*//foreach data here*@
-            <div class="col-md-8 my-2 card">
+            <div class="card" style="width:100%">
                 <div class="row mt-2">
                     <div class="col-md-3 my-2" style="text-align:center">
                         <img src="@Model.LogoRout" class="img-fluid companyLogo">
@@ -187,9 +190,11 @@
                     <div class="card productCard">
                         <a href="@Url.Action("ProductDetail","Product",new{productId=item.Id})" class="productDetailLoc"><span class="productDetail">اطلاعات محصول</span></a>
                         <div class="productCard1">
-                            <a class="productDetailLoc" style="width:70%"><span class="productName">@item.Name</span></a>
-                            <div class="productCard2">
-                                <img class="img img-fluid" src="@item.PictureFileName" />
+                            <a class="productDetailLoc"><span class="productName">@item.Name</span></a>
+                            <div class="productCard2 @(!string.IsNullOrEmpty(item.PictureFileName) ? "hasImg":"")">
+                                @if(!string.IsNullOrEmpty(item.PictureFileName)){
+                                    <img class="img img-fluid productCard2" src="@item.PictureFileName" />
+                                }
                             </div>
                         </div>
                     </div>

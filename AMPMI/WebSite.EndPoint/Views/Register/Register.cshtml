@@ -19,7 +19,14 @@
                             <div class="form-account-title">شماره موبایل</div>
                             <div class="form-account-row">
                                 <label class="input-label"><i class="now-ui-icons users_single-02"></i></label>
-                                <input autocomplete="tel" asp-for=Mobile class="input-field" readonly value="@Model.Mobile" type="tel">
+                                <input 
+                                    autocomplete="tel"
+                                    oninput="this.value=this.value.replace(/(?![0-9])./gmi,'')" 
+                                    asp-for=Mobile 
+                                    class="input-field" 
+                                    readonly 
+                                    value="@Model.Mobile" 
+                                    type="tel">
                                 <span class="text-danger" asp-validation-for=Mobile></span>
                             </div>
                             <div class="form-account-title">نام شرکت</div>

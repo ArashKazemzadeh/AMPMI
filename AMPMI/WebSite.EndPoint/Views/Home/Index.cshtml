@@ -76,7 +76,7 @@
                                 <img class="img img-fluid category-Pic-img" src="@item.PictureFileName" />
                             </div>
                         </figure>
-                        <h4 class="service-title title-bordered">@item.Name</h4>
+                        <h6 class="service-title title-bordered">@item.Name</h6>
                     </a>
                 </div>
             }
@@ -130,14 +130,15 @@
             {
                 @if (!string.IsNullOrEmpty(item.Logo))
                 {
-                    <div class=" service-box-col ">
+                    <div class="service-box-col">
                         <figure>
-                            <div class="service-image">
+                            <div class="service-image category-Pic">
                                 <a href="@Url.Action("CompanyDetail","Company",new {companyId=item.Id})">
-                                    <img class="img-fluid" src="@item.Logo" />
+                                    <img class="img-fluid category-Pic-img" src="@item.Logo" />
                                 </a>
                             </div>
-                            <a href="@Url.Action("CompanyDetail","Company",new {companyId=item.Id})">@item.Name</a>
+                            <h6 class="service-title title-bordered">@item.Name</h6>
+                            @* <a href="@Url.Action("CompanyDetail","Company",new {companyId=item.Id})">@item.Name</a> *@
                         </figure>
                     </div>
                 }

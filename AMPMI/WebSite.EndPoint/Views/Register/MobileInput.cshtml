@@ -29,8 +29,12 @@
                             <div class="form-account-title"> شماره موبایل</div>
                             <div class="form-account-row">
                                 <label class="input-label"><i class="now-ui-icons users_single-02"></i></label>
-                                <input class="input-field" name="mobile" type="text"
-                                       placeholder="شماره موبایل خود را وارد نمایید">
+                                <input 
+                                    class="input-field"
+                                    oninput="this.value=this.value.replace(/(?![0-9])./gmi,'')" 
+                                    name="mobile" 
+                                    type="text"
+                                    placeholder="شماره موبایل خود را وارد نمایید">
                             </div>
                             <div class="form-account-row form-account-submit">
                                 <div class="parent-btn">

@@ -723,8 +723,9 @@ blockquote::before {
 	padding:14px 0;
 }
 .service-box-col:hover .service-image {
-	background-color: #09b9bb;
-	color: #fff;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	/*	background-color: #09b9bb;
+	color: #fff;*/
 }
 .service-box-co{
 	margin-bottom:30px;
@@ -750,9 +751,9 @@ blockquote::before {
 	-webkit-transition: all ease 0.5s; -moz-transition: all ease 0.5s; -ms-transition: all ease 0.5s; -o-transition: all ease 0.5s; transition: all ease 0.5s;
 	transform: translateX(-50%);
 }
-.service-box-col:hover .service-title.title-bordered:before {
+/*.service-box-col:hover .service-title.title-bordered:before {
 	width: 50px;
-}
+}*/
 .service-box-col {
     margin-bottom: 30px;
 }
