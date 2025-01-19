@@ -221,13 +221,13 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
                 else
                 {
                     ViewData["error"] = "خطایی در هنگام ثبت کالا رخ داد";
-                    return View(productVM);
+                    return View("EditProduct", productVM);
                 }
             }
             catch (Exception e)
             {
                 ViewData["error"] = e.Message;
-                return View(productVM);
+                return View("EditProduct", productVM);
             }
         }
         public async Task<IActionResult> DeleteProduct(long id)
