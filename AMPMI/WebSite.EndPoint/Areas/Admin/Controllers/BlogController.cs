@@ -55,6 +55,24 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                 int id = await _blogService.Create(newBlog);
                 if (id > 0)
                 {
+                    if (dto.HeaderPictureFileName != null)
+                    {
+                        string newPic = await _fileServices.SaveFileAsync(dto.HeaderPictureFileName, PictureFolder);
+                        if (string.IsNullOrEmpty(newPic))
+                        {
+                            ViewData["error"] = "خطایی در هنگام ثبت تصویر رخ داد";
+                            return View("EditBlog", dto);
+                        }
+                        else
+                        {
+                            var result = await _blogService.UpdateHeaderPicture(id, newPic);
+                            if (result != ResultOutPutMethodEnum.savechanged)
+                            {
+                                ViewData["error"] = "خطایی در هنگام ثبت تصویر رخ داد";
+                                return View("EditBlog", dto);
+                            }
+                        }
+                    }
                     if (blogvid != null)
                     {
                         string newvid = await _videoServices.SaveVideoAsync(blogvid, VideoFolder);
