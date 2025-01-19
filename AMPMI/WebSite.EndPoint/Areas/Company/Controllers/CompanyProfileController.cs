@@ -227,7 +227,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
         public async Task<IActionResult> EditTeaser(IFormFile teaser)
         {
             if (teaser == null)
-                return View();
+                return RedirectToAction(nameof(EditTeaser));
 
             long companyId = await _loginService.GetUserIdAsync(User);
 
@@ -255,7 +255,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
             long companyId = await _loginService.GetUserIdAsync(User);
             string msg = string.Empty;
             var company = await _companyService.ReadByIdAsync(companyId);
-            if (company != null)
+            if (company != null && !string.IsNullOrEmpty(company.TeaserGuid))
             {
                 if (await _videoService.DeleteVideo(company.TeaserGuid))
                 {

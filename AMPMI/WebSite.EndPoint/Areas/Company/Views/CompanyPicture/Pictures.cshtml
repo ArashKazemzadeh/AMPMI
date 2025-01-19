@@ -27,11 +27,11 @@
         <a hidden href="#" id="cancle"><img class="img-Icon" src="~/images/cancel.png" /></a>
     </div>
     <div hidden id="newForm" style="margin-top:20px;">
-        <form id="saveForm" asp-area="Company" asp-controller="CompanyPicture" asp-action="NewPicture" enctype="multipart/form-data" method="post">
+        <form id="saveForm" method="post" asp-area="Company" asp-controller="CompanyPicture" asp-action="NewPicture" enctype="multipart/form-data">
             <div class="form-group row">
                 <div class="col-sm-2 upBtn">
                     <button type="button" class="btn-submit btnUpload" onclick="getfile()">بارگذاری تصویر</button>
-                    <input id="getFile" style="display:none" class="form-control-file" type="file" name="img" accept="image/*">
+                    <input id="getFile" name="picture" style="display:none" class="form-control-file" type="file" accept="image/*">
                 </div>
                 <div id="preview" class="col-sm-2 ShowPic"></div>
                 <div class="col-sm-8">
@@ -71,7 +71,7 @@
             .setAttribute('dir', 'rtl'); // Demo only
 
         // new DataTable('#myTable');
-                    $('#myTable').DataTable({
+            $('#myTable').DataTable({
                 language: {
                     "emptyTable": "هیچ داده‌ای در جدول وجود ندارد",
                     "info": "نمایش _START_ تا _END_ از _TOTAL_ رکورد",
@@ -107,9 +107,13 @@
         }
 
         $("#save").click(function(){
-            HideForm();
-            event.preventDefault();
+            const file = $("#getFile")[0].files[0];
+            if (!file) {
+                alert("لطفاً یک فایل انتخاب کنید.");
+                return;
+            }
             $("#saveForm").submit();
+            HideForm();
         });
 
         $("#cancle").click(function(){

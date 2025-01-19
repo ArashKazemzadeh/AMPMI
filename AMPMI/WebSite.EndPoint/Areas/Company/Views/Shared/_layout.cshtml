@@ -36,12 +36,15 @@
     <link href="~/css/site.css" rel="stylesheet" />
     <link href="~/css/rte_theme_default.css" rel="stylesheet" />
     @await RenderSectionAsync("CSS", required: false)
+    
+ 
+
     <script>
-        function getfile () {
-        document.querySelector('#getFile').click();
+        function GetProfile () {
+            document.querySelector('#getPorfile').click();
         }
 
-        $("#getFile").on('change',function(){
+        $("#getPorfile").on('change',function(){
             const file = this.files[0];
 
             if (file) {
@@ -60,7 +63,7 @@
                 $("#preview").html("پیش‌نمایش");
             }
         });
-    </script>
+    </script> 
 </head>
 
 <!--
@@ -170,10 +173,10 @@ desired effect
         <div class="container-fluid">
             <div class="col-md-2 menu">
                 <div class="profile-Pic">
-                    <button class="profile-Pic-btn" onclick="getfile()">
+                    <button class="profile-Pic-btn" onclick="GetProfile()">
                         <img class="profile-Pic-img" src="~/images/add user.png" />
                     </button>
-                    <input id="getFile" style="display:none" class="form-control-file" type="file" name="img" accept="image/*">
+                    <input id="getPorfile" style="display:none" class="form-control-file" type="file" name="img" accept="image/*">
                 </div>
                 <!-- sidebar: style can be found in sidebar.less -->
                 <section class="sidebar">

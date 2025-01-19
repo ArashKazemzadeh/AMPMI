@@ -59,12 +59,15 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
 
         }
         [HttpPost]
-        public async Task<IActionResult> NewPicture(IFormFile img)
+        public async Task<IActionResult> NewPicture(IFormFile picture)
         {
+            if(picture==null)
+                return RedirectToAction(nameof(Pictures));
+
             long companyId = await _loginService.GetUserIdAsync(User);
             try
             {
-                string newPicture = await _fileServices.SaveFileAsync(img, PictureFolder);
+                string newPicture = await _fileServices.SaveFileAsync(picture, PictureFolder);
                 if (string.IsNullOrEmpty(newPicture))
                 {
                     ViewData["msg"] = "خطایی در هنگام ثبت تصویر رخ داد";
