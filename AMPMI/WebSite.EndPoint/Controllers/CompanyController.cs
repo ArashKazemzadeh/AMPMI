@@ -48,14 +48,13 @@ namespace WebSite.EndPoint.Controllers
                     CompanyPictures = result.CompanyPictures.Select(x=>x.PictureFileName).ToList(),
                     Email = result.Email,
                     Tel = result.Tel,
-                    Products = result.Products.Select(x => new ProductVM()
+                    Products = result.Products.Where(m=>m.IsConfirmed).Select(x => new ProductVM()
                     {
                         Id = x.Id,
                         Name = x.Name,
                         PictureFileName = (x.ProductPictures != null && x.ProductPictures.Count > 0) 
                         ? x.ProductPictures.FirstOrDefault().Rout 
                         : ""
-                        //PictureFileName = x.PictureFileName
                     }).ToList()
                 };
 
@@ -63,7 +62,7 @@ namespace WebSite.EndPoint.Controllers
             }
             else
             {
-                return NotFound();
+                return NotFound(new CompanyDetailVM());
             }
             
         }
