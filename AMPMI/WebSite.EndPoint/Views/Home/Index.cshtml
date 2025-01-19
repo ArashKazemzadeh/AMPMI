@@ -1,6 +1,6 @@
 ﻿@model WebSite.EndPoint.Models.HomeViewModel.HomeVM
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "HomePage";
 }
 
 
@@ -155,9 +155,9 @@
                 <div class="section-title">
                     <h2 class="section-title-divider primary-divider">آخرین مطالب</h2>
                     <!-- SECTION TITLE -->
-                    <p>
+@*                     <p>
                         لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است
-                    </p>
+                    </p> *@
                 </div>
             </div>
         </div>
@@ -166,94 +166,30 @@
             {
                 <div class="col-md-4">
                     <div class="blog-wrap">
-                        <div class="blog-image">
-                            <img alt="" src="~/blog/blog-1.jpg" title="Jack" class="img-fluid" />
-                        </div>
+                        @if (!string.IsNullOrEmpty(item.HeaderPictureFileName))
+                        {
+                            <div class="blog-image">
+                                <img alt="" src="@item.HeaderPictureFileName" class="img-fluid" />
+                            </div>
+                        }
                         <div class="blog-data">
                             <div class="blog-meta">
                                 <ul class="list-inline">
-                                    <li><a href="#" title="Date" class="date">@item.CreateUpdateAt</a></li>
+                                    <li>@string.Format("{0}/{1}/{2}",item.CreateUpdateAt.Value.Year,item.CreateUpdateAt.Value.Month,item.CreateUpdateAt.Value.Day)</li>
                                 </ul>
                             </div>
                             <div class="blog-title">
-                                <h3><a href="#" title="Title Here">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم </a></h3>
+                                <h3>@item.Subject</h3>
                             </div>
                             <div class="blog-content">
-                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد
+                                @item.Description
                             </div>
-                            <a class="btn btn-outline-secondary btn-xl mt-3" href="#">بیشتر بخوانید</a>
+                            <a class="btn btn-outline-secondary btn-xl mt-3" href="@Url.Action("ShowBlog","Blog",new{id=item.Id})">بیشتر بخوانید</a>
                         </div>
                     </div>
                 </div>
 
             }
-            @if(Model.Blogs == null || Model.Blogs.Count == 0)
-            {
-                <div class="col-md-4">
-                    <div class="blog-wrap">
-                        <div class="blog-image">
-                            <img alt="" src="~/blog/blog-1.jpg" title="Jack" class="img-fluid" />
-                        </div>
-                        <div class="blog-data">
-                            <div class="blog-meta">
-                                <ul class="list-inline">
-                                    <li><a href="#" title="Date" class="date">5 شهریور 1400</a></li>
-                                </ul>
-                            </div>
-                            <div class="blog-title">
-                                <h3><a href="#" title="Title Here">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم </a></h3>
-                            </div>
-                            <div class="blog-content">
-                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد
-                            </div>
-                            <a href="@Url.Action("ShowBlog","Blog",new{id=2})" class="btn btn-outline-secondary btn-xl mt-3">بیشتر بخوانید</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="blog-wrap">
-                        <div class="blog-image">
-                            <img alt="" src="~/blog/blog-2.jpg" title="Jack" class="img-fluid" />
-                        </div>
-                        <div class="blog-data">
-                            <div class="blog-meta">
-                                <ul class="list-inline">
-                                    <li><a href="#" title="Date" class="date">5 شهریور 1400</a></li>
-                                </ul>
-                            </div>
-                            <div class="blog-title">
-                                <h3><a href="#" title="Title Here">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم </a></h3>
-                            </div>
-                            <div class="blog-content">
-                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد
-                            </div>
-                            <a class="btn btn-outline-secondary btn-xl mt-3" href="#">بیشتر بخوانید</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="blog-wrap">
-                        <div class="blog-image">
-                            <img alt="" src="~/blog/blog-3.jpg" title="Jack" class="img-fluid" />
-                        </div>
-                        <div class="blog-data">
-                            <div class="blog-meta">
-                                <ul class="list-inline">
-                                    <li><a href="#" title="Date" class="date">5 شهریور 1400</a></li>
-                                </ul>
-                            </div>
-                            <div class="blog-title">
-                                <h3><a href="#" title="Title Here">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم </a></h3>
-                            </div>
-                            <div class="blog-content">
-                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد
-                            </div>
-                            <a class="btn btn-outline-secondary btn-xl mt-3" href="#">بیشتر بخوانید</a>
-                        </div>
-                    </div>
-                </div>
-            }
-
         </div>
     </div>
 </section>

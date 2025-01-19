@@ -22,6 +22,7 @@ namespace AQS_Application.Interfaces.IServices.BaseServices
         Task<ResultOutPutMethodEnum> UpdateHeaderPicture(int id, string headerPictureFileName);
         Task<ResultOutPutMethodEnum> UpdateVideoFile(int id, string videoFileName);
         Task<ResultOutPutMethodEnum> UpdatePictureRout(int blogId, string rout);
+        Task<BlogPicture>? ReadBlogPictureById(int pictureId);
     }
 
 }
