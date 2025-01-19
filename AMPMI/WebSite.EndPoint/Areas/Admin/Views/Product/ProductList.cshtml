@@ -25,6 +25,7 @@
                     <th>نام قطعه ساز</th>
                     <th>گروه اصلی</th>
                     <th>گروه فرعی</th>
+                    <th>وضعییت تایید</th>
                     <th>ویرایش</th>
                     <th>حذف</th>
                 </tr>
@@ -39,6 +40,7 @@
                         <td>@item.CompanyName</td>
                         <td>@item.CategoryName</td>
                         <td>@item.SubCategoryName</td>
+                        <td class="td-Icon"><input disabled @(item.IsConfirmed ? "checked" : "") type="checkbox"></td>
                         <td class="td-Icon"><a href="@Url.Action("EditProduct","Product",new{area="Admin",id=item.Id})"><img class="img-Icon" src="~/images/editing.png" /></a></td>
                         <td class="td-Icon"><a onclick="return DeleteRow(event)" href="@Url.Action("DeleteProduct","Product",new{area="Admin",id=item.Id})"><img class="img-Icon" src="~/images\recycle.png" /></a></td>
                     </tr>
@@ -53,8 +55,6 @@
 
           document.querySelector('#myTable')
             .setAttribute('dir', 'rtl'); // Demo only
-
-        // new DataTable('#myTable');
 
             $('#myTable').DataTable({
                 language: {
@@ -92,9 +92,6 @@
             }
 
         }
-
-    </script>
-    <script>
 
     </script>
 }

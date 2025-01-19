@@ -11,25 +11,34 @@ namespace AQS_Application.Interfaces.IServices.BaseServices
         Task<List<Product>> ReadNotConfirmed();
         Task<Product?> ReadById(long id);
         /// <summary>
-        /// جستوجوی محصول براساس نام
+        /// جستوجوی محصول براساس نام 
         /// </summary>
         /// <param name="name"></param>
+        /// <param name="isConfirmed">تایید شده</param>
         /// <returns></returns>
-        Task<List<Product>> SearchProductByName(string name);
+        Task<List<Product>> SearchProductByName(string name, bool isConfirmed);
         /// <summary>
-        /// جستجوی محصول براساس نام و گروه اصلی
+        /// جستجوی محصول براساس نام و گروه اصلی 
         /// </summary>
         /// <param name="name"></param>
         /// <param name="id"></param>
+        /// <param name="isConfirmed">تایید شده</param>
         /// <returns></returns>
-        Task<List<Product>> SearchProductByNameAndCategory(string name,int categoryId);
+        Task<List<Product>> SearchProductByNameAndCategory(string name,int categoryId, bool isConfirmed);
         /// <summary>
         /// جزیات محصول به همراه گروه اصلی ، گروه فرعی و کمپانی
         /// </summary>
         /// <param name="id"></param>
+        /// <param name="isConfirmed">تایید شده</param>
         /// <returns></returns>
-        Task<Product?> ReadByIdIncludeCategoryAndSubCategoryAndCompany(long id);
-        Task<List<Product>> ReadByCategoryId(int categoryId);
+        Task<Product?> ReadByIdIncludeCategoryAndSubCategoryAndCompany(long id, bool isConfirmed);
+        /// <summary>
+        /// محصولات گروه اصلی انتخاب شده را بر میگرداند
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <param name="isConfirmed">تایید شده</param>
+        /// <returns></returns>
+        Task<List<Product>> ReadByCategoryId(int categoryId, bool isConfirmed);
         Task<List<Product>> ReadByCompanyId(long id);
         Task<ResultOutPutMethodEnum> Update(Product product);
         Task<ResultOutPutMethodEnum> IsConfirmed(long id, bool isConfirmed);
