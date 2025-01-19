@@ -1,4 +1,4 @@
-using AQS_Application.Dtos.BaseServiceDto.Company;
+﻿using AQS_Application.Dtos.BaseServiceDto.Company;
 using AQS_Application.Interfaces.IServices.BaseServices;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -30,7 +30,7 @@ namespace WebSite.EndPoint.Controllers
             _blogService = blogService;
             _bannerService = bannerService;
         }
-              
+
         public async Task<IActionResult> Index()
         {
             HomeVM homeVM = new HomeVM();
@@ -47,6 +47,29 @@ namespace WebSite.EndPoint.Controllers
             }).ToList();
 
             var blogs = await _blogService.ReadTop3();
+            foreach (var item in blogs)
+            {
+                int end = item.Description.IndexOf("</");
+                int start = 0;
+                for (int i = end; i > 0; i--)
+                {
+                    if (item.Description[i] == '>')
+                    {
+                        start = i;
+                        break;
+                    }
+                }
+
+                if (start > 10 && end > 20)
+                {
+                    item.Description = item.Description.Substring(start + 1, end - start - 1);
+                    // شاید در آینده استفاده شود
+                    //if (item.Description.Length > 200)
+                    //{
+                    //    item.Description = item.Description.Substring(0,200);   
+                    //}
+                }
+            }
             homeVM.Blogs = blogs;
 
             var banners = await _bannerService.ReadAll();

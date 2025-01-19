@@ -16,7 +16,6 @@
                 <tr>
                     <th style="text-align:center">ردیف</th>
                     <th style="text-align:center">موضوع خبر</th>
-                    <th style="text-align:center">متن خبر</th>
                     <th style="text-align:center">ویرایش</th>
                     <th style="text-align:center">حذف</th>
                 </tr>
@@ -30,12 +29,6 @@
                     <tr>
                         <td style="text-align:center">@row</td>
                         <td>@item.Subject</td>
-                        <td>
-                            @if (item.Description.Length > 100)
-                            {
-                               @item.Description.Substring(0,99) 
-                            }
-                        </td>
                         <td style="text-align:center">
                             <a href="@Url.Action("EditBLog", "Blog", new { area = "Admin", id = item.Id })">
                                 <img class="img-Icon" src="~/images/editing.png" />

@@ -79,14 +79,13 @@ namespace AQS_Application.Services
 
         public async Task<List<BlogReadHomeDto>> ReadTop3()
         {
-            // TODO : Description Must be summarize
             var blogs = await _context.Blogs
                 .OrderBy(x => x.CreateUpdateAt)
                 .Take(3)
                 .Select(x => new BlogReadHomeDto()
                 {
                     Id = x.Id,
-                    CreateUpdateAt = x.CreateUpdateAt,
+                    CreateUpdateAt = x.CreateUpdateAt.Value.ToPersianDate(),
                     Description = x.Description,
                     HeaderPictureFileName = x.HeaderPictureFileName,
                     Subject = x.Subject,
@@ -216,6 +215,10 @@ namespace AQS_Application.Services
                     ResultOutPutMethodEnum.savechanged : ResultOutPutMethodEnum.dontSaved;
             }
             return ResultOutPutMethodEnum.recordNotFounded;
+        }
+        public async Task<BlogPicture>? ReadBlogPictureById(int pictureId)
+        {
+            return await _context.BlogPictures.FindAsync(pictureId);
         }
     }
 }

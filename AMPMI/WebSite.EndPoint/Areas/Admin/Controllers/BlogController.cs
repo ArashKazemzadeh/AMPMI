@@ -55,6 +55,24 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                 int id = await _blogService.Create(newBlog);
                 if (id > 0)
                 {
+                    if (dto.HeaderPictureFileName != null)
+                    {
+                        string newPic = await _fileServices.SaveFileAsync(dto.HeaderPictureFileName, PictureFolder);
+                        if (string.IsNullOrEmpty(newPic))
+                        {
+                            ViewData["error"] = "خطایی در هنگام ثبت تصویر رخ داد";
+                            return View("EditBlog", dto);
+                        }
+                        else
+                        {
+                            var result = await _blogService.UpdateHeaderPicture(id, newPic);
+                            if (result != ResultOutPutMethodEnum.savechanged)
+                            {
+                                ViewData["error"] = "خطایی در هنگام ثبت تصویر رخ داد";
+                                return View("EditBlog", dto);
+                            }
+                        }
+                    }
                     if (blogvid != null)
                     {
                         string newvid = await _videoServices.SaveVideoAsync(blogvid, VideoFolder);
@@ -123,6 +141,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                     Description = blog.Description,
                     BlogPictures = blog.BlogPictures,
                     VideoFileName = blog.VideoFileName,
+                    PreviousHeaderRout = blog.PreviousHeaderRout
                 });
 
             }
@@ -143,8 +162,35 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
             };
             try
             {
+                if (dto.IsHeaderChanged)
+                {
+                    if (!string.IsNullOrEmpty(dto.PreviousHeaderRout))
+                    {
+                        await _fileServices.DeleteFile(dto.PreviousHeaderRout);
+                    }
+                    string newHeader = await _fileServices.SaveFileAsync(dto.HeaderPictureFileName, PictureFolder);
+                    if (string.IsNullOrEmpty(newHeader))
+                    {
+                        ViewData["error"] = "خطایی در هنگام ثبت تصویر رخ داد";
+                        return View("EditBlog", dto);
+                    }
+                    else
+                    {
+                        var resultHeader = await _blogService.UpdateHeaderPicture(dto.Id,newHeader);
+                        if (resultHeader != ResultOutPutMethodEnum.savechanged)
+                        {
+                            ViewData["error"] = "خطایی در هنگام ثبت ویدیو رخ داد";
+                            return View("EditBlog", dto);
+                        }
+                    }
+                    
+                }
                 if (blogvid != null)
                 {
+                    if (!string.IsNullOrEmpty(dto.VideoFileName))
+                    {
+                        await _videoServices.DeleteVideo(dto.VideoFileName);
+                    }
                     string newvid = await _videoServices.SaveVideoAsync(blogvid, VideoFolder);
                     if (string.IsNullOrEmpty(newvid))
                     {
@@ -169,7 +215,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                         if (string.IsNullOrEmpty(newPicture))
                         {
                             ViewData["error"] = "خطایی در هنگام ثبت تصویر رخ داد";
-                            return View("EditProduct", dto);
+                            return View("EditBlog", dto);
                         }
                         else
                         {
@@ -177,7 +223,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                             if (resultPic != ResultOutPutMethodEnum.savechanged)
                             {
                                 ViewData["error"] = "خطایی در هنگام ثبت تصویر رخ داد";
-                                return View("EditProduct", dto);
+                                return View("EditBlog", dto);
                             }
                         }
                     }
@@ -214,7 +260,10 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                 }
                 var result = await _blogService.Delete(id);
                 if (result == ResultOutPutMethodEnum.savechanged)
+                {
                     await _videoServices.DeleteVideo(blog.VideoFileName);
+                    await _fileServices.DeleteFile(blog.PreviousHeaderRout);
+                }
                 if (result != ResultOutPutMethodEnum.savechanged)
                     TempData["error"] = "خطایی در هنگام حذف خبر رخ داد";
             }
@@ -226,10 +275,47 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         }
         public async Task<IActionResult> DeletePicture(int pictureId, int blogId)
         {
-            var result = await _blogService.DeleteBlogPicture(pictureId);
-            if (result != ResultOutPutMethodEnum.savechanged)
-                TempData["error"] = "خطا در هنگام حذف تصویر محصول";
+            var picture =await _blogService.ReadBlogPictureById(pictureId);
+            if (picture != null)
+            {
+                var result = await _blogService.DeleteBlogPicture(pictureId);
+                if (result == ResultOutPutMethodEnum.savechanged)
+                {
+                    await _fileServices.DeleteFile(picture.Route);
+                }
+                else
+                    TempData["error"] = "خطا در هنگام حذف تصویر محصول";
+            }
 
+
+            return RedirectToAction(nameof(EditBlog), new { id = blogId });
+        }
+        public async Task<IActionResult> DeletePictureHeader(int blogId)
+        {
+            var blog = await _blogService.ReadByIdAsync(blogId);
+            if (blog!=null && !string.IsNullOrEmpty(blog.PreviousHeaderRout)) 
+            {
+                if(await _fileServices.DeleteFile(blog.PreviousHeaderRout))
+                {
+                    await _blogService.UpdateHeaderPicture(blogId,null);
+                }
+                else
+                    TempData["error"] = "خطا در هنگام حذف تصویر";
+            }
+            return RedirectToAction(nameof(EditBlog), new { id = blogId });
+        }
+        public async Task<IActionResult> DeleteVideo(int blogId)
+        {
+            var blog = await _blogService.ReadByIdAsync(blogId);
+            if(blog != null && !string.IsNullOrEmpty(blog.VideoFileName))
+            {
+                if (await _videoServices.DeleteVideo(blog.VideoFileName))
+                {
+                    await _blogService.UpdateVideoFile(blogId, null);
+                }
+                else
+                    TempData["error"] = "خطا در هنگام حذف ویدیو";
+            }
             return RedirectToAction(nameof(EditBlog), new { id = blogId });
         }
     }
