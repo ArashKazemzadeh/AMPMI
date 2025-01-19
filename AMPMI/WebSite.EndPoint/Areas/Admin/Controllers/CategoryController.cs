@@ -100,7 +100,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
             try
             {
                 string newRout = "";
-                if (categoryEditVM.IsPictureChanged)
+                if (categoryEditVM.IsPictureChanged && categoryEditVM.Picture != null)
                 {
                     var isDelete = await _fileServices.DeleteFile(categoryEditVM.PreviousPictureRout);
                     newRout = await _fileServices.SaveFileAsync(categoryEditVM.Picture, PictureFolder);
@@ -110,6 +110,11 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                         ViewData["Message"] = "خطایی در هنگام ثبت تصویر رخ داد";
                         return View(categoryEditVM);
                     }
+                }
+                else if(categoryEditVM.IsPictureChanged && categoryEditVM.Picture == null)
+                {
+                    ViewData["Message"] = "تصویر انتخاب نشده است";
+                    return View(categoryEditVM);
                 }
                 var resultMessage = await _categoryService.Update(categoryEditVM.Id, categoryEditVM.Name);
 

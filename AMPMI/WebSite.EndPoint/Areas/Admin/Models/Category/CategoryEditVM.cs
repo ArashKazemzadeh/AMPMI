@@ -4,8 +4,7 @@ namespace WebSite.EndPoint.Areas.Admin.Models.Category
 {
     public class CategoryEditVM
     {
-        [Required(ErrorMessage = "تصویر انتخاب نشده است")]
-        public IFormFile Picture { get; set; }
+        public IFormFile? Picture { get; set; }
         public int Id { get; set; }
         [Required(ErrorMessage ="نام گروه نمیتواند خالی باشد")]
         public string Name { get; set; }
