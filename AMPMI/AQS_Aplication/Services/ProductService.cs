@@ -53,39 +53,39 @@ namespace AQS_Application.Services
                 .Include(m=>m.ProductPictures)
                 .FirstOrDefaultAsync(i => i.Id == id);
         }
-        public async Task<List<Product>> SearchProductByName(string name)
+        public async Task<List<Product>> SearchProductByName(string name,bool isConfirmed)
         {
             name = $"%{name}%";
             return await _context.Products
-                .Where(p => EF.Functions.Like(p.Name, name))
+                .Where(p => EF.Functions.Like(p.Name, name) && p.IsConfirmed == isConfirmed)
                 .Include(x=>x.ProductPictures)
                 .ToListAsync();
         }
-        public async Task<List<Product>> SearchProductByNameAndCategory(string name, int categoryId)
+        public async Task<List<Product>> SearchProductByNameAndCategory(string name, int categoryId,bool isConfirmed)
         {
             name = $"%{name}%";
             return await _context.Products
                 .Include(x => x.SubCategory)
                 .Include(o=>o.ProductPictures)
-                .Where(m => m.SubCategory.CategoryId == categoryId)
+                .Where(m => m.SubCategory.CategoryId == categoryId && m.IsConfirmed == isConfirmed)
                 .Where(p => EF.Functions.Like(p.Name, name))
                 .ToListAsync();
         }
-        public async Task<Product?> ReadByIdIncludeCategoryAndSubCategoryAndCompany(long id)
+        public async Task<Product?> ReadByIdIncludeCategoryAndSubCategoryAndCompany(long id, bool isConfirmed)
         {
             return await _context.Products
                 .Include(x => x.Company)
                 .Include(x => x.SubCategory)
                 .ThenInclude(m => m.Category)
                 .Include(l => l.ProductPictures)
-                .FirstOrDefaultAsync(c => c.Id == id);
+                .FirstOrDefaultAsync(c => c.Id == id && c.IsConfirmed==isConfirmed);
         }
-        public async Task<List<Product>> ReadByCategoryId(int categoryId)
+        public async Task<List<Product>> ReadByCategoryId(int categoryId,bool isConfirmed)
         {
             return await _context.Products
                 .Include(x => x.SubCategory)
                 .Include(m=>m.ProductPictures)
-                .Where(l => l.SubCategory.CategoryId == categoryId)
+                .Where(l => l.SubCategory.CategoryId == categoryId && l.IsConfirmed == isConfirmed)
                 .AsNoTracking()
                 .ToListAsync();
         }

@@ -19,27 +19,25 @@ namespace WebSite.EndPoint.Controllers
             {
                 Id = x.Id,
                 Name = x.Name,
-                //PictureFileName = x.PictureFileName
             }).ToList();
 
             return View(resultVM);
         }
         public async Task<IActionResult> CategoryProductsList(int categoryId)
         {
-            List<Product> result = await _productService.ReadByCategoryId(categoryId);
+            List<Product> result = await _productService.ReadByCategoryId(categoryId, isConfirmed: true);
             List<ProductVM> resultVM = result.Select(x => new ProductVM
             {
                 Id = x.Id,
                 Name = x.Name,
                 PictureFileName = (x.ProductPictures != null && x.ProductPictures.Count > 0) ? x.ProductPictures.FirstOrDefault().Rout : ""
-                //PictureFileName = x.PictureFileName
             }).ToList();
 
             return View(nameof(ProductList), resultVM);
         }
         public async Task<IActionResult> ProductDetail(int productId) //Ok
         {
-            Product? product = await _productService.ReadByIdIncludeCategoryAndSubCategoryAndCompany(productId);
+            Product? product = await _productService.ReadByIdIncludeCategoryAndSubCategoryAndCompany(productId,isConfirmed:true);
             if(product != null)
             {
                 ProductDetailVM productDetailVM = new ProductDetailVM() 
@@ -66,26 +64,25 @@ namespace WebSite.EndPoint.Controllers
         public async Task<IActionResult> SearchProduct(string name, int categorySelected = -1)
         {
             if (string.IsNullOrEmpty(name))
-                return View("ProductList", new List<ProductVM>());
+                return View(nameof(ProductList), new List<ProductVM>());
             var result = new List<Product>();
             name = name.Trim();
             if(categorySelected > 0)
             {
-                result = await _productService.SearchProductByNameAndCategory(name, categorySelected);
+                result = await _productService.SearchProductByNameAndCategory(name, categorySelected,isConfirmed:true);
             }
             else
             {
-                result = await _productService.SearchProductByName(name);
+                result = await _productService.SearchProductByName(name,isConfirmed:true);
             }
             List<ProductVM> products = result.Select(x => new ProductVM() 
             {
                 Id = x.Id,
                 Name = x.Name,
                 PictureFileName = (x.ProductPictures != null && x.ProductPictures.Count>0 ) ? x.ProductPictures.FirstOrDefault().Rout : ""
-                //PictureFileName= x.PictureFileName
             }).ToList();
 
-            return View("ProductList", products);
+            return View(nameof(ProductList), products);
         }
     }
 }

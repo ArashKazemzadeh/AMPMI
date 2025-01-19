@@ -38,7 +38,7 @@
                         <td>@item.SubCategoryName</td>
                         <td>@item.Id</td>
                         <td>@item.Name</td>
-                        <td class="td-Icon"><input disabled value="@item.IsConfirmed" type="checkbox"></td>
+                        <td class="td-Icon"><input disabled @(item.IsConfirmed ? "checked" : "") type="checkbox"></td>
                         <td class="td-Icon"><a href="@Url.Action("EditProduct","Product",new{area="Company",id=item.Id})"><img class="img-Icon" src="~/images/editing.png" /></a></td>
                         <td class="td-Icon"><a onclick="return DeleteRow(event)" href="@Url.Action("DeleteProduct","Product",new{area="Company",id=item.Id})"><img class="img-Icon" src="~/images\recycle.png" /></a></td>
                     </tr>
