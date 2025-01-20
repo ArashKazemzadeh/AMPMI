@@ -123,7 +123,8 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
                 BannerRout = company.BannerRout == null ? string.Empty : company.BannerRout,
                 SendRequest = company.SendRequest,
                 IsCompany = company.IsCompany,
-                Tel = company.Tel
+                Tel = company.Tel,
+                Website = company.Website
             };
             return model;
         }

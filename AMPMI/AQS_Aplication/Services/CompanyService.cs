@@ -56,6 +56,11 @@ namespace AQS_Application.Services
             var result = await _context.Companies.ToListAsync();
             return result ?? new List<Company>();
         }
+        public async Task<List<Company>> ReadConfirmedComapanies()
+        {
+            var result = await _context.Companies.Where(x=>x.IsCompany).ToListAsync();
+            return result ?? new List<Company>();
+        }
 
         public async Task<CompanyEditProfileDto?> ReadByIdAsync(long id)
         {
@@ -80,7 +85,8 @@ namespace AQS_Application.Services
                     BannerRout = c.BannerRout ?? string.Empty,
                     SendRequest = c.SendRequst,
                     IsCompany = c.IsCompany,
-                    Tel = c.Tel
+                    Tel = c.Tel,
+                    Website = c.Website
                 })
                 .FirstOrDefaultAsync();
         }
@@ -111,7 +117,8 @@ namespace AQS_Application.Services
                     TeaserGuid = c.TeaserGuid,
                     CompanyPictures = c.CompanyPictures,
                     Products = c.Products,
-                    Tel = c.Tel
+                    Tel = c.Tel,
+                    Website = c.Website
                 })
                 .FirstOrDefaultAsync();
         }
@@ -237,6 +244,9 @@ namespace AQS_Application.Services
 
             if(existingCompany.Tel != company.Tel)
                 existingCompany.Tel = company.Tel;
+
+            if(existingCompany.Website != company.Website)
+                existingCompany.Website = company.Website;
 
             _context.Companies.Update(existingCompany);
 

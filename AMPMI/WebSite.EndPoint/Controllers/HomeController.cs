@@ -38,7 +38,7 @@ namespace WebSite.EndPoint.Controllers
             var categories = await _categoryService.ReadAll();
             homeVM.Categories = categories;
 
-            var companies = await _companyService.Read();
+            var companies = await _companyService.ReadConfirmedComapanies();
             homeVM.Companies = companies.Select(x => new CompanyReadDto()
             {
                 Id = x.Id,
@@ -49,17 +49,16 @@ namespace WebSite.EndPoint.Controllers
             var blogs = await _blogService.ReadTop3();
             foreach (var item in blogs)
             {
-                int end = item.Description.IndexOf("</");
+                int end = item.Description.IndexOf("</p");
                 int start = 0;
                 for (int i = end; i > 0; i--)
                 {
-                    if (item.Description[i] == '>')
+                    if (item.Description[i] == '>' && item.Description[i-1] =='p')
                     {
                         start = i;
                         break;
                     }
                 }
-
                 if (start > 10 && end > 20)
                 {
                     item.Description = item.Description.Substring(start + 1, end - start - 1);
@@ -69,6 +68,8 @@ namespace WebSite.EndPoint.Controllers
                     //    item.Description = item.Description.Substring(0,200);   
                     //}
                 }
+                else
+                    item.Description = string.Empty;
             }
             homeVM.Blogs = blogs;
 

@@ -15,7 +15,7 @@ namespace WebSite.EndPoint.Controllers
         }
         public async Task<IActionResult> CompanyList()
         {
-            List<Company> result = await _companyService.Read();
+            List<Company> result = await _companyService.ReadConfirmedComapanies();
             List<CompanyVM> resultVM = result.Select(x => new CompanyVM 
             {
                 Id = x.Id,
@@ -27,6 +27,11 @@ namespace WebSite.EndPoint.Controllers
                 Email = x.Email,
                 ManagerName = x.ManagerName,
                 Tel = x.Tel,
+                Website = x.Website,
+                Partnership = x.Partnership,
+                QualityGrade = x.QualityGrade,
+                Iso = x.Iso,
+                Capacity = x.Capacity
             }).ToList();
 
             return View(resultVM);
@@ -48,6 +53,11 @@ namespace WebSite.EndPoint.Controllers
                     CompanyPictures = result.CompanyPictures.Select(x=>x.PictureFileName).ToList(),
                     Email = result.Email,
                     Tel = result.Tel,
+                    Website = result.Website,
+                    Capacity = result.Capacity,
+                    Iso = result.Iso,
+                    Partnership = result.Partnership,
+                    QualityGrade = result.QualityGrade,
                     Products = result.Products.Where(m=>m.IsConfirmed).Select(x => new ProductVM()
                     {
                         Id = x.Id,
@@ -62,7 +72,7 @@ namespace WebSite.EndPoint.Controllers
             }
             else
             {
-                return NotFound(new CompanyDetailVM());
+                return View(new CompanyDetailVM());
             }
             
         }
