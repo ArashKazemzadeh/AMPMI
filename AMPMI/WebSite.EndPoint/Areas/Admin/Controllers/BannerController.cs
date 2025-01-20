@@ -1,4 +1,5 @@
 ﻿using AQS_Application.Interfaces.IServices.BaseServices;
+using AQS_Common.Enums;
 using AQS_Domin.Entities;
 using Microsoft.AspNetCore.Mvc;
 using WebSite.EndPoint.Areas.Admin.Models.Banner;
@@ -78,5 +79,23 @@ public class BannerController : Controller
         {
             throw new Exception("خطایی در ذخیره فایل جدید رخ داد.");
         }
+    }
+    private async Task<IActionResult> DeleteBanner(int bannerId)
+    {
+        var banner = await _bannerService.ReadById((BannerIdEnum)bannerId);
+        if (banner != null)
+        {
+            if (await _videoService.DeleteVideo(banner.Rout))
+            {
+                string msg = string.Empty;
+                if (await _bannerService.Update((BannerIdEnum)bannerId, string.Empty))
+                    msg = "بنر حذف شد";
+                else
+                    msg = "بنر حذف نشد";
+
+                TempData["Message"] = msg;
+            }
+        }
+        return RedirectToAction(nameof(BannerList));
     }
 }

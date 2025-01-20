@@ -49,9 +49,18 @@
             </video>
        </div>
         <div class="col-md-2 my-2">
-            <a href="#" onclick="removeVideo(this)">
-                <img class="img-Icon" src="~/images/recycle.png" />
-            </a>
+            @if(string.IsNullOrEmpty(Model.rout1))
+            {
+                <a onclick="removeVideo(this)">
+                    <img class="img-Icon" src="~/images/recycle.png" />
+                </a>
+            }else
+            {
+                <a href="@Url.Action("DeleteBanner","Banner",new{bannerId=1})" onclick="removeVideo(this)">
+                    <img class="img-Icon" src="~/images/recycle.png" />
+                </a>
+            }
+
         </div>
     </div>
 
@@ -66,9 +75,18 @@
             </video>
        </div>
         <div class="col-md-2 my-2">
-            <a href="#" onclick="removeVideo(this)">
-                <img class="img-Icon" src="~/images/recycle.png" />
-            </a>
+            @if(string.IsNullOrEmpty(Model.rout2))
+            {
+                <a href="#" onclick="removeVideo(this)">
+                    <img class="img-Icon" src="~/images/recycle.png" />
+                </a>
+            }
+            else
+            {
+                <a href="@Url.Action("DeleteBanner","Banner",new{bannerId=2})" onclick="removeVideo(this)">
+                    <img class="img-Icon" src="~/images/recycle.png" />
+                </a>
+            }
         </div>
     </div>
 
@@ -83,9 +101,18 @@
             </video>
        </div>
         <div class="col-md-2 my-2">
-            <a href="#" onclick="removeVideo(this)">
-                <img class="img-Icon" src="~/images/recycle.png" />
-            </a>
+            @if (string.IsNullOrEmpty(Model.rout3))
+            {
+                <a href="#" onclick="removeVideo(this)">
+                    <img class="img-Icon" src="~/images/recycle.png" />
+                </a>
+            }
+            else
+            {
+                <a href="@Url.Action("DeleteBanner","Banner",new{bannerId=3})" onclick="removeVideo(this)">
+                    <img class="img-Icon" src="~/images/recycle.png" />
+                </a>
+            }
         </div>
     </div>
 </form>
