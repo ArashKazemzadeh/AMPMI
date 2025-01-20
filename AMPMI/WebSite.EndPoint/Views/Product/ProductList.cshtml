@@ -1,4 +1,68 @@
 ﻿@model List<WebSite.EndPoint.Models.ProductViewModel.ProductVM>
+<style>
+    .card {
+        background-color: white;
+        border-radius: 10px;
+        margin: 10px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    input::placeholder {
+        color: #C3C3C3;
+        text-align: center;
+    }
+
+    input:focus {
+        outline: none;
+    }
+
+    .productCard {
+        background-color: #003C61;
+        z-index: 1;
+        height: 320px;
+        position: relative;
+    }
+
+    .productDetail {
+        color: #FFFFFF;
+    }
+
+    .productDetailLoc {
+        bottom: 5px;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin: 0 auto;
+    }
+
+    .productCard1 {
+        background-color: #FFFFFF;
+        z-index: 2;
+        border-radius: 10px;
+        width: 100%;
+        height: 265px;
+        position: relative;
+    }
+
+    .productName {
+        color: #000000;
+    }
+
+    .productCard2 {
+        background-color: #003C61;
+        z-index: 3;
+        border-radius: 10px;
+        margin: 0 auto;
+        height: 160px;
+        width: 160px;
+        position: relative;
+        margin-top: 15px;
+    }
+
+    .hasImg {
+        background-color: #FFFFFF;
+    }
+</style>
 <div class="body-default container">
     <div class="row py-5 px-4" style="border-radius:15px;box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.2);">
         @if (Model.Count == 0)
@@ -6,15 +70,16 @@
             <p>محصولی برای نمایش وجود ندارد</p>
         }
         @foreach(var item in Model){
-            <div class="col-md-3 mb-4">
-                <div class="card">
-                    <img src="@item.PictureFileName" class="card-img-top" />
-                    <div class="card-body">
-                        <h5>@item.Name</h5>
-                        <div class="mt-5">
-                            <a href="@Url.Action("ProductDetail","Product",new {productId = item.Id})" style="padding:5px 30px;display: flex;align-items: center;justify-content: center;" class="btn btn-primary">
-                                <span>اطلاعات بیشتر</span>
-                            </a>
+            <div class="col-md-3 my-2">
+                <div class="card productCard">
+                    <a href="@Url.Action("ProductDetail","Product",new{productId=item.Id})" class="productDetailLoc"><span class="productDetail">اطلاعات محصول</span></a>
+                    <div class="productCard1">
+                        <a class="productDetailLoc"><span class="productName">@item.Name</span></a>
+                        <div class="productCard2 @(!string.IsNullOrEmpty(item.PictureFileName) ? "hasImg":"")">
+                            @if (!string.IsNullOrEmpty(item.PictureFileName))
+                            {
+                                <img class="img img-fluid productCard2" src="@item.PictureFileName" />
+                            }
                         </div>
                     </div>
                 </div>
