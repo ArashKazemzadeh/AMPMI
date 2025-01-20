@@ -10,6 +10,11 @@ namespace AQS_Application.Interfaces.IServices.BaseServices
         Task<long> Create(RegisterIdentityDTO company, long id);
         Task<ResultOutPutMethodEnum> Delete(long id);
         Task<List<Company>> Read();
+        /// <summary>
+        /// کمپانی های تایید شده را بر میگرداند
+        /// </summary>
+        /// <returns></returns>
+        Task<List<Company>> ReadConfirmedComapanies();
         Task<CompanyEditProfileDto?> ReadByIdAsync(long id);
         /// <summary>
         /// دیتای کمپانی را به همراه محصولات و تصاویر کمپانی برمیگرداند

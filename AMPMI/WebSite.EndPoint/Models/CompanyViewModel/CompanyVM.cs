@@ -11,8 +11,50 @@
         public string? LogoRout { get; set; }
         public string? TeaserGuid { get; set; }
         public string? Tel { get; set; }
+        public string? Website { get; set; }
 
-        // TODO : Where is main photo for company
+        /// <summary>
+        /// گرید کیفی + ظرفیت تولید + ISO + همکاری با شرکت ها
+        /// </summary>
+        /// <summary>
+        /// ظرفیت
+        /// </summary>
+        public int Capacity { get; set; }
+        /// <summary>
+        /// همکاری
+        /// </summary>
+        public string? Partnership { get; set; }
+        /// <summary>
+        /// گرید کیفی
+        /// </summary>
+        public string? QualityGrade { get; set; }
+        public string? Iso { get; set; }
+        public string Information
+        {
+            get
+            {
+                string result = string.Empty;
+                if (!string.IsNullOrEmpty(QualityGrade))
+                {
+                    result += QualityGrade;
+                }
+                if (Capacity > 0)
+                {
+                    result += "_" + Capacity;
+                }
+                if (!string.IsNullOrEmpty(Iso))
+                {
+                    result += "_" + Iso;
+                }
+                if (!string.IsNullOrEmpty(Partnership))
+                {
+                    result += "_" + Partnership;
+                }
+                if (result.StartsWith('_'))
+                    result.Remove(0, 1);
 
+                return result;
+            }
+        }
     }
 }

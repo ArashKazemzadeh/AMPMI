@@ -23,6 +23,8 @@ namespace AQS_Application.Dtos.BaseServiceDto.Company
         public string? Iso { get; set; }
         public string? About { get; set; }
         public string? LogoRout { get; set; }
+        public string? Website { get; set; }
+
         public bool IsCompany { get; set; }
         public bool SendRequest { get; set; }
         public string? TeaserGuid { get; set; }
