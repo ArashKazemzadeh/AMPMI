@@ -49,11 +49,11 @@ namespace WebSite.EndPoint.Controllers
             var blogs = await _blogService.ReadTop3();
             foreach (var item in blogs)
             {
-                int end = item.Description.IndexOf("</p");
+                int end = item.Description.IndexOf("</");
                 int start = 0;
                 for (int i = end; i > 0; i--)
                 {
-                    if (item.Description[i] == '>' && item.Description[i-1] =='p')
+                    if (item.Description[i] == '>')
                     {
                         start = i;
                         break;

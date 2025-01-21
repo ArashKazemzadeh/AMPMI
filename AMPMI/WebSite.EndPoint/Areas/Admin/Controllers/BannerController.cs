@@ -35,6 +35,8 @@ public class BannerController : Controller
     {
         try
         {
+            if (model == null)
+                return RedirectToAction(nameof(BannerList));
             if (model.Banner1 != null)
                 await HandleFileReplacement(BannerIdEnum.rout1, model.Banner1);
 
@@ -51,6 +53,25 @@ public class BannerController : Controller
             TempData["Message"] = $"خطا: {ex.Message}";
         }
 
+        return RedirectToAction(nameof(BannerList));
+    }
+
+    public async Task<IActionResult> Delete(int bannerId)
+    {
+        var banner = await _bannerService.ReadById((BannerIdEnum)bannerId);
+        if (banner != null)
+        {
+            if (await _videoService.DeleteVideo(banner.Rout))
+            {
+                string msg = string.Empty;
+                if (await _bannerService.Update((BannerIdEnum)bannerId, string.Empty))
+                    msg = "بنر حذف شد";
+                else
+                    msg = "بنر حذف نشد";
+
+                TempData["Message"] = msg;
+            }
+        }
         return RedirectToAction(nameof(BannerList));
     }
 
