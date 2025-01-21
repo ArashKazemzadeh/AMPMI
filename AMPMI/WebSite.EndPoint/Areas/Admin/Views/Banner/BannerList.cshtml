@@ -36,12 +36,18 @@
         <img class="img-Icon" src="~/images/diskette copy.png" />
     </a>
 </div>
+@if (TempData["Message"] is not null)
+{
+    <div class="row">
+        <p style="color:red;">@TempData["Message"].ToString()</p>
+    </div>
+}
 
 <form id="bannerForm" asp-area="Admin" asp-action="SaveBanners" asp-controller="Banner" method="post" enctype="multipart/form-data">
     <div class="row uploadDiv">
         <div class="col-md-3 my-2">
             <button type="button" class="btn btn-submit btnUpload" onclick="document.getElementById('Banner1').click();">بارگذاری ویدیو اول</button>
-            <input type="file" id="Banner1" name="Banner1" style="display:none" accept="audio/*,video/*,image/*" onchange="showFileName(this, 'videoPreview1')" />
+            <input type="file" id="Banner1" asp-for="Banner1" style="display:none" accept="audio/*,video/*,image/*" onchange="showFileName(this, 'videoPreview1')" />
         </div>
         <div class="col-md-2 my-2">
             <video src="@Model.rout1" muted id="videoPreview1" controls style="width : 100%; height:100%;" width="600">
@@ -56,7 +62,7 @@
                 </a>
             }else
             {
-                <a href="@Url.Action("DeleteBanner","Banner",new{bannerId=1})" onclick="removeVideo(this)">
+                <a href="@Url.Action("Delete","Banner",new{bannerId=1})" onclick="removeVideo(this)">
                     <img class="img-Icon" src="~/images/recycle.png" />
                 </a>
             }
@@ -67,7 +73,7 @@
     <div class="row uploadDiv">
         <div class="col-md-3 my-2">
             <button type="button" class="btn btn-submit btnUpload" onclick="document.getElementById('Banner2').click();">بارگذاری ویدیو دوم</button>
-            <input type="file" id="Banner2" name="Banner2" style="display:none" accept="audio/*,video/*,image/*" onchange="showFileName(this, 'videoPreview2')" />
+            <input type="file" id="Banner2" asp-for="Banner2" style="display:none" accept="audio/*,video/*,image/*" onchange="showFileName(this, 'videoPreview2')" />
         </div>
         <div class="col-md-2 my-2">
             <video src="@Model.rout2" muted id="videoPreview2" controls style="width : 100%; height:100%;" width="600">
@@ -83,7 +89,7 @@
             }
             else
             {
-                <a href="@Url.Action("DeleteBanner","Banner",new{bannerId=2})" onclick="removeVideo(this)">
+                <a href="@Url.Action("Delete","Banner",new{bannerId=2})" onclick="removeVideo(this)">
                     <img class="img-Icon" src="~/images/recycle.png" />
                 </a>
             }
@@ -93,7 +99,7 @@
     <div class="row uploadDiv">
         <div class="col-md-3 my-2">
             <button type="button" class="btn btn-submit btnUpload" onclick="document.getElementById('Banner3').click();">بارگذاری ویدیو سوم</button>
-            <input type="file" id="Banner3" name="Banner3" style="display:none" accept="audio/*,video/*,image/*" onchange="showFileName(this, 'videoPreview3')" />
+            <input type="file" id="Banner3" asp-for="Banner3" style="display:none" accept="audio/*,video/*,image/*" onchange="showFileName(this, 'videoPreview3')" />
         </div>
         <div class="col-md-2 my-2">
             <video src="@Model.rout3" muted id="videoPreview3" controls style="width : 100%; height:100%;" width="600">
@@ -109,7 +115,7 @@
             }
             else
             {
-                <a href="@Url.Action("DeleteBanner","Banner",new{bannerId=3})" onclick="removeVideo(this)">
+                <a href="@Url.Action("Delete","Banner",new{bannerId=3})" onclick="removeVideo(this)">
                     <img class="img-Icon" src="~/images/recycle.png" />
                 </a>
             }
