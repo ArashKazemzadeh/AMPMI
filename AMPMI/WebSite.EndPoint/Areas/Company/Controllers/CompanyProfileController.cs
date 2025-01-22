@@ -133,6 +133,10 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View(nameof(EditCompanyProfile), companyEditProfileVM);
+                }
                 if (companyEditProfileVM.IsLogoChanged)
                 {
                     if( await DeletePicture(companyEditProfileVM.LogoRout))
@@ -144,7 +148,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
                        if (string.IsNullOrEmpty(newLogo))
                        {
                            ViewData["error"] = "خطایی در هنگام دخیره لوگو رخ داد";
-                           return RedirectToAction(nameof(EditCompanyProfile));
+                           return View(nameof(EditCompanyProfile),companyEditProfileVM);
                        }
                        companyEditProfileVM.LogoRout = newLogo;
                     }

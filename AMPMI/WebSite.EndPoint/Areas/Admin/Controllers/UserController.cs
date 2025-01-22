@@ -89,28 +89,32 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditUser(CompanyVM CompanyVM)
+        public async Task<IActionResult> EditUser(CompanyVM companyVM)
         {
             try
             {
-                if (CompanyVM.IsLogoChanged)
+                if (!ModelState.IsValid)
                 {
-                    if (await DeletePicture(CompanyVM.LogoRout))
-                        CompanyVM.LogoRout = null;
+                    return View(companyVM);
+                }
+                if (companyVM.IsLogoChanged)
+                {
+                    if (await DeletePicture(companyVM.LogoRout))
+                        companyVM.LogoRout = null;
 
-                    if (CompanyVM.Logo != null)
+                    if (companyVM.Logo != null)
                     {
-                        string newLogo = await AddPicture(CompanyVM.Logo);
+                        string newLogo = await AddPicture(companyVM.Logo);
                         if (string.IsNullOrEmpty(newLogo))
                         {
                             ViewData["error"] = "خطایی در هنگام دخیره لوگو رخ داد";
-                            return RedirectToAction(nameof(EditUser), new { id = CompanyVM.Id });
+                            return View(companyVM);
                         }
-                        CompanyVM.LogoRout = newLogo;
+                        companyVM.LogoRout = newLogo;
                     }
                 }
 
-                var dto = CompanyVM.MapToDto(CompanyVM);
+                var dto = companyVM.MapToDto(companyVM);
 
                 await _companyService.IsCompany(dto.Id, dto.IsCompany);
 
@@ -122,12 +126,12 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                                     resultMessage == ResultOutPutMethodEnum.recordNotFounded ? "کاربر یافت نشد" :
                                     "مشخطات ویرایش نشد";
 
-                return View(CompanyVM);
+                return View(companyVM);
             }
             catch (Exception ex)
             {
                 ViewData["error"] = ex.Message;
-                return View(CompanyVM);
+                return View(companyVM);
             }
         }
         public async Task<IActionResult> CreateUser()
@@ -139,6 +143,10 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View(nameof(EditUser), companyVM);
+                }
                 RegisterIdentityDTO registerIdentityDTO = new()
                 {
 
@@ -154,7 +162,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                 if (createNew.userId <= 0)
                 {
                     ViewData["error"] = createNew.errorMessage;
-                    return RedirectToAction(nameof(EditUser), new { id = createNew.userId });
+                    return View(nameof(EditUser),companyVM);
                 }
                 if (companyVM.IsLogoChanged)
                 {
@@ -164,7 +172,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                         if (string.IsNullOrEmpty(newLogo))
                         {
                             ViewData["error"] = "خطایی در هنگام دخیره لوگو رخ داد";
-                            return RedirectToAction(nameof(EditUser), new { id = createNew.userId });
+                            return View(nameof(EditUser), companyVM);
                         }
                         companyVM.LogoRout = newLogo;
                     }
@@ -175,12 +183,12 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                 await _companyService.IsCompany(dto.Id, dto.IsCompany);
 
 
-                return RedirectToAction(nameof(EditUser), new { id = createNew.userId });
+                return RedirectToAction(nameof(UserList));
             }
             catch (Exception ex)
             {
                 ViewData["error"] = ex.Message;
-                return RedirectToAction(nameof(EditUser), new { id = 0 });
+                return View(nameof(EditUser), companyVM);
             }
         }
         private async Task<bool> DeletePicture(string route)

@@ -1,5 +1,6 @@
 ﻿using AQS_Application.Dtos.BaseServiceDto.Company;
 using Domin.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebSite.EndPoint.Areas.Admin.Models.Company
 {
@@ -7,10 +8,15 @@ namespace WebSite.EndPoint.Areas.Admin.Models.Company
     {
         //public string   Password { get; set; } = null!;
         public long Id { get; set; }
+        [Required(ErrorMessage = "نام شرکت نمیتواند خالی باشد")]
         public string Name { get; set; }
+        [Required(ErrorMessage = "نام مدیر نمیتواند خالی باشد")]
         public string ManagerName { get; set; }
+        [Required(ErrorMessage = "شماره تلفن نمیتواند خالی باشد")]
         public string MobileNumber { get; set; }
+        [Required(ErrorMessage = "ایمیل نمیتواند خالی باشد")]
         public string Email { get; set; }
+        [Required(ErrorMessage = "آدرس نمیتواند خالی باشد")]
         public string Address { get; set; }
         public string? Brands { get; set; }
         public int Capacity { get; set; }

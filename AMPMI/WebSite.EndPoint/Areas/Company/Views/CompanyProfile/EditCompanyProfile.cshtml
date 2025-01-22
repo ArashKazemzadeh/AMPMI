@@ -27,14 +27,17 @@
         <form enctype="multipart/form-data" id="saveForm" asp-area="Company" asp-action="EditCompanyProfile" asp-controller="CompanyProfile" method="post">
             <input asp-for="Id" type="hidden" />
             <input type="hidden" asp-for="LogoRout" />
+            <input hidden asp-for="IsCompany" />
             <div class="row">
                 <div class="col-md-6 userEditRow">
                     <label for="Cname" class="labelText">نام شرکت</label>
                     <input asp-for="Name" class="labelText input-text" type="text" id="Cname" />
+                    <span class="text-danger" asp-validation-for=Name></span>
                 </div>
                 <div class="col-md-6 userEditRow">
                     <label for="CFoundername" class="labelText">نام مدیر عامل</label>
                     <input asp-for="ManagerName" class="labelText input-text" type="text" id="CFoundername" />
+                    <span class="text-danger" asp-validation-for=ManagerName></span>
                 </div>
                 <div class="col-md-6 userEditRow">
                     <label for="CMobile" class="labelText">شماره موبایل</label>
@@ -43,10 +46,12 @@
                         oninput="this.value=this.value.replace(/(?![0-9])./gmi,'')" 
                         type="text" 
                         id="CMobile" />
+                    <span class="text-danger" asp-validation-for=MobileNumber></span>
                 </div>
                 <div class="col-md-6 userEditRow">
                     <label for="CEmail" class="labelText">ایمیل</label>
                     <input asp-for="Email" class="labelText input-text" type="text" id="CEmail" />
+                    <span class="text-danger" asp-validation-for=Email></span>
                 </div>
                 <div class="col-md-6 userEditRow">
                     <label for="CTel" class="labelText">تلفن</label>
@@ -58,6 +63,7 @@
                 <div class="col-md-6 userEditRow">
                     <label for="CAddress" class="labelText">آدرس</label>
                     <textarea asp-for="Address" id="CAddress" class="input-text"></textarea>
+                    <span class="text-danger" asp-validation-for=Address></span>
                 </div>
                 @if (Model.IsCompany)
                 {
