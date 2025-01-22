@@ -40,5 +40,6 @@ namespace AQS_Application.Interfaces.IServices.BaseServices
         /// <param name="sendRequest"></param>
         /// <returns></returns>
         Task<ResultOutPutMethodEnum> SendRequest(long id, bool sendRequest);
+        Task<List<CompanySearchDto>> SearchCompanyByName(string name);
     }
 }
