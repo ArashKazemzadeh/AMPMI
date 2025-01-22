@@ -120,7 +120,6 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
                 Iso = company.Iso,
                 About = company.About,
                 LogoRout = company.LogoRout == null ? string.Empty : company.LogoRout,
-                BannerRout = company.BannerRout == null ? string.Empty : company.BannerRout,
                 SendRequest = company.SendRequest,
                 IsCompany = company.IsCompany,
                 Tel = company.Tel,
@@ -148,22 +147,6 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
                            return RedirectToAction(nameof(EditCompanyProfile));
                        }
                        companyEditProfileVM.LogoRout = newLogo;
-                    }
-                }
-                if (companyEditProfileVM.IsBannerChanged)
-                {
-                    if( await DeletePicture(companyEditProfileVM.BannerRout))
-                        companyEditProfileVM.BannerRout = null;
-
-                    if (companyEditProfileVM.Banner != null)
-                    {
-                        string newBanner = await AddPicture(companyEditProfileVM.Banner);
-                        if (string.IsNullOrEmpty(newBanner))
-                        {
-                            ViewData["error"] = "خطایی در هنگام دخیره بنر رخ داد";
-                            return RedirectToAction(nameof(EditCompanyProfile));
-                        }
-                        companyEditProfileVM.BannerRout = newBanner;
                     }
                 }
 

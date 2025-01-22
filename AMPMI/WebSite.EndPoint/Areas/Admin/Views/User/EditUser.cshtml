@@ -47,7 +47,6 @@
             </div>
             <input asp-for="Id" type="hidden" />
             <input type="hidden" asp-for="LogoRout" />
-            <input type="hidden" asp-for="BannerRout" />
             <div class="row">
                 <div class="col-md-6 my-2">
                     <label for="Cname" class="labelText">نام شرکت</label>
@@ -127,23 +126,6 @@
                     </div>
 
                 </div>
-                <div class="col-md-6 my-2" style="margin-top:25px;">
-                    <div class="col-sm-5 upBtn">
-                        <button type="button" class="btn-submit btnUpload" onclick="getfileBanner()">بارگذاری بنر</button>
-                        <input asp-for="Banner" id="getFileBanner" style="display:none" class="form-control-file" type="file" accept="image/*">
-                    </div>
-                    <div id="previewBanner" class="col-sm-2 ShowPic">
-                        @if (Model != null && !string.IsNullOrEmpty(Model.BannerRout))
-                        {
-                            <img class="prevImage" src="@Model.BannerRout" />
-                        }
-                    </div>
-                    <input id="IsBannerChanged" type="hidden" asp-for="IsBannerChanged" />
-
-                    <div class="col-sm-2">
-                        <a href="#" id="deleteBanner"><img class="img-Icon" src="~/images/recycle.png" /></a>
-                    </div>
-                </div>
             </div>
         </form>
         <div>
@@ -170,10 +152,6 @@
         {
             document.querySelector('#getfileLogo').click();
         }
-        function getfileBanner()
-        {
-            document.querySelector('#getFileBanner').click();
-        }
 
         $("#getfileLogo").on('change',function(){
         const file = this.files[0];
@@ -199,30 +177,6 @@
             }
         });
 
-        $("#getFileBanner").on('change',function(){
-            const file = this.files[0];
-
-            if (file)
-            {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    // ایجاد یا جایگزینی تصویر در باکس
-                    const img = $("<img>")
-                    .attr("src", e.target.result)
-                    .addClass("img")
-                    .addClass("prevImage");
-
-                    $("#previewBanner").empty().append(img);
-                };
-                reader.readAsDataURL(file);
-
-                $("#IsBannerChanged").val(true);
-
-            } else {
-                $("#previewBanner").html("پیش‌نمایش");
-            }
-        });
-
         $("#save").click(function(event){
             event.preventDefault();
             $("#saveForm").submit();
@@ -236,11 +190,5 @@
             $("#IsLogoChanged").val(true); // changed - deleted
         });
 
-        $("#deleteBanner").click(function(event){
-            event.preventDefault();
-            $("#previewBanner").html("");
-            $("#getFileBanner").val("");
-            $("#IsBannerChanged").val(true); // changed - deleted
-        });
     </script>
 }

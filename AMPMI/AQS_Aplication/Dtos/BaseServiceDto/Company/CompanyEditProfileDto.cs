@@ -28,7 +28,6 @@ namespace AQS_Application.Dtos.BaseServiceDto.Company
         public bool IsCompany { get; set; }
         public bool SendRequest { get; set; }
         public string? TeaserGuid { get; set; }
-        public string? BannerRout { get; set; }
         public string? Tel { get; set; }
         public virtual ICollection<CompanyPicture> CompanyPictures { get; set; } = new List<CompanyPicture>();
         public virtual ICollection<Product> Products { get; set; } = new List<Product>();

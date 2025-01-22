@@ -32,10 +32,6 @@ public partial class Company
     /// الزامی نیست
     /// </summary>
     public string? TeaserGuid { get; set; }
-    /// <summary>
-    /// الزامی نیست
-    /// </summary>
-    public string? BannerRout { get; set; }
     public virtual ICollection<CompanyPicture> CompanyPictures { get; set; } = new List<CompanyPicture>();
     public virtual ICollection<Product> Products { get; set; } = new List<Product>();
     public virtual ICollection<SeenNotifByCompany> SeenNotifByCompanies { get; set; } = new List<SeenNotifByCompany>();
