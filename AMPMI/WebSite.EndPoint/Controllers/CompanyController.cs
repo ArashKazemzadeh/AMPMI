@@ -9,9 +9,11 @@ namespace WebSite.EndPoint.Controllers
     public class CompanyController : Controller
     {
         private readonly ICompanyService _companyService;
-        public CompanyController(ICompanyService companyService )
+        private readonly IProductService _productService;
+        public CompanyController(ICompanyService companyService, IProductService productService)
         {
             _companyService = companyService;
+            _productService = productService;
         }
         public async Task<IActionResult> CompanyList()
         {
@@ -43,6 +45,7 @@ namespace WebSite.EndPoint.Controllers
             {
                 CompanyDetailVM companyDetailVM = new CompanyDetailVM()
                 {
+                    Id=companyId,
                     LogoRout = result.LogoRout,
                     Address = result.Address,
                     MobileNumber = result.MobileNumber,
@@ -83,7 +86,7 @@ namespace WebSite.EndPoint.Controllers
             {
                 Address = x.Address,
                 Id = x.Id,
-                Capacity = x.Capacity,6
+                Capacity = x.Capacity,
                 Email = x.Email,
                 Iso = x.Iso,
                 LogoRout = x.LogoRout,
@@ -98,6 +101,43 @@ namespace WebSite.EndPoint.Controllers
             }).ToList();
 
             return View(nameof(CompanyList), companies);
+        }
+        public async Task<IActionResult> SearchCompanyProduct(long companyId,string name)
+        {
+            var result = await _companyService.ReadByIdIncludePicture(companyId);
+            var products = await _productService.SearchByProductNameAndCompanyId(name, companyId, isConfirmed: true);
+
+            CompanyDetailVM companyDetailVM = new CompanyDetailVM()
+            {
+                Id = companyId,
+                LogoRout = result.LogoRout,
+                Address = result.Address,
+                MobileNumber = result.MobileNumber,
+                Name = result.Name,
+                About = result.About,
+                TeaserGuid = result.TeaserGuid,
+                ManagerName = result.ManagerName,
+                CompanyPictures = result.CompanyPictures.Select(x => x.PictureFileName).ToList(),
+                Email = result.Email,
+                Tel = result.Tel,
+                Website = result.Website,
+                Capacity = result.Capacity,
+                Iso = result.Iso,
+                Partnership = result.Partnership,
+                QualityGrade = result.QualityGrade,
+            };
+            if(products!=null && products.Count > 0)
+            {
+                companyDetailVM.Products = products.Select(p => new ProductVM()
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    PictureFileName = (p.ProductPictures != null && p.ProductPictures.Count > 0)
+                        ? p.ProductPictures.FirstOrDefault().Rout
+                        : ""
+                }).ToList();
+            }
+            return View(nameof(CompanyDetail),companyDetailVM);
         }
     }
 }

@@ -58,7 +58,7 @@ namespace AQS_Application.Services
         }
         public async Task<List<Company>> ReadConfirmedComapanies()
         {
-            var result = await _context.Companies.Where(x=>x.IsCompany).ToListAsync();
+            var result = await _context.Companies.Where(x => x.IsCompany).ToListAsync();
             return result ?? new List<Company>();
         }
 
@@ -93,9 +93,9 @@ namespace AQS_Application.Services
         {
             return await _context.Companies
                 .Where(c => c.Id == id)
-                .Include(x=>x.CompanyPictures)
-                .Include(y=>y.Products)
-                .ThenInclude(z=>z.ProductPictures)
+                .Include(x => x.CompanyPictures)
+                .Include(y => y.Products)
+                .ThenInclude(z => z.ProductPictures)
                 .Select(c => new CompanyEditProfileDto
                 {
                     Id = c.Id,
@@ -115,6 +115,35 @@ namespace AQS_Application.Services
                     TeaserGuid = c.TeaserGuid,
                     CompanyPictures = c.CompanyPictures,
                     Products = c.Products,
+                    Tel = c.Tel,
+                    Website = c.Website
+                })
+                .FirstOrDefaultAsync();
+        }
+        public async Task<CompanyEditProfileDto?> ReadByIdIncludePicture(long id)
+        {
+            return await _context.Companies
+                .Where(c => c.Id == id && c.IsCompany)
+                .Include(c=>c.CompanyPictures)
+                .Select(c => new CompanyEditProfileDto
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    ManagerName = c.ManagerName,
+                    MobileNumber = c.MobileNumber,
+                    Email = c.Email,
+                    Address = c.Address,
+                    Brands = c.Brands,
+                    Capacity = c.Capacity,
+                    Partnership = c.Partnership,
+                    QualityGrade = c.QualityGrade,
+                    Iso = c.Iso,
+                    About = c.About,
+                    TeaserGuid = c.TeaserGuid,
+                    LogoRout = c.LogoRout ?? string.Empty,
+                    SendRequest = c.SendRequst,
+                    IsCompany = c.IsCompany,
+                    CompanyPictures = c.CompanyPictures,
                     Tel = c.Tel,
                     Website = c.Website
                 })
@@ -260,11 +289,11 @@ namespace AQS_Application.Services
 
             if (existingCompany.LogoRout != company.LogoRout)
                 existingCompany.LogoRout = company.LogoRout;
-            
-            if(existingCompany.Tel != company.Tel)
+
+            if (existingCompany.Tel != company.Tel)
                 existingCompany.Tel = company.Tel;
 
-            if(existingCompany.Website != company.Website)
+            if (existingCompany.Website != company.Website)
                 existingCompany.Website = company.Website;
 
             _context.Companies.Update(existingCompany);

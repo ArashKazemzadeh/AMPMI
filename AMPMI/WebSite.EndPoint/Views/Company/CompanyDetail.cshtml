@@ -172,14 +172,17 @@
             @* foreach products here *@
             <div class="col-md-6">
                 <div class="row mt-2">
-                    <div class="col-md-8 my-2">
-                        <input class="card searchProduct p-1" placeholder="نام محصول را وارد کنید:"/>
-                    </div>
-                    <div class="col-md-4 my-2">
-                        <button class="card btnSearch">
-                            جستجو
-                        </button>
-                    </div>
+                    <form asp-action="SearchCompanyProduct" asp-controller="Company">
+                        <input hidden name="companyId" value="@Model.Id" />
+                        <div class="col-md-8 my-2">
+                            <input name="name" class="card searchProduct p-1" placeholder="نام محصول را وارد کنید:" />
+                        </div>
+                        <div class="col-md-4 my-2">
+                            <button class="card btnSearch">
+                                جستجو
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
