@@ -64,7 +64,7 @@ namespace YourNamespace.Services
                             errorMessage = "این ایمیل قبلاً ثبت شده است."
                         };
                     }
-
+                    // TODO : این شرط کار نمیکند
                     // بررسی وجود کاربر با شماره موبایل
                     var existingUserByPhone = await _userManager.FindByNameAsync(registerIdentityDTO.Mobile.Trim());
                     if (existingUserByPhone != null)

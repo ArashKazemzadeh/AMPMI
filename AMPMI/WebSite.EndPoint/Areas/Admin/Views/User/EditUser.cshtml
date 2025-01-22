@@ -19,12 +19,6 @@
 
 <div class="container-fluid">
     <div class="pageName">
-        @if (ViewData["error"] is not null)
-        {
-            <div class="row">
-                <p style="color:red;">@ViewData["error"]?.ToString()</p>
-            </div>
-        }
         <span class="textPage">
             <a asp-area="Admin" asp-controller=User asp-action=UserList>
                 لیست کاربران
@@ -32,6 +26,12 @@
             > تعریف/ویرایش کاربران
         </span>
     </div>
+    @if (ViewData["error"] is not null)
+    {
+        <div class="row">
+            <p style="color:red;">@ViewData["error"]?.ToString()</p>
+        </div>
+    }
     <div>
         <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
     </div>
@@ -51,10 +51,12 @@
                 <div class="col-md-6 my-2">
                     <label for="Cname" class="labelText">نام شرکت</label>
                     <input asp-for="Name" class="labelText input-text" type="text" id="Cname" />
+                    <span class="text-danger" asp-validation-for="Name"></span>
                 </div>
                 <div class="col-md-6 my-2">
                     <label for="CFoundername" class="labelText">نام مدیر عامل</label>
                     <input asp-for="ManagerName" class="labelText input-text" type="text" id="CFoundername" />
+                    <span class="text-danger" asp-validation-for=ManagerName></span>
                 </div>
                 <div class="col-md-6 my-2">
                     <label for="CMobile" class="labelText">شماره موبایل</label>
@@ -63,10 +65,13 @@
                         oninput="this.value=this.value.replace(/(?![0-9])./gmi,'')" 
                         type="text" 
                         id="CMobile" />
+                    <span class="text-danger" asp-validation-for=MobileNumber></span>
+
                 </div>
                 <div class="col-md-6 my-2">
                     <label for="CEmail" class="labelText">ایمیل</label>
                     <input asp-for="Email" class="labelText input-text" type="text" id="CEmail" />
+                    <span class="text-danger" asp-validation-for=Email></span>
                 </div>
                 <div class="col-md-6 my-2">
                     <label for="CTel" class="labelText">تلفن</label>
@@ -79,6 +84,7 @@
                 <div class="col-md-6 my-2">
                     <label for="CAddress" class="labelText">آدرس</label>
                     <textarea asp-for="Address" id="CAddress" class="input-text"></textarea>
+                    <span class="text-danger" asp-validation-for=Address></span>
                 </div>
                 <div class="col-md-6 my-2">
                     <label for="CBrands" class="labelText">برندهای زیر مجموعه</label>
