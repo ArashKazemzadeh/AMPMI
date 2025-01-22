@@ -71,6 +71,14 @@ namespace AQS_Application.Services
                 .Where(p => EF.Functions.Like(p.Name, name))
                 .ToListAsync();
         }
+        public async Task<List<Product>> SearchByProductNameAndCompanyId(string name, long companyId, bool isConfirmed)
+        {
+            name = $"%{name}%";
+            return await _context.Products
+                .Where(p => EF.Functions.Like(p.Name, name) && p.IsConfirmed == isConfirmed && p.CompanyId == companyId)
+                .Include(x => x.ProductPictures)
+                .ToListAsync();
+        }
         public async Task<Product?> ReadByIdIncludeCategoryAndSubCategoryAndCompany(long id, bool isConfirmed)
         {
             return await _context.Products

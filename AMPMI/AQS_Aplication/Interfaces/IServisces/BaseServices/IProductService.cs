@@ -26,6 +26,14 @@ namespace AQS_Application.Interfaces.IServices.BaseServices
         /// <returns></returns>
         Task<List<Product>> SearchProductByNameAndCategory(string name,int categoryId, bool isConfirmed);
         /// <summary>
+        /// جستجوی محصول بر اساس کمپانی و نام
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="companyId"></param>
+        /// <param name="isConfirmed"></param>
+        /// <returns></returns>
+        Task<List<Product>> SearchByProductNameAndCompanyId(string name, long companyId, bool isConfirmed);
+        /// <summary>
         /// جزیات محصول به همراه گروه اصلی ، گروه فرعی و کمپانی
         /// </summary>
         /// <param name="id"></param>

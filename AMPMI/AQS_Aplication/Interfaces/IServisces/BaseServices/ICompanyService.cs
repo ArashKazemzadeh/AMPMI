@@ -41,5 +41,11 @@ namespace AQS_Application.Interfaces.IServices.BaseServices
         /// <returns></returns>
         Task<ResultOutPutMethodEnum> SendRequest(long id, bool sendRequest);
         Task<List<CompanySearchDto>> SearchCompanyByName(string name);
+        /// <summary>
+        /// با شرط قطعه ساز بودن
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<CompanyEditProfileDto?> ReadByIdIncludePicture(long id);
     }
 }

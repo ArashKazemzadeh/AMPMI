@@ -5,6 +5,7 @@ namespace WebSite.EndPoint.Models.CompanyViewModel
 {
     public class CompanyDetailVM
     {
+        public long Id { get; set; }    
         public string Name { get; set; } = null!;
         public string MobileNumber { get; set; } = null!;
         public string ManagerName { get; set; }
