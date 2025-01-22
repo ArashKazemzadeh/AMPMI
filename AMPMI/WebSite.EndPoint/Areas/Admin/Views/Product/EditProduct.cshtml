@@ -87,6 +87,7 @@
                     <input id="isPictureChanged" hidden value="false" name="IsPictureChanged" />
                 </div>
                 <input hidden asp-for="Id" />
+                <input hidden asp-for="CategoryId" />
                <a onclick="addPicture()" id="new"> <img class="img-Icon" src="~/images/addition copy.png" /> </a>
             </div>
         </div>
@@ -249,7 +250,7 @@
                     success: function (data) {
                         $('#subCategories').empty();
 
-                        $('#subCategories').append('<option value="">انتخاب کنید</option>');
+                        $('#subCategories').append('<option value="-1">انتخاب کنید</option>');
                         $.each(data, function (index, item) {
                             if(item.id == selectedSubCategory){
                                  $('#subCategories').append('<option selected value="' + item.id + '">' + item.name + '</option>');

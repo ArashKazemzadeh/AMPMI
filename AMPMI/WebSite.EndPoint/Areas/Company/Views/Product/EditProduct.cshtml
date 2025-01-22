@@ -32,6 +32,7 @@
     </div>
     <form id="saveForm" asp-area="Company" asp-controller="Product" asp-action="Save" enctype="multipart/form-data" method="post">
         <input hidden asp-for="Id" />
+        <input hidden asp-for="CategoryId" />
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group row">
@@ -255,7 +256,7 @@
                     success: function (data) {
                         $('#subCategories').empty();
 
-                        $('#subCategories').append('<option value="">انتخاب کنید</option>');
+                        $('#subCategories').append('<option value="-1">انتخاب کنید</option>');
                         $.each(data, function (index, item) {
                             if(item.id == selectedSubCategory){
                                  $('#subCategories').append('<option selected value="' + item.id + '">' + item.name + '</option>');

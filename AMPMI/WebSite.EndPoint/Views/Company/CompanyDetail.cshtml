@@ -184,21 +184,25 @@
             </div>
         </div>
         <div class="row">
-            @foreach(var item in Model.Products)
+            @if(Model.Products != null)
             {
-                <div class="col-md-3 my-2">
-                    <div class="card productCard">
-                        <a href="@Url.Action("ProductDetail","Product",new{productId=item.Id})" class="productDetailLoc"><span class="productDetail">اطلاعات محصول</span></a>
-                        <div class="productCard1">
-                            <a class="productDetailLoc"><span class="productName">@item.Name</span></a>
-                            <div class="productCard2 @(!string.IsNullOrEmpty(item.PictureFileName) ? "hasImg":"")">
-                                @if(!string.IsNullOrEmpty(item.PictureFileName)){
-                                    <img class="img img-fluid productCard2" src="@item.PictureFileName" />
-                                }
+                @foreach (var item in Model.Products)
+                {
+                    <div class="col-md-3 my-2">
+                        <div class="card productCard">
+                            <a href="@Url.Action("ProductDetail","Product",new{productId=item.Id})" class="productDetailLoc"><span class="productDetail">اطلاعات محصول</span></a>
+                            <div class="productCard1">
+                                <a class="productDetailLoc"><span class="productName">@item.Name</span></a>
+                                <div class="productCard2 @(!string.IsNullOrEmpty(item.PictureFileName) ? "hasImg":"")">
+                                    @if (!string.IsNullOrEmpty(item.PictureFileName))
+                                    {
+                                        <img class="img img-fluid productCard2" src="@item.PictureFileName" />
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                }
             }
         </div>
     </section>

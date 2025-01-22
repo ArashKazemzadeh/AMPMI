@@ -96,6 +96,11 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
         {
             productVM.Categories = GetCategory();
             long companyId = await _loginService.GetUserIdAsync(User);
+            if(productVM.PictureFileName == null || productVM.PictureFileName.Count < 1)
+            {
+                ViewData["error"] = "وجود حداقل یک تصویر برای محصول اجباری است";
+                return View("EditProduct", productVM);
+            }
             Product newProduct = new Product()
             {
                 Name = productVM.Name,
@@ -183,6 +188,13 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
         {
             long companyId = await _loginService.GetUserIdAsync(User);
             productVM.Categories = GetCategory();
+
+            if((productVM.Pictures == null || productVM.Pictures.Count < 1 ) && 
+               (productVM.PictureFileName == null || productVM.PictureFileName.Count < 1))
+            {
+                ViewData["error"] = "وجود حداقل یک تصویر برای محصول اجباری است";
+                return View("EditProduct", productVM);
+            }
 
             Product existProdcut = new Product()
             {
