@@ -82,7 +82,6 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                 Iso = company.Iso,
                 About = company.About,
                 LogoRout = company.LogoRout == null ? string.Empty : company.LogoRout,
-                BannerRout = company.BannerRout == null ? string.Empty : company.BannerRout,
                 IsCompany = company.IsCompany,
                 Tel = company.Tel
             };
@@ -108,22 +107,6 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                             return RedirectToAction(nameof(EditUser), new { id = CompanyVM.Id });
                         }
                         CompanyVM.LogoRout = newLogo;
-                    }
-                }
-                if (CompanyVM.IsBannerChanged)
-                {
-                    if (await DeletePicture(CompanyVM.BannerRout))
-                        CompanyVM.BannerRout = null;
-
-                    if (CompanyVM.Banner != null)
-                    {
-                        string newBanner = await AddPicture(CompanyVM.Banner);
-                        if (string.IsNullOrEmpty(newBanner))
-                        {
-                            ViewData["error"] = "خطایی در هنگام دخیره بنر رخ داد";
-                            return RedirectToAction(nameof(EditUser), new { id = CompanyVM.Id });
-                        }
-                        CompanyVM.BannerRout = newBanner;
                     }
                 }
 
@@ -184,19 +167,6 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                             return RedirectToAction(nameof(EditUser), new { id = createNew.userId });
                         }
                         companyVM.LogoRout = newLogo;
-                    }
-                }
-                if (companyVM.IsBannerChanged)
-                {
-                    if (companyVM.Banner != null)
-                    {
-                        string newBanner = await AddPicture(companyVM.Banner);
-                        if (string.IsNullOrEmpty(newBanner))
-                        {
-                            ViewData["error"] = "خطایی در هنگام دخیره بنر رخ داد";
-                            return RedirectToAction(nameof(EditUser), new { id = createNew.userId });
-                        }
-                        companyVM.BannerRout = newBanner;
                     }
                 }
 

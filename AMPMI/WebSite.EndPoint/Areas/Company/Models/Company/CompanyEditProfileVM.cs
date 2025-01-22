@@ -20,14 +20,8 @@ namespace WebSite.EndPoint.Areas.Company.Models.Company
 
         public string? LogoRout { get; set; } = string.Empty;
         public IFormFile? Logo { get; set; } // برای فایل لوگو
-        public string? BannerRout { get; set; }
-        /// <summary>
-        /// آپلود فایل بنر
-        /// </summary>
-        public IFormFile? Banner { get; set; }
         public string? Tel { get; set; }
         public bool IsLogoChanged { get; set; }
-        public bool IsBannerChanged { get; set; }
         public bool SendRequest { get; set; }
         public bool IsCompany { get; set; }
 
@@ -48,7 +42,6 @@ namespace WebSite.EndPoint.Areas.Company.Models.Company
                 Iso = company.Iso,
                 About = company.About,
                 LogoRout = company.LogoRout,
-                BannerRout = company.BannerRout,
                 Tel = company.Tel,
                 Website = company.Website
             };
@@ -73,7 +66,6 @@ namespace WebSite.EndPoint.Areas.Company.Models.Company
                 LogoRout = company.LogoRout == null ? string.Empty : company.LogoRout,
                 IsCompany = company.IsCompany,
                 Tel = company.Tel,
-                BannerRout = company.BannerRout,
                 Website = company.Website
             };
         }
