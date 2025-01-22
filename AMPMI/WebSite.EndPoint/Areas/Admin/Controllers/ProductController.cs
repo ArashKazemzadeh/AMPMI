@@ -21,7 +21,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         static List<CategoryIncludeSubCategoriesDto> _Category;
         const string PictureFolder = "Product";
 
-        public ProductController(IProductService productService, ICategoryService categoryService,IFileServices fileServices)
+        public ProductController(IProductService productService, ICategoryService categoryService, IFileServices fileServices)
         {
             this._productService = productService;
             this._categoryService = categoryService;
@@ -90,6 +90,11 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         public async Task<IActionResult> NewProduct(ProductVM productVM)
         {
             productVM.Categories = GetCategory();
+            if (productVM.PictureFileName == null || productVM.PictureFileName.Count < 1)
+            {
+                ViewData["error"] = "وجود حداقل یک تصویر برای محصول اجباری است";
+                return View("EditProduct", productVM);
+            }
             Product newProduct = new Product()
             {
                 Name = productVM.Name,
@@ -114,7 +119,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                             }
                             else
                             {
-                                var result=await _productService.UpdatePictureRout(id, newPicture);
+                                var result = await _productService.UpdatePictureRout(id, newPicture);
                                 if (result != ResultOutPutMethodEnum.savechanged)
                                 {
                                     ViewData["error"] = "خطایی در هنگام ثبت تصویر رخ داد";
@@ -170,6 +175,12 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         public async Task<IActionResult> EditProduct(ProductVM productVM)
         {
             productVM.Categories = GetCategory();
+            if ((productVM.Pictures == null || productVM.Pictures.Count < 1) &&
+                (productVM.PictureFileName == null || productVM.PictureFileName.Count < 1))
+            {
+                ViewData["error"] = "وجود حداقل یک تصویر برای محصول اجباری است";
+                return View("EditProduct", productVM);
+            }
             Product existProdcut = new Product()
             {
                 Id = productVM.Id,
@@ -205,7 +216,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                 var result = await _productService.Update(existProdcut);
                 if (result == ResultOutPutMethodEnum.savechanged || result == ResultOutPutMethodEnum.dontSaved)
                     return RedirectToAction(nameof(ProductList));
-                else 
+                else
                 {
                     ViewData["error"] = "خطایی در هنگام ثبت کالا رخ داد";
                     return View("EditProduct", productVM);
@@ -256,7 +267,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         /// <returns></returns>
         public async Task<IActionResult> ConfirmProduct(long productId)
         {
-            Product existProduct=await _productService.ReadById(productId);
+            Product existProduct = await _productService.ReadById(productId);
             if (existProduct != null)
             {
                 existProduct.IsConfirmed = true;
@@ -264,7 +275,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
             }
             else
             {
-                TempData["error"]="محصول مورد نظر یافت نشد";
+                TempData["error"] = "محصول مورد نظر یافت نشد";
             }
             return RedirectToAction(nameof(NotConfirmedProductList));
         }
@@ -278,7 +289,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                 productPictures.AddRange(product.ProductPictures);
                 foreach (var item in productPictures)
                 {
-                    if( await _fileServices.DeleteFile(item.Rout))
+                    if (await _fileServices.DeleteFile(item.Rout))
                     {
                         await _productService.DeleteProductPicture(item.Id);
                     }
@@ -293,7 +304,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
             }
             return RedirectToAction(nameof(ProductList));
         }
-        public async Task<IActionResult> DeletePicture(long pictureId,long productId)
+        public async Task<IActionResult> DeletePicture(long pictureId, long productId)
         {
             var result = await _productService.DeleteProductPicture(pictureId);
             if (result != ResultOutPutMethodEnum.savechanged)
