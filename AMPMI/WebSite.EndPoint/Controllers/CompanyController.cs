@@ -76,5 +76,28 @@ namespace WebSite.EndPoint.Controllers
             }
             
         }
+        public async Task<IActionResult> Search(string name)
+        {
+            var result = await _companyService.SearchCompanyByName(name);
+            var companies = result.Select(x => new CompanyVM()
+            {
+                Address = x.Address,
+                Id = x.Id,
+                Capacity = x.Capacity,6
+                Email = x.Email,
+                Iso = x.Iso,
+                LogoRout = x.LogoRout,
+                MobileNumber = x.MobileNumber,
+                ManagerName = x.ManagerName,    
+                Name = x.Name,
+                Partnership = x.Partnership,    
+                QualityGrade = x.QualityGrade,
+                TeaserGuid = x.TeaserGuid,
+                Tel = x.Tel,
+                Website = x.Website,
+            }).ToList();
+
+            return View(nameof(CompanyList), companies);
+        }
     }
 }

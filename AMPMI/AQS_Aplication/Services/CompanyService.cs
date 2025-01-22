@@ -193,6 +193,30 @@ namespace AQS_Application.Services
         {
             return await _context.Companies.FirstOrDefaultAsync(c => c.MobileNumber == mobile);
         }
+        public async Task<List<CompanySearchDto>> SearchCompanyByName(string name)
+        {
+            name = $"%{name}%";
+            return await _context.Companies
+                .Where(c => EF.Functions.Like(c.Name, name) && c.IsCompany)
+                .Select(o => new CompanySearchDto()
+                {
+                    Id = o.Id,
+                    LogoRout = o.LogoRout,
+                    Name = o.Name,
+                    Address = o.Address,
+                    Capacity = o.Capacity,
+                    Email = o.Email,
+                    Iso = o.Iso,
+                    ManagerName = o.ManagerName,
+                    MobileNumber = o.MobileNumber,
+                    Partnership = o.Partnership,
+                    QualityGrade = o.QualityGrade,
+                    TeaserGuid = o.TeaserGuid,
+                    Tel = o.Tel,
+                    Website = o.Website,
+                })
+                .ToListAsync();
+        }
 
         public async Task<ResultOutPutMethodEnum> UpdateEditProfile(CompanyEditProfileDto company)
         {
