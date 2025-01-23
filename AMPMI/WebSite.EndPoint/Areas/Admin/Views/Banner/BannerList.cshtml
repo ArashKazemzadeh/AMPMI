@@ -1,5 +1,5 @@
 ﻿@model WebSite.EndPoint.Areas.Admin.Models.Banner.MultiBannerViewModel
-
+@using AQS_Domin.Entities
 @{
     Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
 }
@@ -24,6 +24,11 @@
         .uploadDiv1 {
             margin-top: 10px;
         }
+
+        .prevImage {
+            width: 100%;
+            height: 100%;
+        }
     </style>
 }
 
@@ -46,50 +51,72 @@
 <form id="bannerForm" asp-area="Admin" asp-action="SaveBanners" asp-controller="Banner" method="post" enctype="multipart/form-data">
     <div class="row uploadDiv">
         <div class="col-md-3 my-2">
-            <button type="button" class="btn btn-submit btnUpload" onclick="document.getElementById('Banner1').click();">بارگذاری ویدیو اول</button>
-            <input type="file" id="Banner1" asp-for="Banner1" style="display:none" accept="audio/*,video/*,image/*" onchange="showFileName(this, 'videoPreview1')" />
+            <button type="button" class="btn btn-submit btnUpload" onclick="document.getElementById('Banner1').click();">بارگذاری بنر اول</button>
+            <input type="file" id="Banner1" asp-for="Banner1" style="display:none" accept="audio/*,video/*,image/*" onchange="showFileName(this, '1')" />
         </div>
-        <div class="col-md-2 my-2">
-            <video src="@Model.rout1" muted id="videoPreview1" controls style="width : 100%; height:100%;" width="600">
-                مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
-            </video>
-       </div>
-        <div class="col-md-2 my-2">
-            @if(string.IsNullOrEmpty(Model.rout1))
+        <div class="col-md-2 my-2 @(Model.type1 == 0 || Model.type1 == BannerTypeEnum.Image ? "ShowPic" : "")" id="preview1">
+            @if (Model.type1 == BannerTypeEnum.Video)
             {
-                <a onclick="removeVideo(this)">
-                    <img class="img-Icon" src="~/images/recycle.png" />
-                </a>
-            }else
-            {
-                <a href="@Url.Action("Delete","Banner",new{bannerId=1})" onclick="removeVideo(this)">
-                    <img class="img-Icon" src="~/images/recycle.png" />
-                </a>
+                <video src="@Model.rout1" muted id="videoPreview1" controls style="width : 100%; height:100%;" width="600">
+                    مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
+                </video>
             }
-
-        </div>
-    </div>
-
-    <div class="row uploadDiv">
-        <div class="col-md-3 my-2">
-            <button type="button" class="btn btn-submit btnUpload" onclick="document.getElementById('Banner2').click();">بارگذاری ویدیو دوم</button>
-            <input type="file" id="Banner2" asp-for="Banner2" style="display:none" accept="audio/*,video/*,image/*" onchange="showFileName(this, 'videoPreview2')" />
-        </div>
-        <div class="col-md-2 my-2">
-            <video src="@Model.rout2" muted id="videoPreview2" controls style="width : 100%; height:100%;" width="600">
-                مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
-            </video>
-       </div>
-        <div class="col-md-2 my-2">
-            @if(string.IsNullOrEmpty(Model.rout2))
+            else if (Model.type1 == 0 || Model.type1 == BannerTypeEnum.Image)
             {
-                <a href="#" onclick="removeVideo(this)">
+                @if(!string.IsNullOrEmpty(Model.rout1))
+                {
+                    <img class="prevImage" src="@Model.rout1" />
+                }
+            }
+        </div>
+        <div class="col-md-2 my-2">
+            @if (string.IsNullOrEmpty(Model.rout1))
+            {
+                <a onclick="RemoveFile(this)">
                     <img class="img-Icon" src="~/images/recycle.png" />
                 </a>
             }
             else
             {
-                <a href="@Url.Action("Delete","Banner",new{bannerId=2})" onclick="removeVideo(this)">
+                <a href="@Url.Action("Delete","Banner",new{bannerId=1})" onclick="RemoveFile(this)">
+                    <img class="img-Icon" src="~/images/recycle.png" />
+                </a>
+            }
+
+        </div>
+    </div>
+
+    <div class="row uploadDiv">
+        <div class="col-md-3 my-2">
+            <button type="button" class="btn btn-submit btnUpload" onclick="document.getElementById('Banner2').click();">بارگذاری بنر دوم</button>
+            <input type="file" id="Banner2" asp-for="Banner2" style="display:none" accept="audio/*,video/*,image/*" onchange="showFileName(this, '2')" />
+        </div>
+        <div class="col-md-2 my-2 @( Model.type2 == 0 || Model.type2 == BannerTypeEnum.Image ? "ShowPic" : "")" id="preview2">
+            @if (Model.type2 == BannerTypeEnum.Video)
+            {
+                <video src="@Model.rout2" muted id="videoPreview2" controls style="width : 100%; height:100%;" width="600">
+                    مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
+                </video>
+            }
+            else if (Model.type2 == BannerTypeEnum.Image)
+            {
+                @if (!string.IsNullOrEmpty(Model.rout2))
+                {
+                    <img class="prevImage" src="@Model.rout2" />
+                }          
+            }
+
+        </div>
+        <div class="col-md-2 my-2">
+            @if (string.IsNullOrEmpty(Model.rout2))
+            {
+                <a onclick="RemoveFile(this)">
+                    <img class="img-Icon" src="~/images/recycle.png" />
+                </a>
+            }
+            else
+            {
+                <a href="@Url.Action("Delete","Banner",new{bannerId=2})" onclick="RemoveFile(this)">
                     <img class="img-Icon" src="~/images/recycle.png" />
                 </a>
             }
@@ -98,24 +125,34 @@
 
     <div class="row uploadDiv">
         <div class="col-md-3 my-2">
-            <button type="button" class="btn btn-submit btnUpload" onclick="document.getElementById('Banner3').click();">بارگذاری ویدیو سوم</button>
-            <input type="file" id="Banner3" asp-for="Banner3" style="display:none" accept="audio/*,video/*,image/*" onchange="showFileName(this, 'videoPreview3')" />
+            <button type="button" class="btn btn-submit btnUpload" onclick="document.getElementById('Banner3').click();">بارگذاری بنر سوم</button>
+            <input type="file" id="Banner3" asp-for="Banner3" style="display:none" accept="audio/*,video/*,image/*" onchange="showFileName(this, '3')" />
         </div>
-        <div class="col-md-2 my-2">
-            <video src="@Model.rout3" muted id="videoPreview3" controls style="width : 100%; height:100%;" width="600">
-                مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
-            </video>
-       </div>
+        <div class="col-md-2 my-2 @(Model.type3 == 0 || Model.type3 == BannerTypeEnum.Image ? "ShowPic" : "")" id="preview3">
+            @if (Model.type3 == BannerTypeEnum.Video)
+            {
+                <video src="@Model.rout3" muted id="videoPreview3" controls style="width : 100%; height:100%;" width="600">
+                    مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
+                </video>
+            }
+            else if (Model.type3 == BannerTypeEnum.Image)
+            {
+                @if (!string.IsNullOrEmpty(Model.rout3))
+                {
+                    <img class="prevImage" src="@Model.rout3" />
+                }                 
+            }
+        </div>
         <div class="col-md-2 my-2">
             @if (string.IsNullOrEmpty(Model.rout3))
             {
-                <a href="#" onclick="removeVideo(this)">
+                <a onclick="RemoveFile(this)">
                     <img class="img-Icon" src="~/images/recycle.png" />
                 </a>
             }
             else
             {
-                <a href="@Url.Action("Delete","Banner",new{bannerId=3})" onclick="removeVideo(this)">
+                <a href="@Url.Action("Delete","Banner",new{bannerId=3})" onclick="RemoveFile(this)">
                     <img class="img-Icon" src="~/images/recycle.png" />
                 </a>
             }
@@ -127,41 +164,106 @@
     <script>
 
         function showFileName(input, labelId) {
-            if (input.files && input.files[0]) {
-                const videoFile = input.files[0]; // فایل انتخاب شده توسط کاربر
-                const videoPreview = document.getElementById(labelId); // دریافت عنصر ویدئو
-                if (videoFile) 
+            if (input.files && input.files[0])
+            {
+                const file = input.files[0]; // فایل انتخاب‌شده
+                const fileType = file.type; // نوع MIME فایل
+
+                // بررسی نوع فایل
+                if (fileType.startsWith("image/"))
                 {
-                    const fileURL = URL.createObjectURL(videoFile); // ایجاد URL موقت از فایل
-                    videoPreview.src = fileURL; // تنظیم URL به عنوان منبع ویدیو
-                    videoPreview.load(); // بارگذاری ویدیو
-
-                    // رویداد timeupdate برای کنترل حلقه ۵ ثانیه‌ای
-                    $(videoPreview).on('timeupdate', function () {
-                        if (videoPreview.currentTime >= 5) {
-                            videoPreview.currentTime = 0; // بازگشت به ثانیه ۰
-                            videoPreview.play(); // شروع دوباره پخش
-                        }
-                    });
-
-                    videoPreview.play(); // شروع پخش خودکار
+                    GeneratePhotoPreview(input,labelId);
                 }
-
+                else if (fileType.startsWith("video/"))
+                {
+                    GenerateVideoPreview(input,labelId);
+                }
             }
         }
 
-        function removeVideo(button) {
+        function GenerateVideoPreview(input,labelId)
+        {
+            const videoFile = input.files[0]; // فایل انتخاب شده توسط کاربر
+            var videoPreview = document.getElementById(`videoPreview${labelId}`); // دریافت عنصر ویدئو
+            if(videoPreview == null){
+               // ساخت المان ویدیو
+                videoPreview = `
+                    <video muted id="videoPreview${labelId}" controls style="width : 100%; height:100%;" width="600">
+                        مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
+                    </video>
+                `;
+
+                $("#preview"+labelId).empty().append(videoPreview);
+            }
+            if (videoFile)
+            {
+                var videoPreview = document.getElementById(`videoPreview${labelId}`); // دریافت عنصر ویدئو
+                const fileURL = URL.createObjectURL(videoFile); // ایجاد URL موقت از فایل
+                videoPreview.src = fileURL; // تنظیم URL به عنوان منبع ویدیو
+                videoPreview.load(); // بارگذاری ویدیو
+
+                // رویداد timeupdate برای کنترل حلقه ۵ ثانیه‌ای
+                $(videoPreview).on('timeupdate', function () {
+                    if (videoPreview.currentTime >= 5) {
+                        videoPreview.currentTime = 0; // بازگشت به ثانیه ۰
+                        videoPreview.play(); // شروع دوباره پخش
+                    }
+                });
+
+                videoPreview.play(); // شروع پخش خودکار
+            }
+            $("#preview"+labelId).removeClass("ShowPic");
+        }
+        function GeneratePhotoPreview(input,labelId){
+            const file = input.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    // ایجاد یا جایگزینی تصویر در باکس
+                    const img = $("<img>")
+                    .attr("src", e.target.result)
+                    .addClass("img")
+                    .addClass("prevImage");
+
+                    $("#preview"+labelId).empty().append(img);
+                };
+                reader.readAsDataURL(file);
+            } else {
+                $("#preview"+labelId).html("پیش‌نمایش");
+            }
+            $("#preview"+labelId).addClass("ShowPic");
+        }
+
+        function RemoveFile(button)
+        {
             const parent = $(button).closest(".uploadDiv");
-            if(parent){
-                const video = parent.find("video");
-                if(video){
-                    $(video).attr('src', ''); // حذف منبع ویدئو
-                    // $(video).load(); // بازنشانی ویدئو
-                }
-                const input = parent.find("input");
-                if(input){
-                    $(input).val("");
-                }
+            const video = parent.find("video");
+            const img = parent.find("img");
+            const input = parent.find("input");
+
+            if(input.length > 0 ) {
+                $(input).val("");
+            }
+
+            if(video.length > 0){
+                RemoveVideo(video);
+            }
+            else if (img.length > 0){
+                RemovePhoto(img);
+            }
+        }
+
+        function RemovePhoto(img){
+            const parent = $(img).parent("div");
+            if(parent.length > 0 ){
+                $(parent).empty();
+            }
+        }
+
+        function RemoveVideo(video) {
+            if(video){
+                $(video).attr('src', ''); // حذف منبع ویدئو
             }
         }
     </script>
