@@ -31,6 +31,17 @@
     <link href="~/css/site.css" rel="stylesheet" />
     <link href="~/css/rte_theme_default.css" rel="stylesheet" />
     @await RenderSectionAsync("CSS", required: false)
+    <style>
+
+        body {
+            min-height: 100vh !important;
+        }
+
+        .wrapper {
+            min-height: 100vh !important;
+        }
+
+    </style>
 </head>
 
 <!--
@@ -113,7 +124,10 @@ desired effect
                             </li>
                             <!-- Show Date -->
                             <li class="dropdown notifications-menu">
-                                <p class="nav-Date">امروز: ۱۹ آذر 1403</p>
+                                @{
+                                    var nowDatePersian = DateTime.Now.ToPersianDateWithFormat();
+                                }
+                                <p class="nav-Date">  @nowDatePersian </p>
                             </li>
                         </ul>
                     </div>
@@ -229,7 +243,7 @@ desired effect
  *@            </strong>
         </footer>
 
-        <!-- Control Sidebar -->
+@*         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Create the tabs -->
             <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
@@ -300,7 +314,7 @@ desired effect
                 </div>
                 <!-- /.tab-pane -->
             </div>
-        </aside>
+        </aside> *@
         <!-- /.control-sidebar -->
         <!-- Add the sidebar's background. This div must be placed
         immediately after the control sidebar -->

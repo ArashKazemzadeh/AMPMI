@@ -36,7 +36,16 @@
     <link href="~/css/site.css" rel="stylesheet" />
     <link href="~/css/rte_theme_default.css" rel="stylesheet" />
     @await RenderSectionAsync("CSS", required: false)
-    
+    <style>
+
+        body {
+            min-height: 100vh!important;
+        }
+        .wrapper{
+            min-height: 100vh!important;
+        }
+
+    </style>
  
 
     <script>
@@ -229,7 +238,7 @@ desired effect
             <!-- Content Wrapper. Contains page content -->
             <div class="col-md-9 menu">
                 <!-- Content Header (Page header) -->
-                <section class="content container-fluid">
+                <section  class="content container-fluid">
                     @RenderBody()
 
 
@@ -238,14 +247,14 @@ desired effect
         </div>
         <!-- /.content-wrapper -->
         <!-- Main Footer -->
-        <footer class="main-footer text-left" style="background-color:#EEEEEE">
-            <strong>
-                @*                 Copyleft &copy; 2014-2017 <a href="https://adminlte.io">Almsaeed Studio</a> & <a href="http://hosseinizadeh.ir/adminlte">Alireza Hosseinizadeh</a>
- *@            </strong>
+        <footer  class="main-footer text-left" style="background-color:#EEEEEE;border:none;">
+@*             <strong>
+                                Copyleft &copy; 2014-2017 <a href="https://adminlte.io">Almsaeed Studio</a> & <a href="http://hosseinizadeh.ir/adminlte">Alireza Hosseinizadeh</a>
+            </strong> *@
         </footer>
 
         <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
+@*         <aside class="control-sidebar control-sidebar-dark">
             <!-- Create the tabs -->
             <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
                 <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
@@ -315,7 +324,7 @@ desired effect
                 </div>
                 <!-- /.tab-pane -->
             </div>
-        </aside>
+        </aside> *@
         <!-- /.control-sidebar -->
         <!-- Add the sidebar's background. This div must be placed
         immediately after the control sidebar -->
@@ -332,7 +341,6 @@ desired effect
     <script src="~/js/all_plugins.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
-
     <!-- Optionally, you can add Slimscroll and FastClick plugins.
        Both of these plugins are recommended to enhance the
        user experience. -->
