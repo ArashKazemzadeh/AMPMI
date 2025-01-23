@@ -1,8 +1,10 @@
 ﻿using AQS_Application.Interfaces.IServices.BaseServices;
+using AQS_Common.Enums;
 using AQS_Domin.Entities;
 using Microsoft.AspNetCore.Mvc;
 using WebSite.EndPoint.Areas.Admin.Models.Banner;
 using WebSite.EndPoint.Utility;
+using static AQS_Common.Enums.FolderNamesEnum;
 
 [Area("Admin")]
 public class BannerController : Controller
@@ -10,7 +12,7 @@ public class BannerController : Controller
     private readonly IBannerService _bannerService;
     private readonly IVideoService _videoService;
     private readonly IFileServices _fileServices;
-    private readonly string BannerFolder = "Banners";
+    static string BannerFolder = FolderNamesEnum.GetFileName(FolderTypes.Banner);
 
     public BannerController(IBannerService bannerService, IVideoService videoService, IFileServices fileServices)
     {

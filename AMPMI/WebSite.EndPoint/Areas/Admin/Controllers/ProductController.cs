@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebSite.EndPoint.Areas.Admin.Models.Product;
 using WebSite.EndPoint.Utility;
+using static AQS_Common.Enums.FolderNamesEnum;
 
 namespace WebSite.EndPoint.Areas.Admin.Controllers
 {
@@ -19,8 +20,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
 
         static List<SubCategoryReadDto> subCategories;
         static List<CategoryIncludeSubCategoriesDto> _Category;
-        const string PictureFolder = "Product";
-
+        static string PictureFolder = FolderNamesEnum.GetFileName(FolderTypes.Product);
         public ProductController(IProductService productService, ICategoryService categoryService, IFileServices fileServices)
         {
             this._productService = productService;

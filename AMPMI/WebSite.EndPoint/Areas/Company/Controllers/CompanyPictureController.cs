@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebSite.EndPoint.Areas.Company.Models.CompanyPicture;
 using WebSite.EndPoint.Utility;
+using static AQS_Common.Enums.FolderNamesEnum;
 
 namespace WebSite.EndPoint.Areas.Company.Controllers
 {
@@ -17,7 +18,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
         private readonly ICompanyPictureService _companyPictureService;
         private readonly IFileServices _fileServices;
         private readonly ILoginService _loginService;
-        const string PictureFolder = "Company";
+        static string PictureFolder = FolderNamesEnum.GetFileName(FolderTypes.CompanyPicture);
         public CompanyPictureController(ICompanyPictureService companyPictureService,
             IFileServices fileServices, ILoginService loginService)
         {

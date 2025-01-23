@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebSite.EndPoint.Areas.Company.Models.Company;
 using WebSite.EndPoint.Areas.Company.Models.Profile;
 using WebSite.EndPoint.Utility;
+using static AQS_Common.Enums.FolderNamesEnum;
 
 namespace WebSite.EndPoint.Areas.Company.Controllers
 {
@@ -21,8 +22,8 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
         private readonly IFileServices _fileServices;
         private readonly IVideoService _videoService;
 
-        const string PictureFolder = "CompanyProfile";
-        const string TeaserFoldr = "CompanyTeaser";
+        static string PictureFolder = FolderNamesEnum.GetFileName(FolderTypes.CompanyProfile);
+        static string TeaserFoldr = FolderNamesEnum.GetFileName(FolderTypes.CompanyTeaser);
         public CompanyProfileController(
             ICompanyService companyService,
             IRegistrationService registrationService,

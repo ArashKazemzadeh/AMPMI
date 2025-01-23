@@ -4,6 +4,7 @@ using AQS_Common.Enums;
 using Domin.Entities;
 using Microsoft.AspNetCore.Mvc;
 using WebSite.EndPoint.Utility;
+using static AQS_Common.Enums.FolderNamesEnum;
 
 namespace WebSite.EndPoint.Areas.Admin.Controllers
 {
@@ -15,8 +16,8 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         private readonly IFileServices _fileServices;
         private readonly IVideoService _videoServices;
 
-        const string PictureFolder = "BlogPicturesFiles";
-        const string VideoFolder = "BlogVideoFiles";
+        static string PictureFolder = FolderNamesEnum.GetFileName(FolderTypes.BlogPicturesFiles);
+        static string VideoFolder = FolderNamesEnum.GetFileName(FolderTypes.BlogVideoFiles);
         public BlogController(IBlogService blogService, IFileServices fileServices, IVideoService videoServices)
         {
             _blogService = blogService;
