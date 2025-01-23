@@ -9,12 +9,14 @@ public class BannerController : Controller
 {
     private readonly IBannerService _bannerService;
     private readonly IVideoService _videoService;
-    private readonly string PictureFolder = "Banners";
+    private readonly IFileServices _fileServices;
+    private readonly string BannerFolder = "Banners";
 
-    public BannerController(IBannerService bannerService, IVideoService videoService)
+    public BannerController(IBannerService bannerService, IVideoService videoService, IFileServices fileServices)
     {
         _bannerService = bannerService;
         _videoService = videoService;
+        _fileServices = fileServices;
     }
 
     public async Task<IActionResult> BannerList()
@@ -25,8 +27,20 @@ public class BannerController : Controller
         {
             rout1 = banners.FirstOrDefault(b => b.Id == BannerIdEnum.rout1)?.Rout ?? string.Empty,
             rout2 = banners.FirstOrDefault(b => b.Id == BannerIdEnum.rout2)?.Rout ?? string.Empty,
-            rout3 = banners.FirstOrDefault(b => b.Id == BannerIdEnum.rout3)?.Rout ?? string.Empty
+            rout3 = banners.FirstOrDefault(b => b.Id == BannerIdEnum.rout3)?.Rout ?? string.Empty,
         };
+        var banner1 = banners.FirstOrDefault(b => b.Id == BannerIdEnum.rout1);
+        if (banner1 != null)
+            viewModel.type1 = banner1.Type;
+
+        var banner2 = banners.FirstOrDefault(b => b.Id == BannerIdEnum.rout2);
+        if (banner2 != null)
+            viewModel.type2 = banner2.Type;
+
+        var banner3 = banners.FirstOrDefault(b => b.Id == BannerIdEnum.rout3);
+        if (banner3 != null)
+            viewModel.type3 = banner3.Type;
+
         return View(viewModel);
     }
 
@@ -61,10 +75,19 @@ public class BannerController : Controller
         var banner = await _bannerService.ReadById((BannerIdEnum)bannerId);
         if (banner != null)
         {
-            if (await _videoService.DeleteVideo(banner.Rout))
+            bool fileDeleted = false;
+            if(banner.Type == BannerTypeEnum.Video)
+            {
+                fileDeleted = await _videoService.DeleteVideo(banner.Rout);
+            }
+            else if (banner.Type == BannerTypeEnum.Image)
+            {
+                fileDeleted = await _fileServices.DeleteFile(banner.Rout);
+            }
+            if (fileDeleted)
             {
                 string msg = string.Empty;
-                if (await _bannerService.Update((BannerIdEnum)bannerId, string.Empty))
+                if (await _bannerService.Update((BannerIdEnum)bannerId, string.Empty, 0))
                     msg = "بنر حذف شد";
                 else
                     msg = "بنر حذف نشد";
@@ -78,17 +101,31 @@ public class BannerController : Controller
     private async Task HandleFileReplacement(BannerIdEnum bannerId, IFormFile picture)
     {
         var banner = await _bannerService.ReadById(bannerId);
+        string newRoute = string.Empty;
+        BannerTypeEnum bannerType = 0;
 
-        if (banner != null && !string.IsNullOrEmpty(banner.Rout))
+        if (picture.ContentType.StartsWith("video"))
         {
-            await _videoService.DeleteVideo(banner.Rout);
+            if (banner != null && !string.IsNullOrEmpty(banner.Rout))
+            {
+                await _videoService.DeleteVideo(banner.Rout);
+            }
+            bannerType = BannerTypeEnum.Video;
+            newRoute = await _videoService.SaveVideoAsync(picture, BannerFolder);
+        }
+        else if (picture.ContentType.StartsWith("image"))
+        {
+            if (banner != null && !string.IsNullOrEmpty(banner.Rout))
+            {
+                await _fileServices.DeleteFile(banner.Rout);
+            }
+            bannerType = BannerTypeEnum.Image;
+            newRoute = await _fileServices.SaveFileAsync(picture, BannerFolder);
         }
 
-        var newRout = await _videoService.SaveVideoAsync(picture, PictureFolder);
-
-        if (!string.IsNullOrEmpty(newRout))
+        if (!string.IsNullOrEmpty(newRoute))
         {
-            bool result = await _bannerService.Update(bannerId, newRout);
+            bool result = await _bannerService.Update(bannerId, newRoute, bannerType);
 
             if (!result)
             {

@@ -61,7 +61,7 @@ namespace AQS_Application.Services
         }
 
         // ویرایش بنر
-        public async Task<bool> Update(BannerIdEnum bannerId, string newRout)
+        public async Task<bool> Update(BannerIdEnum bannerId, string newRout,BannerTypeEnum type)
         {
             var banner = await _context.Banners.FirstOrDefaultAsync(b => b.Id == bannerId);
 
@@ -70,13 +70,15 @@ namespace AQS_Application.Services
                 banner = new Banner
                 {
                     Id = bannerId,
-                    Rout = newRout
+                    Rout = newRout,
+                    Type = type
                 };
                 _context.Banners.Add(banner);
             }
             else
             {
                 banner.Rout = newRout;
+                banner.Type = type;
             }
             return await _context.SaveChangesAsync() > 0;
         }

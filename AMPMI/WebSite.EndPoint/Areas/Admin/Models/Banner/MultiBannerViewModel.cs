@@ -10,5 +10,9 @@ namespace WebSite.EndPoint.Areas.Admin.Models.Banner
         public string rout1 { get; set; }
         public string rout2 { get; set; }
         public string rout3 { get; set; }
+        public BannerTypeEnum type1 { get; set; }
+        public BannerTypeEnum type2 { get; set; }
+        public BannerTypeEnum type3 { get; set; }
+
     }
 }

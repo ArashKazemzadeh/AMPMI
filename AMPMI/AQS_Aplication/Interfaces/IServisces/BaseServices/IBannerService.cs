@@ -30,6 +30,6 @@ namespace AQS_Application.Interfaces.IServices.BaseServices
         /// <summary>
         /// ویرایش یک بنر بر اساس Id
         /// </summary>
-        Task<bool> Update(BannerIdEnum bannerId, string newRout);
+        Task<bool> Update(BannerIdEnum bannerId, string newRout, BannerTypeEnum type);
     }
 }
