@@ -5,6 +5,7 @@ using AQS_Common.Enums;
 using Microsoft.AspNetCore.Mvc;
 using WebSite.EndPoint.Areas.Admin.Models.Company;
 using WebSite.EndPoint.Utility;
+using static AQS_Common.Enums.FolderNamesEnum;
 
 namespace WebSite.EndPoint.Areas.Admin.Controllers
 {
@@ -15,7 +16,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         private readonly ICompanyService _companyService;
         private readonly IFileServices _fileServices;
         private readonly IRegistrationService _registrationService;
-        private const string PictureFolder = "CompanyProfile";
+        private static string PictureFolder = FolderNamesEnum.GetFileName(FolderTypes.CompanyProfile);
         private const string Role = "Company";
 
         public UserController(ICompanyService companyService, IFileServices fileServices, IRegistrationService registeredServices)

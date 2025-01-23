@@ -2,8 +2,10 @@
 using AQS_Common.Enums;
 using Domin.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System.Formats.Asn1;
 using WebSite.EndPoint.Areas.Admin.Models.Category;
 using WebSite.EndPoint.Utility;
+using static AQS_Common.Enums.FolderNamesEnum;
 
 namespace WebSite.EndPoint.Areas.Admin.Controllers
 {
@@ -13,7 +15,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         private readonly ICategoryService _categoryService;
         private readonly IFileServices _fileServices;
 
-        const string PictureFolder = "Categories";
+        static string PictureFolder = FolderNamesEnum.GetFileName(FolderTypes.Category);
         public CategoryController(ICategoryService categoryService, IFileServices fileServices)
         {
             _categoryService = categoryService;
@@ -116,14 +118,23 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                     ViewData["Message"] = "تصویر انتخاب نشده است";
                     return View(categoryEditVM);
                 }
-                var resultMessage = await _categoryService.Update(categoryEditVM.Id, categoryEditVM.Name);
+                var resultName = await _categoryService.Update(categoryEditVM.Id, categoryEditVM.Name);
+                var resultPhoto = ResultOutPutMethodEnum.dontSaved;
+                if (!string.IsNullOrEmpty(newRout))
+                    resultPhoto = await _categoryService.UpdatePicture(categoryEditVM.Id, newRout);
 
-                if (resultMessage == ResultOutPutMethodEnum.savechanged)
-                    await _categoryService.UpdatePicture(categoryEditVM.Id, newRout);
-
-                TempData["Message"] = resultMessage == ResultOutPutMethodEnum.savechanged ? "دسته بندی اصلی ویرایش شد" :
-                                      resultMessage == ResultOutPutMethodEnum.recordNotFounded ? "دسته بندی اصلی یافت نشد" :
-                                      "دسته بندی اصلی ویرایش نشد";
+                if(resultName == ResultOutPutMethodEnum.savechanged || resultPhoto == ResultOutPutMethodEnum.savechanged)
+                {
+                    TempData["Message"] = "دسته بندی اصلی ویرایش شد";
+                }
+                else if(resultName == ResultOutPutMethodEnum.recordNotFounded || resultPhoto == ResultOutPutMethodEnum.recordNotFounded)
+                {
+                    TempData["Message"] = "دسته بندی اصلی یافت نشد";
+                }
+                else
+                {
+                    TempData["Message"] = "دسته بندی اصلی ویرایش نشد";
+                }
 
                 return RedirectToAction(nameof(CategoryList));
             }
