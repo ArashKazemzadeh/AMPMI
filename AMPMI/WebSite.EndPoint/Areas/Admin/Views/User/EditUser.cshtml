@@ -137,10 +137,10 @@
         <div>
             <div class="row mt-2">
                 <div class="col-md-4 my-2">
-                    <a href="#" class="btn btn-submit btn-block text-white">گالری تصاویر</a>
+                    <a href="@Url.Action("CompanyPictures","User",new {companyId = Model.Id})" class="btn btn-submit btn-block text-white">گالری تصاویر</a>
                 </div>
                 <div class="col-md-4 my-2">
-                    <a href="@Url.Action("EditTeaserAdmin", "CompanyProfile", new{area="Company", id = Model.Id})" class="btn btn-submit btn-block text-white">تیزر تبلیغاتی</a>
+                    <a href="@Url.Action("CompanyTeaser", "User", new{companyId = Model.Id})" class="btn btn-submit btn-block text-white">تیزر تبلیغاتی</a>
                 </div>
                 <div class="col-md-4 my-2">
                     <a href="#" class="btn btn-submit btn-block text-white">محصولات</a>
