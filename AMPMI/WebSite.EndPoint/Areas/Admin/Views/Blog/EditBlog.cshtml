@@ -33,14 +33,14 @@
     </div>
     <form id="saveForm" asp-area="Admin" asp-controller="Blog" asp-action="Save" enctype="multipart/form-data" method="post">
         <div class="row">
-            <div class="form-group row">
-                <label class="col-sm-1 col-form-label input-Label">عنوان خبر:</label>
-                <div class="col-sm-7">
+            <div class="form-group row" style="text-align:right">
+                <label class="col-sm-2 col-form-label input-Label">عنوان خبر:</label>
+                <div class="col-sm-9">
                     <input asp-for="Subject" type="text" class="input-text">
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-1 col-form-label input-Label">شرح خبر:</label>
+                <label class="col-sm-2 col-form-label input-Label">شرح خبر:</label>
                 <div class="col-sm-7">
                     <textarea id="div_editor1" name="content" >@Html.Raw(ViewBag.BlogContent)</textarea>
                 </div>
@@ -110,15 +110,13 @@
 
             <!-- video -->
             <!--pictures -->
-            <div class="form-group row" style="margin-top:30px;">
+            <div class="form-group row" style="position:relative;">
                 <div class="col-sm-2 upBtn">
                     <button type="button" class="btn-submit btnUpload" onclick="getfile()">بارگذاری تصویر</button>
                     <input multiple id="getFile" style="display:none" class="form-control-file" type="file" accept="image/*">
                 </div>
                 <div id="preview" class="col-sm-2 ShowPic"></div>
-                <div class="col-sm-4 ">
-                    <button type="button" class="btn btn-submit btnUpload" onclick="addPicture()" id="new">افزودن به جدول</button>
-                </div>
+                <button type="button" class="btn btn-submit btnUpload addPicList" onclick="addPicture()" id="new">افزودن تصویر به لیست</button>
                 <input id="IsHeaderChanged" hidden value="false" name="IsHeaderChanged" />
             </div>
             <input hidden asp-for="Id" />

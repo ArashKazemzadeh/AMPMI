@@ -34,7 +34,7 @@
         <input hidden asp-for="Id" />
         <input hidden asp-for="CategoryId" />
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-8">
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label input-Label">گروه اصلی:</label>
                     <div class="col-sm-9">
@@ -77,21 +77,24 @@
                         <textarea asp-for="Description" class="input-text"></textarea>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="form-group row" style="position: relative;">
                     <label class="col-sm-3 col-form-label input-Label">انتخاب تصویر:</label>
-                    <div class="col-sm-5 upBtn">
+                    <div class="col-sm-3 upBtn">
                         <button type="button" class="btn-submit btnUpload" onclick="getfile()">بارگذاری تصویر</button>
                         <input multiple name="f" id="getFile" style="display:none" class="form-control-file" type="file" accept="image/*">
                     </div>
-                    <div id="preview" class="col-sm-2 ShowPic">
+                    <div id="preview" class="col-sm-2 ShowPicProduct">
 @*                         @if (!string.IsNullOrEmpty(Model.PictureFileSrc))
                         {
                             <img class="prevImage" src="@Model.PictureFileSrc" />
                         } *@
                     </div>
+                    <input hidden asp-for="Id" />
+                    <button id="new" type="button" class="btn-submit btnUpload addPicList" onclick="addPicture()">
+                        افزودن تصویر به لیست
+                    </button>
+                    @* <a onclick="addPicture()" id="new"> <img class="img-Icon" src="~/images/addition copy.png" /> </a> *@
                 </div>
-                <input hidden asp-for="Id" />
-                <a onclick="addPicture()" id="new"> <img class="img-Icon" src="~/images/addition copy.png" /> </a>
             </div>
         </div>
         <div class="row">
