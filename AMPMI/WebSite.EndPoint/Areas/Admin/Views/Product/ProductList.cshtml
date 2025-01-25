@@ -4,7 +4,19 @@
 }
 <div class="container-fluid">
     <div class="pageName">
-        <span class="textPage">لیست محصولات</span>
+        @if (ViewData["CompanyId"] is not null && (long)ViewData["CompanyId"] > 0)
+        {
+            <span class="textPage">
+                <a asp-area="Admin" asp-controller=User asp-action=UserList>
+                    لیست کاربران
+                </a>
+                > @(ViewData["CompanyName"] is not null ? ViewData["CompanyName"] : "") > ليست محصولات
+            </span>
+        }
+        else
+        {
+            <span class="textPage">لیست محصولات</span>
+        }
     </div>
     @if (TempData["error"] is not null)
     {
@@ -13,7 +25,7 @@
         </div>
     }
     <div class="row">
-        <a href="@Url.Action("NewProduct","Product")" id="new"> <img class="img-Icon" src="~/images/addition copy.png" /> </a>
+        <a href="@Url.Action("NewProduct","Product",new{ companyId = (long)ViewData["CompanyId"]})" id="new"> <img class="img-Icon" src="~/images/addition copy.png" /> </a>
     </div>
     <div class="row">
         <table id="myTable" class="display tbStyle">
@@ -41,8 +53,8 @@
                         <td>@item.CategoryName</td>
                         <td>@item.SubCategoryName</td>
                         <td class="td-Icon"><input disabled @(item.IsConfirmed ? "checked" : "") type="checkbox"></td>
-                        <td class="td-Icon"><a href="@Url.Action("EditProduct","Product",new{area="Admin",id=item.Id})"><img class="img-Icon" src="~/images/editing.png" /></a></td>
-                        <td class="td-Icon"><a onclick="return DeleteRow(event)" href="@Url.Action("DeleteProduct","Product",new{area="Admin",id=item.Id})"><img class="img-Icon" src="~/images\recycle.png" /></a></td>
+                        <td class="td-Icon"><a href="@Url.Action("EditProduct","Product",new{area="Admin",id=item.Id,companyId = (long)ViewData["CompanyId"]})"><img class="img-Icon" src="~/images/editing.png" /></a></td>
+                        <td class="td-Icon"><a onclick="return DeleteRow(event)" href="@Url.Action("DeleteProduct","Product",new{area="Admin",id=item.Id,companyId = (long)ViewData["CompanyId"]})"><img class="img-Icon" src="~/images\recycle.png" /></a></td>
                     </tr>
                 }
             </tbody>

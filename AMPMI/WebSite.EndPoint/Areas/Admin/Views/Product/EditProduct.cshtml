@@ -6,19 +6,31 @@
 {
     <style>
         .prevImage {
-        width: 100%;
-        height: 100%;
+            width: 100%;
+            height: 100%;
         }
     </style>
 }
 <div class="container-fluid">
     <div class="pageName">
-        <span class="textPage">
-            <a asp-area="Admin" asp-controller="Product" asp-action="ProductList">
-                لیست محصولات
-            </a>
-            > تعریف/ویرایش محصول
-        </span>
+        @if (ViewData["CompanyId"] is not null && (long)ViewData["CompanyId"] > 0)
+        {
+            <span class="textPage">
+                <a asp-area="Admin" asp-controller=User asp-action=UserList>
+                    لیست کاربران
+                </a>
+                > @(ViewData["CompanyName"] is not null ? ViewData["CompanyName"] : "") > تعریف/ویرایش محصول
+            </span>
+        }
+        else
+        {
+            <span class="textPage">
+                <a asp-area="Admin" asp-controller="Product" asp-action="ProductList">
+                    لیست محصولات
+                </a>
+                > تعریف/ویرایش محصول
+            </span>
+        }
     </div>
     @if (ViewData["error"] is not null)
     {
@@ -28,9 +40,20 @@
     }
     <div class="row">
         <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
-        <a href="@Url.Action("ProductList","Product")" id="cancle"><img class="img-Icon" src="~/images/cancel.png" /></a>
+        @if (ViewData["CompanyId"] is not null && (long)ViewData["CompanyId"] > 0)
+        {
+            <a href="@Url.Action("CompanyProductList","Product",new{companyId = (long)ViewData["CompanyId"]})" id="cancle"><img class="img-Icon" src="~/images/cancel.png" /></a>
+        }
+        else
+        {
+            <a href="@Url.Action("ProductList","Product")" id="cancle"><img class="img-Icon" src="~/images/cancel.png" /></a>
+        }
     </div>
     <form id="saveForm" asp-area="Admin" asp-controller="Product" asp-action="Save" enctype="multipart/form-data" method="post">
+        @if (ViewData["CompanyId"] is not null && (long)ViewData["CompanyId"] > 0)
+        {
+            <input hidden name="companyId" value="@((long)ViewData["CompanyId"])" />
+        }
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group row">
@@ -88,7 +111,7 @@
                 </div>
                 <input hidden asp-for="Id" />
                 <input hidden asp-for="CategoryId" />
-               <a onclick="addPicture()" id="new"> <img class="img-Icon" src="~/images/addition copy.png" /> </a>
+                <a onclick="addPicture()" id="new"> <img class="img-Icon" src="~/images/addition copy.png" /> </a>
             </div>
         </div>
         <div class="row">
@@ -100,9 +123,9 @@
                         <th>حذف</th>
                     </tr>
                 </thead>
-                <tbody>                    
+                <tbody>
                     @{
-                        if(Model.Pictures != null)
+                        if (Model.Pictures != null)
                         {
                             int rowNum = 1;
                             foreach (var item in Model.Pictures)
@@ -125,7 +148,7 @@
 @section Scripts
 {
     <script>
-      
+
         function getfile () {
             document.querySelector('#getFile').click();
         }
@@ -154,7 +177,7 @@
             }
         });
 
-        var rowCount = @(Model.Pictures!=null?Model.Pictures.Count: 0);
+        var rowCount = @(Model.Pictures != null ? Model.Pictures.Count : 0);
         const fileArray = []; // آرایه برای نگهداری فایل‌ها
 
         function addPicture()
@@ -227,7 +250,7 @@
                 $("#preview").html("پیش‌نمایش");
             }
         });
- 
+
 
         var lastCategoryId=0;
 
@@ -278,7 +301,7 @@
         });
 
         $("#saveForm").submit(function () {
-            // اضافه کردن فایل‌ها به فرم 
+            // اضافه کردن فایل‌ها به فرم
             fileArray.forEach((file, index) => {
                 if(file!=null)
                 {
