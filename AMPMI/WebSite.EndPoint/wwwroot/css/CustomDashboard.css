@@ -53,6 +53,18 @@
     margin-right:20px;
 }
 
+.ShowPicProduct {
+    width: 150px;
+    height: 150px;
+    border-style: groove;
+}
+
+.addPicList {
+    position: absolute;
+    bottom: 0;
+    margin-right: 20px;
+}
+
 .tbStyle th{
     text-align:center !important;
 }
@@ -63,6 +75,10 @@ td.td-Icon {
 
 .upBtn{
     text-align:left;
+}
+
+.upBtnProduct {
+    text-align: right;
 }
 
 .firstItem{
