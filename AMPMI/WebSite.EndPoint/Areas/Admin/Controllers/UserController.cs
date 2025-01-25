@@ -16,14 +16,24 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         private readonly ICompanyService _companyService;
         private readonly IFileServices _fileServices;
         private readonly IRegistrationService _registrationService;
+        private readonly IVideoService _videoService;
+        private readonly ICompanyPictureService _companyPictureService;
         private static string PictureFolder = FolderNamesEnum.GetFileName(FolderTypes.CompanyProfile);
+        static string TeaserFoldr = FolderNamesEnum.GetFileName(FolderTypes.CompanyTeaser);
         private const string Role = "Company";
 
-        public UserController(ICompanyService companyService, IFileServices fileServices, IRegistrationService registeredServices)
+        public UserController(
+            ICompanyService companyService,
+            IFileServices fileServices,
+            IRegistrationService registeredServices,
+            IVideoService videoService,
+            ICompanyPictureService companyPictureService)
         {
             _companyService = companyService;
             _fileServices = fileServices;
             _registrationService = registeredServices;
+            _videoService = videoService;
+            _companyPictureService = companyPictureService;
         }
         public async Task<IActionResult> UserList()
         {
@@ -60,13 +70,17 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
             return RedirectToAction(nameof(UserList));
         }
 
-        public async Task<IActionResult> EditUser(long id)
+        public async Task<IActionResult> EditUser(long id, string msg = "")
         {
             var company = await _companyService.ReadByIdAsync(id);
             if (company == null)
             {
                 TempData["msg"] = "کاربر مورد نظر یافت نشد";
                 return RedirectToAction(nameof(UserList));
+            }
+            if (!string.IsNullOrEmpty(msg))
+            {
+                ViewData["error"] = msg;
             }
             var model = new CompanyVM
             {
@@ -163,7 +177,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                 if (createNew.userId <= 0)
                 {
                     ViewData["error"] = createNew.errorMessage;
-                    return View(nameof(EditUser),companyVM);
+                    return View(nameof(EditUser), companyVM);
                 }
                 if (companyVM.IsLogoChanged)
                 {
@@ -208,5 +222,137 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
             else
                 return await CreateUser(companyVM);
         }
+
+        #region CompanyTeaser
+        public async Task<IActionResult> CompanyTeaser(long companyId)
+        {
+            var company = await _companyService.ReadByIdAsync(companyId);
+            CompanyTeaserVM companyDetailVM = new CompanyTeaserVM();
+            if (company != null)
+            {
+                companyDetailVM.CompanyName = company.Name;
+                companyDetailVM.CompanyId = companyId;
+                companyDetailVM.TeaserRoute = company.TeaserGuid;
+            }
+
+            return View(companyDetailVM);
+        }
+        [HttpPost]
+        public async Task<IActionResult> CompanyTeaser(CompanyTeaserVM companyTeaserVM)
+        {
+            if (companyTeaserVM.Teaser == null || companyTeaserVM.CompanyId < 1)
+                return RedirectToAction(nameof(CompanyTeaser));
+
+            string msg = string.Empty;
+            var company = await _companyService.ReadByIdAsync(companyTeaserVM.CompanyId);
+            if (company != null)
+            {
+                if (!string.IsNullOrEmpty(company.TeaserGuid))
+                    await _videoService.DeleteVideo(company.TeaserGuid);
+
+                string teaserPath = await _videoService.SaveVideoAsync(companyTeaserVM.Teaser, TeaserFoldr);
+                if (string.IsNullOrEmpty(teaserPath))
+                {
+                    msg = "خطا در هنگام ذخیره تیزر";
+                }
+                company.TeaserGuid = teaserPath;
+                var result = await _companyService.UpdateTeaser(company);
+                if (result == ResultOutPutMethodEnum.savechanged)
+                    msg = "تیزر با موفقیت ذخیره شد";
+                else
+                    msg = "خطا در هنگام ذخیره تیزر";
+
+            }
+            return RedirectToAction(nameof(EditUser), new { id = companyTeaserVM.CompanyId, msg = msg });
+        }
+        public async Task<IActionResult> DeleteTeaser(long companyId)
+        {
+
+            string msg = string.Empty;
+            var company = await _companyService.ReadByIdAsync(companyId);
+            if (company != null && !string.IsNullOrEmpty(company.TeaserGuid))
+            {
+                if (await _videoService.DeleteVideo(company.TeaserGuid))
+                {
+                    company.TeaserGuid = string.Empty;
+                    var result = await _companyService.UpdateTeaser(company);
+                    if (result == ResultOutPutMethodEnum.savechanged)
+                        msg = "تغییرات با موفقیت ذخیره شد";
+                    else
+                        msg = "خطا در هنگام حذف تیزر ";
+                }
+                else
+                    msg = "خطا در هنگام حذف تیزر ";
+            }
+            return RedirectToAction(nameof(EditUser), new { id = companyId, msg = msg });
+        }
+
+        #endregion CompanyTeaser
+
+        #region CompanyPictures
+        public async Task<IActionResult> CompanyPictures(long companyId)
+        {
+            var company = await _companyService.ReadByIdAsync(companyId);
+            var list = await _companyPictureService.ReadAllByCompany(companyId);
+            ViewData["CompanyId"] = companyId;
+            ViewData["CompanyName"] = company.Name;
+            List<CompanyPictureVM> model = list.Select(x => new CompanyPictureVM()
+            {
+                Id = x.Id,
+                CompanyId = x.CompanyId,
+                PictureFileName = x.PictureFileName
+            }).ToList();
+
+            return View(model);
+        }
+        public async Task<IActionResult> Delete(long id)
+        {
+            var pictureRow = await _companyPictureService.ReadById(id);
+            long companyId = pictureRow.CompanyId ?? 0;
+            if (pictureRow != null && await _fileServices.DeleteFile(pictureRow.PictureFileName))
+            {
+                var result = await _companyPictureService.Delete(id);
+                if (result == ResultOutPutMethodEnum.savechanged)
+                    TempData["msg"] = "حذف با موفقیت انجام شد";
+                else if (result == ResultOutPutMethodEnum.recordNotFounded)
+                    TempData["msg"] = "تصویر مورد نظر یافت نشد";
+                else
+                    TempData["msg"] = "خطا در هنگام حذف اطلاعات";
+            }
+            else
+                TempData["msg"] = "دیتای مورد نظر یافت نشد";
+
+
+            return RedirectToAction(nameof(CompanyPictures), new { companyId = companyId });
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> NewPicture(IFormFile picture,long companyId)
+        {
+            if (picture == null)
+                return RedirectToAction(nameof(CompanyPictures), new { companyId = companyId });
+
+            try
+            {
+                string newPicture = await _fileServices.SaveFileAsync(picture, PictureFolder);
+                if (string.IsNullOrEmpty(newPicture))
+                {
+                    ViewData["msg"] = "خطایی در هنگام ثبت تصویر رخ داد";
+                    return View("Pictures");
+                }
+                if (await _companyPictureService.Create(companyId, newPicture) > 0)
+                    TempData["msg"] = "ثبت با موفقیت انجام شد";
+                else
+                    TempData["msg"] = "خطا در هنگام ثبت اطلاعات";
+            }
+            catch (Exception ex)
+            {
+                TempData["msg"] = ex.Message;
+            }
+
+
+            return RedirectToAction(nameof(CompanyPictures), new { companyId = companyId });
+        }
+        #endregion CompanyPictures
     }
 }
