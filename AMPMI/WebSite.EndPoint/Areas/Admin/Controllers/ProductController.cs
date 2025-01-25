@@ -17,15 +17,21 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         private readonly IProductService _productService;
         private readonly ICategoryService _categoryService;
         private readonly IFileServices _fileServices;
+        private readonly ICompanyService _companyService;
 
         static List<SubCategoryReadDto> subCategories;
         static List<CategoryIncludeSubCategoriesDto> _Category;
         static string PictureFolder = FolderNamesEnum.GetFileName(FolderTypes.Product);
-        public ProductController(IProductService productService, ICategoryService categoryService, IFileServices fileServices)
+        public ProductController(
+            IProductService productService, 
+            ICategoryService categoryService, 
+            IFileServices fileServices,
+            ICompanyService companyService)
         {
             this._productService = productService;
             this._categoryService = categoryService;
             this._fileServices = fileServices;
+            this._companyService = companyService;
         }
         public static List<SubCategoryReadDto> GetSubCategoryByCategory(int categoryId)
         {
@@ -62,11 +68,33 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                 SubCategoryName = x.SubCategory.Name,
                 CategoryName = x.SubCategory.Category.Name
             }).ToList();
+            ViewData["CompanyId"] = (long)-1;
 
             return View(products);
         }
+        public async Task<IActionResult> CompanyProductList(long companyId)
+        {
+            var company = await _companyService.ReadByIdAsync(companyId);
+            List<Product> data = await _productService.ReadByCompanyId(companyId);
+            int rowNum = 1; 
+            List<ListProductVM> products = data.Select(x => new ListProductVM()
+            {
+                RowNum = rowNum++,
+                Id = x.Id,
+                CompanyId = x.CompanyId,
+                Description = x.Description,
+                Name = x.Name,
+                IsConfirmed = x.IsConfirmed,
+                //PictureFileName = x.PictureFileName,
+                SubCategoryName = x.SubCategory.Name,
+                CategoryName = x.SubCategory.Category.Name
+            }).ToList();
+            ViewData["CompanyId"] = companyId;
+            ViewData["CompanyName"] = company.Name;
+            return View(nameof(ProductList),products);
+        }
         [HttpPost]
-        public async Task<IActionResult> Save(ProductVM productVM)
+        public async Task<IActionResult> Save(ProductVM productVM,long companyId = 0)
         {
             if (!ModelState.IsValid)
             {
@@ -74,20 +102,23 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                 return View("EditProduct", productVM);
             }
             if (productVM.Id > 0)
-                return await EditProduct(productVM);
+                return await EditProduct(productVM,companyId);
             else
-                return await NewProduct(productVM);
+                return await NewProduct(productVM,companyId);
         }
-        public async Task<IActionResult> NewProduct()
+        public async Task<IActionResult> NewProduct(long companyId = 0)
         {
             _Category = await _categoryService.ReadAlIncludeSub();
 
             subCategories = _Category.SelectMany(x => x.SubCategories).ToList();
-
-            return View("EditProduct", new ProductVM() { Categories = _Category });
+            var company = await _companyService.ReadByIdAsync(companyId);
+            ViewData["CompanyId"] = companyId;
+            if(company != null)
+                ViewData["CompanyName"] = company.Name;
+            return View("EditProduct", new ProductVM() { Categories = _Category , CompanyId = companyId });
         }
         [HttpPost]
-        public async Task<IActionResult> NewProduct(ProductVM productVM)
+        public async Task<IActionResult> NewProduct(ProductVM productVM, long companyId = 0)
         {
             productVM.Categories = GetCategory();
             if (productVM.PictureFileName == null || productVM.PictureFileName.Count < 1)
@@ -102,6 +133,8 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                 IsConfirmed = false,
                 SubCategoryId = productVM.SubCategoryId,
             };
+            if(companyId > 0)
+                newProduct.CompanyId = companyId;
             try
             {
                 long id = await _productService.Create(newProduct);
@@ -129,7 +162,10 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                         }
                     }
 
-                    return RedirectToAction(nameof(ProductList));
+                    if (companyId > 0)
+                        return RedirectToAction(nameof(CompanyProductList), new { companyId });
+                    else
+                        return RedirectToAction(nameof(ProductList));
                 }
                 else
                 {
@@ -144,13 +180,17 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
             }
         }
 
-        public async Task<IActionResult> EditProduct(long id)
+        public async Task<IActionResult> EditProduct(long id,long companyId = 0)
         {
             Product product = await _productService.ReadById(id);
             if (product != null)
             {
+                ViewData["CompanyId"] = companyId;
                 _Category = await _categoryService.ReadAlIncludeSub();
                 subCategories = _Category.SelectMany(x => x.SubCategories).ToList();
+                var company = await _companyService.ReadByIdAsync(companyId);
+                if (company != null)
+                    ViewData["CompanyName"] = company.Name;
                 return View("EditProduct", new ProductVM()
                 {
                     Id = product.Id,
@@ -172,10 +212,11 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> EditProduct(ProductVM productVM)
+        public async Task<IActionResult> EditProduct(ProductVM productVM,long companyId = 0)
         {
             productVM.Categories = GetCategory();
-            if ((productVM.Pictures == null || productVM.Pictures.Count < 1) &&
+            var existProduct = await _productService.ReadById(productVM.Id);
+            if ((existProduct.ProductPictures == null || existProduct.ProductPictures.Count < 1) &&
                 (productVM.PictureFileName == null || productVM.PictureFileName.Count < 1))
             {
                 ViewData["error"] = "وجود حداقل یک تصویر برای محصول اجباری است";
@@ -189,6 +230,8 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                 CompanyId = productVM.CompanyId,
                 SubCategoryId = productVM.SubCategoryId
             };
+            if (companyId > 0)
+                existProdcut.CompanyId = companyId;
             try
             {
                 if (productVM.PictureFileName != null)
@@ -215,7 +258,10 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
 
                 var result = await _productService.Update(existProdcut);
                 if (result == ResultOutPutMethodEnum.savechanged || result == ResultOutPutMethodEnum.dontSaved)
-                    return RedirectToAction(nameof(ProductList));
+                    if(companyId > 0)
+                        return RedirectToAction(nameof(CompanyProductList), new { companyId });
+                    else
+                        return RedirectToAction(nameof(ProductList));
                 else
                 {
                     ViewData["error"] = "خطایی در هنگام ثبت کالا رخ داد";
@@ -279,7 +325,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
             }
             return RedirectToAction(nameof(NotConfirmedProductList));
         }
-        public async Task<IActionResult> DeleteProduct(long id)
+        public async Task<IActionResult> DeleteProduct(long id,long companyId = 0)
         {
             Product product = await _productService.ReadById(id);
             if (product != null)
@@ -302,7 +348,10 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
             {
                 TempData["error"] = "محصول مورد نظر یافت نشد";
             }
-            return RedirectToAction(nameof(ProductList));
+            if (companyId > 0)
+                return RedirectToAction(nameof(CompanyProductList), new { companyId });
+            else
+                return RedirectToAction(nameof(ProductList));
         }
         public async Task<IActionResult> DeletePicture(long pictureId, long productId)
         {
