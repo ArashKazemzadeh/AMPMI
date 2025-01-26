@@ -192,8 +192,9 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                         companyVM.LogoRout = newLogo;
                     }
                 }
-
+                companyVM.Id = createNew.userId;
                 var dto = companyVM.MapToDto(companyVM);
+                await _companyService.UpdateEditProfile(dto);
 
                 await _companyService.IsCompany(dto.Id, dto.IsCompany);
 
