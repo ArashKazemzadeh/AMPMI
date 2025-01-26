@@ -1,6 +1,7 @@
 ﻿@model List<WebSite.EndPoint.Areas.Admin.Models.Category.CategoryReadVM>
 @{
     Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+    ViewData["SelectedAdmin"] = "Category";
 }
 
 <div class="container-fluid">
@@ -50,8 +51,7 @@
           document.querySelector('#myTable')
             .setAttribute('dir', 'rtl'); // Demo only
 
-        // new DataTable('#myTable');
-                    $('#myTable').DataTable({
+          $('#myTable').DataTable({
                 language: {
                     "emptyTable": "هیچ داده‌ای در جدول وجود ندارد",
                     "info": "نمایش _START_ تا _END_ از _TOTAL_ رکورد",
