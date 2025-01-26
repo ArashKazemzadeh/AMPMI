@@ -31,6 +31,19 @@ namespace WebSite.EndPoint.Controllers
             }
             return View(new BlogDetailVM());
         }
+        public async Task<IActionResult> BlogList()
+        {
+            var blogs = await _blogService.Read();
+            List<BlogVM> blogsVM = blogs.Select(x => new BlogVM() { 
+                Id = x.Id,
+                Subject = x.Subject,
+                CreateUpdateAt= DateTime.Now.ToPersianDate(),
+                //Description = x.Description,
+                HeaderPictureFileName = x.PreviousHeaderRout
+            }).ToList();
+
+            return View(blogsVM);
+        }
     }
 }
 

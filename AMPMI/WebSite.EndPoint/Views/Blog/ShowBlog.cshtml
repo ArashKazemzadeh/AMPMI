@@ -3,53 +3,59 @@
     <p>وبلاگ</p>
     <h2>@Model.Subject</h2>
     <div style="margin-bottom:30px;">
-        <img class="img-fluid" 
+        <img class="img-fluid"
              style="display: block;
                     margin-left: auto;
                     margin-right: auto;
-                    width: 50%;" 
+                    width: 50%;"
              src="@Model.HeaderPictureFileName" />
     </div>
     <div class="row">
         @Html.Raw(Model.Description)
     </div>
     <div class="row">
-        <div class="col-md-6 my-2">
-            <div class="card" style="height:300px;">
-                <video muted src="@Model.VideoFileName" controls>
-                </video>
-            </div>
-        </div>
-        <div class="col-md-6 my-2">
-            <div class="card" style="height:300px;">
-                <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        @if (Model.BlogPictures != null)
-                        {
-                            int c = 0;
-                            foreach (var item in Model.BlogPictures)
-                            {
-                                <div class="carousel-item @(c==0?"active":"")" style="width:80%">
-                                    <img style="aspect-ratio: 16 / 9;height:290px; padding-right:30%;" 
-                                         src="@item" 
-                                         class=" img-fluid d-block w-100" 
-                                         alt="...">
-                                </div>
-                                c++;
-                            }
-                        }
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
+        @if (!string.IsNullOrEmpty(Model.VideoFileName)){
+            <div class="col-md-6 my-2">
+                <div class="card" style="height:300px;">
+                    <video muted src="@Model.VideoFileName" controls>
+                    </video>
                 </div>
             </div>
+        }
+        @if (Model.BlogPictures != null && Model.BlogPictures.Count > 0)
+        {
+            <div class="col-md-6 my-2">
+                <div class="card" style="height:300px;">
+                    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
 
-        </div>
+                        <div class="carousel-inner">
+                            @{
+                                int c = 0;
+                                foreach (var item in Model.BlogPictures)
+                                {
+                                    <div class="carousel-item @(c==0?"active":"")" style="width:80%">
+                                        <img style="aspect-ratio: 16 / 9;height:290px; padding-right:30%;"
+                                             src="@item"
+                                             class=" img-fluid d-block w-100"
+                                             alt="...">
+                                    </div>
+                                    c++;
+                                }
+                            }
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+
+                    </div>
+                </div>
+
+            </div>
+        }
     </div>
 </div>

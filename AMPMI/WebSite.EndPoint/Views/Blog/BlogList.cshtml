@@ -1,0 +1,32 @@
+﻿@model List<WebSite.EndPoint.Models.Blog.BlogVM>
+<div class="body-default container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 mt-4">
+                <div class="blog-wrap">
+                    @if (!string.IsNullOrEmpty(item.HeaderPictureFileName))
+                    {
+                        <div class="blog-image">
+                            <img alt="" src="@item.HeaderPictureFileName" class="img-fluid" style="width:100%" />
+                        </div>
+                    }
+                    <div class="blog-data">
+                        <div class="blog-meta">
+                            <ul class="list-inline">
+                                <li>@string.Format("{0}/{1}/{2}", item.CreateUpdateAt.Value.Year, item.CreateUpdateAt.Value.Month, item.CreateUpdateAt.Value.Day)</li>
+                            </ul>
+                        </div>
+                        <div class="blog-title">
+                            <h3>@item.Subject</h3>
+                        </div>
+                        <div class="blog-content">
+                            @item.Description
+                        </div>
+                        <a class="btn btn-outline-secondary btn-xl mt-3" href="@Url.Action("ShowBlog","Blog",new{id=item.Id})">بیشتر بخوانید</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
