@@ -33,6 +33,10 @@
     <!-- customize adminlte -->
     <link href="~/css/customize-adminlte.css" rel="stylesheet" />
     <link href="~/css/CustomDashboard.css" rel="stylesheet" />
+    <link rel="icon" href="~/images/cropped-fav-32x32.png" sizes="32x32" />
+    <link rel="icon" href="~/images/cropped-fav-192x192.png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="~/images/cropped-fav-180x180.png" />
+    <meta name="msapplication-TileImage" content="~/images/cropped-fav-270x270.png" />
     <link href="~/css/site.css" rel="stylesheet" />
     <link href="~/css/rte_theme_default.css" rel="stylesheet" />
     @await RenderSectionAsync("CSS", required: false)
@@ -192,38 +196,38 @@ desired effect
                     <!-- Sidebar Menu -->
                     <ul class="sidebar-menu menu-Item" data-widget="tree">
                         <!-- User Profile -->
-                        <li class="dropdown notifications-menu Dashboard-hover">
+                        <li class="@(ViewData["SelectedCompany"]=="Profile"?"activeAreasMenu":"") dropdown notifications-menu Dashboard-hover">
                             <a asp-area="Company" asp-controller=CompanyProfile asp-action=EditCompanyProfile>
                                 <img class="nav-NameIcon" src="~/images/user.png" />
                                 <span class="menu-Item-Text">پروفایل کاربری</span>
                             </a>
                         </li>
                         <!-- Change Password -->
-                        <li class="dropdown notifications-menu Dashboard-hover">
+                        <li class="@(ViewData["SelectedCompany"]=="ChangePassword"?"activeAreasMenu":"") dropdown notifications-menu Dashboard-hover">
                             <a asp-area="Company" asp-controller=CompanyProfile asp-action=ChangePassword>
                                 <img class="nav-NameIcon" src="~/images/lock copy.png" />
                                 <span class="menu-Item-Text">تغییر رمز عبور</span>
                             </a>
                         </li>
-                        <li class="dropdown notifications-menu Dashboard-hover">
+                        <li class="@(ViewData["SelectedCompany"]=="Gallary"?"activeAreasMenu":"") dropdown notifications-menu Dashboard-hover">
                             <a asp-area="Company" asp-controller=CompanyPicture asp-action=Pictures>
                                 <img class="nav-NameIcon" src="~/images/image copy.png" />
                                 <span class="menu-Item-Text">گالری تصاویر</span>
                             </a>
                         </li>
-                        <li class="dropdown notifications-menu Dashboard-hover">
+                        <li class="@(ViewData["SelectedCompany"]=="Teaser"?"activeAreasMenu":"") dropdown notifications-menu Dashboard-hover">
                             <a asp-area="Company" asp-controller=CompanyProfile asp-action=EditTeaser>
                                 <img class="nav-NameIcon" src="~/images/clapperboard copy.png" />
                                 <span class="menu-Item-Text">تیزر تبلیغاتی</span>
                             </a>
                         </li>
-                        <li class="dropdown notifications-menu Dashboard-hover">
+                        <li class="@(ViewData["SelectedCompany"]=="Product"?"activeAreasMenu":"") dropdown notifications-menu Dashboard-hover">
                             <a asp-area="Company" asp-controller=Product asp-action=ProductList>
                                 <img class="nav-NameIcon" src="~/images/product copy.png" />
                                 <span class="menu-Item-Text">محصولات</span>
                             </a>
                         </li>
-                        <li class="dropdown notifications-menu Dashboard-hover">
+                        <li class="@(ViewData["SelectedCompany"]=="Notif"?"activeAreasMenu":"") dropdown notifications-menu Dashboard-hover">
                             <a asp-area="Company" asp-controller="Notification" asp-action="NotifList">
                                 <img class="nav-NameIcon" src="~/images/notification copy.png" />
                                 <span class="menu-Item-Text">اعلان‌ها</span>

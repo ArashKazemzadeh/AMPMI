@@ -8,7 +8,7 @@ namespace WebSite.EndPoint.Areas.Company.Models.Profile
         /// رمز عبور فعلی
         /// </summary>
         [Required(ErrorMessage = "گذرواژه فعلی وارد نشده است.")]
-        [StringLength(50, MinimumLength = 6, ErrorMessage = "گذرواژه  باید حداقل 6 و حداکثر 50 کاراکتر باشد.")]
+        //[StringLength(50, MinimumLength = 6, ErrorMessage = "گذرواژه  باید حداقل 6 و حداکثر 50 کاراکتر باشد.")]
         public string CurrentPassword { get; set; }
 
         /// <summary>

@@ -2,6 +2,7 @@
 
 @{
     Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+    ViewData["SelectedAdmin"] = "Notif";
 }
 
 <div class="container-fluid">
@@ -74,7 +75,32 @@
     <script>
         document.querySelector('#notiftable')
             .setAttribute('dir', 'rtl');
-        new DataTable('#notiftable');
+
+
+
+        $('#notiftable').DataTable({
+                language: {
+                    "emptyTable": "هیچ داده‌ای در جدول وجود ندارد",
+                    "info": "نمایش _START_ تا _END_ از _TOTAL_ رکورد",
+                    "infoEmpty": "نمایش 0 تا 0 از 0 رکورد",
+                    "infoFiltered": "(فیلتر شده از _MAX_ رکورد)",
+                    "lengthMenu": "نمایش _MENU_ رکورد در هر صفحه",
+                    "loadingRecords": "در حال بارگذاری...",
+                    "processing": "در حال پردازش...",
+                    "search": "جستجو:",
+                    "zeroRecords": "رکوردی با این مشخصات پیدا نشد",
+                    "paginate": {
+                        "first": "اولین",
+                        "last": "آخرین",
+                        "next": "بعدی",
+                        "previous": "قبلی"
+                    },
+                    "aria": {
+                        "sortAscending": ": فعال‌سازی مرتب‌سازی صعودی",
+                        "sortDescending": ": فعال‌سازی مرتب‌سازی نزولی"
+                    }
+                }
+            });
 
         $("#new").click(function(){
             $("#newForm").show();
