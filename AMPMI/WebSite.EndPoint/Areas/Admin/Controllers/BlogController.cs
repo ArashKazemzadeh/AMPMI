@@ -128,9 +128,13 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                 return View("EditBlog", dto);
             }
         }
-        public async Task<IActionResult> EditBlog(int id)
+        public async Task<IActionResult> EditBlog(int id,string msg ="")
         {
             var blog = await _blogService.ReadByIdAsync(id);
+            if (!string.IsNullOrEmpty(msg))
+            {
+                ViewData["error"] = msg;
+            }
             if (blog != null)
             {
                 if (blog.Description != null)
@@ -161,6 +165,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                 Id = dto.Id,
                 Description = content
             };
+            string msg = string.Empty;
             try
             {
                 if (dto.IsHeaderChanged)
@@ -172,16 +177,16 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                     string newHeader = await _fileServices.SaveFileAsync(dto.HeaderPictureFileName, PictureFolder);
                     if (string.IsNullOrEmpty(newHeader))
                     {
-                        ViewData["error"] = "خطایی در هنگام ثبت تصویر رخ داد";
-                        return View("EditBlog", dto);
+                        msg = "خطایی در هنگام ثبت تصویر رخ داد";
+                        return RedirectToAction(nameof(EditBlog), new { id= dto.Id,msg});
                     }
                     else
                     {
                         var resultHeader = await _blogService.UpdateHeaderPicture(dto.Id,newHeader);
                         if (resultHeader != ResultOutPutMethodEnum.savechanged)
                         {
-                            ViewData["error"] = "خطایی در هنگام ثبت ویدیو رخ داد";
-                            return View("EditBlog", dto);
+                            msg = "خطایی در هنگام ثبت ویدیو رخ داد";
+                            return RedirectToAction(nameof(EditBlog), new { id = dto.Id, msg });
                         }
                     }
                     
@@ -195,16 +200,16 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                     string newvid = await _videoServices.SaveVideoAsync(blogvid, VideoFolder);
                     if (string.IsNullOrEmpty(newvid))
                     {
-                        ViewData["error"] = "خطایی در هنگام ثبت ویدیو رخ داد";
-                        return View("EditBlog", dto);
+                        msg = "خطایی در هنگام ثبت ویدیو رخ داد";
+                        return RedirectToAction(nameof(EditBlog), new { id = dto.Id, msg });
                     }
                     else
                     {
                         var resultvid = await _blogService.UpdateVideoFile(dto.Id, newvid);
                         if (resultvid != ResultOutPutMethodEnum.savechanged)
                         {
-                            ViewData["error"] = "خطایی در هنگام ثبت ویدیو رخ داد";
-                            return View("EditBlog", dto);
+                            msg = "خطایی در هنگام ثبت ویدیو رخ داد";
+                            return RedirectToAction(nameof(EditBlog), new { id = dto.Id, msg });
                         }
                     }
                 }
@@ -215,16 +220,16 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                         string newPicture = await _fileServices.SaveFileAsync(item, PictureFolder);
                         if (string.IsNullOrEmpty(newPicture))
                         {
-                            ViewData["error"] = "خطایی در هنگام ثبت تصویر رخ داد";
-                            return View("EditBlog", dto);
+                            msg = "خطایی در هنگام ثبت تصویر رخ داد";
+                            return RedirectToAction(nameof(EditBlog), new { id = dto.Id, msg });
                         }
                         else
                         {
                             var resultPic = await _blogService.UpdatePictureRout(existBlog.Id, newPicture);
                             if (resultPic != ResultOutPutMethodEnum.savechanged)
                             {
-                                ViewData["error"] = "خطایی در هنگام ثبت تصویر رخ داد";
-                                return View("EditBlog", dto);
+                                msg = "خطایی در هنگام ثبت تصویر رخ داد";
+                                return RedirectToAction(nameof(EditBlog), new { id = dto.Id, msg });
                             }
                         }
                     }
@@ -235,14 +240,14 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                     return RedirectToAction(nameof(BlogList));
                 else
                 {
-                    ViewData["error"] = "خطایی در هنگام ثبت خبر رخ داد";
-                    return View(dto);
+                    msg = "خطایی در هنگام ثبت خبر رخ داد";
+                    return RedirectToAction(nameof(EditBlog), new { id = dto.Id, msg });
                 }
             }
             catch (Exception e)
             {
-                ViewData["error"] = e.Message;
-                return View(dto);
+                msg = e.Message;
+                return RedirectToAction(nameof(EditBlog), new { id = dto.Id, msg });
             }
         }
         public async Task<IActionResult> DeleteBlog(int id)
