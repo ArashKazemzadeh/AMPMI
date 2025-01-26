@@ -29,6 +29,8 @@ namespace WebSite.EndPoint.Areas.Admin.Models.Company
         public string? Tel { get; set; }
         public bool IsLogoChanged { get; set; }
         public bool IsCompany { get; set; }
+        public string? Website { get; set; }
+
         public bool SendRequst { get; set; }
         public string? TeaserGuid { get; set; }
 
@@ -58,6 +60,7 @@ namespace WebSite.EndPoint.Areas.Admin.Models.Company
                 LogoRout = company.LogoRout == null ? string.Empty : company.LogoRout,
                 IsCompany = company.IsCompany,
                 Tel = company.Tel,
+                Website = company.Website
             };
         }
     }

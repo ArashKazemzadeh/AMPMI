@@ -98,7 +98,8 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                 About = company.About,
                 LogoRout = company.LogoRout == null ? string.Empty : company.LogoRout,
                 IsCompany = company.IsCompany,
-                Tel = company.Tel
+                Tel = company.Tel,
+                Website = company.Website,
             };
             return View(model);
         }
