@@ -104,16 +104,16 @@ desired effect
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top">
                 <div class="row nav-cls">
-                    <div class="col-md-4">
+                    <div class="col-md-4" style="display:inline-block">
                         <ul class="nav navbar-nav">
                             <!-- Back to home page -->
-                            <li class="dropdown notifications-menu">
+                            <li class="dropdown notifications-menu" style="display:inline-block">
                                 <a href="/" class="dropdown-toggle">
                                     <img class="nav-Icon" src="~/images/home.png" />
                                 </a>
                             </li>
                             <!-- Notifications: style can be found in dropdown.less -->
-                            <li class="dropdown notifications-menu">
+                            <li class="dropdown notifications-menu" style="display:inline-block">
                                 @{
                                     var unSeenNotif = await _NotificationService.ReadAllUnSeen(await _loginService.GetUserIdAsync(User));
                                 }
@@ -141,7 +141,7 @@ desired effect
                                 </ul>
                             </li>
                             <!-- Show Date -->
-                            <li class="dropdown notifications-menu">
+                            <li class="dropdown notifications-menu" style="display:inline-block">
                                 @{
                                     var nowDatePersian = DateTime.Now.ToPersianDateWithFormat();
                                 }
@@ -150,11 +150,11 @@ desired effect
                         </ul>
                     </div>
                     <!-- Hello to user -->
-                    <div class="col-md-6 welcome">
+                    <div class="col-md-6 welcome hide-on-sm" style="display:inline-block">
                         <p class="nav-welcome">به انجمن قطعه سازان موتور سیکلت خوش آمدید </p>
                     </div>
                     <!-- Welcome text -->
-                    <div class="col-md-2">
+                    <div class="col-md-2" style="display:inline-block; float:left">
                         <div class="nav-companyName">
                             <img class="nav-NameIcon" src="~/images/user.png" />
                             @{

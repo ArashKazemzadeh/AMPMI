@@ -97,21 +97,36 @@
                 </div>
             </div>
             <div class="row margin-bottom-0">
+                @{
+                    string cssClass = "";
+                    int counter = 0;
+                    foreach(var item in Model.Banners){
+                        if (!string.IsNullOrEmpty(item.Rout))
+                            counter++;
+                    }
+                    if (counter == 3)
+                        cssClass = "col-md-4";
+                    else if (counter == 2)
+                        cssClass = "col-md-6";
+                }
                 @foreach (var item in Model.Banners)
                 {
-                    <div class="col-sm-4">
-                        <div class="media feature-box">
-                            <div class="media-left">
-                            </div>
-                            @if(item.Type == AQS_Domin.Entities.BannerTypeEnum.Video)
-                            {
-                                <div class="media-body">
-                                    <video autoplay style="width:100%;height:100%;" muted src="@item.Rout"></video>
+                    @if(!string.IsNullOrEmpty(item.Rout)){
+                        <div class="@cssClass">
+                            <div class="media feature-box">
+                                <div class="media-left">
                                 </div>
-                            }
-                            <!-- Image is remain -->
+                                @if (item.Type == AQS_Domin.Entities.BannerTypeEnum.Video)
+                                {
+                                    <div class="media-body">
+                                        <video loop autoplay style="width:100%;height:200px;" muted src="@item.Rout"></video>
+                                    </div>
+                                }
+                                <!-- Image is remain -->
+                            </div>
                         </div>
-                    </div>
+
+                    }
                 }            
             </div>
         </div>

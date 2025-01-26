@@ -118,7 +118,8 @@ td.td-Icon {
 }
 
 .welcome{
-    padding-right:20px;
+    padding-right:50px;
+    display:inline-block;
 }
 
 .nav-welcome {
@@ -212,4 +213,14 @@ td.td-Icon {
 .category-Pic-img {
     width: 100px;
     height: 100px;
+}
+
+@media (max-width: 1000px) {
+    .hide-on-sm {
+        display: none !important;
+    }
+}
+
+.activeAreasMenu {
+    background-color: #D8FFFE;
 }
