@@ -51,3 +51,7 @@ html {
 .text-justify{
     text-align:justify;
 }
+
+.menuHomeSelected{
+    font-weight:bolder;
+}
