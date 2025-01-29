@@ -163,6 +163,11 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                 {
                     return View(nameof(EditUser), companyVM);
                 }
+                if (await _companyService.IsExistByMobileNumber(companyVM.MobileNumber))
+                {
+                    ModelState.AddModelError("MobileNumber", "شماره تلفن تکراری است".Trim());
+                    return View(nameof(EditUser), companyVM);
+                }
                 RegisterIdentityDTO registerIdentityDTO = new()
                 {
 
