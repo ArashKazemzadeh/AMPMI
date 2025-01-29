@@ -1,4 +1,5 @@
-﻿using AQS_Application.Dtos.BaseServiceDto.Company;
+﻿using AQS_Aplication.Dtos.BaseServiceDto.CategoryDto;
+using AQS_Application.Dtos.BaseServiceDto.Company;
 using AQS_Application.Interfaces.IServices.BaseServices;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -33,51 +34,70 @@ namespace WebSite.EndPoint.Controllers
 
         public async Task<IActionResult> Index()
         {
-            HomeVM homeVM = new HomeVM();
-
-            var categories = await _categoryService.ReadAll();
-            homeVM.Categories = categories;
-
-            var companies = await _companyService.ReadConfirmedComapanies();
-            homeVM.Companies = companies.Select(x => new CompanyReadDto()
+            try
             {
-                Id = x.Id,
-                Logo = x.LogoRout,
-                Name = x.Name,
-            }).ToList();
+                HomeVM homeVM = new HomeVM();
 
-            var blogs = await _blogService.ReadTop3();
-            foreach (var item in blogs)
-            {
-                int end = item.Description.IndexOf("</");
-                int start = 0;
-                for (int i = end; i > 0; i--)
+                var categories = await _categoryService.ReadAll() ?? new List<CategoryReadDto>();
+                homeVM.Categories = categories;
+
+                var companies = await _companyService.ReadConfirmedComapanies(); ;
+                homeVM.Companies = companies.Select(x => new CompanyReadDto()
                 {
-                    if (item.Description[i] == '>')
+                    Id = x.Id,
+                    Logo = x.LogoRout,
+                    Name = x.Name,
+                }).ToList();
+
+                var blogs = await _blogService.ReadTop3();
+                foreach (var item in blogs)
+                {
+                    try
                     {
-                        start = i;
-                        break;
+                        int end = item.Description?.IndexOf("</") ?? -1;
+                        int start = 0;
+                        if (end > 0)
+                        {
+                            for (int i = end; i > 0; i--)
+                            {
+                                if (item.Description[i] == '>')
+                                {
+                                    start = i;
+                                    break;
+                                }
+                            }
+                            if (start > 10 && end > 20)
+                            {
+                                item.Description = item.Description.Substring(start + 1, end - start - 1);
+                            }
+                            else
+                            {
+                                item.Description = string.Empty;
+                            }
+                        }
+                        else
+                        {
+                            item.Description = string.Empty;
+                        }
+                    }
+                    catch
+                    {
+                        item.Description = string.Empty;
                     }
                 }
-                if (start > 10 && end > 20)
-                {
-                    item.Description = item.Description.Substring(start + 1, end - start - 1);
-                    // شاید در آینده استفاده شود
-                    //if (item.Description.Length > 200)
-                    //{
-                    //    item.Description = item.Description.Substring(0,200);   
-                    //}
-                }
-                else
-                    item.Description = string.Empty;
+                homeVM.Blogs = blogs;
+
+                var banners = await _bannerService.ReadAll();
+                homeVM.Banners = banners;
+                return View(homeVM);
             }
-            homeVM.Blogs = blogs;
-
-            var banners = await _bannerService.ReadAll();
-            homeVM.Banners = banners;
-
-            return await Task.FromResult<IActionResult>(View(homeVM));
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "خطا در بارگذاری صفحه اصلی");
+                return RedirectToAction(nameof(Error));
+            }
         }
+
 
         public Task<IActionResult> Privacy()
         {
@@ -87,7 +107,15 @@ namespace WebSite.EndPoint.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public Task<IActionResult> Error()
         {
-            return Task.FromResult<IActionResult>(View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier }));
+            var statusCode = HttpContext.Response.StatusCode;
+
+            var errorViewModel = new ErrorViewModel
+            {
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
+                StatusCode = statusCode
+            };
+
+            return Task.FromResult<IActionResult>(View(errorViewModel));
         }
     }
 }
