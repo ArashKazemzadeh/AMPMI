@@ -1,6 +1,7 @@
 ﻿@model WebSite.EndPoint.Models.HomeViewModel.HomeVM
 @{
     ViewData["Title"] = "HomePage";
+    ViewData["SelectedHome"] = "Home";
 }
 
 
@@ -157,7 +158,6 @@
                                 </a>
                             </div>
                             <h6 class="service-title title-bordered">@item.Name</h6>
-                            @* <a href="@Url.Action("CompanyDetail","Company",new {companyId=item.Id})">@item.Name</a> *@
                         </figure>
                     </div>
                 }
@@ -225,7 +225,23 @@
             margin:10,
             autoplay:true,
             autoplayTimeout:1000,
-            autoplayHoverPause:true
+            autoplayHoverPause:true,
+            responsiveClass:true,
+            responsive:{
+                0:{
+                    items:1,
+                    nav:true
+                },
+                600:{
+                    items:3,
+                    nav:false
+                },
+                1000:{
+                    items:4,
+                    nav:true,
+                    loop:true
+                }
+            }
         });
 
         $(".dropdown-item").on('click',function(){

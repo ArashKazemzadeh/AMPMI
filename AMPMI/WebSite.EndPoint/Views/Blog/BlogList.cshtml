@@ -1,4 +1,7 @@
 ﻿@model List<WebSite.EndPoint.Models.Blog.BlogVM>
+@{
+    ViewData["SelectedHome"] = "Blog";
+}
 <div class="body-default container">
     <div class="row">
         @foreach (var item in Model)
