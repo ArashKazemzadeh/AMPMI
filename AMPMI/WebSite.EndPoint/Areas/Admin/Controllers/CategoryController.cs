@@ -1,21 +1,21 @@
 ﻿using AQS_Application.Interfaces.IServices.BaseServices;
 using AQS_Common.Enums;
 using Domin.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Formats.Asn1;
 using WebSite.EndPoint.Areas.Admin.Models.Category;
 using WebSite.EndPoint.Utility;
-using static AQS_Common.Enums.FolderNamesEnum;
 
 namespace WebSite.EndPoint.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;
         private readonly IFileServices _fileServices;
 
-        static string PictureFolder = FolderNamesEnum.GetFileName(FolderTypes.Category);
+        static string PictureFolder = FolderNamesEnum.GetFileName(FolderNamesEnum.FolderTypes.Category);
         public CategoryController(ICategoryService categoryService, IFileServices fileServices)
         {
             _categoryService = categoryService;

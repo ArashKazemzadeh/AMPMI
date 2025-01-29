@@ -21,20 +21,20 @@ namespace WebSite.EndPoint.ServicesConfigs
 
             builder.Services.Configure<IdentityOptions>(options =>
             {
-                options.User.RequireUniqueEmail = true;
+               
                 options.User.AllowedUserNameCharacters =
                 "" +
                 " " +
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" +
                 "0123456789" +
                 "چجحخهعغفقثصضشسیبلاتنمکگظطزرذدئوژپ";
-                options.Password.RequiredLength = 2;
+                options.Password.RequiredLength = 6;
                 options.Password.RequiredUniqueChars = 1;
                 options.Lockout.MaxFailedAccessAttempts = 5;
-                options.User.RequireUniqueEmail = true;
                 options.Password.RequireDigit = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequireLowercase = false;
+                options.User.RequireUniqueEmail = true;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
             });

@@ -171,22 +171,10 @@ namespace WebSite.EndPoint.Controllers
                     var result = await _loginService.LoginWithOtp(model.Mobile);
                     if (result.Role == CompanyRoleName)
                     {
-                        //return RedirectToAction
-                        //    (
-                        //     actionName: "panel",
-                        //     controllerName: "company",
-                        //     routeValues: new { area = "Company", userId = result.UserId }
-                        //    );
                         return Redirect("/home/index/");
                     }
                     else if (result.Role == AdminRoleName)
                     {
-                        //return RedirectToAction
-                        //  (
-                        //   actionName: "panel",
-                        //   controllerName: "admin",
-                        //   routeValues: new { area = "admin", userId = result.UserId }
-                        //  );
                         return Redirect("/home/index/");
                     }
                 }
@@ -233,9 +221,10 @@ namespace WebSite.EndPoint.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult AccessDenied()
+        public async Task<IActionResult> AccessDenied()
         {
-            return Content("عدم دسترسی");
+            await _loginService.LogoutAsync();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

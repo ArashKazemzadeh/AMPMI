@@ -2,6 +2,7 @@
 using AQS_Application.Interfaces.IServices.BaseServices;
 using AQS_Common.Enums;
 using Domin.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebSite.EndPoint.Utility;
 using static AQS_Common.Enums.FolderNamesEnum;
@@ -9,7 +10,7 @@ using static AQS_Common.Enums.FolderNamesEnum;
 namespace WebSite.EndPoint.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class BlogController : Controller
     {
         private readonly IBlogService _blogService;
