@@ -2,15 +2,16 @@
 using AQS_Application.Interfaces.IServices.BaseServices;
 using AQS_Application.Interfaces.IServices.IdentityServices;
 using AQS_Common.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebSite.EndPoint.Areas.Admin.Models.Company;
 using WebSite.EndPoint.Utility;
-using static AQS_Common.Enums.FolderNamesEnum;
 
 namespace WebSite.EndPoint.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    //[Authorize(Roles ="Admin")]
+    [Authorize(Roles = "Admin")]
+    [Route("Admin")]
     public class UserController : Controller
     {
         private readonly ICompanyService _companyService;
@@ -18,10 +19,9 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         private readonly IRegistrationService _registrationService;
         private readonly IVideoService _videoService;
         private readonly ICompanyPictureService _companyPictureService;
-        private static string PictureFolder = FolderNamesEnum.GetFileName(FolderTypes.CompanyProfile);
-        static string TeaserFoldr = FolderNamesEnum.GetFileName(FolderTypes.CompanyTeaser);
+        private static string PictureFolder = FolderNamesEnum.GetFileName(FolderNamesEnum.FolderTypes.CompanyProfile);
+        static string TeaserFoldr = FolderNamesEnum.GetFileName(FolderNamesEnum.FolderTypes.CompanyTeaser);
         private const string Role = "Company";
-
         public UserController(
             ICompanyService companyService,
             IFileServices fileServices,

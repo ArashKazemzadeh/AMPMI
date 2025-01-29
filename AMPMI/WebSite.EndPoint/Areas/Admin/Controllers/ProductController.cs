@@ -12,6 +12,7 @@ using static AQS_Common.Enums.FolderNamesEnum;
 namespace WebSite.EndPoint.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class ProductController : Controller
     {
         private readonly IProductService _productService;

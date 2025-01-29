@@ -2,6 +2,7 @@
 using AQS_Application.Interfaces.IServices.BaseServices;
 using AQS_Common.Enums;
 using Domin.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebSite.EndPoint.Areas.Admin.Models.SubCategory;
 using WebSite.EndPoint.Utility;
@@ -9,6 +10,7 @@ using WebSite.EndPoint.Utility;
 namespace WebSite.EndPoint.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class SubCategoryController : Controller
     {
         private readonly ISubCategoryService _subCategoryService;

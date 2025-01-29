@@ -6,7 +6,7 @@ using WebSite.EndPoint.Areas.Company.Models.Profile;
 namespace WebSite.EndPoint.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    //[Authorize(Roles ="Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminPanelController : Controller
     {
         private readonly ILoginService _loginService;

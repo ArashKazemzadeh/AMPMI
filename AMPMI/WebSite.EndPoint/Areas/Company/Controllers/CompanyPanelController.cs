@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace WebSite.EndPoint.Areas.Company.Controllers
 {
     [Area("Company")]
-    [Authorize]
+    [Authorize(Roles = "Company")]
     public class CompanyPanelController : Controller
     {
         public IActionResult Panel()

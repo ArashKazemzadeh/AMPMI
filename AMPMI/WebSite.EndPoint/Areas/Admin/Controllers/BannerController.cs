@@ -1,12 +1,14 @@
 ﻿using AQS_Application.Interfaces.IServices.BaseServices;
 using AQS_Common.Enums;
 using AQS_Domin.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebSite.EndPoint.Areas.Admin.Models.Banner;
 using WebSite.EndPoint.Utility;
 using static AQS_Common.Enums.FolderNamesEnum;
 
 [Area("Admin")]
+[Authorize(Roles = "Admin")]
 public class BannerController : Controller
 {
     private readonly IBannerService _bannerService;

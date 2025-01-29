@@ -13,7 +13,7 @@ using static AQS_Common.Enums.FolderNamesEnum;
 namespace WebSite.EndPoint.Areas.Company.Controllers
 {
     [Area("Company")]
-    //[Authorize(Roles = "Admin,Company")]
+    [Authorize(Roles = "Admin,Company")]
     public class CompanyProfileController : Controller
     {
         private readonly ICompanyService _companyService;

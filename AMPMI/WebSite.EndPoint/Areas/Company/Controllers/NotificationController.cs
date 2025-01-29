@@ -9,7 +9,7 @@ using WebSite.EndPoint.Areas.Company.Models;
 namespace WebSite.EndPoint.Areas.Company.Controllers
 {
     [Area("Company")]
-    [Authorize]
+    [Authorize(Roles = "Company")]
     public class NotificationController : Controller
     {
         private readonly INotificationService _notificationService;

@@ -1,11 +1,13 @@
 ﻿using AQS_Application.Interfaces.IServices.BaseServices;
 using AQS_Common.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebSite.EndPoint.Areas.Admin.Models.Notification;
 
 namespace WebSite.EndPoint.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class NotificationController : Controller
     {
         private readonly INotificationService _notificationService;

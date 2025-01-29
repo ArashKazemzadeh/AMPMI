@@ -1,13 +1,14 @@
 ﻿using AQS_Application.Services;
 using AQS_Domin.Entities;
 using AQS_Persistence.Contexts.SqlServer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace WebSite.EndPoint.Areas.Admin.Controllers
 {
-
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class AboutUsController : Controller
     {
         private readonly IMiscellaneousDataService _miscellaneousDataService;
@@ -16,10 +17,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         {
             _miscellaneousDataService = miscellaneousDataService;
         }
-        //public IActionResult ShowAboutUs()
-        //{
-        //    return View();
-        //}
+        
         public async Task<IActionResult> ShowAboutUs()
         {
             var content = await _miscellaneousDataService.GetValueAsync("AboutUs");
