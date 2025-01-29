@@ -23,11 +23,7 @@
     <link href="~/css/ionicons.min.css" rel="stylesheet" />
     <!-- Theme style -->
     <link href="~/css/AdminLTE.css" rel="stylesheet" />
-    <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
-    page. However, you can choose any other skin. Make sure you
-    apply the skin class to the body tag so the changes take effect. -->
-    @*     <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
- *@    <link href="~/css/skin-blue.min.css" rel="stylesheet" />
+    <link href="~/css/skin-blue.min.css" rel="stylesheet" />
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <!-- customize adminlte -->
@@ -78,27 +74,6 @@
         });
     </script> 
 </head>
-
-<!--
-BODY TAG OPTIONS:
-=================
-Apply one or more of the following classes to get the
-desired effect
-|---------------------------------------------------------|
-| SKINS         | skin-blue                               |
-|               | skin-black                              |
-|               | skin-purple                             |
-|               | skin-yellow                             |
-|               | skin-red                                |
-|               | skin-green                              |
-|---------------------------------------------------------|
-|LAYOUT OPTIONS | fixed                                   |
-|               | layout-boxed                            |
-|               | layout-top-nav                          |
-|               | sidebar-collapse                        |
-|               | sidebar-mini                            |
-|---------------------------------------------------------|
--->
 
 <body class="hold-transition skin-blue sidebar-mini" style="height:100% !important">
     <div class="wrapper" style="background-color:#EEEEEE">
@@ -244,91 +219,14 @@ desired effect
                 <!-- Content Header (Page header) -->
                 <section  class="content container-fluid">
                     @RenderBody()
-
-
                 </section>
             </div>
         </div>
         <!-- /.content-wrapper -->
         <!-- Main Footer -->
         <footer  class="main-footer text-left" style="background-color:#EEEEEE;border:none;">
-@*             <strong>
-                                Copyleft &copy; 2014-2017 <a href="https://adminlte.io">Almsaeed Studio</a> & <a href="http://hosseinizadeh.ir/adminlte">Alireza Hosseinizadeh</a>
-            </strong> *@
         </footer>
 
-        <!-- Control Sidebar -->
-@*         <aside class="control-sidebar control-sidebar-dark">
-            <!-- Create the tabs -->
-            <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-                <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-                <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-            </ul>
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <!-- Home tab content -->
-                <div class="tab-pane active" id="control-sidebar-home-tab">
-                    <h3 class="control-sidebar-heading">فعالیت ها</h3>
-                    <ul class="control-sidebar-menu">
-                        <li>
-                            <a href="javascript:;">
-                                <i class="menu-icon fa fa-birthday-cake bg-red"></i>
-
-                                <div class="menu-info">
-                                    <h4 class="control-sidebar-subheading">تولد غلوم</h4>
-
-                                    <p>۲۴ مرداد</p>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.control-sidebar-menu -->
-
-                    <h3 class="control-sidebar-heading">پیشرفت کارها</h3>
-                    <ul class="control-sidebar-menu">
-                        <li>
-                            <a href="javascript:;">
-                                <h4 class="control-sidebar-subheading">
-                                    آپدیت لاراول
-                                    <span class="pull-left-container">
-                                        <span class="label label-danger pull-left">70%</span>
-                                    </span>
-                                </h4>
-
-                                <div class="progress progress-xxs">
-                                    <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.control-sidebar-menu -->
-
-                </div>
-                <!-- /.tab-pane -->
-                <!-- Stats tab content -->
-                <div class="tab-pane" id="control-sidebar-stats-tab">تب وضعیت</div>
-                <!-- /.tab-pane -->
-                <!-- Settings tab content -->
-                <div class="tab-pane" id="control-sidebar-settings-tab">
-                    <form method="post">
-                        <h3 class="control-sidebar-heading">تنظیمات عمومی</h3>
-
-                        <div class="form-group">
-                            <label class="control-sidebar-subheading">
-                                گزارش کنترلر پنل
-                                <input type="checkbox" class="pull-left" checked>
-                            </label>
-
-                            <p>
-                                ثبت تمامی فعالیت های مدیران
-                            </p>
-                        </div>
-                        <!-- /.form-group -->
-                    </form>
-                </div>
-                <!-- /.tab-pane -->
-            </div>
-        </aside> *@
         <!-- /.control-sidebar -->
         <!-- Add the sidebar's background. This div must be placed
         immediately after the control sidebar -->
@@ -345,9 +243,6 @@ desired effect
     <script src="~/js/all_plugins.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
-    <!-- Optionally, you can add Slimscroll and FastClick plugins.
-       Both of these plugins are recommended to enhance the
-       user experience. -->
 </body>
 
 </html>

@@ -49,45 +49,24 @@
 
             <div class="collapse navbar-collapse" style="justify-content:space-around;" id="navbarNav">
                 <ul class="navbar-nav ml-auto list">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="@Url.Action("Index","Home")">صفحه اصلی</a>
+                    <li class="nav-item @(ViewData["SelectedHome"]=="Home"?"menuHomeSelected":"")">
+                        <a style="color: #fff" class="nav-link" href="@Url.Action("Index","Home")">صفحه اصلی</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item @(ViewData["SelectedHome"]=="Company"?"menuHomeSelected":"")">
                         <a style="color: #fff" class="nav-link" href="@Url.Action("CompanyList","Company")">قطعه سازان</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item @(ViewData["SelectedHome"]=="Blog"?"menuHomeSelected":"")">
                         <a style="color: #fff" class="nav-link" href="@Url.Action("BlogList","Blog")">اخبار انجمن</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item @(ViewData["SelectedHome"]=="AboutUs"?"menuHomeSelected":"")">
                         <a style="color: #fff" class="nav-link" href="@Url.Action("Index","AboutUs")">درباره ما</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item @(ViewData["SelectedHome"]=="ContactUs"?"menuHomeSelected":"")">
                         <a style="color: #fff" class="nav-link" href="@Url.Action("ContactUs","ContactUs")">تماس با ما</a>
                     </li>
                 </ul>
-
-                <!-- Right Account Section -->
-
             </div>
              @await Component.InvokeAsync("Profile") 
-
-
-@*             <div class="me-5 align-items-center dropdown">
-                <a href="@Url.Action("Login","Login")" title="حساب کاربری من" class="text-white">
-                    <i class="fa fa-user" aria-hidden="true"></i>
-                </a>
-                <div class="dropdown-content">
-                    <a href="@Url.Action("Panel","CompanyPanel",new {area ="Company"})">داشبورد</a>
-                    <a href="@Url.Action("NotifList","Notification",new {area ="Company"})">اعلان‌ها</a>
-                </div>
-            </div> *@
-@*             <div style="width:15%;" class="me-5 d-flex align-items-center">
-                    <a 
-                        href="@Url.Action("Login","Login")" 
-                        title="ثبت‌نام/ورود"
-                        class="text-white">ثبت‌نام/ورود
-                    </a>
-            </div> *@
         </div>
     </nav>
     <div class="">
@@ -116,14 +95,6 @@
                                 صفحه اصلی
                             </a>
                         </li>
-
-@*                         <li class="item-with-label item-label-primary">
-                            <a href="https://ampmi.com/%d8%aa%d9%85%d8%a7%d8%b3-%d8%a8%d8%a7-%d9%85%d8%a7/">
-
-                                تماس با ما
-                            </a>
-                        </li> *@
-
                         <li class="item-with-label item-label-primary">
                             <a href="@Url.Action("Index","AboutUs")">
 
