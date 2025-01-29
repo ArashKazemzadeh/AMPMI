@@ -66,13 +66,13 @@ namespace YourNamespace.Services
                     }
                     // TODO : این شرط کار نمیکند
                     // بررسی وجود کاربر با شماره موبایل
-                    var existingUserByPhone = await _userManager.FindByNameAsync(registerIdentityDTO.Mobile.Trim());
+                    var existingUserByPhone = await _userManager.FindByNameAsync(registerIdentityDTO.CompanyName.Trim());
                     if (existingUserByPhone != null)
                     {
                         return new ResultRegisterIdentityDto
                         {
                             userId = 0,
-                            errorMessage = "این شماره موبایل قبلاً ثبت شده است."
+                            errorMessage = "نام شرکت قبلاً ثبت شده است."
                         };
                     }
 
