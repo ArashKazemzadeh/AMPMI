@@ -9,15 +9,19 @@
   <ItemGroup>
     <Compile Remove="Areas\Admin\Data\**" />
     <Compile Remove="Areas\Company\Data\**" />
+    <Compile Remove="wwwroot\BlogVideoFiles\**" />
     <Compile Remove="wwwroot\CompanyProfile\**" />
     <Content Remove="Areas\Admin\Data\**" />
     <Content Remove="Areas\Company\Data\**" />
+    <Content Remove="wwwroot\BlogVideoFiles\**" />
     <Content Remove="wwwroot\CompanyProfile\**" />
     <EmbeddedResource Remove="Areas\Admin\Data\**" />
     <EmbeddedResource Remove="Areas\Company\Data\**" />
+    <EmbeddedResource Remove="wwwroot\BlogVideoFiles\**" />
     <EmbeddedResource Remove="wwwroot\CompanyProfile\**" />
     <None Remove="Areas\Admin\Data\**" />
     <None Remove="Areas\Company\Data\**" />
+    <None Remove="wwwroot\BlogVideoFiles\**" />
     <None Remove="wwwroot\CompanyProfile\**" />
   </ItemGroup>
 
@@ -36,10 +40,6 @@
     <ProjectReference Include="..\AQS_Common\AQS_Common.csproj" />
     <ProjectReference Include="..\AQS_Persistence\AQS_Persistence.csproj" />
     <ProjectReference Include="..\ThirdParties\ThirdParties.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\BlogVideoFiles\" />
   </ItemGroup>
 
 </Project>
