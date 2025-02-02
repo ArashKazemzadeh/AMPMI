@@ -24,6 +24,7 @@ public partial class Company
     public string? LogoRout { get; set; }
     public string? Website { get; set; }
     public bool IsCompany { get; set; }
+    public bool IsAdmin { get; set; }
     /// <summary>
     /// درخواست به ادمین برای تبدیل شدن به شرکت
     /// </summary>

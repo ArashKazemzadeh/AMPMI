@@ -74,7 +74,7 @@
                     <a href="@Url.Action("CategoryProductsList","Product",new {categoryId=item.Id})">
                         <figure>
                             <div class="service-image category-Pic">
-                                <img class="img img-fluid category-Pic-img" src="@item.PictureFileName" />
+                                <img class="img img-fluid category-Pic" src="@item.PictureFileName" />
                             </div>
                         </figure>
                         <h6 class="service-title title-bordered">@item.Name</h6>
@@ -120,8 +120,11 @@
                                 @if (item.Type == AQS_Domin.Entities.BannerTypeEnum.Video)
                                 {
                                     <div class="media-body">
-                                        <video loop autoplay style="width:100%;height:200px;" muted src="@item.Rout"></video>
+                                        <video loop autoplay class="banner" muted src="@item.Rout"></video>
                                     </div>
+                                }
+                                else if (item.Type == AQS_Domin.Entities.BannerTypeEnum.Image){
+                                    <img class="banner" src="@item.Rout" />
                                 }
                                 <!-- Image is remain -->
                             </div>
@@ -154,7 +157,7 @@
                         <figure>
                             <div class="service-image category-Pic">
                                 <a href="@Url.Action("CompanyDetail","Company",new {companyId=item.Id})">
-                                    <img class="img-fluid category-Pic-img" src="@item.Logo" />
+                                    <img class="img-fluid category-Pic" src="@item.Logo" />
                                 </a>
                             </div>
                             <h6 class="service-title title-bordered">@item.Name</h6>
