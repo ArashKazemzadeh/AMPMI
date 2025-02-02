@@ -18,7 +18,7 @@ namespace WebSite.EndPoint.Controllers
         private readonly IMemoryCache _memoryCache;
         private readonly ICompanyService _companyService;
         private readonly ILoginService _loginService;
-        private const int OtpExpirationSeconds = 30;
+        private const int OtpExpirationSeconds = 120;
         private const string CompanyRoleName = "Company";
         private const string AdminRoleName = "Admin";
         public LoginController

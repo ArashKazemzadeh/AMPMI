@@ -224,3 +224,8 @@ td.td-Icon {
 .activeAreasMenu {
     background-color: #D8FFFE;
 }
+
+.banner {
+    width: 100%;
+    height: 200px;
+}
