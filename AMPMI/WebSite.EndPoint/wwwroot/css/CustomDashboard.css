@@ -229,3 +229,11 @@ td.td-Icon {
     width: 100%;
     height: 200px;
 }
+
+.owl-carousel .owl-nav button.owl-next span {
+    display:none;
+}
+
+.owl-carousel .owl-nav button.owl-prev span {
+    display: none;
+}
