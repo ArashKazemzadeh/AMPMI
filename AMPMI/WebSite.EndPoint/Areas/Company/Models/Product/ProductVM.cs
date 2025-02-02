@@ -10,9 +10,9 @@ namespace WebSite.EndPoint.Areas.Company.Models.Product
         public long Id { get; set; }
         public int RowNum { get; set; }
         [Required(ErrorMessage = "نام محصول نمیتواند خالی باشد")]
-        public string Name { get; set; } 
+        public string Name { get; set; }
 
-        public string Description { get; set; } = null!;
+        public string? Description { get; set; } = "";
 
         public bool IsConfirmed { get; set; }
 

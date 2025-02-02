@@ -86,6 +86,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                 Description = x.Description,
                 Name = x.Name,
                 IsConfirmed = x.IsConfirmed,
+                CompanyName= x.Company?.Name,
                 //PictureFileName = x.PictureFileName,
                 SubCategoryName = x.SubCategory.Name,
                 CategoryName = x.SubCategory.Category.Name
@@ -97,8 +98,14 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Save(ProductVM productVM,long companyId = 0)
         {
+            if(string.IsNullOrEmpty(productVM.Description))
+                productVM.Description = string.Empty;
             if (!ModelState.IsValid)
             {
+                var company = await _companyService.ReadByIdAsync(companyId);
+                ViewData["CompanyId"] = companyId;
+                if (company != null)
+                    ViewData["CompanyName"] = company.Name;
                 productVM.Categories = GetCategory();
                 return View("EditProduct", productVM);
             }

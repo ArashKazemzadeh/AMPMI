@@ -195,19 +195,18 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                     ViewData["error"] = createNew.errorMessage;
                     return View(nameof(EditUser), companyVM);
                 }
-                if (companyVM.IsLogoChanged)
+
+                if (companyVM.Logo != null)
                 {
-                    if (companyVM.Logo != null)
+                    string newLogo = await AddPicture(companyVM.Logo);
+                    if (string.IsNullOrEmpty(newLogo))
                     {
-                        string newLogo = await AddPicture(companyVM.Logo);
-                        if (string.IsNullOrEmpty(newLogo))
-                        {
-                            ViewData["error"] = "خطایی در هنگام دخیره لوگو رخ داد";
-                            return View(nameof(EditUser), companyVM);
-                        }
-                        companyVM.LogoRout = newLogo;
+                        ViewData["error"] = "خطایی در هنگام دخیره لوگو رخ داد";
+                        return View(nameof(EditUser), companyVM);
                     }
+                    companyVM.LogoRout = newLogo;
                 }
+
                 companyVM.Id = createNew.userId;
                 var dto = companyVM.MapToDto(companyVM);
                 await _companyService.UpdateEditProfile(dto);

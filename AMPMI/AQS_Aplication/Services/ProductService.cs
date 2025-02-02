@@ -103,6 +103,7 @@ namespace AQS_Application.Services
                 .Where(x => x.CompanyId == id)
                 .Include(x => x.SubCategory)
                 .ThenInclude(x => x.Category)
+                .Include(x => x.Company)
                 .AsNoTracking()
                 .ToListAsync();
         }
