@@ -47,5 +47,11 @@ namespace AQS_Application.Interfaces.IServices.BaseServices
         /// <param name="id"></param>
         /// <returns></returns>
         Task<CompanyEditProfileDto?> ReadByIdIncludePicture(long id);
+        /// <summary>
+        /// تمایز ادمین از بقیه
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<bool> IsAdmin(long id);
     }
 }
