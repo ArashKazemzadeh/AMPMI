@@ -11,7 +11,6 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
-    //[Route("Admin")]
     public class UserController : Controller
     {
         private readonly ICompanyService _companyService;
@@ -37,6 +36,8 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         }
         public async Task<IActionResult> UserList()
         {
+            if (TempData["msg"] is not null)
+                ViewData["msg"] = TempData["msg"].ToString();
             var company = await _companyService.Read();
 
             var model = company.Select(c => new CompanyVM
@@ -47,12 +48,20 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
                 MobileNumber = c.MobileNumber,
                 Email = c.Email,
                 IsCompany = c.IsCompany,
-                SendRequst = c.SendRequst
+                SendRequst = c.SendRequst,
+
             }).ToList();
             return View(model);
         }
         public async Task<IActionResult> DeleteUser(long id)
         {
+            TempData["msg"] = string.Empty;
+            if (await _companyService.IsAdmin(id))
+            {
+                TempData["msg"] = "کاربر ادمین سایت است لذا امکان حذف وجود ندارد";
+                TempData.Keep();
+                return RedirectToAction(nameof(UserList));
+            }
             var resultReg = await _registrationService.DeleteUserAsync(id);
             if (!resultReg)
             {
@@ -72,6 +81,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
 
         public async Task<IActionResult> EditUser(long id, string msg = "")
         {
+            TempData["msg"] = string.Empty;
             var company = await _companyService.ReadByIdAsync(id);
             if (company == null)
             {
@@ -314,6 +324,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Delete(long id)
         {
+            TempData["msg"] = string.Empty;
             var pictureRow = await _companyPictureService.ReadById(id);
             long companyId = pictureRow.CompanyId ?? 0;
             if (pictureRow != null && await _fileServices.DeleteFile(pictureRow.PictureFileName))
@@ -334,8 +345,9 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
 
         }
         [HttpPost]
-        public async Task<IActionResult> NewPicture(IFormFile picture,long companyId)
+        public async Task<IActionResult> NewPicture(IFormFile picture, long companyId)
         {
+            TempData["msg"] = string.Empty;
             if (picture == null)
                 return RedirectToAction(nameof(CompanyPictures), new { companyId = companyId });
 

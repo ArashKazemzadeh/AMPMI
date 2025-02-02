@@ -199,6 +199,11 @@ namespace AQS_Application.Services
             return await _context.SaveChangesAsync() > 0 ?
                 ResultOutPutMethodEnum.savechanged : ResultOutPutMethodEnum.dontSaved;
         }
+        public async Task<bool> IsAdmin(long id)
+        {
+            var existingCompany = await _context.Companies.FindAsync(id);
+            return existingCompany.IsAdmin;
+        }
         public async Task<ResultOutPutMethodEnum> SendRequest(long id, bool sendRequest)
         {
             var existingCompany = await _context.Companies.FindAsync(id);
