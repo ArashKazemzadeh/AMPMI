@@ -47,7 +47,7 @@ namespace WebSite.EndPoint.Controllers
         /// دریافت شماره موبایل و هدایت به صفحه تایید OTP
         /// </summary>
         [HttpPost]
-        public async Task<IActionResult> MobileInput(string mobile) 
+        public async Task<IActionResult> MobileInput(string mobile)
         {
             if (string.IsNullOrWhiteSpace(mobile))
             {
@@ -94,7 +94,7 @@ namespace WebSite.EndPoint.Controllers
         /// </summary>
         /// <param name="mobile">شماره موبایل</param>
         [HttpGet]
-        public IActionResult ConfirmOTP(string mobile) 
+        public IActionResult ConfirmOTP(string mobile)
         {
             if (string.IsNullOrEmpty(mobile))
             {
@@ -112,7 +112,7 @@ namespace WebSite.EndPoint.Controllers
         /// </summary>
         /// <param name="model">مدل حاوی اطلاعات ورودی کاربر</param>
         [HttpPost]
-        public IActionResult ConfirmOTP(ConfirmOtpViewModel model) 
+        public IActionResult ConfirmOTP(ConfirmOtpViewModel model)
         {
             if (model.UserOtp.DigitCount() != 6)
             {
@@ -124,7 +124,7 @@ namespace WebSite.EndPoint.Controllers
             {
                 if (otpInMemory == model.UserOtp)
                 {
-                    return RedirectToAction(nameof(Register),new { model.Mobile } );
+                    return RedirectToAction(nameof(Register), new { model.Mobile });
                 }
                 else
                 {
@@ -177,7 +177,7 @@ namespace WebSite.EndPoint.Controllers
                 ViewData["error"] = ex.Message;
                 return View(createCompany);
             }
-           
+
         }
         public async Task<IActionResult> ResendOTP(string mobile)
         {
@@ -187,11 +187,9 @@ namespace WebSite.EndPoint.Controllers
                 return RedirectToAction(nameof(ConfirmOTP), new { mobile });
             }
 
-            if (!_memoryCache.TryGetValue($"OTP_{mobile}", out int otp))
-            {
-                otp = await _smsOtpService.GenerateUniqueOTPAsync();
-                _memoryCache.Set($"OTP_{mobile}", otp, TimeSpan.FromSeconds(OtpExpirationSeconds));
-            }
+            var otp = await _smsOtpService.GenerateUniqueOTPAsync();
+            _memoryCache.Remove($"OTP_{mobile}");
+            _memoryCache.Set($"OTP_{mobile}", otp, TimeSpan.FromSeconds(OtpExpirationSeconds));
 
             HttpStatusCode result = await _smsOtpService.SendSMSForAuthentication(mobile, otp.ToString());
             if (result == HttpStatusCode.OK)
