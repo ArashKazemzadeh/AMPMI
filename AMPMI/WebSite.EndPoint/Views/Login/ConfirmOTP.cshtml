@@ -9,6 +9,10 @@
 {
     <p class="alert alert-success">@TempData["SuccessMessage"]</p>
 }
+@if (Model.ErrorMessage == "کاربر یافت نشد" && Model.ErrorMessage != null)
+{
+    <p class="alert alert-danger"> کاربر یافت نشد </p>
+}
 <div class="wrapper default">
     
     <div class="body-default container">
@@ -33,7 +37,11 @@
                                 <input class="input-field" name="userOtp" type="number" placeholder="کد تایید را وارد نمایید">
                             </div>
                             <div>
-                                <p class="text-danger">@Model.ErrorMessage</p>
+                                @if (Model.ErrorMessage != "کاربر یافت نشد")
+                                {
+                                    <p class="text-danger">@Model.ErrorMessage</p>
+                                }
+                                
                             </div>
                             <div class="form-account-row form-account-submit">
                                 <div class="parent-btn">
