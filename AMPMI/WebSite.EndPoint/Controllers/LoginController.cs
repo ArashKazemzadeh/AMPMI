@@ -201,11 +201,10 @@ namespace WebSite.EndPoint.Controllers
                 return RedirectToAction(nameof(ConfirmOTP), new { mobile });
             }
 
-            if (!_memoryCache.TryGetValue($"OTP_{mobile}", out int otp))
-            {
-                otp = await _smsOtpService.GenerateUniqueOTPAsync();
-                _memoryCache.Set($"OTP_{mobile}", otp, TimeSpan.FromSeconds(OtpExpirationSeconds));
-            }
+            var otp = await _smsOtpService.GenerateUniqueOTPAsync();
+            _memoryCache.Remove($"OTP_{mobile}");
+            _memoryCache.Set($"OTP_{mobile}", otp, TimeSpan.FromSeconds(OtpExpirationSeconds));
+
 
             HttpStatusCode result = await _smsOtpService.SendSMSForAuthentication(mobile, otp.ToString());
             if (result == HttpStatusCode.OK)
@@ -223,7 +222,6 @@ namespace WebSite.EndPoint.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> AccessDenied()
         {
-            await _loginService.LogoutAsync();
             return RedirectToAction("Index", "Home");
         }
     }
