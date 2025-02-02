@@ -11,7 +11,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
-    [Route("Admin")]
+    //[Route("Admin")]
     public class UserController : Controller
     {
         private readonly ICompanyService _companyService;
