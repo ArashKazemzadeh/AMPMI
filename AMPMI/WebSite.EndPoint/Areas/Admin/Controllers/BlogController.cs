@@ -164,7 +164,8 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
             Blog existBlog = new Blog()
             {
                 Id = dto.Id,
-                Description = content
+                Description = content,
+                Subject = dto.Subject
             };
             string msg = string.Empty;
             try
