@@ -39,6 +39,8 @@ namespace WebSite.EndPoint.Controllers
                 HomeVM homeVM = new HomeVM();
 
                 var categories = await _categoryService.ReadAll() ?? new List<CategoryReadDto>();
+                if(categories.Count>4)
+                    categories = categories.OrderBy(x=>x.Id).Take(4).ToList();
                 homeVM.Categories = categories;
 
                 var companies = await _companyService.ReadConfirmedComapanies(); ;
