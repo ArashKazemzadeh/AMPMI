@@ -32,6 +32,11 @@
                                 </label>
                                 <input class="input-field" name="userOtp" type="number" placeholder="کد تایید را وارد نمایید">
                             </div>
+                            @if (string.IsNullOrEmpty(Model.ErrorMessage)){
+                                <div style="text-align:center;">
+                                    <div><span id="timer" style="color:#7F7F7F; font-size:20px"></span></div>
+                                </div>
+                            }
                             <div>
                                 <p class="text-danger">@Model.ErrorMessage</p>
                             </div>
@@ -66,3 +71,37 @@
         </div>
     </div>
 </div>
+
+
+@section Scripts
+{
+    <script>
+        let timerOn = true;
+        function timer(remaining){
+          var m = Math.floor(remaining / 60);
+          var s = remaining % 60;
+
+          m = m < 10 ? '0' + m : m;
+          s = s < 10 ? '0' + s : s;
+          document.getElementById('timer').innerHTML = m + ':' + s;
+          remaining -= 1;
+
+          if(remaining >= 0 && timerOn) {
+            setTimeout(function() {
+                timer(remaining);
+            }, 1000);
+            return;
+          }
+
+          if(!timerOn) {
+            // Do validate stuff here
+            return;
+          }
+        }
+
+        timer(120);
+    </script>
+}
+
+
+
