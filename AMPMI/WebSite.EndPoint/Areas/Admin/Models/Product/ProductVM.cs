@@ -12,7 +12,7 @@ namespace WebSite.EndPoint.Areas.Admin.Models.Product
         [Required(ErrorMessage = "نام محصول نمیتواند خالی باشد")]
         public string Name { get; set; }
 
-        public string Description { get; set; } = null!;
+        public string? Description { get; set; } = "";
         /// <summary>
         /// برای آپلود عکس 
         /// </summary>

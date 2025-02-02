@@ -75,6 +75,8 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
         [HttpPost]
         public async Task<IActionResult> Save(ProductVM productVM)
         {
+            if (string.IsNullOrEmpty(productVM.Description))
+                productVM.Description = string.Empty;
             if (!ModelState.IsValid)
             {
                 productVM.Categories = GetCategory();
