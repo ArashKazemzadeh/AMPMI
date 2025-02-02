@@ -230,10 +230,10 @@ td.td-Icon {
     height: 200px;
 }
 
-.owl-carousel .owl-nav button.owl-next span {
+.owl-carousel .owl-nav button.owl-next{
     display:none;
 }
 
-.owl-carousel .owl-nav button.owl-prev span {
+.owl-carousel .owl-nav button.owl-prev{
     display: none;
 }
