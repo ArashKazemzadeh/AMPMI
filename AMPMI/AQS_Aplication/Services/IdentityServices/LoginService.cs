@@ -117,7 +117,7 @@ namespace AQS_Application.Services.IdentityServices
                 return new LoginResultDto
                 {
                     IsSuccess = false,
-                    Message = LoginOutPutMessegeEnum.Invalid
+                    Message = LoginOutPutMessegeEnum.UserNotFound
                 };
             }
 

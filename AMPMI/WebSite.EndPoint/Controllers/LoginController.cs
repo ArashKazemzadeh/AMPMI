@@ -169,6 +169,11 @@ namespace WebSite.EndPoint.Controllers
                 if (otpInMemory == model.UserOtp)
                 {
                     var result = await _loginService.LoginWithOtp(model.Mobile);
+                    if (result.IsSuccess == false && result.Message == LoginOutPutMessegeEnum.UserNotFound)
+                    {
+                        model.ErrorMessage = "کاربر یافت نشد";
+                        return View(model);
+                    }
                     if (result.Role == CompanyRoleName)
                     {
                         return Redirect("/home/index/");
