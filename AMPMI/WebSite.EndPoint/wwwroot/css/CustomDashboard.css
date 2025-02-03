@@ -47,20 +47,20 @@
 }
 
 .ShowPic {
-    width: 150px;
-    height: 150px;
+    width: 130px;
+    height: 130px;
     border-style: groove;
     margin-right:20px;
 }
 
 .ShowPicProduct {
-    width: 150px;
-    height: 150px;
+    width: 130px;
+    height: 130px;
     border-style: groove;
 }
 
 .addPicList {
-    position: absolute;
+/*    position: absolute;*/
     bottom: 0;
     margin-right: 20px;
 }
@@ -237,3 +237,5 @@ td.td-Icon {
 .owl-carousel .owl-nav button.owl-prev{
     display: none;
 }
+
+

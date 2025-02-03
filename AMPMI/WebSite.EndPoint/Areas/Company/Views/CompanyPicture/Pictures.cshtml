@@ -30,11 +30,11 @@
     <div hidden id="newForm" style="margin-top:20px;">
         <form id="saveForm" method="post" asp-area="Company" asp-controller="CompanyPicture" asp-action="NewPicture" enctype="multipart/form-data">
             <div class="form-group row">
-                <div class="col-sm-2 upBtn">
+                <div class="col-sm-2 upBtnProduct">
                     <button type="button" class="btn-submit btnUpload" onclick="getfile()">بارگذاری تصویر</button>
                     <input id="getFile" name="picture" style="display:none" class="form-control-file" type="file" accept="image/*">
                 </div>
-                <div id="preview" class="col-sm-2 ShowPic"></div>
+                <div id="preview" class="col-sm-2 ShowPicProduct"></div>
                 <div class="col-sm-8">
                     <sapn>حداکثر حجم مجاز جهت بارگذاری فایل 200 کیلو بایت است.</sapn>
                 </div>
