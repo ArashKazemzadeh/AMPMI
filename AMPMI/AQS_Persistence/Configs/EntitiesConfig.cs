@@ -10,7 +10,6 @@ public static class EntitiesConfig
     {
         modelBuilder.Entity<BlogPicture>(entity =>
         {
-            //entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.BlogId).HasColumnName("Blog_Id");
 
             entity.HasOne(d => d.Blog).WithMany(p => p.BlogPictures)
@@ -20,9 +19,6 @@ public static class EntitiesConfig
 
         modelBuilder.Entity<CompanyPicture>(entity =>
         {
-
-            //entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
-
             entity.HasOne(d => d.Company).WithMany(p => p.CompanyPictures)
                 .HasForeignKey(d => d.CompanyId)
                 .HasConstraintName("FK_CompanyPicture_Company");

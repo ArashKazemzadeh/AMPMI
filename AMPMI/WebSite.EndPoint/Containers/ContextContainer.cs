@@ -27,7 +27,7 @@ namespace WebSite.EndPoint.ServicesConfigs
                 " " +
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" +
                 "0123456789" +
-                "چجحخهعغفقثصضشسیبلاتنمکگظطزرذدئوژپ";
+                "آ ًٌٍاَاءئچجحخهعغفقثصضپگکمنتالبیسشظطزرذدويژ";
                 options.Password.RequiredLength = 6;
                 options.Password.RequiredUniqueChars = 1;
                 options.Lockout.MaxFailedAccessAttempts = 5;
