@@ -36,18 +36,14 @@
 
     <nav style=" background-color: rgba(0, 0, 0, 0.8);" class="navbar navbar-expand-lg bg-body-tertiary navbar-sticky">
         <div class="container-fluid">
-            <a class="navbar-brand primary-logo" style="max-width: 250px;" href="/">
-                <img class="img-fluid" src="~/images/logo01.png" alt="Logo" />
-            </a>
-            <a class="navbar-brand sticky-logo" style="max-width: 250px;" href="/">
-                <img class="img-fluid" src="~/images/logo01.png" alt="Logo" />
-            </a>
-            <button  class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 @* <span class="navbar-toggler-icon"></span> *@
                 <i style="color:#fff;" class="fa fa-bars" aria-hidden="true"></i>
             </button>
-
-            <div class="collapse navbar-collapse" style="justify-content:space-around;" id="navbarNav">
+            <a class="navbar-brand primary-logo" style="max-width: 200px;" href="/">
+                <img class="img-fluid" src="~/images/logo01.png" alt="Logo" />
+            </a>
+            <div class="col-sm-5 collapse navbar-collapse" style="justify-content:space-around;" id="navbarNav">
                 <ul class="navbar-nav ml-auto list">
                     <li class="nav-item @(ViewData["SelectedHome"]=="Home"?"menuHomeSelected":"")">
                         <a style="color: #fff" class="nav-link" href="@Url.Action("Index","Home")">صفحه اصلی</a>
@@ -66,7 +62,7 @@
                     </li>
                 </ul>
             </div>
-             @await Component.InvokeAsync("Profile") 
+            @await Component.InvokeAsync("Profile")
         </div>
     </nav>
     <div class="">
