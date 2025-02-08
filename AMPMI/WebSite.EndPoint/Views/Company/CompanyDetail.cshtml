@@ -143,44 +143,50 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6 my-2">
-                <div class="card" style="height:300px;">
-                    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
-                        @if (Model.CompanyPictures != null && Model.CompanyPictures.Count > 0)
-                        {
-                            <div class="carousel-inner">
-                                @{
-                                    int c = 0;
-                                    foreach (var item in Model.CompanyPictures)
-                                    {
-                                        <div class="carousel-item @(c==0?"active":"")" style="width:80%">
-                                            <img style="aspect-ratio: 16 / 9; height:290px; padding-right:30%;"
-                                                 src="@item" 
-                                                 class=" img-fluid d-block w-100" 
-                                                 alt="...">
-                                        </div>
-                                        c++;
+            @if (Model.CompanyPictures != null && Model.CompanyPictures.Count>0){
+                <div class="col-md-6 my-2">
+                    <div class="card" style="height:300px;">
+                        <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                            @if (Model.CompanyPictures != null && Model.CompanyPictures.Count > 0)
+                            {
+                                <div class="carousel-inner">
+                                    @{
+                                        int c = 0;
+                                        foreach (var item in Model.CompanyPictures)
+                                        {
+                                            <div class="carousel-item @(c==0?"active":"")" style="width:80%">
+                                                <img style="aspect-ratio: 16 / 9; height:290px; padding-right:30%;"
+                                                     src="@item"
+                                                     class=" img-fluid d-block w-100"
+                                                     alt="...">
+                                            </div>
+                                            c++;
+                                        }
                                     }
-                                }
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        }
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            }
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6 my-2">
-                <div class="card" style="height:300px;">
-                    <video muted src="@Model.TeaserGuid" controls>
-                    </video>
+
+            }
+            @if(!string.IsNullOrEmpty(Model.TeaserGuid)){
+                <div class="col-md-6 my-2">
+                    <div class="card" style="height:300px;">
+                        <video muted src="@Model.TeaserGuid" controls>
+                        </video>
+                    </div>
                 </div>
-            </div>
+
+            }
         </div>
     </section>
     <!-- Product Section -->

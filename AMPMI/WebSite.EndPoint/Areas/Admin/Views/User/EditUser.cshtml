@@ -66,11 +66,11 @@
                 </div>
                 <div class="col-md-6 my-2">
                     <label for="CMobile" class="labelText">شماره موبایل</label>
-                    <input asp-for="MobileNumber" 
-                        class="labelText input-text"
-                        oninput="this.value=this.value.replace(/(?![0-9])./gmi,'')" 
-                        type="text" 
-                        id="CMobile" />
+                    <input asp-for="MobileNumber"
+                           class="labelText input-text"
+                           oninput="this.value=this.value.replace(/(?![0-9])./gmi,'')"
+                           type="text"
+                           id="CMobile" />
                     <span class="text-danger" asp-validation-for=MobileNumber></span>
 
                 </div>
@@ -81,11 +81,11 @@
                 </div>
                 <div class="col-md-6 my-2">
                     <label for="CTel" class="labelText">تلفن</label>
-                    <input asp-for="Tel" 
-                        class="labelText input-text"
-                        oninput="this.value=this.value.replace(/(?![0-9])./gmi,'')" 
-                        type="text" 
-                        id="CTel" />
+                    <input asp-for="Tel"
+                           class="labelText input-text"
+                           oninput="this.value=this.value.replace(/(?![0-9])./gmi,'')"
+                           type="text"
+                           id="CTel" />
                 </div>
                 <div class="col-md-6 userEditRow">
                     <label for="CFoundername" class="labelText">وبسایت</label>
@@ -124,9 +124,28 @@
 
             <div class="row mt-2 userEditRow">
 
-                <div class="col-md-6 my-2" style="margin-top:25px;">
+                <div class="row" style="margin-top:25px;">
+                    <div style="display:flex;" class="col-sm-4 col-sm-offset-5">
+                        <div style="display:flex;flex-direction:column;align-items:center;">
+                            <div id="previewLogo" style="margin:0;" class="ShowPic">
+                                @if (Model != null && !string.IsNullOrEmpty(Model.LogoRout))
+                                {
+                                    <img class="prevImage" src="@Model.LogoRout" />
+                                }
+                            </div>
+                            <div class="upBtn" style="margin-top:10px;">
+                                <button type="button" class="btn-submit btnUpload" onclick="GetfileLogo()">بارگذاری لوگو</button>
+                                <input asp-for="Logo" id="getfileLogo" style="display:none" class="form-control-file" type="file" accept="image/*">
+                            </div>
+                        </div>
+                        <a href="#" id="deleteLogo"><img class="img-Icon" src="~/images/recycle.png" /></a>
+                    </div>
+                    <input id="IsLogoChanged" type="hidden" asp-for="IsLogoChanged" />
+
+                </div>
+@*                 <div class="col-md-6 my-2" style="margin-top:25px;">
                     <div class="col-sm-5 upBtn">
-                        <button type="button" class="btn-submit btnUpload" onclick="GetfileLogo()">بارگذاری تصویر</button>
+                        <button type="button" class="btn-submit btnUpload" onclick="GetfileLogo()">بارگذاری لوگو</button>
                         <input asp-for="Logo" id="getfileLogo" style="display:none" class="form-control-file" type="file" accept="image/*">
                     </div>
                     <div id="previewLogo" class="col-sm-2 ShowPic">
@@ -142,25 +161,26 @@
                     </div>
 
                 </div>
-            </div>
+ *@            </div>
         </form>
-        @if(Model.Id > 0){
+        @if (Model.Id > 0)
+        {
             <div>
                 <div class="row mt-2">
-                    <div class="col-md-4 my-2">
+                    <div style="margin-top:15px;" class="col-md-4 my-2">
                         <a href="@Url.Action("CompanyPictures","User",new {companyId = Model.Id})" class="btn btn-submit btn-block text-white">گالری تصاویر</a>
                     </div>
-                    <div class="col-md-4 my-2">
+                    <div style="margin-top:15px;" class="col-md-4 my-2">
                         <a href="@Url.Action("CompanyTeaser", "User", new{companyId = Model.Id})" class="btn btn-submit btn-block text-white">تیزر تبلیغاتی</a>
                     </div>
-                    <div class="col-md-4 my-2">
+                    <div style="margin-top:15px;" class="col-md-4 my-2">
                         <a href="@Url.Action("CompanyProductList","Product",new{companyId = Model.Id})" class="btn btn-submit btn-block text-white">محصولات</a>
                     </div>
                 </div>
             </div>
 
         }
-    </div> 
+    </div>
 </div>
 
 @section Scripts
