@@ -52,7 +52,7 @@ public static class ConvertDateService
         };
 
         string monthName = persianMonthNames[month - 1];
-        return $"امروز: {day} {monthName} {year}";
+        return $"{day} {monthName} {year}";
     }
 
 }

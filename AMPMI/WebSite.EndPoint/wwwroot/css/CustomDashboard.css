@@ -7,6 +7,7 @@
     padding-inline: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     font-size: 15px;
+    color:white;
 }
 
 .btn-submit-disable {
@@ -142,10 +143,9 @@ td.td-Icon {
 }
 
 .menu {
-    margin-top:20px;
     background-color: #FFF !important;
     border-radius: 25px;
-    margin-right: 20px;
+    margin: 20px 20px 0;
     padding-top: 20px;
 }
 
