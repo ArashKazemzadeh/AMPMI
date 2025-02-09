@@ -39,8 +39,8 @@ namespace WebSite.EndPoint.Controllers
                 HomeVM homeVM = new HomeVM();
 
                 var categories = await _categoryService.ReadAll() ?? new List<CategoryReadDto>();
-                if(categories.Count>4)
-                    categories = categories.OrderBy(x=>x.Id).Take(4).ToList();
+                if (categories.Count > 4)
+                    categories = categories.OrderBy(x => x.Id).Take(4).ToList();
                 homeVM.Categories = categories;
 
                 var companies = await _companyService.ReadConfirmedComapanies(); ;
@@ -100,14 +100,13 @@ namespace WebSite.EndPoint.Controllers
             }
         }
 
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public Task<IActionResult> Error()
         {
+            string StatusCode = HttpContext.Response.StatusCode.ToString();
             var errorViewModel = new ErrorViewModel
             {
                 RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
-                StatusCode = 404
+                StatusCode = StatusCode == "200" ? "404" : StatusCode   
             };
 
             return Task.FromResult<IActionResult>(View(errorViewModel));

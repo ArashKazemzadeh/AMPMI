@@ -86,7 +86,6 @@ namespace WebSite.EndPoint.Controllers
         /// <summary>
         /// صفحه ورود شماره موبایل
         /// </summary>
-        /// <returns>View</returns>
         [HttpGet]
         public IActionResult MobileInput()
         {
