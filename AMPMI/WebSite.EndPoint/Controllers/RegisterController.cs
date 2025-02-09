@@ -164,7 +164,7 @@ namespace WebSite.EndPoint.Controllers
 
                 if (result.userId > 0 && string.IsNullOrEmpty(result.errorMessage))
                 {
-                    return Redirect("/home/index/");
+                    return Redirect("/Company/CompanyPanel/Panel");
                 }
                 else
                 {

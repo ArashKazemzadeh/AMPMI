@@ -54,7 +54,10 @@ namespace WebSite.EndPoint.Controllers
 
             if (result.IsSuccess)
             {
-                return Redirect("/home/index/");
+                if(await _companyService.IsAdmin(result.UserId))
+                    return Redirect("/Admin/AdminPanel/Panel");
+                else
+                    return Redirect("/Company/CompanyPanel/Panel");
             }
             else
             {
