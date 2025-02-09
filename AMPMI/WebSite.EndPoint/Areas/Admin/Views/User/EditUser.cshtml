@@ -39,7 +39,7 @@
         </div>
     }
     <div>
-        <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
+        @* <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a> *@
     </div>
     <div class="mt-2">
         <form enctype="multipart/form-data" id="saveForm" asp-area="Admin" asp-action="Save" asp-controller="User" method="post">
@@ -162,6 +162,15 @@
 
                 </div>
  *@            </div>
+            <div>
+                <div class="row mt-2">
+                    <div class="col-md-5 my-2">
+                        <a style="text-align:center; width:100px" href="#" id="save" class="text-black btn-submit btn-block">
+                            <span style="color:white;">ذخیره</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </form>
         @if (Model.Id > 0)
         {

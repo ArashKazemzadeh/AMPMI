@@ -15,11 +15,11 @@
         }
 
         .btnUpload {
-            width: 100%;
+            /* width: 100%; */
         }
 
         .uploadDiv {
-            margin-top: 100px;
+            margin-top: 10px;
         }
 
         .uploadDiv1 {
@@ -38,9 +38,9 @@
     <span class="textPage">بنرتبلیغاتی</span>
 </div>
 <div>
-    <a href="#" onclick="document.getElementById('bannerForm').submit();">
+    @* <a href="#" onclick="document.getElementById('bannerForm').submit();">
         <img class="img-Icon" src="~/images/diskette copy.png" />
-    </a>
+    </a> *@
 </div>
 @if (TempData["Message"] is not null)
 {
@@ -50,113 +50,135 @@
 }
 
 <form id="bannerForm" asp-area="Admin" asp-action="SaveBanners" asp-controller="Banner" method="post" enctype="multipart/form-data">
-    <div class="row uploadDiv">
-        <div class="col-md-3 my-2">
-            <button type="button" class="btn btn-submit btnUpload" onclick="document.getElementById('Banner1').click();">بارگذاری بنر اول</button>
-            <input type="file" id="Banner1" asp-for="Banner1" style="display:none" accept="audio/*,video/*,image/*" onchange="showFileName(this, '1')" />
-        </div>
-        <div class="col-md-2 my-2 @(Model.type1 == 0 || Model.type1 == BannerTypeEnum.Image ? "ShowPic" : "")" id="preview1">
-            @if (Model.type1 == BannerTypeEnum.Video)
-            {
-                <video src="@Model.rout1" muted id="videoPreview1" controls style="width : 100%; height:100%;" width="600">
-                    مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
-                </video>
-            }
-            else if (Model.type1 == 0 || Model.type1 == BannerTypeEnum.Image)
-            {
-                @if(!string.IsNullOrEmpty(Model.rout1))
+    <div class="form-group row my-4">
+        <div class="col-md-6 uploadDiv">
+            <div class="col-sm-4 upBtnProduct">
+                <button type="button" class="btn btn-submit btnUpload" onclick="document.getElementById('Banner1').click();">بارگذاری بنر اول</button>
+                <input type="file" id="Banner1" asp-for="Banner1" style="display:none" accept="audio/*,video/*,image/*" onchange="showFileName(this, '1')" />
+            </div>
+            <div class="col-sm-6 @(Model.type1 == 0 || Model.type1 == BannerTypeEnum.Image ? "ShowPicProduct" : "")" id="preview1" style="display: flex; align-items: center;">
+                @if (Model.type1 == BannerTypeEnum.Video)
                 {
-                    <img class="prevImage" src="@Model.rout1" />
+                    <video src="@Model.rout1" muted id="videoPreview1" controls style="width : 70%; height:100%;" width="600">
+                        مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
+                    </video>
                 }
-            }
-        </div>
-        <div class="col-md-2 my-2">
-            @if (string.IsNullOrEmpty(Model.rout1))
-            {
-                <a onclick="RemoveFile(this)">
-                    <img class="img-Icon" src="~/images/recycle.png" />
-                </a>
-            }
-            else
-            {
-                <a href="@Url.Action("Delete","Banner",new{bannerId=1})" onclick="RemoveFile(this)">
-                    <img class="img-Icon" src="~/images/recycle.png" />
-                </a>
-            }
+                else if (Model.type1 == 0 || Model.type1 == BannerTypeEnum.Image)
+                {
+                    @if (!string.IsNullOrEmpty(Model.rout1))
+                    {
+                        <img class="prevImage" src="@Model.rout1" />
+                    }
+                }
+            </div>
+            <div class="col-sm-2 upBtnProduct" style="margin-left: 10px;">
+                @if (string.IsNullOrEmpty(Model.rout1))
+                {
+                    <a onclick="RemoveFile(this)">
+                        <img class="img-Icon" src="~/images/recycle.png" />
+                    </a>
+                }
+                else
+                {
+                    <a href="@Url.Action("Delete","Banner",new{bannerId=1})" onclick="RemoveFile(this)">
+                        <img class="img-Icon" src="~/images/recycle.png" />
+                    </a>
+                }
+            </div>
+            @* <div class="col-md-2 my-2">
 
+
+        </div> *@
+        </div>
+    </div>
+    <div class="form-group row my-4">
+        <div class="col-md-6 uploadDiv">
+            <div class="col-sm-4 upBtnProduct">
+                <button type="button" class="btn btn-submit btnUpload" onclick="document.getElementById('Banner2').click();">بارگذاری بنر دوم</button>
+                <input type="file" id="Banner2" asp-for="Banner2" style="display:none" accept="audio/*,video/*,image/*" onchange="showFileName(this, '2')" />
+            </div>
+            <div class="col-sm-6 @( Model.type2 == 0 || Model.type2 == BannerTypeEnum.Image ? "ShowPicProduct" : "")" id="preview2" style="display: flex; align-items: center;">
+                @if (Model.type2 == BannerTypeEnum.Video)
+                {
+                    <video src="@Model.rout2" muted id="videoPreview2" controls style="width : 70%; height:100%;" width="600">
+                        مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
+                    </video>
+                }
+                else if (Model.type2 == BannerTypeEnum.Image)
+                {
+                    @if (!string.IsNullOrEmpty(Model.rout2))
+                    {
+                        <img class="prevImage" src="@Model.rout2" />
+                    }
+                }
+            </div>
+            <div class="col-sm-2 upBtnProduct" style="margin-left: 10px;">
+                @if (string.IsNullOrEmpty(Model.rout2))
+                {
+                    <a onclick="RemoveFile(this)">
+                        <img class="img-Icon" src="~/images/recycle.png" />
+                    </a>
+                }
+                else
+                {
+                    <a href="@Url.Action("Delete","Banner",new{bannerId=2})" onclick="RemoveFile(this)">
+                        <img class="img-Icon" src="~/images/recycle.png" />
+                    </a>
+                }
+            </div>
+            @* <div class="col-md-2 my-2">
+
+            </div> *@
         </div>
     </div>
 
-    <div class="row uploadDiv">
-        <div class="col-md-3 my-2">
-            <button type="button" class="btn btn-submit btnUpload" onclick="document.getElementById('Banner2').click();">بارگذاری بنر دوم</button>
-            <input type="file" id="Banner2" asp-for="Banner2" style="display:none" accept="audio/*,video/*,image/*" onchange="showFileName(this, '2')" />
-        </div>
-        <div class="col-md-2 my-2 @( Model.type2 == 0 || Model.type2 == BannerTypeEnum.Image ? "ShowPic" : "")" id="preview2">
-            @if (Model.type2 == BannerTypeEnum.Video)
-            {
-                <video src="@Model.rout2" muted id="videoPreview2" controls style="width : 100%; height:100%;" width="600">
-                    مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
-                </video>
-            }
-            else if (Model.type2 == BannerTypeEnum.Image)
-            {
-                @if (!string.IsNullOrEmpty(Model.rout2))
+    <div class="form-group row my-4">
+        <div class="col-md-6 uploadDiv">
+            <div class="col-sm-4 upBtnProduct">
+                <button type="button" class="btn btn-submit btnUpload" onclick="document.getElementById('Banner3').click();">بارگذاری بنر سوم</button>
+                <input type="file" id="Banner3" asp-for="Banner3" style="display:none" accept="audio/*,video/*,image/*" onchange="showFileName(this, '3')" />
+            </div>
+            <div class="col-sm-6 @(Model.type3 == 0 || Model.type3 == BannerTypeEnum.Image ? "ShowPicProduct" : "")" id="preview3" style="display: flex; align-items: center;">
+                @if (Model.type3 == BannerTypeEnum.Video)
                 {
-                    <img class="prevImage" src="@Model.rout2" />
-                }          
-            }
+                    <video src="@Model.rout3" muted id="videoPreview3" controls style="width : 70%; height:100%;" width="600">
+                        مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
+                    </video>
+                }
+                else if (Model.type3 == BannerTypeEnum.Image)
+                {
+                    @if (!string.IsNullOrEmpty(Model.rout3))
+                    {
+                        <img class="prevImage" src="@Model.rout3" />
+                    }
+                }
+            </div>
+            <div class="col-sm-2 upBtnProduct" style="margin-left: 10px;">
+                @if (string.IsNullOrEmpty(Model.rout3))
+                {
+                    <a onclick="RemoveFile(this)">
+                        <img class="img-Icon" src="~/images/recycle.png" />
+                    </a>
+                }
+                else
+                {
+                    <a href="@Url.Action("Delete","Banner",new{bannerId=3})" onclick="RemoveFile(this)">
+                        <img class="img-Icon" src="~/images/recycle.png" />
+                    </a>
+                }
+            </div>
+            @* <div class="col-md-2 my-2">
 
-        </div>
-        <div class="col-md-2 my-2">
-            @if (string.IsNullOrEmpty(Model.rout2))
-            {
-                <a onclick="RemoveFile(this)">
-                    <img class="img-Icon" src="~/images/recycle.png" />
-                </a>
-            }
-            else
-            {
-                <a href="@Url.Action("Delete","Banner",new{bannerId=2})" onclick="RemoveFile(this)">
-                    <img class="img-Icon" src="~/images/recycle.png" />
-                </a>
-            }
+        </div> *@
         </div>
     </div>
-
-    <div class="row uploadDiv">
-        <div class="col-md-3 my-2">
-            <button type="button" class="btn btn-submit btnUpload" onclick="document.getElementById('Banner3').click();">بارگذاری بنر سوم</button>
-            <input type="file" id="Banner3" asp-for="Banner3" style="display:none" accept="audio/*,video/*,image/*" onchange="showFileName(this, '3')" />
-        </div>
-        <div class="col-md-2 my-2 @(Model.type3 == 0 || Model.type3 == BannerTypeEnum.Image ? "ShowPic" : "")" id="preview3">
-            @if (Model.type3 == BannerTypeEnum.Video)
-            {
-                <video src="@Model.rout3" muted id="videoPreview3" controls style="width : 100%; height:100%;" width="600">
-                    مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
-                </video>
-            }
-            else if (Model.type3 == BannerTypeEnum.Image)
-            {
-                @if (!string.IsNullOrEmpty(Model.rout3))
-                {
-                    <img class="prevImage" src="@Model.rout3" />
-                }                 
-            }
-        </div>
-        <div class="col-md-2 my-2">
-            @if (string.IsNullOrEmpty(Model.rout3))
-            {
-                <a onclick="RemoveFile(this)">
-                    <img class="img-Icon" src="~/images/recycle.png" />
+    <div>
+        <div class="row mt-2">
+            <div class="col-md-5 my-2" style="display: ruby;">
+                <a style="text-align:center; width:100px" href="#" onclick="document.getElementById('bannerForm').submit();" class="text-black btn-submit btn-block">
+                    <span style="color:white;">ذخیره</span>
                 </a>
-            }
-            else
-            {
-                <a href="@Url.Action("Delete","Banner",new{bannerId=3})" onclick="RemoveFile(this)">
-                    <img class="img-Icon" src="~/images/recycle.png" />
-                </a>
-            }
+            </div>
         </div>
     </div>
 </form>

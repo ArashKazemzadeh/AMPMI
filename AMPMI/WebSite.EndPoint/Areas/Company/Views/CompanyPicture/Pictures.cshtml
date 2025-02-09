@@ -23,9 +23,12 @@
         </div>
     }
     <div>
-        <a href="#" id="new"> <img class="img-Icon" src="~/images/addition copy.png" /> </a>
+        <a style="text-align:center; width:150px; margin:10px;" href="#" id="new" class="text-black btn-submit btn-block">
+            <span style="color:white;">افزودن تصویر جدید</span>
+        </a>
+        @* <a href="#" id="new"> <img class="img-Icon" src="~/images/addition copy.png" /> </a>
         <a hidden href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
-        <a hidden href="#" id="cancle"><img class="img-Icon" src="~/images/cancel.png" /></a>
+        <a hidden href="#" id="cancle"><img class="img-Icon" src="~/images/cancel.png" /></a> *@
     </div>
     <div hidden id="newForm" style="margin-top:20px;">
         <form id="saveForm" method="post" asp-area="Company" asp-controller="CompanyPicture" asp-action="NewPicture" enctype="multipart/form-data">
@@ -37,6 +40,18 @@
                 <div id="preview" class="col-sm-2 ShowPicProduct"></div>
                 <div class="col-sm-8">
                     <sapn>حداکثر حجم مجاز جهت بارگذاری فایل 200 کیلو بایت است.</sapn>
+                </div>
+            </div>
+            <div>
+                <div class="row mt-2">
+                    <div class="col-md-5 my-2" style="display: ruby;">
+                        <a style="text-align:center; width:100px" href="#" id="save" class="text-black btn-submit btn-block">
+                            <span style="color:white;">ذخیره</span>
+                        </a>
+                        <a style="text-align:center; width:100px" href="#" id="cancle" class="text-black btn-submit btn-block">
+                            <span style="color:white;">انصراف</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </form>

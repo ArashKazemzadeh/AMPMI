@@ -28,8 +28,8 @@
         </div>
     }
     <div class="row">
-        <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
-        <a href="@Url.Action("CategoryList","Category")" id="cancle"><img class="img-Icon" src="~/images/cancel.png" /></a>
+        @* <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
+        <a href="@Url.Action("CategoryList","Category")" id="cancle"><img class="img-Icon" src="~/images/cancel.png" /></a> *@
     </div>
     <form id="saveForm" asp-area="Admin" asp-controller="Category" asp-action="Save" enctype="multipart/form-data" method="post">
         <input type="hidden" asp-for="Id" />
@@ -46,19 +46,31 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-3 col-form-label input-Label">انتخاب تصویر:</label>
-                    <div class="col-sm-4 upBtn">
+                    @* <label class="col-sm-3 col-form-label input-Label">انتخاب تصویر:</label> *@
+                    <div class="col-sm-4 upBtnProduct">
                         <button type="button" class="btn-submit btnUpload" onclick="getfile()">بارگذاری تصویر</button>
                         <input asp-for="Picture" id="getFile" style="display:none" class="form-control-file" type="file" accept="image/*">
                     </div>
                     <span class="text-danger" asp-validation-for=Picture></span>
-                    <div id="preview" class="col-sm-2 ShowPic">
+                    <div id="preview" class="col-sm-2 ShowPicProduct">
                         @if (!string.IsNullOrEmpty(Model.PreviousPictureRout))
                         {
                             <img class="prevImage" src="@Model.PreviousPictureRout" />
                         }
                     </div>
                     <input id="isPictureChanged" type="hidden" asp-for="IsPictureChanged" />
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="row mt-2">
+                <div class="col-md-5 my-2" style="display: ruby;">
+                    <a style="text-align:center; width:100px" href="#" id="save" class="text-black btn-submit btn-block">
+                        <span style="color:white;">ذخیره</span>
+                    </a>
+                    <a style="text-align:center; width:100px" href="@Url.Action("CategoryList","Category")" id="cancle" class="text-black btn-submit btn-block">
+                        <span style="color:white;">انصراف</span>
+                    </a>
                 </div>
             </div>
         </div>

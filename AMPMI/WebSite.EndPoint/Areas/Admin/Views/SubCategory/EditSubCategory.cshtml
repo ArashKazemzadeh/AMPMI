@@ -13,12 +13,14 @@
     </style>
 }
 <div class="container-fluid">
-    <span class="textPage">
-        <a asp-area="Admin" asp-controller="SubCategory" asp-action="SubCategoryList">
-            لیست گروه فرعی
-        </a>
-        > تعریف/ویرایش گروه فرعی
-    </span>
+    <div class="pageName">
+        <span class="textPage">
+            <a asp-area="Admin" asp-controller="SubCategory" asp-action="SubCategoryList">
+                لیست گروه فرعی
+            </a>
+            > تعریف/ویرایش گروه فرعی
+        </span>
+    </div>
     @if (ViewData["error"] is not null)
     {
         <div class="row">
@@ -26,8 +28,8 @@
         </div>
     }
     <div class="row">
-        <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
-        <a href="@Url.Action("SubCategoryList","SubCategory")" id="cancle"><img class="img-Icon" src="~/images/cancel.png" /></a>
+        @* <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
+        <a href="@Url.Action("SubCategoryList","SubCategory")" id="cancle"><img class="img-Icon" src="~/images/cancel.png" /></a> *@
     </div>
     <form id="saveForm" asp-area="Admin" asp-controller="SubCategory" asp-action="Save" enctype="multipart/form-data" method="post">
         <div class="row">
@@ -63,6 +65,18 @@
                     </div>
                 </div>
                 <input type="hidden" asp-for="Id"/>
+            </div>
+        </div>
+        <div>
+            <div class="row mt-2">
+                <div class="col-md-5 my-2" style="display: ruby;">
+                    <a style="text-align:center; width:100px" href="#" id="save" class="text-black btn-submit btn-block">
+                        <span style="color:white;">ذخیره</span>
+                    </a>
+                    <a style="text-align:center; width:100px" href="@Url.Action("SubCategoryList","SubCategory")" id="cancle" class="text-black btn-submit btn-block">
+                        <span style="color:white;">انصراف</span>
+                    </a>
+                </div>
             </div>
         </div>
     </form>

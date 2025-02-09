@@ -14,12 +14,12 @@
         </div>
     }
     <div>
-        <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
+        @* <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a> *@
     </div>
     <div  id="newForm" style="margin-top:20px;">
         <form id="saveForm" asp-area="Company" asp-controller="CompanyProfile" asp-action="EditTeaser" enctype="multipart/form-data" method="post">
             <div class="form-group row">
-                <div class="col-sm-2 upBtn">
+                <div class="col-sm-2 upBtnProduct">
                     <button type="button" class="btn-submit btnUpload" onclick="getfile()">بارگذاری تیزر</button>
                     <input id="GetFile" style="display:none" name="teaser" type="file" accept="video/*" />
                 </div>
@@ -38,6 +38,15 @@
                     }
                     <sapn>حداکثر حجم مجاز جهت بارگذاری فایل 20 مگابایت است.</sapn><br/>
                     <sapn>توجــــــه: فقط 5 ثانیه اول ویدیو در این بخش قابل مشاهده است.</sapn>
+                </div>
+            </div>
+            <div>
+                <div class="row mt-2">
+                    <div class="col-md-5 my-2" style="display: ruby;">
+                        <a style="text-align:center; width:100px" href="#" id="save" class="text-black btn-submit btn-block">
+                            <span style="color:white;">ذخیره</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </form>

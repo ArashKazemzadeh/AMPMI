@@ -17,9 +17,12 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <a id="new" href="#"> <img class="img-Icon" src="~/images/addition copy.png" /></a>
-            <a hidden id="save" href="#"> <img class="img-Icon" src="~/images/diskette copy.png" /></a>
-            <a hidden id="cancle" href="#"><img class="img-Icon" src="~/images/cancel.png" /></a>
+            <a style="text-align:center; width:160px; margin:10px;" href="#" id="new" class="text-black btn-submit btn-block">
+                <span style="color:white;">افزودن اعلان جدید</span>
+            </a>
+            @* <a id="new" href="#"> <img class="img-Icon" src="~/images/addition copy.png" /></a> *@
+            @* <a hidden id="save" href="#"> <img class="img-Icon" src="~/images/diskette copy.png" /></a>
+            <a hidden id="cancle" href="#"><img class="img-Icon" src="~/images/cancel.png" /></a> *@
             <!-- Form to create a new notification -->
             <form id="newForm" asp-area="Admin" asp-controller="Notification" asp-action="Create" method="post" hidden>
                 <div class="form-group">
@@ -31,6 +34,18 @@
                     <label for="Description" class="input-Label">متن اعلان:</label>
                     <textarea id="Description" name="description" class="input-text" rows="5" placeholder="متن متن را وارد کنید"></textarea>
 
+                </div>
+                <div>
+                    <div class="row mt-2">
+                        <div class="col-md-5 my-2" style="display: ruby;">
+                            <a style="text-align:center; width:100px" href="#" id="save" class="text-black btn-submit btn-block">
+                                <span style="color:white;">ذخیره</span>
+                            </a>
+                            <a style="text-align:center; width:100px" href="#" id="cancle" class="text-black btn-submit btn-block">
+                                <span style="color:white;">انصراف</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
