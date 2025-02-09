@@ -49,12 +49,16 @@
                         </form>
                     </div>
                     <div class="account-box-content">
-                        <div class="parent-btn">
-                            <a class="dk-btn dk-btn-info" href="@Url.Action("MobileInput","Login")">
-                                ورود با کد یکبار مصرف
-                                <i class="fa fa-sign-in"></i>
-                            </a>
-                        </div>
+                        <form action="/Login/MobileInput" method="post">
+                            <div class="form-account-row form-account-submit">
+                                <div class="parent-btn">
+                                    <button class="dk-btn dk-btn-info">
+                                        ورود با کد یکبار مصرف
+                                        <i class="fa fa-sign-in"></i>
+                                    </button>
+                                </div>
+                            </div>                       
+                        </form>
                     </div>
                     <div class="account-box-footer">
                         <span>کاربر جدید هستید؟</span>

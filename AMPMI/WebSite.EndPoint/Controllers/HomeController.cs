@@ -101,20 +101,13 @@ namespace WebSite.EndPoint.Controllers
         }
 
 
-        public Task<IActionResult> Privacy()
-        {
-            return Task.FromResult<IActionResult>(View());
-        }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public Task<IActionResult> Error()
         {
-            var statusCode = HttpContext.Response.StatusCode;
-
             var errorViewModel = new ErrorViewModel
             {
                 RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
-                StatusCode = statusCode
+                StatusCode = 404
             };
 
             return Task.FromResult<IActionResult>(View(errorViewModel));
