@@ -86,7 +86,7 @@
 </section>
 <!-- Service Section End -->
 <!-- Banner Section Start -->
-@if (Model.Banners.Count > 0) 
+@if (Model.Banners != null && Model.Banners.Count > 0 && Model.Banners.Any(m=>!string.IsNullOrEmpty(m.Rout))) 
 {
     <section class="padding-bottom-50" id="features">
         <div class="container">
@@ -139,83 +139,89 @@
 }
 <!-- Banner Section End -->
 <!-- Service Section Start -->
-<section class="padding-bottom-50" id="service2">
-    <div class="container text-center">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="section-title">
-                    <h4 class="section-title-divider primary-divider">قطعه سازان</h4>
+@if(Model.Companies != null && Model.Companies.Count > 0){
+    <section class="padding-bottom-50" id="service2">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="section-title">
+                        <h4 class="section-title-divider primary-divider">قطعه سازان</h4>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div style="direction : ltr;" class="owl-carousel">
-            @foreach (var item in Model.Companies)
-            {
-                @if (!string.IsNullOrEmpty(item.Logo))
+            <div style="direction : ltr;" class="owl-carousel">
+                @foreach (var item in Model.Companies)
                 {
-                    <div class="service-box-col">
-                        <figure>
-                            <div class="service-image category-Pic">
-                                <a href="@Url.Action("CompanyDetail","Company",new {companyId=item.Id})">
-                                    <img class="img-fluid category-Pic" src="@item.Logo" />
-                                </a>
-                            </div>
-                            <h6 class="service-title title-bordered">@item.Name</h6>
-                        </figure>
-                    </div>
+                    @if (!string.IsNullOrEmpty(item.Logo))
+                    {
+                        <div class="service-box-col">
+                            <figure>
+                                <div class="service-image category-Pic">
+                                    <a href="@Url.Action("CompanyDetail","Company",new {companyId=item.Id})">
+                                        <img class="img-fluid category-Pic" src="@item.Logo" />
+                                    </a>
+                                </div>
+                                <h6 class="service-title title-bordered">@item.Name</h6>
+                            </figure>
+                        </div>
+                    }
                 }
-            }
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+
+}
 
 <!-- Service Section End -->
 <!-- Blog Section Start -->
-<section class="padding-bottom-50" id="blog">
-    <div class="container">
-        <div class="row text-center">
-            <div class="col-12">
-                <div class="section-title">
-                    <h4 class="section-title-divider primary-divider">آخرین مطالب</h4>
-                    <!-- SECTION TITLE -->
-@*                     <p>
+@if(Model.Blogs != null && Model.Blogs.Count > 0){
+    <section class="padding-bottom-50" id="blog">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-12">
+                    <div class="section-title">
+                        <h4 class="section-title-divider primary-divider">آخرین مطالب</h4>
+                        <!-- SECTION TITLE -->
+                        @*                     <p>
                         لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است
                     </p> *@
-                </div>
-            </div>
-        </div>
-        <div class="row mb-0">
-            @foreach (var item in Model.Blogs)
-            {
-                <div class="col-md-4">
-                    <div class="blog-wrap">
-                        @if (!string.IsNullOrEmpty(item.HeaderPictureFileName))
-                        {
-                            <div class="blog-image">
-                                <img alt="" src="@item.HeaderPictureFileName" class="img-fluid" style="width:100%"/>
-                            </div>
-                        }
-                        <div class="blog-data">
-                            <div class="blog-meta">
-                                <ul class="list-inline">
-                                    <li>@string.Format("{0}/{1}/{2}",item.CreateUpdateAt.Value.Year,item.CreateUpdateAt.Value.Month,item.CreateUpdateAt.Value.Day)</li>
-                                </ul>
-                            </div>
-                            <div class="blog-title">
-                                <h3>@item.Subject</h3>
-                            </div>
-                            <div class="blog-content">
-                                @item.Description
-                            </div>
-                            <a class="btn btn-outline-secondary btn-xl mt-3" href="@Url.Action("ShowBlog","Blog",new{id=item.Id})">بیشتر بخوانید</a>
-                        </div>
                     </div>
                 </div>
+            </div>
+            <div class="row mb-0">
+                @foreach (var item in Model.Blogs)
+                {
+                    <div class="col-md-4">
+                        <div class="blog-wrap">
+                            @if (!string.IsNullOrEmpty(item.HeaderPictureFileName))
+                            {
+                                <div class="blog-image">
+                                    <img alt="" src="@item.HeaderPictureFileName" class="img-fluid" style="width:100%" />
+                                </div>
+                            }
+                            <div class="blog-data">
+                                <div class="blog-meta">
+                                    <ul class="list-inline">
+                                        <li>@string.Format("{0}/{1}/{2}", item.CreateUpdateAt.Value.Year, item.CreateUpdateAt.Value.Month, item.CreateUpdateAt.Value.Day)</li>
+                                    </ul>
+                                </div>
+                                <div class="blog-title">
+                                    <h3>@item.Subject</h3>
+                                </div>
+                                <div class="blog-content">
+                                    @item.Description
+                                </div>
+                                <a class="btn btn-outline-secondary btn-xl mt-3" href="@Url.Action("ShowBlog","Blog",new{id=item.Id})">بیشتر بخوانید</a>
+                            </div>
+                        </div>
+                    </div>
 
-            }
+                }
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+
+}
 <!-- Blog Section End -->
 @section Scripts
 {
