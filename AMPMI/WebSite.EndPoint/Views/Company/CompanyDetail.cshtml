@@ -7,7 +7,7 @@
     .card {
         background-color: white;
         border-radius: 10px;
-        margin: 10px;
+        margin-top: 10px;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
 
@@ -130,18 +130,22 @@
                 </div>
             </div>
         </div>
-        <div class="card">
-            <div class="row mt-2">
-                <div class="col-md-2 my-2 " style="text-align:center">
-                    <p style="color:#003C61">درباره شرکت:</p>
-                </div>
-                <div class="col-md-9 my-2">
-                    <p class="aboutCompany">
-                        @Model.About
-                    </p>
+        @if(!string.IsNullOrEmpty(Model.About))
+        {
+            <div class="card">
+                <div class="row mt-2">
+                    <div class="col-md-2 my-2 " style="text-align:center">
+                        <p style="color:#003C61">درباره شرکت:</p>
+                    </div>
+                    <div class="col-md-9 my-2">
+                        <p class="aboutCompany">
+                            @Model.About
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
+
+        }
         <div class="row">
             @if (Model.CompanyPictures != null && Model.CompanyPictures.Count>0){
                 <div class="col-md-6 my-2">

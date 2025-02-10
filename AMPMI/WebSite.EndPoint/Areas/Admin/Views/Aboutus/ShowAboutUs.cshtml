@@ -18,10 +18,19 @@
     <form id="saveForm" method="post" action="@Url.Action("SaveAboutUs", "AboutUs")">
         @Html.AntiForgeryToken()
         <div class="row">
-            <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
+            @* <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a> *@
         </div>
-        <div class="row">
+        <div class="row" style="margin-top:10px;">
             <textarea id="editAboutUs" name="content" style="display: none;">@Html.Raw(ViewBag.AboutUsContent)</textarea>
+        </div>
+        <div>
+            <div class="row mt-2" style="margin-top:10px;">
+                <div class="col-md-5 my-2" style="display: ruby;">
+                    <a style="text-align:center; width:100px" href="#" id="save" class="text-black btn-submit btn-block">
+                        <span style="color:white;">ذخیره</span>
+                    </a>
+                </div>
+            </div>
         </div>
     </form>
 </div>
