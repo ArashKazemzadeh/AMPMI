@@ -63,11 +63,13 @@
 
     .productDetailLoc {
         text-align:center;
-        bottom: 2px;
+        bottom: 0px;
+        z-index: 3;
         position: absolute;
         left: 50%;
         transform: translate(-50%, -50%);
         margin: 0 auto;
+        width: 100%;
     }
 
     .productCard1 {
@@ -97,6 +99,7 @@
     .hasImg {
         background-color: #FFFFFF;
     }
+
 </style>
 <div class="body-default container">
     <!-- Company Section -->
@@ -223,7 +226,8 @@
                 {
                     <div class="col-md-3 my-2">
                         <div class="card productCard">
-                            <a href="@Url.Action("ProductDetail","Product",new{productId=item.Id})" class="productDetailLoc"><span class="productDetail">اطلاعات محصول</span></a>
+                            <a href="@Url.Action("ProductDetail","Product",new{productId=item.Id})"
+                               class="productDetailLoc"><span class="productDetail">اطلاعات محصول</span></a>
                             <div class="productCard1">
                                 <a class="productDetailLoc"><span class="productName">@item.Name</span></a>
                                 <div class="productCard2 @(!string.IsNullOrEmpty(item.PictureFileName) ? "hasImg":"")">
