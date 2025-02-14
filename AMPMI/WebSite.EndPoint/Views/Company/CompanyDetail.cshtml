@@ -62,7 +62,7 @@
     }
 
     .productDetailLoc {
-        text-align:center;
+        text-align: center;
         bottom: 0px;
         z-index: 3;
         position: absolute;
@@ -111,7 +111,14 @@
             <div class="card" style="width:100%">
                 <div class="row mt-2">
                     <div class="col-md-3 my-2" style="text-align:center">
-                        <img src="@Model.LogoRout" class="img-fluid companyLogo">
+                        @if (!string.IsNullOrEmpty(Model.LogoRout))
+                        {
+                            <img src="@Model.LogoRout" class="img-fluid companyLogo">
+                        }
+                        else
+                        {
+                            <div class="companyLogo"></div>
+                        }
                         <p>@Model.Name</p>
                     </div>
                     <div class="col-md-8 my-2">
@@ -133,7 +140,7 @@
                 </div>
             </div>
         </div>
-        @if(!string.IsNullOrEmpty(Model.About))
+        @if (!string.IsNullOrEmpty(Model.About))
         {
             <div class="card">
                 <div class="row mt-2">
@@ -150,7 +157,8 @@
 
         }
         <div class="row">
-            @if (Model.CompanyPictures != null && Model.CompanyPictures.Count>0){
+            @if (Model.CompanyPictures != null && Model.CompanyPictures.Count > 0)
+            {
                 <div class="col-md-6 my-2">
                     <div class="card" style="height:300px;">
                         <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
@@ -185,7 +193,8 @@
                 </div>
 
             }
-            @if(!string.IsNullOrEmpty(Model.TeaserGuid)){
+            @if (!string.IsNullOrEmpty(Model.TeaserGuid))
+            {
                 <div class="col-md-6 my-2">
                     <div class="card" style="height:300px;">
                         <video muted src="@Model.TeaserGuid" controls>
