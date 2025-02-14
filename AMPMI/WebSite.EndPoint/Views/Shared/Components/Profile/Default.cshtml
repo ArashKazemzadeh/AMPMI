@@ -3,7 +3,7 @@
 @if(Model.IsLogin)
 {
     <div class="align-items-center dropdown">
-        <a href="#" title="حساب کاربری @Model.UserName" class="text-white">
+        <a href="@Url.Action("Panel","CompanyPanel",new {area ="Company"})" title="حساب کاربری @Model.UserName" class="text-white">
             @* <i class="fa fa-user" aria-hidden="true"></i> *@
             <img class="img-Icon" src="~/images/user (1).png" />
             @* <span class="p-2">@(!string.IsNullOrEmpty(Model.UserName)?Model.UserName:"")</span> *@
