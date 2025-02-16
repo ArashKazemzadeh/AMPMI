@@ -19,7 +19,7 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         }
         public IActionResult Panel()
         {
-            return View();
+            return Redirect("/Admin/User/UserList");
         }
         public Task<IActionResult> ChangePassword()
         {
