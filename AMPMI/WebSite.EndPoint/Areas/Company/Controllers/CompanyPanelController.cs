@@ -9,7 +9,7 @@ namespace WebSite.EndPoint.Areas.Company.Controllers
     {
         public IActionResult Panel()
         {
-            return View();
+            return Redirect("/Company/CompanyProfile/EditCompanyProfile");
         }
     }
 }
