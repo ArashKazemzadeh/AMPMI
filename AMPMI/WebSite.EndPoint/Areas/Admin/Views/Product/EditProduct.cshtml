@@ -1,7 +1,7 @@
 ﻿@model WebSite.EndPoint.Areas.Admin.Models.Product.ProductVM
 @{
     Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
-    ViewData["SelectedAdmin"] = "Product";
+    ViewData["SelectedAdmin"] = (ViewData["CompanyId"] is not null && (long)ViewData["CompanyId"] > 0) ? "User" : "Product";
 }
 @section CSS
 {
@@ -180,7 +180,17 @@
                                 <tr>
                                     <td class="td-Icon">@(rowNum++)</td>
                                     <td><img class="img img-fluid" src="@item.Rout" style="width:30px;height:30px;" /></td>
-                                    <td class="td-Icon"><a href="@Url.Action("DeletePicture","Product",new{pictureId=item.Id,productId=item.ProductId})"><img class="img-Icon" src="~/images/recycle.png" /></a></td>
+
+                                    <td class="td-Icon">
+                                        @if (ViewData["CompanyId"] is not null && (long)ViewData["CompanyId"] > 0)
+                                        {
+                                            <a href="@Url.Action("DeletePicture","Product",new{pictureId=item.Id,productId=item.ProductId,companyId = (long)ViewData["CompanyId"]})"><img class="img-Icon" src="~/images/recycle.png" /></a>
+                                        }
+                                        else
+                                        {
+                                            <a href="@Url.Action("DeletePicture","Product",new{pictureId=item.Id,productId=item.ProductId})"><img class="img-Icon" src="~/images/recycle.png" /></a>
+                                        }
+                                    </td>
                                 </tr>
                             }
                         }

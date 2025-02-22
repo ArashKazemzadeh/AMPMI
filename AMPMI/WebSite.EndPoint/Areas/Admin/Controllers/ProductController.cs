@@ -223,6 +223,13 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         public async Task<IActionResult> EditProduct(ProductVM productVM,long companyId = 0)
         {
             productVM.Categories = GetCategory();
+            if(companyId > 0)
+            {
+                ViewData["CompanyId"] = companyId;
+                var company = await _companyService.ReadByIdAsync(companyId);
+                if (company != null)
+                    ViewData["CompanyName"] = company.Name;
+            }
             var existProduct = await _productService.ReadById(productVM.Id);
             if ((existProduct.ProductPictures == null || existProduct.ProductPictures.Count < 1) &&
                 (productVM.PictureFileName == null || productVM.PictureFileName.Count < 1))
@@ -361,13 +368,13 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
             else
                 return RedirectToAction(nameof(ProductList));
         }
-        public async Task<IActionResult> DeletePicture(long pictureId, long productId)
+        public async Task<IActionResult> DeletePicture(long pictureId, long productId, long companyId = 0)
         {
             var result = await _productService.DeleteProductPicture(pictureId);
             if (result != ResultOutPutMethodEnum.savechanged)
                 TempData["error"] = "خطا در هنگام حذف تصویر محصول";
 
-            return RedirectToAction(nameof(EditProduct), new { id = productId });
+            return RedirectToAction(nameof(EditProduct), new { id = productId, companyId });
         }
     }
 }
