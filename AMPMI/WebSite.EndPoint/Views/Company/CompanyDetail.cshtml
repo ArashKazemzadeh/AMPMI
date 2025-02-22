@@ -83,6 +83,7 @@
 
     .productName {
         color: #000000;
+        font-size: 12px;
     }
 
     .productCard2 {
@@ -233,7 +234,7 @@
             {
                 @foreach (var item in Model.Products)
                 {
-                    <div class="col-md-3 my-2">
+                    <div class="col-md-4 my-2">
                         <div class="card productCard">
                             <a href="@Url.Action("ProductDetail","Product",new{productId=item.Id})"
                                class="productDetailLoc"><span class="productDetail">اطلاعات محصول</span></a>
