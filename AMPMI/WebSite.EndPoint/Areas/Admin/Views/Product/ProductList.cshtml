@@ -1,7 +1,7 @@
 ﻿@model List<WebSite.EndPoint.Areas.Admin.Models.Product.ListProductVM>
 @{
     Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
-    ViewData["SelectedAdmin"] = "Product";
+    ViewData["SelectedAdmin"] = (ViewData["CompanyId"] is not null && (long)ViewData["CompanyId"] > 0) ? "User" : "Product";
 }
 <div class="container-fluid">
     <div class="pageName">
