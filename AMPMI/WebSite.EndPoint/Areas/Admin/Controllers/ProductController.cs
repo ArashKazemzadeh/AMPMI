@@ -129,6 +129,13 @@ namespace WebSite.EndPoint.Areas.Admin.Controllers
         public async Task<IActionResult> NewProduct(ProductVM productVM, long companyId = 0)
         {
             productVM.Categories = GetCategory();
+            if (companyId > 0)
+            {
+                ViewData["CompanyId"] = companyId;
+                var company = await _companyService.ReadByIdAsync(companyId);
+                if (company != null)
+                    ViewData["CompanyName"] = company.Name;
+            }
             if (productVM.PictureFileName == null || productVM.PictureFileName.Count < 1)
             {
                 ViewData["error"] = "وجود حداقل یک تصویر برای محصول اجباری است";
