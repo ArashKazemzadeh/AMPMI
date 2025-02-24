@@ -14,14 +14,14 @@
     </div>
     @if (ViewData["msg"] is not null)
     {
-        <div class="row">
+        <div class="row pageMargin">
             <p style="color:red;">@ViewData["msg"].ToString()</p>
         </div>
     }
     <div>
         @* <a id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a> *@
     </div>
-    <div id="newForm" style="margin-top:20px;">
+    <div id="newForm" class="pageMargin">
         <form id="saveForm" asp-area="Admin" asp-controller="User" asp-action="CompanyTeaser" enctype="multipart/form-data" method="post">
             <input hidden asp-for="@Model.CompanyId" />
             <div class="form-group row">

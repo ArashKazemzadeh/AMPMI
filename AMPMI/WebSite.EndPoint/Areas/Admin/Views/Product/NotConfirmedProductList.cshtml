@@ -18,11 +18,11 @@
     </div>
     @if (TempData["error"] is not null)
     {
-        <div class="row">
+        <div class="row pageMargin">
             <p style="color:red;">@TempData["error"].ToString()</p>
         </div>
     }
-    <div class="row">
+    <div class="row pageMargin">
         <table id="myTable" class="display tbStyle">
             <thead>
                 <tr>

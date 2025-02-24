@@ -17,14 +17,14 @@
     </div>
     @if (ViewData["error"] is not null)
     {
-        <div style="padding:10px">
+        <div class="pageMargin">
             <p style="color:red;">@ViewData["error"]?.ToString()</p>
         </div>
     }
     @* <div>
         <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
     </div> *@
-    <div class="mt-2">
+    <div class="mt-2 pageMargin">
         <form enctype="multipart/form-data" id="saveForm" asp-area="Company" asp-action="EditCompanyProfile" asp-controller="CompanyProfile" method="post">
             <input asp-for="Id" type="hidden" />
             <input type="hidden" asp-for="LogoRout" />

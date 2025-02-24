@@ -44,12 +44,12 @@
 </div>
 @if (TempData["Message"] is not null)
 {
-    <div class="row">
+    <div class="row pageMargin">
         <p style="color:red;">@TempData["Message"].ToString()</p>
     </div>
 }
 
-<form id="bannerForm" asp-area="Admin" asp-action="SaveBanners" asp-controller="Banner" method="post" enctype="multipart/form-data">
+<form class="pageMargin" id="bannerForm" asp-area="Admin" asp-action="SaveBanners" asp-controller="Banner" method="post" enctype="multipart/form-data">
     <div class="form-group row my-4">
         <div class="col-md-6 uploadDiv">
             <div class="col-sm-4 upBtnProduct">

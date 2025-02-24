@@ -18,7 +18,7 @@
     </div>
     @if (TempData["msg"] is not null)
     {
-        <div class="row">
+        <div class="row pageMargin">
             <p style="color:red;">@TempData["msg"].ToString()</p>
         </div>
     }
@@ -30,7 +30,7 @@
         <a hidden href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
         <a hidden href="#" id="cancle"><img class="img-Icon" src="~/images/cancel.png" /></a> *@
     </div>
-    <div hidden id="newForm" style="margin-top:20px;">
+    <div hidden id="newForm" class="pageMargin">
         <form id="saveForm" method="post" asp-area="Company" asp-controller="CompanyPicture" asp-action="NewPicture" enctype="multipart/form-data">
             <div class="form-group row">
                 <div class="col-sm-2 upBtnProduct">

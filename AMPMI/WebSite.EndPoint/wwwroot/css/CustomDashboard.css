@@ -239,4 +239,16 @@ td.td-Icon {
     display: none;
 }
 
+.pageMargin{
+    margin-top: 30px;
+}
+
+.notif {
+    margin-top: 30px;
+    border: 2px solid #D9D9D9;
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+}
+
 

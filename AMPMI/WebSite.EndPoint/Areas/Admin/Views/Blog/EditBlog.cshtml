@@ -24,7 +24,7 @@
     </div>
     @if (ViewData["error"] is not null)
     {
-        <div class="row">
+        <div class="row pageMargin">
             <p style="color:red;">@ViewData["error"].ToString()</p>
         </div>
     }
@@ -32,7 +32,7 @@
        @*  <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
         <a href="@Url.Action("BlogList","Blog")" id="cancle"><img class="img-Icon" src="~/images/cancel.png" /></a> *@
     </div>
-    <form id="saveForm" asp-area="Admin" asp-controller="Blog" asp-action="Save" enctype="multipart/form-data" method="post">
+    <form class="pageMargin" id="saveForm" asp-area="Admin" asp-controller="Blog" asp-action="Save" enctype="multipart/form-data" method="post">
         <div class="row">
             <div class="form-group row" style="text-align:right">
                 <label class="col-sm-2 col-form-label input-Label">عنوان خبر:</label>
