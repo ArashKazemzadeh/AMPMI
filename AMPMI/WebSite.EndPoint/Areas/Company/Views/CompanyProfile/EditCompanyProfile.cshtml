@@ -156,7 +156,7 @@
     <div>
         @if (Model.SendRequest == false)
         {
-            <div class="row mt-2">
+            <div class="row mt-2" style="margin-top:20px;">
                 <div class="col-md-5 my-2">
                     <a style="text-align:center;" href="@Url.Action("SendRequestToAdmin","CompanyProfile",new{area="Company" , id = Model.Id , sendRequest = true})" class="text-black btn-submit btn-block input-text ">
                         <span style="color:white;">ارسال درخواست جهت شناسایی به عنوان تولید کننده</span>
