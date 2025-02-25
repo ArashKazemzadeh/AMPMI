@@ -1,28 +1,5 @@
 ﻿@model WebSite.EndPoint.Models.ProductViewModel.ProductDetailVM
-@section CSS
-{
-    <style>
-        .routing {
-            border-radius: 15px;
-            box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.2);
-        }
-        .logo {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-        }
-        .productPic {
-            width: 70%;
-            height: 300px;
-            justify-content: center;
-            margin-right: 15%;
-        }
-        .productImg {
-            padding-right: 30%;
-            max-height: 290px;
-        }
-    </style>
-}
+
 <div class="body-default container">
     <div class="row mb-4 px-3 py-4 routing">
         <!--نمایش روتینگ بالای محصول-->
@@ -37,7 +14,7 @@
     </div>
     <div class="row py-5 px-4 routing">
         <div class="col-md-7">
-            <div id="ProductCompany" style="display:flex; align-items:center;">
+            <div id="ProductCompany" class="productLogo">
                 <div class="me-4">
                     <a href="@Url.Action("CompanyDetail","Company",new {Model.CompanyId})">
                         <!--CompanyLogo-->
@@ -67,7 +44,7 @@
                             int c = 0;
                             foreach (var item in Model.PictureFileName)
                             {
-                                <div class="carousel-item @(c==0?"active":"")" style="width:80%">
+                                <div class="img-video-width carousel-item @(c==0?"active":"")">
                                     <img src="@item" class="img-fluid d-block w-100 productImg" alt="...">
                                 </div>
                                 c++;
