@@ -5,13 +5,8 @@
 <div class="body-default container">
     <p>وبلاگ</p>
     <h2>@Model.Subject</h2>
-    <div style="margin-bottom:30px;">
-        <img class="img-fluid"
-             style="display: block;
-                    margin-left: auto;
-                    margin-right: auto;
-                    width: 50%;"
-             src="@Model.HeaderPictureFileName" />
+    <div class="blog-div-img">
+        <img class="img-fluid blog-img" style="" src="@Model.HeaderPictureFileName" />
     </div>
     <div class="row">
         @Html.Raw(Model.Description)
@@ -19,8 +14,8 @@
     <div class="row">
         @if (!string.IsNullOrEmpty(Model.VideoFileName)){
             <div class="col-md-6 my-2">
-                <div class="card" style="height:300px;">
-                    <video muted src="@Model.VideoFileName" controls>
+                <div class="card blog-height">
+                    <video class="blog-video" muted src="@Model.VideoFileName" controls>
                     </video>
                 </div>
             </div>
@@ -28,7 +23,7 @@
         @if (Model.BlogPictures != null && Model.BlogPictures.Count > 0)
         {
             <div class="col-md-6 my-2">
-                <div class="card" style="height:300px;">
+                <div class="card blog-height">
                     <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
 
                         <div class="carousel-inner">
@@ -36,11 +31,8 @@
                                 int c = 0;
                                 foreach (var item in Model.BlogPictures)
                                 {
-                                    <div class="carousel-item @(c==0?"active":"")" style="width:80%">
-                                        <img style="aspect-ratio: 16 / 9;height:290px; padding-right:30%;"
-                                             src="@item"
-                                             class=" img-fluid d-block w-100"
-                                             alt="...">
+                                    <div class="img-video-width carousel-item @(c==0?"active":"")">
+                                        <img src="@item" class=" img-fluid d-block w-100 productImg" alt="...">
                                     </div>
                                     c++;
                                 }
