@@ -10,12 +10,12 @@
     </div>
     @if (TempData["Message"] != null)
     {
-        <div class="alert alert-info">
+        <div class="alert alert-info pageMargin">
             @TempData["Message"]
         </div>
     }
 
-    <form id="saveForm" method="post" action="@Url.Action("SaveAboutUs", "AboutUs")">
+    <form class="pageMargin" id="saveForm" method="post" action="@Url.Action("SaveAboutUs", "AboutUs")">
         @Html.AntiForgeryToken()
         <div class="row">
             @* <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a> *@

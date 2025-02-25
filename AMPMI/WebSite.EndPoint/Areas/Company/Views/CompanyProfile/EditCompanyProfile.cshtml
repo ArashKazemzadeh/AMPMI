@@ -17,14 +17,14 @@
     </div>
     @if (ViewData["error"] is not null)
     {
-        <div style="padding:10px">
+        <div class="pageMargin">
             <p style="color:red;">@ViewData["error"]?.ToString()</p>
         </div>
     }
     @* <div>
         <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
     </div> *@
-    <div class="mt-2">
+    <div class="mt-2 pageMargin">
         <form enctype="multipart/form-data" id="saveForm" asp-area="Company" asp-action="EditCompanyProfile" asp-controller="CompanyProfile" method="post">
             <input asp-for="Id" type="hidden" />
             <input type="hidden" asp-for="LogoRout" />
@@ -156,7 +156,7 @@
     <div>
         @if (Model.SendRequest == false)
         {
-            <div class="row mt-2">
+            <div class="row mt-2" style="margin-top:20px;">
                 <div class="col-md-5 my-2">
                     <a style="text-align:center;" href="@Url.Action("SendRequestToAdmin","CompanyProfile",new{area="Company" , id = Model.Id , sendRequest = true})" class="text-black btn-submit btn-block input-text ">
                         <span style="color:white;">ارسال درخواست جهت شناسایی به عنوان تولید کننده</span>

@@ -23,7 +23,7 @@
     </div>
     @if (ViewData["Message"] is not null)
     {
-        <div class="row">
+        <div class="row pageMargin">
             <p style="color:red;">@ViewData["Message"].ToString()</p>
         </div>
     }
@@ -31,7 +31,7 @@
         @* <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
         <a href="@Url.Action("CategoryList","Category")" id="cancle"><img class="img-Icon" src="~/images/cancel.png" /></a> *@
     </div>
-    <form id="saveForm" asp-area="Admin" asp-controller="Category" asp-action="Save" enctype="multipart/form-data" method="post">
+    <form class="pageMargin" id="saveForm" asp-area="Admin" asp-controller="Category" asp-action="Save" enctype="multipart/form-data" method="post">
         <input type="hidden" asp-for="Id" />
         <input type="hidden" asp-for="PreviousPictureRout" />
         <div class="row">
