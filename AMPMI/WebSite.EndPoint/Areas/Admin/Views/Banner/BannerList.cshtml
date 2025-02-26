@@ -5,34 +5,6 @@
     ViewData["SelectedAdmin"] = "Banner";
 }
 
-@section CSS
-{
-    <style>
-        .menuIcon {
-            width: 30px;
-            height: 30px;
-            margin-left: 5px;
-        }
-
-        .btnUpload {
-            /* width: 100%; */
-        }
-
-        .uploadDiv {
-            margin-top: 10px;
-        }
-
-        .uploadDiv1 {
-            margin-top: 10px;
-        }
-
-        .prevImage {
-            width: 100%;
-            height: 100%;
-        }
-    </style>
-}
-
 <!-- Banner Menu -->
 <div class="pageName">
     <span class="textPage">بنرتبلیغاتی</span>
@@ -45,21 +17,21 @@
 @if (TempData["Message"] is not null)
 {
     <div class="row pageMargin">
-        <p style="color:red;">@TempData["Message"].ToString()</p>
+        <p class="error-text">@TempData["Message"].ToString()</p>
     </div>
 }
 
 <form class="pageMargin" id="bannerForm" asp-area="Admin" asp-action="SaveBanners" asp-controller="Banner" method="post" enctype="multipart/form-data">
-    <div class="form-group row my-4">
-        <div class="col-md-6 uploadDiv">
-            <div class="col-sm-4 upBtnProduct">
+    <div class="form-group row my-4 marginRight">
+        <div class="row uploadDiv">
+            <div class="col-md-2 upBtnProduct marginLeft">
                 <button type="button" class="btn btn-submit btnUpload" onclick="document.getElementById('Banner1').click();">بارگذاری بنر اول</button>
-                <input type="file" id="Banner1" asp-for="Banner1" style="display:none" accept="audio/*,video/*,image/*" onchange="showFileName(this, '1')" />
+                <input class="notDisplay" type="file" id="Banner1" asp-for="Banner1" accept="audio/*,video/*,image/*" onchange="showFileName(this, '1')" />
             </div>
-            <div class="col-sm-6 @(Model.type1 == 0 || Model.type1 == BannerTypeEnum.Image ? "ShowPicProduct" : "")" id="preview1" style="display: flex; align-items: center;">
+            <div class="col-md-3 @(Model.type1 == 0 || Model.type1 == BannerTypeEnum.Image ? "ShowPicProduct" : "")" id="preview1">
                 @if (Model.type1 == BannerTypeEnum.Video)
                 {
-                    <video src="@Model.rout1" muted id="videoPreview1" controls style="width : 70%; height:100%;" width="600">
+                    <video class="banner-video" src="@Model.rout1" muted id="videoPreview1" controls width="600">
                         مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
                     </video>
                 }
@@ -71,7 +43,7 @@
                     }
                 }
             </div>
-            <div class="col-sm-2 upBtnProduct" style="margin-left: 10px;">
+            <div class="col-md-2 upBtnProduct">
                 @if (string.IsNullOrEmpty(Model.rout1))
                 {
                     <a onclick="RemoveFile(this)">
@@ -91,16 +63,16 @@
         </div> *@
         </div>
     </div>
-    <div class="form-group row my-4">
-        <div class="col-md-6 uploadDiv">
-            <div class="col-sm-4 upBtnProduct">
+    <div class="form-group row my-4 marginRight">
+        <div class="row uploadDiv">
+            <div class="col-md-2 upBtnProduct marginLeft">
                 <button type="button" class="btn btn-submit btnUpload" onclick="document.getElementById('Banner2').click();">بارگذاری بنر دوم</button>
-                <input type="file" id="Banner2" asp-for="Banner2" style="display:none" accept="audio/*,video/*,image/*" onchange="showFileName(this, '2')" />
+                <input class="notDisplay" type="file" id="Banner2" asp-for="Banner2" accept="audio/*,video/*,image/*" onchange="showFileName(this, '2')" />
             </div>
-            <div class="col-sm-6 @( Model.type2 == 0 || Model.type2 == BannerTypeEnum.Image ? "ShowPicProduct" : "")" id="preview2" style="display: flex; align-items: center;">
+            <div class="col-md-3 @( Model.type2 == 0 || Model.type2 == BannerTypeEnum.Image ? "ShowPicProduct" : "")" id="preview2">
                 @if (Model.type2 == BannerTypeEnum.Video)
                 {
-                    <video src="@Model.rout2" muted id="videoPreview2" controls style="width : 70%; height:100%;" width="600">
+                    <video class="banner-video" src="@Model.rout2" muted id="videoPreview2" controls width="600">
                         مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
                     </video>
                 }
@@ -112,7 +84,7 @@
                     }
                 }
             </div>
-            <div class="col-sm-2 upBtnProduct" style="margin-left: 10px;">
+            <div class="col-md-2 upBtnProduct">
                 @if (string.IsNullOrEmpty(Model.rout2))
                 {
                     <a onclick="RemoveFile(this)">
@@ -132,16 +104,16 @@
         </div>
     </div>
 
-    <div class="form-group row my-4">
-        <div class="col-md-6 uploadDiv">
-            <div class="col-sm-4 upBtnProduct">
+    <div class="form-group row my-4 marginRight">
+        <div class="row uploadDiv">
+            <div class="col-md-2 upBtnProduct marginLeft">
                 <button type="button" class="btn btn-submit btnUpload" onclick="document.getElementById('Banner3').click();">بارگذاری بنر سوم</button>
-                <input type="file" id="Banner3" asp-for="Banner3" style="display:none" accept="audio/*,video/*,image/*" onchange="showFileName(this, '3')" />
+                <input class="notDisplay" type="file" id="Banner3" asp-for="Banner3" accept="audio/*,video/*,image/*" onchange="showFileName(this, '3')" />
             </div>
-            <div class="col-sm-6 @(Model.type3 == 0 || Model.type3 == BannerTypeEnum.Image ? "ShowPicProduct" : "")" id="preview3" style="display: flex; align-items: center;">
+            <div class="col-md-3 @(Model.type3 == 0 || Model.type3 == BannerTypeEnum.Image ? "ShowPicProduct" : "")" id="preview3" >
                 @if (Model.type3 == BannerTypeEnum.Video)
                 {
-                    <video src="@Model.rout3" muted id="videoPreview3" controls style="width : 70%; height:100%;" width="600">
+                    <video class="banner-video" src="@Model.rout3" muted id="videoPreview3" controls width="600">
                         مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
                     </video>
                 }
@@ -153,7 +125,7 @@
                     }
                 }
             </div>
-            <div class="col-sm-2 upBtnProduct" style="margin-left: 10px;">
+            <div class="col-md-2 upBtnProduct">
                 @if (string.IsNullOrEmpty(Model.rout3))
                 {
                     <a onclick="RemoveFile(this)">
@@ -173,10 +145,10 @@
         </div>
     </div>
     <div>
-        <div class="row mt-2">
-            <div class="col-md-5 my-2" style="display: ruby;">
-                <a style="text-align:center; width:100px" href="#" onclick="document.getElementById('bannerForm').submit();" class="text-black btn-submit btn-block">
-                    <span style="color:white;">ذخیره</span>
+        <div class="row mt-2 pageMargin">
+            <div class="col-md-5 my-2 rubyDisplay">
+                <a href="#" onclick="document.getElementById('bannerForm').submit();" class="text-black btn-submit btn-block a-btn">
+                    <span class="text-btn">ذخیره</span>
                 </a>
             </div>
         </div>

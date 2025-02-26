@@ -9,7 +9,7 @@
         <span class="textPage">لیست اخبار انجمن</span>
     </div>
     <div class="row">
-        <a style="text-align:center; width:160px; margin:10px;" href="@Url.Action("CreateBlog","Blog")" id="new" class="text-black btn-submit btn-block">
+        <a href="@Url.Action("CreateBlog","Blog")" id="new" class="text-black btn-submit btn-block a-btn-new">
             <span style="color:white;">افزودن اخبار جدید</span>
         </a>
         @* <a href="@Url.Action("CreateBlog","Blog")" id="new"> <img class="img-Icon" src="~/images/addition copy.png" /> </a> *@
@@ -18,10 +18,10 @@
         <table id="myTable" class="display tbStyle">
             <thead>
                 <tr>
-                    <th style="text-align:center">ردیف</th>
-                    <th style="text-align:center">موضوع خبر</th>
-                    <th style="text-align:center">ویرایش</th>
-                    <th style="text-align:center">حذف</th>
+                    <th class="tb-header">ردیف</th>
+                    <th class="tb-header">موضوع خبر</th>
+                    <th class="tb-header">ویرایش</th>
+                    <th class="tb-header">حذف</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,14 +31,14 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td style="text-align:center">@row</td>
+                        <td class="tb-header">@row</td>
                         <td>@item.Subject</td>
-                        <td style="text-align:center">
+                        <td class="tb-header">
                             <a href="@Url.Action("EditBLog", "Blog", new { area = "Admin", id = item.Id })">
                                 <img class="img-Icon" src="~/images/editing.png" />
                             </a>
                         </td>
-                        <td style="text-align:center">
+                        <td class="tb-header">
                             <a href="@Url.Action("DeleteBLog", "Blog", new { area = "Admin", id = item.Id })">
                                 <img class="img-Icon" src="~/images/recycle.png" />
                             </a>
