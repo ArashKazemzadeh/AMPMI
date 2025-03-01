@@ -35,24 +35,24 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label input-Label">شرح خبر:</label>
                 <div class="col-sm-9">
-                    <textarea style="min-width: 500px;" id="div_editor1" name="content">@Html.Raw(ViewBag.BlogContent)</textarea>
+                    <textarea style="min-width: 300px;" id="div_editor1" name="content">@Html.Raw(ViewBag.BlogContent)</textarea>
                 </div>
             </div>
             
-            <div class="form-group row my-4" style="margin-top:30px;">
+            <div class="form-group row my-4 pageMargin">
                 <!-- video -->
                 <div class="col-sm-6 uploadDiv">
-                    <div class="col-sm-4 upBtnProduct">
+                    <div class="col-sm-4 upBtnProduct marginLeft">
                         <button type="button" class="btn btn-submit btnUpload" onclick="document.getElementById('blogvid').click();">بارگذاری ویدیو </button>
-                        <input type="file" id="blogvid" name="blogvid" style="display:none" accept="video/*" onchange="showFileName(this, 'videoPreview1')" />
+                        <input class="notDisplay" type="file" id="blogvid" name="blogvid" accept="video/*" onchange="showFileName(this, 'videoPreview1')" />
                     </div>
-                    <div class="col-sm-6" style="display: flex; align-items: center;">
+                    <div class="col-sm-6 videoPack">
 
-                        <video src="@Model.VideoFileName" muted id="videoPreview1" controls style="width: 70%; height: 120px;">
+                        <video class="banner-video" src="@Model.VideoFileName" muted id="videoPreview1" controls>
 
                             مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
                         </video>
-                        <div class="col-md-4 upBtn" style="margin-left: 10px;">
+                        <div class="col-md-4 upBtn">
                             @if(string.IsNullOrEmpty(Model.VideoFileName))
                             {
                                 <a onclick="removeVideo(this)">
@@ -71,18 +71,18 @@
                 </div>
                 <!-- headerPicture -->
                 <div class="col-sm-6">
-                    <div class="col-sm-4 upBtnProduct" style="margin-top:10px">
+                    <div class="col-sm-4 upBtnProduct marginTop">
                         <button type="button" class="btn-submit btnUpload" onclick="getHeaderPic()">بارگذاری تصویر خبر</button>
-                        <input id="headerPic" name="HeaderPictureFileName" style="display:none" class="form-control-file" type="file" accept="image/*">
+                        <input id="headerPic" name="HeaderPictureFileName" class="form-control-file notDisplay" type="file" accept="image/*">
                     </div>
-                    <div class="col-sm-6" style="display: flex; align-items: center;">
+                    <div class="col-sm-6 videoPack">
                         <div id="headerPreview" class=" ShowPicProduct">
                             @if (!string.IsNullOrEmpty(Model.PreviousHeaderRout))
                             {
                                 <img class="prevImage" src="@Model.PreviousHeaderRout" />
                             }
                         </div>
-                        <div class="col-md-2 upBtn" style="margin-left: 10px;">
+                        <div class="col-md-2 upBtn marginLeft10">
                             @if (string.IsNullOrEmpty(Model.PreviousHeaderRout))
                             {
                                 <a onclick="removeHeader(this)">
@@ -104,16 +104,16 @@
             <!-- video -->
             <!--pictures -->
             <div class="row mt-2 userEditRow">
-                <div class="row" style="margin-top:25px;">
-                    <div style="display:flex;" class="col-sm-4 col-sm-offset-5">
-                        <div style="display:flex;flex-direction:row;align-items:center;">
+                <div class="row marginTop">
+                    <div class="col-sm-4 col-sm-offset-5 btnAddTBPack">
+                        <div class="btnAddTBPack1">
                             <div id="preview" class="ShowPicProduct">
                             </div>
                             <input id="IsHeaderChanged" hidden value="false" name="IsHeaderChanged" />
-                            <div style="margin-top:10px; flex-direction:row" class="upBtnProduct">
-                                <button type="button" class="btn-submit btnUpload" onclick="getfile()" style="width:150px; margin:10px">بارگذاری تصویر</button>
-                                <a onclick="addPicture()" style="text-align:center; width:150px; margin:10px" href="#" id="new" class="text-black btn-submit btn-block">
-                                    <span style="color:white;">افزودن به جدول</span>
+                            <div class="upBtnProduct btns">
+                                <button type="button" class="btn-submit btnUpload btnSize" onclick="getfile()">بارگذاری تصویر</button>
+                                <a onclick="addPicture()" href="#" id="new" class="text-black btn-submit btn-block btnSize">
+                                    <span class="text-btn">افزودن به جدول</span>
                                 </a>
                                 <input multiple name="f" id="getFile" style="display:none" class="form-control-file" type="file" accept="image/*">
                             </div>
@@ -138,12 +138,12 @@
             <input hidden asp-for="VideoFileName" /> *@
             <div>
                 <div class="row mt-2">
-                    <div class="col-md-5 my-2" style="display: ruby;">
-                        <a style="text-align:center; width:100px" href="#" id="save" class="text-black btn-submit btn-block">
-                            <span style="color:white;">ذخیره</span>
+                    <div class="col-md-5 my-2 rubyDisplay">
+                        <a href="#" id="save" class="text-black btn-submit btn-block a-btn">
+                            <span class="text-btn">ذخیره</span>
                         </a>
-                        <a style="text-align:center; width:100px" href="@Url.Action("BlogList","Blog")" id="cancle" class="text-black btn-submit btn-block">
-                            <span style="color:white;">انصراف</span>
+                        <a href="@Url.Action("BlogList","Blog")" id="cancle" class="text-black btn-submit btn-block a-btn">
+                            <span class="text-btn">انصراف</span>
                         </a>
                     </div>
                 </div>
@@ -167,7 +167,7 @@
                             {
                                 <tr>
                                     <td class="td-Icon">@(rowNum++)</td>
-                                    <td><img class="img img-fluid" src="@item.Route" style="width:30px;height:30px;" /></td>
+                                    <td><img class="img img-fluid img-Icon" src="@item.Route" /></td>
                                     <td class="td-Icon"><a href="@Url.Action("DeletePicture","Blog",new{pictureId=item.Id,blogId=item.BlogId})"><img class="img-Icon" src="~/images/recycle.png" /></a></td>
                                 </tr>
                             }
