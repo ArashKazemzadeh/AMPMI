@@ -345,7 +345,7 @@ td.td-Icon {
 
 .banner-video {
     width: 100%;
-    max-height: 200px;
+    max-height: 150px;
 }
 
 .marginRight {
@@ -368,4 +368,38 @@ td.td-Icon {
 
 .tb-header {
     text-align: center !important;
+}
+
+.videoPack {
+    display: flex;
+    align-items: center;
+}
+
+.marginTop {
+    margin-top: 10px
+}
+
+.marginLeft10 {
+    margin-left: 10px;
+}
+
+.btnAddTBPack {
+    display: flex;
+}
+
+.btnAddTBPack1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.btns {
+    margin-top: 10px;
+    flex-direction: row;
+}
+
+.btnSize {
+    width: 150px;
+    margin: 10px;
+    text-align: center;
 }
