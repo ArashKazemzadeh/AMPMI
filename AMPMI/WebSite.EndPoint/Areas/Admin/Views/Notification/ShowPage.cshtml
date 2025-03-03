@@ -12,13 +12,13 @@
     <div>
         @if (ViewData["Message"] is not null)
         {
-            <p style="color : red">@ViewData["Message"]?.ToString()</p>
+            <p class="error-text">@ViewData["Message"]?.ToString()</p>
         }
     </div>
     <div class="row">
         <div class="col-md-12">
-            <a style="text-align:center; width:160px; margin:10px;" href="#" id="new" class="text-black btn-submit btn-block">
-                <span style="color:white;">افزودن اعلان جدید</span>
+            <a href="#" id="new" class="text-black btn-submit btn-block a-btn-new">
+                <span class="text-btn">افزودن اعلان جدید</span>
             </a>
             @* <a id="new" href="#"> <img class="img-Icon" src="~/images/addition copy.png" /></a> *@
             @* <a hidden id="save" href="#"> <img class="img-Icon" src="~/images/diskette copy.png" /></a>
@@ -37,12 +37,12 @@
                 </div>
                 <div>
                     <div class="row mt-2">
-                        <div class="col-md-5 my-2" style="display: ruby;">
-                            <a style="text-align:center; width:100px" href="#" id="save" class="text-black btn-submit btn-block">
-                                <span style="color:white;">ذخیره</span>
+                        <div class="col-md-5 my-2 rubyDisplay">
+                            <a href="#" id="save" class="text-black btn-submit btn-block a-btn">
+                                <span class="text-btn">ذخیره</span>
                             </a>
-                            <a style="text-align:center; width:100px" href="#" id="cancle" class="text-black btn-submit btn-block">
-                                <span style="color:white;">انصراف</span>
+                            <a href="#" id="cancle" class="text-black btn-submit btn-block a-btn">
+                                <span class="text-btn">انصراف</span>
                             </a>
                         </div>
                     </div>

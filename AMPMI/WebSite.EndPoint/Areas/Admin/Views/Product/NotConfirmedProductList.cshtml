@@ -3,15 +3,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
     ViewData["SelectedAdmin"] = "NotConfirmProduct";
 }
-@section CSS
-{
-    <style>
-        table img {
-            width: 30px;
-            height: 30px;
-        }
-    </style>
-}
+
 <div class="container-fluid">
     <div class="pageName">
         <span class="textPage">لیست محصولات بارگذاری شده جهت تأیید</span>
@@ -19,7 +11,7 @@
     @if (TempData["error"] is not null)
     {
         <div class="row pageMargin">
-            <p style="color:red;">@TempData["error"].ToString()</p>
+            <p class="error-text">@TempData["error"].ToString()</p>
         </div>
     }
     <div class="row pageMargin">
