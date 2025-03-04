@@ -22,12 +22,12 @@
     @if (TempData["error"] is not null)
     {
         <div class="row">
-            <p style="color:red;">@TempData["error"].ToString()</p>
+            <p class="error-text">@TempData["error"].ToString()</p>
         </div>
     }
     <div class="row">
-        <a style="text-align:center; width:160px; margin:10px;" href="@Url.Action("NewProduct","Product",new{ companyId = (long)ViewData["CompanyId"]})" id="new" class="text-black btn-submit btn-block">
-            <span style="color:white;">افزودن محصول جدید</span>
+        <a href="@Url.Action("NewProduct","Product",new{ companyId = (long)ViewData["CompanyId"]})" id="new" class="text-black btn-submit btn-block a-btn-new">
+            <span class="text-btn">افزودن محصول جدید</span>
         </a>
         @* <a href="@Url.Action("NewProduct","Product",new{ companyId = (long)ViewData["CompanyId"]})" id="new"> <img class="img-Icon" src="~/images/addition copy.png" /> </a> *@
     </div>
