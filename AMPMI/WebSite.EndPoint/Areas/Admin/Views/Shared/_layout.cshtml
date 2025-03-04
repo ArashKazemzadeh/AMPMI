@@ -36,38 +36,26 @@
     <meta name="msapplication-TileImage" content="~/images/cropped-fav-270x270.png" />
     <link href="~/css/rte_theme_default.css" rel="stylesheet" />
     @await RenderSectionAsync("CSS", required: false)
-    <style>
-
-        body {
-            min-height: 100vh !important;
-        }
-
-        .wrapper {
-            min-height: 100vh !important;
-        }
-
-    </style>
 </head>
 
-<body class="hold-transition skin-blue sidebar-mini">
-    <div class="wrapper" style="background-color:#EEEEEE">
-
+<body class="hold-transition skin-blue sidebar-mini bodyHeight">
+    <div class="wrapper">
         <!-- Main Header -->
         <header class="main-header">
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top">
                 <div class="row nav-cls">
-                    <div class="col-md-4" style="display:inline-block">
+                    <div class="col-md-4 displayInline">
                         <ul class="nav navbar-nav">
                             <!-- Back to home page -->
-                            <li class="dropdown notifications-menu" style="display:inline-block">
+                            <li class="dropdown notifications-menu displayInline">
                                 <a href="/" class="dropdown-toggle">
                                     <img class="nav-Icon" src="~/images/home.png" />
                                 </a>
                             </li>
                             <!-- Notifications: style can be found in dropdown.less -->
                             <!-- Show Date -->
-                            <li class="dropdown notifications-menu" style="display:inline-block">
+                            <li class="dropdown notifications-menu displayInline">
                                 @{
                                     var nowDatePersian = DateTime.Now.ToPersianDateWithFormat();
                                 }
@@ -80,7 +68,7 @@
                         <p class="nav-welcome">به انجمن قطعه‌سازان موتور سیکلت خوش آمدید</p>
                     </div>
                     <!-- Welcome text -->
-                    <div class="col-md-2" style="display:inline-block; float:left;">
+                    <div class="col-md-2 companyName">
                         <div class="nav-companyName">
                             <img class="nav-NameIcon" src="~/images/user.png" />
                             <span>ادمین سایت</span>
@@ -176,7 +164,7 @@
             </div>
 
             <!-- Content Wrapper. Contains page content -->
-            <div class="col-md-8 menu animated zoomIn" style="animation-duration:800ms">
+            <div class="col-md-8 menu animated zoomIn animationTime">
                 <!-- Content Header (Page header) -->
                 <section class="content container-fluid">
                     @RenderBody()
@@ -187,7 +175,7 @@
         </div>
         <!-- /.content-wrapper -->
         <!-- Main Footer -->
-        <footer class="main-footer text-left" style="background-color:#EEEEEE">
+        <footer class="main-footer text-left bgColor">
         </footer>
         <!-- /.control-sidebar -->
         <!-- Add the sidebar's background. This div must be placed

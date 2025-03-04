@@ -406,3 +406,60 @@ td.td-Icon {
     margin: 10px;
     text-align: center;
 }
+
+.bodyHeight {
+    min-height: 100vh !important;
+}
+
+.wrapper {
+    min-height: 100vh !important;
+    background-color: #EEEEEE !important;
+}
+
+.displayInline {
+    display: inline-block;
+}
+
+.companyName {
+    display: inline-block;
+    float: left;
+}
+
+.animationTime {
+    animation-duration: 800ms;
+}
+
+.bgColor {
+    background-color: #EEEEEE !important;
+}
+
+.body-Error {
+    background: #0414a7;
+    color: #e0e2f4;
+    font-family: 'VT323', monospace;
+    text-align: center;
+    padding-top: 10%;
+}
+
+.h1-Size {
+    font-size: 2.75rem;
+    margin-bottom: 50px;
+}
+
+.p-Size {
+    font-size: 20px;
+}
+
+.container-Error {
+    width: 90%;
+    margin: auto;
+    max-width: 640px;
+}
+
+.bg-Span {
+    background: #aaaaaa;
+    padding: 0 15px;
+    display: inline-block;
+    color: #0414a7;
+}
+
