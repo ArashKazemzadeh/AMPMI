@@ -3,15 +3,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
     ViewData["SelectedAdmin"] = "User";
 }
-@section CSS
-{
-    <style>
-        .prevImage {
-            width: 100%;
-            height: 100%;
-        }
-    </style>
-}
+
 <div class="contaienr">
     <div class="pageName">
         <span class="textPage">
@@ -24,18 +16,18 @@
     @if (TempData["msg"] is not null)
     {
         <div class="row">
-            <p style="color:red;">@TempData["msg"].ToString()</p>
+            <p class="error-text">@TempData["msg"].ToString()</p>
         </div>
     }
     <div>
-        <a style="text-align:center; width:150px; margin:10px;" href="#" id="new" class="text-black btn-submit btn-block">
-            <span style="color:white;">افزودن تصویر جدید</span>
+        <a href="#" id="new" class="text-black btn-submit btn-block a-btn-new">
+            <span class="text-btn">افزودن تصویر جدید</span>
         </a>
         @* <a href="#" id="new"> <img class="img-Icon" src="~/images/addition copy.png" /> </a>
         <a hidden href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
         <a hidden href="#" id="cancle"><img class="img-Icon" src="~/images/cancel.png" /></a> *@
     </div>
-    <div hidden id="newForm" style="margin-top:20px;">
+    <div hidden id="newForm" class="pageMargin">
         <form id="saveForm" method="post" asp-area="Admin" asp-controller="User" asp-action="NewPicture" enctype="multipart/form-data">
             <div class="form-group row">
                 <div class="col-sm-2 upBtn">
@@ -50,12 +42,12 @@
             <input hidden value="@(ViewData["CompanyId"] is not null ? ViewData["CompanyId"] : 0)" name="companyId" />
             <div>
                 <div class="row mt-2">
-                    <div class="col-md-5 my-2" style="display: ruby;">
-                        <a style="text-align:center; width:100px" href="#" id="save" class="text-black btn-submit btn-block">
-                            <span style="color:white;">ذخیره</span>
+                    <div class="col-md-5 my-2 rubyDisplay">
+                        <a href="#" id="save" class="text-black btn-submit btn-block a-btn">
+                            <span class="text-btn">ذخیره</span>
                         </a>
-                        <a style="text-align:center; width:100px" href="#" id="cancle" class="text-black btn-submit btn-block">
-                            <span style="color:white;">انصراف</span>
+                        <a href="#" id="cancle" class="text-black btn-submit btn-block a-btn">
+                            <span class="text-btn">انصراف</span>
                         </a>
                     </div>
                 </div>
@@ -78,7 +70,7 @@
                     {
                         <tr>
                             <td class="td-Icon">@(rowNum++)</td>
-                            <td><img class="img img-fluid" src="@item.PictureFileName" style="width:30px;height:30px;" /></td>
+                            <td><img class="img img-fluid img-Icon" src="@item.PictureFileName" /></td>
                             <td class="td-Icon"><a href="@Url.Action("Delete","User",new{area="Admin",id=item.Id})"><img class="img-Icon" src="~/images/recycle.png" /></a></td>
                         </tr>
                     }
