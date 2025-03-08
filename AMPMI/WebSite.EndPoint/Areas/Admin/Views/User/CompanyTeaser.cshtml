@@ -27,7 +27,7 @@
             <div class="form-group row">
                 <div class="col-sm-2 upBtn">
                     <button type="button" class="btn-submit btnUpload" onclick="getfile()">بارگذاری تیزر</button>
-                    <input id="GetFile" style="display:none" name="Teaser" type="file" accept="video/*" />
+                    <input id="GetFile" class="notDisplay" name="Teaser" type="file" accept="video/*" />
                 </div>
                 <div class="col-sm-2">
                     <video class="prevImage" src="@(Model.TeaserRoute ?? "")" muted id="videoPreview" controls width="600">

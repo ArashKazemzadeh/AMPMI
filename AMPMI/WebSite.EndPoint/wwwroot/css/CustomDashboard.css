@@ -315,6 +315,10 @@ td.td-Icon {
     width: 100px
 }
 
+.a-btn-center {
+    text-align: center;
+}
+
 .text-btn {
     color: white;
 }
