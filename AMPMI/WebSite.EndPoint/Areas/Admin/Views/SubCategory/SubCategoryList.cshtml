@@ -10,12 +10,12 @@
     @if (TempData["error"] is not null)
     {
         <div class="row">
-            <p style="color:red;">@TempData["error"].ToString()</p>
+            <p class="error-text">@TempData["error"].ToString()</p>
         </div>
     }
     <div class="row">
-        <a style="text-align:center; width:170px; margin:10px;" href="@Url.Action("NewSubCategory","SubCategory")" id="new" class="text-black btn-submit btn-block">
-            <span style="color:white;">افزودن گروه فرعی جدید</span>
+        <a href="@Url.Action("NewSubCategory","SubCategory")" id="new" class="text-black btn-submit btn-block a-btn-new a-btn-new170">
+            <span class="text-btn">افزودن گروه فرعی جدید</span>
         </a>
         @* <a href="@Url.Action("NewSubCategory","SubCategory")" id="new"> <img class="img-Icon" src="~/images/addition copy.png" /> </a> *@
     </div>

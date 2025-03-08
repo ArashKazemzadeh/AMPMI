@@ -396,6 +396,12 @@ td.td-Icon {
     align-items: center;
 }
 
+.btnAddTBPack2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .btns {
     margin-top: 10px;
     flex-direction: row;
@@ -461,5 +467,18 @@ td.td-Icon {
     padding: 0 15px;
     display: inline-block;
     color: #0414a7;
+}
+
+.text-danger {
+    font-size: 12px !important;
+    color: red !important;
+}
+
+.margin0 {
+    margin: 0;
+}
+
+.marginTop15 {
+    margin-top: 15px;
 }
 
