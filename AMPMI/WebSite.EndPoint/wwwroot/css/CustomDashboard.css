@@ -486,3 +486,17 @@ td.td-Icon {
     margin-top: 15px;
 }
 
+.notSeenNotif {
+    border: 2px solid black !important;
+    font-weight: bold;
+}
+
+.notifTitle {
+    display: flex;
+    justify-content: space-between;
+}
+
+.notifMore {
+    float: left;
+}
+
