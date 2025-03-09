@@ -4,19 +4,22 @@
 <div>
     @if (ViewData["Error"] != null)
     {
-        <div class="alert alert-danger text-right">
+        <div class="alert alert-danger text-right fade-out">
             @ViewData["Error"]
         </div>
     }
+
     @if (ViewData.ModelState != null && ViewData.ModelState.ContainsKey("mobile"))
     {
         foreach (var error in ViewData.ModelState["mobile"].Errors)
         {
-            <div class="alert alert-danger text-right">
+            <div class="alert alert-danger text-right fade-out">
                 @error.ErrorMessage
             </div>
         }
     }
+
+
 </div>
 <div class="wrapper default">
     <div class="body-default container">
@@ -55,3 +58,16 @@
         </div>
     </div>
 </div>
+@section Scripts
+{
+    <script>
+        setTimeout(function() {
+             document.querySelectorAll(".fade-out").forEach(function(element) {
+                 element.style.display = "none";
+             });
+         }, 5000);  // 5000 میلی‌ثانیه = 5 ثانیه
+    </script>
+}
+
+
+ 

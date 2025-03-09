@@ -9,10 +9,12 @@
     </div>
     @if (TempData["error"] is not null)
     {
-        <div class="row">
+        <div id="tempDataErrorContainer" class="row">
             <p style="color:red;">@TempData["error"].ToString()</p>
         </div>
+
     }
+
     <div class="row">
         <a style="text-align:center; width:160px; margin:10px;" href="@Url.Action("NewProduct","Product")" id="new" class="text-black btn-submit btn-block">
             <span style="color:white;">افزودن محصول جدید</span>
@@ -93,6 +95,13 @@
             }
 
         }
+         setTimeout(function() {
+                var errorMsg = document.getElementById("tempDataErrorContainer");
+                if (errorMsg) {
+                    errorMsg.style.display = "none";
+                }
+            }, 5000);  // 5000 میلی‌ثانیه = 5 ثانیه
+
     </script>
 }
 

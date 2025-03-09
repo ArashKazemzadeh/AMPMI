@@ -15,10 +15,12 @@
     </div>
     @if (ViewData["error"] is not null)
     {
-        <div class="row">
+        <div id="viewDataErrorContainer" class="row">
             <p class="error-text">@ViewData["error"]?.ToString()</p>
         </div>
+
     }
+
     <div>
         @* <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a> *@
     </div>
@@ -199,6 +201,11 @@
             $("#getfileLogo").val("");
             $("#IsLogoChanged").val(true); // changed - deleted
         });
-
+        setTimeout(function() {
+                var errorMsg = document.getElementById("viewDataErrorContainer");
+                if (errorMsg) {
+                    errorMsg.style.display = "none";
+                }
+            }, 5000);  // 5000 میلی‌ثانیه = 5 ثانیه
     </script>
 }

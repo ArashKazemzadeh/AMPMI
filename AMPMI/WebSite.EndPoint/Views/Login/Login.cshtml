@@ -4,10 +4,13 @@
 }
 @if (ViewData["Error"] != null)
 {
-    <div class="alert alert-danger">
+    <div id="viewDataErrorContainer" class="alert alert-danger">
         @ViewData["Error"]
     </div>
+
 }
+
+
 <div class="wrapper default">
     <div class="container">
         <div class="row">
@@ -71,3 +74,14 @@
     </div>
 </div>
 
+@section Scripts
+{
+    <script>
+        setTimeout(function() {
+            var errorMsg = document.getElementById("viewDataErrorContainer");
+            if (errorMsg) {
+                errorMsg.style.display = "none";
+            }
+        }, 5000);  // 5000 میلی‌ثانیه = 5 ثانیه
+    </script>
+}

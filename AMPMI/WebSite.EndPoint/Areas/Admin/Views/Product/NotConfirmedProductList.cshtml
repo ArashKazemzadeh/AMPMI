@@ -10,10 +10,12 @@
     </div>
     @if (TempData["error"] is not null)
     {
-        <div class="row pageMargin">
+        <div id="tempErrorContainer" class="row pageMargin">
             <p class="error-text">@TempData["error"].ToString()</p>
         </div>
+
     }
+
     <div class="row pageMargin">
         <table id="myTable" class="display tbStyle">
             <thead>
@@ -76,6 +78,13 @@
                     }
                 }
             });
+
+            setTimeout(function() {
+                var errorMsg = document.getElementById("tempErrorContainer");
+                if (errorMsg) {
+                    errorMsg.style.display = "none";
+                }
+            }, 5000);  // 5000 میلی‌ثانیه = 5 ثانیه
 
     </script>
 }

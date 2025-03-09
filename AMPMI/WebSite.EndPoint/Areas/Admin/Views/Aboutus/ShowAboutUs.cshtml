@@ -10,9 +10,11 @@
     </div>
     @if (TempData["Message"] != null)
     {
-        <div class="alert alert-info pageMargin">
+        <div id="tempMessage" class="alert alert-info pageMargin">
             @TempData["Message"]
         </div>
+
+        
     }
 
     <form class="pageMargin" id="saveForm" method="post" action="@Url.Action("SaveAboutUs", "AboutUs")">
@@ -47,5 +49,11 @@
             var content = editor.getHTML();
             $("#editAboutUs").val(content);
         });
+        setTimeout(function() {
+                var msg = document.getElementById("tempMessage");
+                if (msg) {
+                    msg.style.display = "none";
+                }
+            }, 5000);
     </script>
 }

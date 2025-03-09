@@ -16,11 +16,10 @@
 </div>
 @if (TempData["Message"] is not null)
 {
-    <div class="row pageMargin">
+    <div id="tempMessageContainer" class="row pageMargin">
         <p class="error-text">@TempData["Message"].ToString()</p>
     </div>
 }
-
 <form class="pageMargin" id="bannerForm" asp-area="Admin" asp-action="SaveBanners" asp-controller="Banner" method="post" enctype="multipart/form-data">
     <div class="form-group row my-4 marginRight">
         <div class="row uploadDiv">
@@ -261,6 +260,20 @@
                 $(video).attr('src', ''); // حذف منبع ویدئو
             }
         }
+
+
+        setTimeout(function() {
+            var msg = document.getElementById("tempMessage");
+            if (msg) {
+                msg.style.display = "none";
+            }
+        }, 5000);
+        setTimeout(function() {
+            var msg = document.getElementById("tempMessageContainer");
+            if (msg) {
+                msg.style.display = "none";
+            }
+        }, 5000);
     </script>
 }
 

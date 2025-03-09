@@ -27,10 +27,11 @@
     </div>
     @if (ViewData["error"] is not null)
     {
-        <div class="row pageMargin">
+        <div id="errorContainer" class="row pageMargin">
             <p class="error-text">@ViewData["error"].ToString()</p>
         </div>
     }
+
     <div class="row">
         @* <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
         @if (ViewData["CompanyId"] is not null && (long)ViewData["CompanyId"] > 0)
@@ -367,7 +368,12 @@
                 }
             });
         });
-
+         setTimeout(function() {
+                var errorMsg = document.getElementById("errorContainer");
+                if (errorMsg) {
+                    errorMsg.style.display = "none";
+                }
+            }, 5000);
     </script>
 
     @if (Model.SubCategoryId > 0)

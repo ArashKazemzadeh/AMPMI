@@ -23,10 +23,12 @@
     </div>
     @if (ViewData["error"] is not null)
     {
-        <div class="row pageMargin">
+        <div id="viewDataErrorContainer" class="row pageMargin">
             <p style="color:red;">@ViewData["error"].ToString()</p>
         </div>
+
     }
+
     <div class="row">
         @* <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
         <a href="@Url.Action("ProductList","Product")" id="cancle"><img class="img-Icon" src="~/images/cancel.png" /></a> *@
@@ -323,7 +325,12 @@
                 }
             });
         });
-
+        setTimeout(function() {
+                var errorMsg = document.getElementById("viewDataErrorContainer");
+                if (errorMsg) {
+                    errorMsg.style.display = "none";
+                }
+            }, 5000);  // 5000 میلی‌ثانیه = 5 ثانیه
     </script>
 
     @if (Model.SubCategoryId > 0)

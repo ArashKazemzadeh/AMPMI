@@ -9,10 +9,12 @@
     </div>
     @if (ViewData["msg"] is not null)
     {
-        <div class="row pageMargin">
+        <div id="viewDataMsgContainer" class="row pageMargin">
             <p class="error-text">@ViewData["msg"].ToString()</p>
         </div>
+        
     }
+
     <div>
         @* <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a> *@
     </div>
@@ -92,6 +94,11 @@
                 videoPreview.play(); // شروع پخش خودکار
             }
         });
-
+        setTimeout(function() {
+                var msg = document.getElementById("viewDataMsgContainer");
+                if (msg) {
+                    msg.style.display = "none";
+                }
+            }, 5000);  // 5000 میلی‌ثانیه = 5 ثانیه
     </script>
 }
