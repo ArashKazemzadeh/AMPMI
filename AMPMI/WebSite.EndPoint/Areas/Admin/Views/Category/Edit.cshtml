@@ -15,9 +15,11 @@
     </div>
     @if (ViewData["Message"] is not null)
     {
-        <div class="row pageMargin">
+        <div id="messageContainer" class="row pageMargin">
             <p class="error-text">@ViewData["Message"].ToString()</p>
         </div>
+
+        
     }
     <div class="row">
         @* <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
@@ -106,7 +108,12 @@
             event.preventDefault();
             $("#saveForm").submit();
         });
-
+         setTimeout(function() {
+                var msg = document.getElementById("messageContainer");
+                if (msg) {
+                    msg.style.display = "none";
+                }
+            }, 5000);
     </script>
 
 }

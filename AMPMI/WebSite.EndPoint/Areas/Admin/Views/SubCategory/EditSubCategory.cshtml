@@ -15,10 +15,12 @@
     </div>
     @if (ViewData["error"] is not null)
     {
-        <div class="row pageMargin">
+        <div id="errorContainer" class="row pageMargin">
             <p class="error-text">@ViewData["error"].ToString()</p>
         </div>
+
     }
+
     <div class="row">
         @* <a href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
         <a href="@Url.Action("SubCategoryList","SubCategory")" id="cancle"><img class="img-Icon" src="~/images/cancel.png" /></a> *@
@@ -144,6 +146,13 @@
             event.preventDefault();
             $("#saveForm").submit();
         });
+
+        setTimeout(function() {
+                var errorMsg = document.getElementById("errorContainer");
+                if (errorMsg) {
+                    errorMsg.style.display = "none";
+                }
+            }, 5000);  // 5000 میلی‌ثانیه = 5 ثانیه
 
     </script>
 

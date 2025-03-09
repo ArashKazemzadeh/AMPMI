@@ -3,16 +3,22 @@
 }
 @if (TempData["ErrorMessage"] != null)
 {
-    <p class="alert alert-danger">@TempData["ErrorMessage"]</p>
+    <p id="errorMsg" class="alert alert-danger">@TempData["ErrorMessage"]</p>
+
 }
+
 @if (TempData["SuccessMessage"] != null)
 {
-    <p class="alert alert-success">@TempData["SuccessMessage"]</p>
+    <p id="successMsg" class="alert alert-success">@TempData["SuccessMessage"]</p>
+
 }
+
 @if (Model.ErrorMessage == "کاربر یافت نشد" && Model.ErrorMessage != null)
 {
-    <p class="alert alert-danger"> کاربر یافت نشد </p>
+    <p id="modelErrorMsg" class="alert alert-danger">کاربر یافت نشد</p>
+
 }
+
 <div class="wrapper default">
     
     <div class="body-default container">
@@ -108,6 +114,26 @@
         }
 
         timer(120);
+
+
+        setTimeout(function() {
+            var errorMsg = document.getElementById("errorMsg");
+            if (errorMsg) {
+                errorMsg.style.display = "none";
+            }
+        }, 5000);  // 5000 میلی‌ثانیه = 5 ثانیه
+         setTimeout(function() {
+            var successMsg = document.getElementById("successMsg");
+            if (successMsg) {
+                successMsg.style.display = "none";
+            }
+        }, 5000);  // 5000 میلی‌ثانیه = 5 ثانیه
+        setTimeout(function() {
+            var modelErrorMsg = document.getElementById("modelErrorMsg");
+            if (modelErrorMsg) {
+                modelErrorMsg.style.display = "none";
+            }
+        }, 5000);  // 5000 میلی‌ثانیه = 5 ثانیه
     </script>
 }
 

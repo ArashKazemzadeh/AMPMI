@@ -3,12 +3,16 @@
 }
 @if (TempData["ErrorMessage"] != null)
 {
-    <p class="alert alert-danger">@TempData["ErrorMessage"]</p>
+    <p id="errorMessage" class="alert alert-danger">@TempData["ErrorMessage"]</p>
+
 }
+
 @if (TempData["SuccessMessage"] != null)
 {
-    <p class="alert alert-success">@TempData["SuccessMessage"]</p>
+    <p id="successMessage" class="alert alert-success">@TempData["SuccessMessage"]</p>
+
 }
+
 <div class="wrapper default">
     
     <div class="container">
@@ -75,6 +79,19 @@
 @section Scripts
 {
     <script>
+         setTimeout(function() {
+            var errorMsg = document.getElementById("errorMessage");
+            if (errorMsg) {
+                errorMsg.style.display = "none";
+            }
+        }, 5000);  // 5000 میلی‌ثانیه = 5 ثانیه
+
+        setTimeout(function() {
+            var successMsg = document.getElementById("successMessage");
+            if (successMsg) {
+                successMsg.style.display = "none";
+            }
+        }, 5000);  // 5000 میلی‌ثانیه = 5 ثانیه
         let timerOn = true;
         function timer(remaining){
           var m = Math.floor(remaining / 60);

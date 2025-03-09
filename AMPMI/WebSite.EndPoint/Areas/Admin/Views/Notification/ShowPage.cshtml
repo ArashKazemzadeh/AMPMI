@@ -9,12 +9,12 @@
     <div class="pageName">
         <span class="textPage">لیست اعلان‌ها</span>
     </div>
-    <div>
-        @if (ViewData["Message"] is not null)
-        {
-            <p class="error-text">@ViewData["Message"]?.ToString()</p>
-        }
-    </div>
+    @if (ViewData["Message"] is not null)
+    {
+        <p id="messageAlert" class="error-text">@ViewData["Message"]?.ToString()</p>
+
+        
+    }
     <div class="row">
         <div class="col-md-12">
             <a href="#" id="new" class="text-black btn-submit btn-block a-btn-new">
@@ -159,6 +159,13 @@
             event.preventDefault();
             $("#newForm").hide();
         });
+
+         setTimeout(function() {
+                var msg = document.getElementById("messageAlert");
+                if (msg) {
+                    msg.style.display = "none";
+                }
+            }, 5000);
     </script>
 
 
