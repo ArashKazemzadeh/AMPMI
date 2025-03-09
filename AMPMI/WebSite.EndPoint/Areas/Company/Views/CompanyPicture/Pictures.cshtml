@@ -3,15 +3,7 @@
     Layout = "~/Areas/Company/Views/Shared/_layout.cshtml";
     ViewData["SelectedCompany"] = "Gallary";
 }
-@section CSS
-{
-    <style>
-        .prevImage {
-        width: 100%;
-        height: 100%;
-        }
-    </style>
-}
+
 <div class="contaienr">
     <div class="pageName">
         <span class="textPage">گالری تصاویر</span>
@@ -19,12 +11,12 @@
     @if (TempData["msg"] is not null)
     {
         <div class="row pageMargin">
-            <p style="color:red;">@TempData["msg"].ToString()</p>
+            <p class="error-text">@TempData["msg"].ToString()</p>
         </div>
     }
     <div>
-        <a style="text-align:center; width:150px; margin:10px;" href="#" id="new" class="text-black btn-submit btn-block">
-            <span style="color:white;">افزودن تصویر جدید</span>
+        <a href="#" id="new" class="text-black btn-submit btn-block btnSize">
+            <span class="text-btn">افزودن تصویر جدید</span>
         </a>
         @* <a href="#" id="new"> <img class="img-Icon" src="~/images/addition copy.png" /> </a>
         <a hidden href="#" id="save"><img class="img-Icon" src="~/images/diskette copy.png" /></a>
@@ -35,7 +27,7 @@
             <div class="form-group row">
                 <div class="col-sm-2 upBtnProduct">
                     <button type="button" class="btn-submit btnUpload" onclick="getfile()">بارگذاری تصویر</button>
-                    <input id="getFile" name="picture" style="display:none" class="form-control-file" type="file" accept="image/*">
+                    <input id="getFile" name="picture" class="form-control-file notDisplay" type="file" accept="image/*">
                 </div>
                 <div id="preview" class="col-sm-2 ShowPicProduct"></div>
                 <div class="col-sm-8">
@@ -44,12 +36,12 @@
             </div>
             <div>
                 <div class="row mt-2">
-                    <div class="col-md-5 my-2" style="display: ruby;">
-                        <a style="text-align:center; width:100px" href="#" id="save" class="text-black btn-submit btn-block">
-                            <span style="color:white;">ذخیره</span>
+                    <div class="col-md-5 my-2 rubyDisplay">
+                        <a href="#" id="save" class="text-black btn-submit btn-block a-btn">
+                            <span class="text-btn">ذخیره</span>
                         </a>
-                        <a style="text-align:center; width:100px" href="#" id="cancle" class="text-black btn-submit btn-block">
-                            <span style="color:white;">انصراف</span>
+                        <a href="#" id="cancle" class="text-black btn-submit btn-block a-btn">
+                            <span class="text-btn">انصراف</span>
                         </a>
                     </div>
                 </div>
@@ -71,7 +63,7 @@
                     foreach(var item in Model){
                         <tr>
                             <td class="td-Icon">@(rowNum++)</td>
-                            <td><img class="img img-fluid" src="@item.PictureFileName" style="width:30px;height:30px;" /></td>
+                            <td><img class="img img-fluid img-Icon" src="@item.PictureFileName"/></td>
                             <td class="td-Icon"><a href="@Url.Action("Delete","CompanyPicture",new{area="Company",id=item.Id})"><img class="img-Icon" src="~/images/recycle.png" /></a></td>
                         </tr>
                     }

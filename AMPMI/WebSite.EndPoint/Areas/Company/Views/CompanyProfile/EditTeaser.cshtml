@@ -10,7 +10,7 @@
     @if (ViewData["msg"] is not null)
     {
         <div class="row pageMargin">
-            <p style="color:red;">@ViewData["msg"].ToString()</p>
+            <p class="error-text">@ViewData["msg"].ToString()</p>
         </div>
     }
     <div>
@@ -21,10 +21,10 @@
             <div class="form-group row">
                 <div class="col-sm-2 upBtnProduct">
                     <button type="button" class="btn-submit btnUpload" onclick="getfile()">بارگذاری تیزر</button>
-                    <input id="GetFile" style="display:none" name="teaser" type="file" accept="video/*" />
+                    <input id="GetFile" class="notDisplay" name="teaser" type="file" accept="video/*" />
                 </div>
                 <div class="col-sm-2">  
-                    <video src="@(ViewData["src"]!=null?ViewData["src"]:"")" muted id="videoPreview" controls style="width : 100%; height:100%;" width="600">
+                    <video class="prevImage" src="@(ViewData["src"]!=null?ViewData["src"]:"")" muted id="videoPreview" controls width="600">
                         مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
                     </video>
                 </div>
@@ -42,9 +42,9 @@
             </div>
             <div>
                 <div class="row mt-2">
-                    <div class="col-md-5 my-2" style="display: ruby;">
-                        <a style="text-align:center; width:100px" href="#" id="save" class="text-black btn-submit btn-block">
-                            <span style="color:white;">ذخیره</span>
+                    <div class="col-md-5 my-2 rubyDisplay">
+                        <a href="#" id="save" class="text-black btn-submit btn-block a-btn">
+                            <span class="text-btn">ذخیره</span>
                         </a>
                     </div>
                 </div>
