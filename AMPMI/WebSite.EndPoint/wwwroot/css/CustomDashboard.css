@@ -500,3 +500,12 @@ td.td-Icon {
     float: left;
 }
 
+.bodyCompany {
+    height: 100% !important
+}
+
+.footerStyle {
+    background-color: #EEEEEE;
+    border: none;
+}
+
