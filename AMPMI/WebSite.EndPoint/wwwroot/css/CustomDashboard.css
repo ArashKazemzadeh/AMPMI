@@ -646,3 +646,34 @@ input:focus {
 .width100 {
     width: 100%;
 }
+
+.persianFont {
+    font-size: 4vw;
+}
+
+.englishFont {
+    font-size: 2vw
+}
+
+.searchBar {
+    padding: 0 1em;
+}
+
+.searchBarInput {
+    height: auto !important;
+    border-radius: 0 !important;
+    border-top-right-radius: 25px !important;
+    border-bottom-right-radius: 25px !important;
+}
+
+.searchBarDrop {
+    border-radius: 0;
+    padding: 14px 20px;
+}
+
+.searchBarBtn {
+    padding: 14px 20px;
+    border-radius: 0;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+}
