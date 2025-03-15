@@ -3,29 +3,17 @@
     ViewData["Title"] = "CompanyList";
     ViewData["SelectedHome"] = "Company";
 }
-<style>
-    .companyLogo {
-        border-radius: 50%;
-        background-color: #003C61;
-        width: 100px;
-        height: 100px;
-        margin-right: 5px;
-        margin: 5px auto
-    }
-    .hasImg{
-        background-color: #FFFFFF;
-    }
-</style>
+
 <div class="body-default container">
     <div class="row">
         <form asp-action="Search" asp-controller="Company">
             <div class="row">
                 <div class="col-md-10 mb-sm-3">
-                    <input name="name" class="input-text" placeholder="جستجوی تولیدکنندگان" type="text" style="background-color:white; height:46px; margin-bottom:10px;" />
+                    <input name="name" class="input-text searchSeller" placeholder="جستجوی تولیدکنندگان" type="text"/>
 
                 </div>
                 <div class="col-md-2">
-                    <button class="btn-submit btnUpload" type="submit" style="width:100%">اعمال</button>
+                    <button class="btn-submit btnUpload width100" type="submit">اعمال</button>
                 </div>
             </div>
         </form>
@@ -34,12 +22,8 @@
         @foreach(var item in Model){
             <div class="col-md-6 my-2">
                 <a href="@Url.Action("CompanyDetail","Company", new {companyId=item.Id})">
-                    <div class="row mt-2"
-                         style="background-color:white;
-                        border-radius:10px;
-                        margin:10px;
-                        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-                        <div class="col-md-3 my-2" style="text-align:center">
+                    <div class="row mt-2 cardList">
+                        <div class="col-md-3 my-2 center-align">
                             <div class="companyLogo @(!string.IsNullOrEmpty(item.LogoRout) ? "hasImg":"")">
                                 @if(!string.IsNullOrEmpty(item.LogoRout)){
                                     <img class="img img-fluid companyLogo" src="@item.LogoRout" />
@@ -52,7 +36,7 @@
                             <p>@item.Name</p>
                         </div>
                         <div class="col-md-9 my-2">
-                            <div style="background-color:#ECECEC; padding:10px;">
+                            <div class="companyInfo">
                                 <i class="fa fa-user fa-lg"></i><span class="p-2">@item.ManagerName</span>
                                 <br />
                                 <i class="fa fa-phone fa-lg"></i><span class="p-2">@item.Tel</span>
