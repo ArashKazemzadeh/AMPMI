@@ -677,3 +677,8 @@ input:focus {
     border-top-left-radius: 25px;
     border-bottom-left-radius: 25px;
 }
+
+.timer {
+    color: #7F7F7F;
+    font-size: 20px
+}
