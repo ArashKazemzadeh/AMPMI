@@ -1,7 +1,5 @@
 # AMPMI
-
-AMPMI (Add a brief description of your project here)
-
+Coding the website for the Motorcycle Parts Makers Forum and migrating from WordPress to ASP.NET 8 with 100% integrity maintained.
 ## Authors
 - Arash Kazemzadeh
 - Farshid Zeinalzadeh
